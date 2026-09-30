@@ -1,4 +1,4 @@
-import { Queue, QueueOptions, Worker } from 'bullmq'
+import { Queue, Worker } from 'bullmq'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
@@ -6,24 +6,16 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { UpdateDependenciesProps } from 'server/controller/cycleData/tableData/updateDependencies/props'
 import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
-import { ProcessEnv } from 'server/utils'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redis/client'
 
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
-
-const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
-}
-
-const opts: QueueOptions = {
-  connection,
-  streams: { events: { maxLen: 5 } },
 }
 
 const getInstance = (props: Props): Queue<UpdateDependenciesProps> => {
@@ -36,7 +28,10 @@ const getInstance = (props: Props): Queue<UpdateDependenciesProps> => {
 
   workers[key] = WorkerFactory.newInstance({ key })
 
-  queue = new Queue<UpdateDependenciesProps>(key, opts)
+  queue = new Queue<UpdateDependenciesProps>(key, {
+    connection: RedisQueueClient.getInstance(),
+    streams: { events: { maxLen: 5 } },
+  })
   queues[key] = queue
 
   return queue
@@ -48,6 +43,5 @@ process.on('SIGTERM', async () => {
 })
 
 export const UpdateDependenciesQueueFactory = {
-  connection,
   getInstance,
 }

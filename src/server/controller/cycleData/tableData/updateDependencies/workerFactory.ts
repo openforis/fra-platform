@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions } from 'bullmq'
+import { Worker } from 'bullmq'
 
 import { Country } from 'meta/area/country'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
@@ -9,19 +9,11 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UpdateDependenciesWorker } from 'server/controller/cycleData/tableData/updateDependencies/props'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/tableData/updateDependencies/scheduleUpdateDependencies'
 import workerProcessor from 'server/controller/cycleData/tableData/updateDependencies/worker'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { NodeEnv } from 'server/utils/processEnv'
-import { RedisClient } from 'server/utils/redis/client'
-
-const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
-const workerOptions: WorkerOptions = {
-  concurrency: 1,
-  connection,
-  lockDuration: 60_000,
-  maxStalledCount: 0,
-}
 
 const _scheduleExternalDependantsUpdate = async (props: {
   logKey: string
@@ -46,7 +38,12 @@ const newInstance = (props: { key: string }): UpdateDependenciesWorker => {
   const { key } = props
 
   const processor = ProcessEnv.nodeEnv === NodeEnv.development ? workerProcessor : `${__dirname}/worker`
-  const worker: UpdateDependenciesWorker = new Worker(key, processor, workerOptions)
+  const worker: UpdateDependenciesWorker = new Worker(key, processor, {
+    concurrency: 1,
+    connection: RedisQueueClient.getInstance(),
+    lockDuration: 60_000,
+    maxStalledCount: 0,
+  })
 
   worker.on('completed', async (job, result) => {
     const { country, user } = job.data
@@ -79,6 +76,5 @@ const newInstance = (props: { key: string }): UpdateDependenciesWorker => {
 }
 
 export const WorkerFactory = {
-  connection,
   newInstance,
 }

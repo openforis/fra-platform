@@ -5,7 +5,7 @@ import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -19,7 +19,7 @@ export const deleteValidations = async (props: Props): Promise<void> => {
 
   if (Objects.isEmpty(uuids)) return
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
 
   await redis.hdel(key, ...uuids)
