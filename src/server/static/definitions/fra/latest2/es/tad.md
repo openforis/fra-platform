@@ -41,7 +41,7 @@ Notas explicativas
 
 ### OTRAS TIERRAS BOSCOSAS
 
-> Tierra no clasificada como **bosque** que se extiende por más de 0,5 hectáreas; con **árboles** de una altura superior a 5 metros y una cobertura de dosel de entre 5 y 10 por ciento, o árboles capaces de alcanzar estos límites mínimos *in situ*; o con una cubierta mixta de arbustos, matorrales y árboles superior a 10 por ciento. No incluye tierrsa de uso predominantemente agrícola o urbano.
+> Tierra no clasificada como **bosque** que se extiende por más de 0,5 hectáreas; con **árboles** de una altura superior a 5 metros y una cobertura de dosel de entre 5 y 10 por ciento, o árboles capaces de alcanzar estos límites mínimos *in situ*; o con una cubierta mixta de arbustos, matorrales y árboles superior a 10 por ciento. No incluye tierras de uso predominantemente agrícola o urbano.
 
 Notas explicativas
 
