@@ -16,6 +16,10 @@ Relevant files:
 - `src/tools/db/service/` - Database service operations (exportTables, importTables, initSchemas)
 - `src/tools/db/io/` - File I/O operations
 
+The FRA `latest` cycle isn't public yet, so it's exported without private data:
+- every country is exported with the same props and without its status and dates
+- report data (NDPs and node values) is exported only for the test countries listed in `EXPORT_TABLES.ts`
+
 #### Extract fixtures (for CI/E2E):
 - Decrypt and extract fixtures:
   - `echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/db/fixtures.tar.gz.gpg | tar -xz -C src/tools/db`

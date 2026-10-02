@@ -36,13 +36,6 @@ const classWithValidForestCharacteristics = {
 }
 
 test.describe('National data point: forest characteristics - failure', () => {
-  test.beforeEach(async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    await page.goto(ndp1bPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-  })
-
   test.describe('percentages not equal to 100', () => {
     test.use({ ndpSeeds: [{ countryIso, nationalClasses: [classWithForestPercent], year: seededYear }] })
 
@@ -52,6 +45,9 @@ test.describe('National data point: forest characteristics - failure', () => {
     }) => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
+
+      await page.goto(ndp1bPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
       await NDPDomUtils.fillNationalClassNaturalForestPercent(page, className, '50')
       await NDPDomUtils.fillNationalClassPlantationForestPercent(page, className, '30')
@@ -72,6 +68,9 @@ test.describe('National data point: forest characteristics - failure', () => {
     }) => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
+
+      await page.goto(ndp1bPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
       const percentageCell = page.locator('.fra-table:not(.odp__sub-table) td.fra-table__cell.validation-error')
 
@@ -99,6 +98,9 @@ test.describe('National data point: forest characteristics - failure', () => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
+      await page.goto(ndp1bPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
       const plantationTable = NDPDomUtils.getPlantationTable(page)
       await expect(plantationTable).toBeVisible({ timeout: 10000 })
 
@@ -123,6 +125,9 @@ test.describe('National data point: forest characteristics - failure', () => {
     }) => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
+
+      await page.goto(ndp1bPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
       const naturallyRegeneratingTable = NDPDomUtils.getNaturallyRegeneratingTable(page)
       await expect(naturallyRegeneratingTable).toBeVisible({ timeout: 10000 })
