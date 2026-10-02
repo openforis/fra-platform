@@ -26,8 +26,8 @@ const ndpPath = (props: NdpPathProps): string => {
   return `/assessments/${assessmentName}/${cycle}/${countryIso}/originalDataPoints/${year}/${sectionName}`
 }
 
-const printTablesPath = (countryIso: CountryIso): string =>
-  `/assessments/${assessmentName}/${cycleName}/${countryIso}/print/tables`
+const printTablesPath = (countryIso: CountryIso, cycle: CycleNames = cycleName): string =>
+  `/assessments/${assessmentName}/${cycle}/${countryIso}/print/tables`
 
 export const SectionUtils = {
   ndpPath,
