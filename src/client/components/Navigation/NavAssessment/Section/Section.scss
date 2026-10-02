@@ -29,13 +29,6 @@
   @include mixin-status-content-base;
 }
 
-@include rtl {
-  .nav-section__status-content div {
-    margin-left: initial;
-    margin-right: 4px;
-  }
-}
-
 .nav-section__item {
   @include mixin-nav-secondary-base(8px, true);
 }

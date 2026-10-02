@@ -11,9 +11,11 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
 import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
+import ValidationErrorIndicator from 'client/components/ValidationErrorIndicator'
 import Comments from 'client/pages/OriginalDataPoint/components/Comments'
 import ExtentOfForest from 'client/pages/OriginalDataPoint/components/ExtentOfForest'
 import ForestCharacteristics from 'client/pages/OriginalDataPoint/components/ForestCharacteristics'
+import { useNDPSectionHasErrors } from 'client/pages/OriginalDataPoint/components/OriginalData/hooks/useNDPSectionHasErrors'
 
 type Props = {
   canEditData: boolean
@@ -34,6 +36,15 @@ const OriginalData: React.FC<Props> = (props) => {
 
   const isExtentOfForestSection = sectionName === extentOfForest.name
 
+  const extentOfForestDisabled = year === '-1'
+  const forestCharacteristicsDisabled = year === '-1' || !country.props.forestCharacteristics.useOriginalDataPoint
+
+  const extentOfForestHasErrors = useNDPSectionHasErrors({ originalDataPoint, sectionName: extentOfForest.name })
+  const forestCharacteristicsHasErrors = useNDPSectionHasErrors({
+    originalDataPoint,
+    sectionName: forestCharacteristics.name,
+  })
+
   return (
     <div>
       <h3 className="subhead">{t('nationalDataPoint.reclassificationLabel')}</h3>
@@ -42,7 +53,7 @@ const OriginalData: React.FC<Props> = (props) => {
         <NavLink
           className={(navData): string =>
             classNames('odp__tab-item', {
-              disabled: year === '-1',
+              disabled: extentOfForestDisabled,
               active: navData.isActive,
             })
           }
@@ -57,11 +68,12 @@ const OriginalData: React.FC<Props> = (props) => {
           {`${extentOfForest.anchor} ${t(
             `nationalDataPoint.forestCategoriesLabel${cycle.name !== '2020' ? '2025' : ''}`
           )}`}
+          <ValidationErrorIndicator show={!extentOfForestDisabled && extentOfForestHasErrors} />
         </NavLink>
         <NavLink
           className={(navData): string =>
             classNames('odp__tab-item', {
-              disabled: year === '-1' || !country.props.forestCharacteristics.useOriginalDataPoint,
+              disabled: forestCharacteristicsDisabled,
               active: navData.isActive,
             })
           }
@@ -74,6 +86,7 @@ const OriginalData: React.FC<Props> = (props) => {
           })}
         >
           {`${forestCharacteristics.anchor} ${t('nationalDataPoint.forestCharacteristics')}`}
+          <ValidationErrorIndicator show={!forestCharacteristicsDisabled && forestCharacteristicsHasErrors} />
         </NavLink>
       </div>
 

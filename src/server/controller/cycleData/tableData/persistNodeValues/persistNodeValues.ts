@@ -9,6 +9,7 @@ import { User } from 'meta/user/user'
 import { persistNode } from 'server/controller/cycleData/tableData/persistNodeValues/persistNode'
 import { resetMirrorNodes } from 'server/controller/cycleData/tableData/resetMirrorNodes'
 import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
+import { AdvisoryLock } from 'server/db/advisoryLock'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
@@ -34,7 +35,11 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
 
   await client.tx(async (client) => {
     try {
-      await client.func('pg_advisory_xact_lock', [1])
+      // Serialize writes per country
+      await client.query('select pg_advisory_xact_lock($(namespace), hashtext($(countryIso)))', {
+        countryIso,
+        namespace: AdvisoryLock.nodeWrites,
+      })
 
       // update nodes in db
       const persistedNodesWithTimes: Array<PersistedNodeWithTime> = await Promise.all(
@@ -88,8 +93,6 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
     } catch (error) {
       Logger.error(error)
       throw error
-    } finally {
-      await client.func('pg_advisory_xact_lock', [1])
     }
   })
 }

@@ -1,7 +1,7 @@
 {
   "classValueNotGreaterThan": "{{name}} должно быть не больше, чем {{value}}",
   "classValuesMustBeEqualTo": "{{name}} сумма должна быть равна {{value}}",
-  "columnEmpty": "Столбец '$ t ({{coluname}})' должен иметь значение",
+  "columnEmpty": "Столбец '{{columName}}' должен иметь значение",
   "countryReportYearGreaterThanCurrentYear": "Значение должно быть больше чем либо равно {{minvalue}}",
   "emptyField": "Это поле пусто",
   "forestAreaDoesNotMatchExtentOfForest": "Не соответствует площади лесов (1А)",

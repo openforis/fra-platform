@@ -1,11 +1,10 @@
-import { Promises } from 'utils/promises'
-
 import { Assessment } from 'meta/assessment/assessment'
+import { Promises } from 'utils/promises'
 
 import { CycleRedisRepository } from 'server/cache/repository/cycle'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -14,7 +13,7 @@ type Props = {
 export const removeOne = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
 
   // delete assessment from redis
   await redis.hdel(getKeyAssessments(), assessment.props.name)
