@@ -72,11 +72,7 @@ export default async (client: BaseProtocol): Promise<void> => {
     await client.query(
       `
         update ${schemaName}."row" r
-        set props = jsonb_set(
-          r.props,
-          array['validateFns', $(cycleUuid)],
-          '[]'::jsonb
-        )
+        set props = r.props #- array['validateFns', $(cycleUuid)]
         from ${schemaName}."table" t
         where r.table_uuid = t.uuid
           and t.props ->> 'name' = $(tableName)
