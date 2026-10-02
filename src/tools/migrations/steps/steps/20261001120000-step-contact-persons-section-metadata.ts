@@ -5,8 +5,10 @@ import { Promises } from 'utils/promises'
 import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 const assessmentName = AssessmentNames.fra
+const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 const tableName = 'reportLastUpdate'
 const variableName = 'reportLastUpdate'
 const visibilityTableNames = [tableName, 'contactPersons']
@@ -29,7 +31,7 @@ export default async (client: BaseProtocol): Promise<void> => {
   // Cloning latest into latest2 didn't copy these tables' visibility, so copy it now
   await client.query(
     `
-      update assessment_fra."table" t
+      update ${schemaName}."table" t
       set props = jsonb_set(
         t.props,
         array['visibility', $(cycleTargetUuid)],
@@ -46,14 +48,14 @@ export default async (client: BaseProtocol): Promise<void> => {
   // The clone didn't copy the client side calculation flag either, so the year showed up empty
   await client.query(
     `
-      update assessment_fra.col c
+      update ${schemaName}.col c
       set props = jsonb_set(
         c.props,
         array['calculateClientSide', $(cycleTargetUuid)],
         c.props -> 'calculateClientSide' -> $(cycleSourceUuid)
       )
-      from assessment_fra."row" r
-      join assessment_fra."table" t on t.uuid = r.table_uuid
+      from ${schemaName}."row" r
+      join ${schemaName}."table" t on t.uuid = r.table_uuid
       where c.row_uuid = r.uuid
         and t.props ->> 'name' = $(tableName)
         and r.props ->> 'variableName' = $(variableName)
@@ -69,13 +71,13 @@ export default async (client: BaseProtocol): Promise<void> => {
   await Promises.each([cycleSource, cycleTarget], async (cycle) => {
     await client.query(
       `
-        update assessment_fra."row" r
+        update ${schemaName}."row" r
         set props = jsonb_set(
           r.props,
           array['validateFns', $(cycleUuid)],
           '[]'::jsonb
         )
-        from assessment_fra."table" t
+        from ${schemaName}."table" t
         where r.table_uuid = t.uuid
           and t.props ->> 'name' = $(tableName)
           and r.props ->> 'variableName' = $(variableName)
