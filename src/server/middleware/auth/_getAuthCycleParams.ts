@@ -1,8 +1,9 @@
 import { NextFunction, Request } from 'express'
 
-import { CountryParams } from 'meta/api/request/country'
+import { CycleParams } from 'meta/api/request/cycle'
 import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -13,21 +14,22 @@ import { Requests } from 'server/utils'
 
 type AuthCycleProps = {
   assessment: Assessment
+  areaCode: AreaCode
   country?: Country
-  countryIso: AreaCode
   cycle: Cycle
   user: User
 }
 
-type RequestParams = CountryParams & { authContext?: string }
+type RequestParams = CycleParams & { authContext?: string; countryIso?: CountryIso; areaCode?: AreaCode }
 
 export const _getAuthCycleParams = async (req: Request, next: NextFunction): Promise<AuthCycleProps> => {
   const params = _getRequestParams<RequestParams>(req)
-  const { authContext, countryIso } = params
+  const { areaCode: areaCodeParam, authContext, countryIso } = params
+  const areaCode = countryIso ?? areaCodeParam
   const { assessmentName, cycleName } = authContext ? JSON.parse(decodeURIComponent(authContext)) : params
 
-  if (!countryIso || !assessmentName || !cycleName) {
-    next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
+  if (!areaCode || !assessmentName || !cycleName) {
+    next(new Error(`missingParam ${JSON.stringify({ areaCode, assessmentName, cycleName })}`))
   }
 
   let { assessment, cycle } = req.context
@@ -36,9 +38,11 @@ export const _getAuthCycleParams = async (req: Request, next: NextFunction): Pro
 
   if (assessmentName !== assessment.props.name || cycleName !== cycle.name) {
     const assessmentCycle = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    // eslint-disable-next-line prefer-destructuring
     assessment = assessmentCycle.assessment
+    // eslint-disable-next-line prefer-destructuring
     cycle = assessmentCycle.cycle
   }
 
-  return { assessment, cycle, country, countryIso, user }
+  return { assessment, areaCode, country, cycle, user }
 }

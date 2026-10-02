@@ -125,6 +125,14 @@ describe('Numbers test:', () => {
     expect(res).toEqual(null)
   })
 
+  test.each(['0', '1', '42'])('isNonNegativeInteger returns true for "%s"', (value) => {
+    expect(Numbers.isNonNegativeInteger(value)).toBe(true)
+  })
+
+  test.each(['-1', '1.5', '', 'abc', undefined])('isNonNegativeInteger returns false for "%s"', (value) => {
+    expect(Numbers.isNonNegativeInteger(value)).toBe(false)
+  })
+
   test('randomInt stays within bounds and is an integer', () => {
     Array.from({ length: 1000 }).forEach(() => {
       const res = Numbers.randomInt(3, 7)

@@ -10,7 +10,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 export const ValidationsApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.CycleData.Validations.summary(), AuthMiddleware.requireView, getValidationSummary)
+    express.get(ApiEndPoint.CycleData.Validations.summary(), AuthMiddleware.requireViewCountry, getValidationSummary)
     express.get(
       ApiEndPoint.CycleData.Validations.descriptions(),
       AuthMiddleware.requireEditDescriptions,

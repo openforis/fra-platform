@@ -1,13 +1,11 @@
 import { useEffect, useRef } from 'react'
 
-import { Objects } from 'utils/objects'
-
-import { CountryIso } from 'meta/area/countryIso'
 import { Assessments } from 'meta/assessment/assessments'
 import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data/recordData'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
+import { Objects } from 'utils/objects'
 
 import { ExplorerDataActions } from 'client/store/explorer/data/actions'
 import { ExplorerDataSelectors } from 'client/store/explorer/data/selectors'
@@ -32,7 +30,7 @@ export const useGetExplorerSectionData = (): void => {
   const countryISOs = useExplorerCountries()
   const dimensions = useExplorerDimensions()
   const measures = useExplorerMeasures()
-  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
 
   const explorerSectionData = useExplorerSectionData()
 
@@ -49,7 +47,6 @@ export const useGetExplorerSectionData = (): void => {
 
     const getDataProps = {
       assessmentName,
-      countryIso,
       countryISOs,
       cycleName,
       dimensions: [...dimensions, ...dimensionsExportAlways],
@@ -70,7 +67,6 @@ export const useGetExplorerSectionData = (): void => {
   }, [
     assessmentName,
     cellsExportAlways,
-    countryIso,
     countryISOs,
     cycleName,
     dataExists,

@@ -7,7 +7,6 @@ paths:
       summary: Get table data
       parameters:
         - $ref: '#/components/parameters/assessmentName'
-        - $ref: '#/components/parameters/countryIso'
         - $ref: '#/components/parameters/cycleName'
         - $ref: '#/components/parameters/columns'
         - $ref: '#/components/parameters/countryISOs'
