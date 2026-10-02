@@ -1,12 +1,12 @@
 import { TFunction } from 'i18next'
-import { Arrays } from 'utils/arrays'
-import { Dates } from 'utils/dates'
-import { Objects } from 'utils/objects'
 
 import { Col, ColSelectOption, ColSelectProps, ColStyle, ColType } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { Row } from 'meta/assessment/row'
+import { Arrays } from 'utils/arrays'
+import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col }): Col['props'] => {
   const { col, cycleSource, cycleTarget } = props
@@ -17,6 +17,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col })
   const _props: Col['props'] = Objects.cloneDeep(col.props)
   _props.cycles.push(cycleTargetUuid)
 
+  if (!Objects.isNil(_props.calculateClientSide?.[cycleSourceUuid]))
+    _props.calculateClientSide[cycleTargetUuid] = _props.calculateClientSide[cycleSourceUuid]
   if (!Objects.isNil(_props.calculateFn?.[cycleSourceUuid]))
     _props.calculateFn[cycleTargetUuid] = Objects.cloneDeep(_props.calculateFn[cycleSourceUuid])
   if (!Objects.isNil(_props.classNames?.[cycleSourceUuid]))
