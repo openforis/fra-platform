@@ -26,8 +26,8 @@ export const useYearOptions = (props: Props): Returned => {
 
   const defaultOptions = useMemo<Array<Option>>((): Array<Option> => {
     const currentYear = new Date().getFullYear()
-    const years = Array.from({ length: currentYear - 2000 }, (_, i) => String(2000 + i))
-    return years.map((year) => ({ value: year, label: year }))
+    const years = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => String(2000 + i))
+    return years.reverse().map((year) => ({ value: year, label: year }))
   }, [])
 
   const initialOptions = useMemo<Array<Option>>(
