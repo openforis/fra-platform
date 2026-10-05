@@ -1,6 +1,6 @@
 import { Queue } from 'bullmq'
 
-import { VisitCycleLinksProps } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
+import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 
 // Idle grace period to keep dyno alive briefly for possible new incoming jobs.
 const idleGraceMs = 60 * 1000
@@ -11,7 +11,7 @@ type Props = {
   exitOnIdle: boolean
   isShuttingDown: () => boolean
   onIdle: () => Promise<void>
-  queue: Queue<VisitCycleLinksProps>
+  queue: Queue<VerifyLinksQueueProps>
 }
 
 type VerifyLinksIdleMonitor = {

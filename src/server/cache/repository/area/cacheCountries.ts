@@ -5,9 +5,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Objects } from 'utils/objects'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -22,7 +22,7 @@ const _mergeCountry = (country: Country, lastPublishedInfo: Record<CountryIso, L
 })
 
 const _setCache = async (key: string, countries: Array<Country>): Promise<void> => {
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const countryEntries = countries.reduce<Array<string>>((acc, country) => {
     const { countryIso } = country
     if (!Objects.isEmpty(countryIso)) {

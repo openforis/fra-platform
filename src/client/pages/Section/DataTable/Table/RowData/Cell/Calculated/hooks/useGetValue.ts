@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { RowCache } from 'meta/assessment/rowCache'
@@ -17,7 +16,6 @@ import { PropsCell } from 'client/pages/Section/DataTable/Table/RowData/Cell/pro
 export const useGetValue = (props: PropsCell): string => {
   const { col, nodeValue, row, table } = props
 
-  const { t } = useTranslation()
   const { countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -47,7 +45,6 @@ export const useGetValue = (props: PropsCell): string => {
         colName,
         row: rowCache,
         formula: col.props.calculateFn[cycleUuid],
-        t,
       })
     }
 
@@ -66,7 +63,6 @@ export const useGetValue = (props: PropsCell): string => {
     nodeValue.raw,
     row,
     sectionName,
-    t,
     tableName,
   ])
 }
