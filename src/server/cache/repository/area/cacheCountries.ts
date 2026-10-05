@@ -30,7 +30,7 @@ const _setCache = async (key: string, countries: Array<Country>): Promise<void> 
     }
     return acc
   }, [])
-  if (countryEntries.length === 0) return
+  if (Objects.isEmpty(countryEntries)) return
   await redis.hmset(key, ...countryEntries)
 }
 
