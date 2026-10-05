@@ -30,6 +30,7 @@ const _setCache = async (key: string, countries: Array<Country>): Promise<void> 
     }
     return acc
   }, [])
+  if (countryEntries.length === 0) return
   await redis.hmset(key, ...countryEntries)
 }
 
@@ -46,6 +47,8 @@ const _getCountries = async (
 
   if (countryIso) {
     const country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
+    // A cycle doesn't always have every country, e.g. the E2E fixtures only have X01 in latest
+    if (Objects.isNil(country)) return []
     return [_mergeCountry(country, lastPublishedInfo)]
   }
 
