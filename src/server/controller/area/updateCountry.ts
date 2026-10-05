@@ -83,11 +83,14 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
       t
     )
 
-    // update cache for all cycles to keep lastPublished up to date
+    // update cache for all cycles that have this country to keep lastPublished up to date
     await Promise.all(
-      assessment.cycles.map((c) =>
-        AreaRedisRepository.getOneCountry({ assessment, cycle: c, countryIso, force: true }, t)
-      )
+      assessment.cycles.map(async (c) => {
+        const cycleCountry = await CountryRepository.getOne({ assessment, cycle: c, countryIso }, t)
+        if (cycleCountry) {
+          await AreaRedisRepository.getOneCountry({ assessment, cycle: c, countryIso, force: true }, t)
+        }
+      })
     )
 
     // notify client
