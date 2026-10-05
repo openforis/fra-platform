@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { Promises } from 'utils/promises'
 
 import { DOMUtils } from '../dom'
@@ -66,7 +67,7 @@ const pasteIntoEditorWysiwygLinksOnly = async (page: Page, editor: Locator, html
 }
 
 const save = async (page: Page, action: () => Promise<void>): Promise<void> => {
-  const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
+  const descriptionSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Descriptions.many(), 'PUT')
   await action()
   await descriptionSaved
 }
