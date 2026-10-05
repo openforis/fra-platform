@@ -17,11 +17,11 @@ import { useColumns } from './hooks/useColumns'
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
-import { useDataSourceValidator } from './hooks/useDataSourceValidator'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
+import { useValidationErrors } from './hooks/useValidationErrors'
 
 type Props = {
   meta: DataSourceDescription
@@ -37,12 +37,12 @@ const NationalDataSources: React.FC<Props> = (props) => {
   const columns = useColumns()
   const data = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ meta, sectionName })
-  const validator = useDataSourceValidator()
   const canReview = useCanEditDescription({ sectionName })
   const canEdit = useIsDescriptionEditable({ sectionName, name })
   const onAdd = useOnAdd({ sectionName })
   const onChange = useOnChange({ sectionName })
   const onDelete = useOnDelete({ sectionName })
+  const validationErrors = useValidationErrors({ sectionName })
 
   const { dataSources } = data
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
@@ -82,7 +82,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
         onChange={onChange}
         onDelete={onDelete}
         options={options}
-        validator={validator}
+        validationErrors={validationErrors}
       />
     </DataGrid>
   )

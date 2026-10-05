@@ -1,19 +1,18 @@
-import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
-
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { RowCache } from 'meta/assessment/rowCache'
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { getKeyMetaCache } from 'server/cache/repository/keys'
 import { getMetaCacheEntryKey } from 'server/cache/repository/metaCache/generateMetaCache/_getMetaCacheEntryKey'
 import { DependencyEvaluator } from 'server/cache/repository/metaCache/generateMetaCache/dependencyEvaluator'
 import { Context } from 'server/cache/repository/metaCache/generateMetaCache/dependencyEvaluator/evalDependencies/context'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { RowRepository } from 'server/db/repository/assessment/row'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
@@ -51,45 +50,42 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol = DB)
 
     assessment.cycles.forEach((cycle) => {
       rows[assessmentName].forEach((row) => {
-        const cycleName = cycle.name
+        const { name: cycleName, uuid: cycleUuid } = cycle
         const context: Omit<Context, 'type'> = { assessments: recordAssessments, cycleName, assessmentName, row }
 
-        if (row.props.calculateFn?.[cycle.uuid]) {
-          DependencyEvaluator.evalDependencies(row.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
-          if (row.props.calculateIf?.[cycle.uuid]) {
-            DependencyEvaluator.evalDependencies(row.props.calculateIf[cycle.uuid], {
-              ...context,
-              type: 'calculations',
-            })
+        const calculateFn = row.props.calculateFn?.[cycleUuid]
+        if (calculateFn) {
+          DependencyEvaluator.evalDependencies(calculateFn, { ...context, type: 'calculations' })
+
+          const calculateIf = row.props.calculateIf?.[cycleUuid]
+          if (calculateIf) {
+            DependencyEvaluator.evalDependencies(calculateIf, { ...context, type: 'calculations' })
           }
         } else {
           row.cols.forEach((col) => {
-            if (col.props.calculateFn?.[cycle.uuid]) {
-              DependencyEvaluator.evalDependencies(col.props.calculateFn[cycle.uuid], {
-                ...context,
-                type: 'calculations',
-              })
-            }
-          })
-        }
-
-        if (row.props.validateFns?.[cycle.uuid]) {
-          row.props.validateFns[cycle.uuid].forEach((validateFn) =>
-            DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
-          )
-        } else {
-          row.cols.forEach((col) => {
-            if (col.props.validateFns?.[cycle.uuid]) {
-              col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
-                DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
-              })
+            const calculateFn = col.props.calculateFn?.[cycleUuid]
+            if (col.props.cycles.includes(cycleUuid) && calculateFn) {
+              DependencyEvaluator.evalDependencies(calculateFn, { ...context, type: 'calculations' })
             }
           })
         }
 
         row.cols.forEach((col) => {
-          if (col.props.enableIf?.[cycle.uuid]) {
-            DependencyEvaluator.evalDependencies(col.props.enableIf[cycle.uuid], { ...context, col, type: 'enablers' })
+          const validateFNs = col.props.validateFns?.[cycleUuid] ?? row.props.validateFns?.[cycleUuid]
+          if (
+            !Objects.isEmpty(validateFNs) &&
+            !Objects.isEmpty(col.props.colName) &&
+            col.props.cycles.includes(cycleUuid)
+          ) {
+            validateFNs.forEach((validateFn) => {
+              DependencyEvaluator.evalDependencies(validateFn, { ...context, col, type: 'validations' })
+            })
+          }
+        })
+
+        row.cols.forEach((col) => {
+          if (col.props.enableIf?.[cycleUuid]) {
+            DependencyEvaluator.evalDependencies(col.props.enableIf[cycleUuid], { ...context, col, type: 'enablers' })
           }
         })
       })
@@ -97,7 +93,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol = DB)
   })
 
   // set redis entries
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyMetaCache()
   await Promises.each(assessments, async (assessment) => {
     await Promises.each(assessment.cycles, async (cycle) => {

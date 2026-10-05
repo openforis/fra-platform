@@ -1,7 +1,7 @@
 {
   "classValueNotGreaterThan": "{{name}} ne doit pas être supérieur à {{value}}",
   "classValuesMustBeEqualTo": "{{name}} la somme doit être égale à {{value}}",
-  "columnEmpty": "La colonne \"$t({{columName}})\" doit avoir une valeur",
+  "columnEmpty": "La colonne \"{{columName}}\" doit avoir une valeur",
   "countryReportYearGreaterThanCurrentYear": "La valeur doit être supérieure ou égale à {{minValue}}",
   "emptyField": "Ce champ est vide",
   "forestAreaDoesNotMatchExtentOfForest": "Ne correspond pas là la Superficie de forêt (1a)",

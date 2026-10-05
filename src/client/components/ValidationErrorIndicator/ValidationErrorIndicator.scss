@@ -1,0 +1,9 @@
+@use 'src/client/style/partials' as *;
+
+.validation-error-indicator {
+  .icon {
+    color: $ui-destructive;
+    height: 12px;
+    width: 12px;
+  }
+}

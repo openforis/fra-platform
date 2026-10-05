@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,9 +8,9 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorSumEqualTo: ExpressionFunction<Context> = {
-  name: 'validatorSumEqualTo',
+  name: ValidatorName.sumEqualTo,
   minArity: 2,
-  executor: ({ t }) => {
+  executor: () => {
     return (
       categoryValues: Array<string | undefined>,
       categoryLabelKeys: Array<string>,
@@ -26,10 +27,10 @@ export const validatorSumEqualTo: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = [
         {
+          name: ValidatorName.sumEqualTo,
           key: 'generalValidation.sumEqualTo',
           params: {
-            categoryLabels: categoryLabelKeys.map((labelKey) => t(labelKey)).join(', '),
-
+            categoryLabelKeys,
             categoriesSum: Numbers.toFixed(sum),
             maxValue: Numbers.toFixed(maxValue),
           },

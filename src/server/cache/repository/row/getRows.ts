@@ -1,13 +1,12 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { RecordRowCache, RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
+import { Objects } from 'utils/objects'
 
 import { getKeyRow } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { RowRepository } from 'server/db/repository/assessment/row'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -18,7 +17,7 @@ type Props = {
 const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, force, rowKeys } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyRow(props)
 
   if (force) {
@@ -49,7 +48,7 @@ export const getRows = async (props: Props, client: BaseProtocol = DB): Promise<
 
   await _cacheRows({ assessment, rowKeys, force }, client)
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
 
   const key = getKeyRow({ assessment })
   const keys = rowKeys?.length ? rowKeys : await redis.hkeys(key)

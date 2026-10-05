@@ -7,7 +7,6 @@
   "country_two": "$t(admin.country_other)",
   "country_zero": "$t(admin.country_other)",
   "disabledUsers": "Utilisateurs désactivés",
-  "enotfound": "Erreur DBS",
   "filter": "Filtrer par",
   "invitationPending": "Invitation en attente",
   "invitationsAcceptedCount": "Nombre d'invitations acceptées",
@@ -22,7 +21,6 @@
   "role_other": "Rôles {{count}}",
   "role_two": "$t(admin.role_other)",
   "role_zero": "$t(admin.role_other)",
-  "urlParsingError": "Erreur d'analyse de l'URL",
   "usersCount": "Nombre d'utilisateurs",
   "verifyLinks": "Vérifier les liens"
 }
