@@ -7,6 +7,7 @@ import { SectionUtils } from 'test/e2e/utils/section'
 
 const extentOfForest = { sectionName: SectionNames.extentOfForest, tableName: TableNames.extentOfForest } as const
 const forestAreaChange = { sectionName: 'forestAreaChange', tableName: TableNames.forestAreaChange } as const
+const contactPersons = { sectionName: SectionNames.contactPersons, tableName: TableNames.contactPersons } as const
 
 // Each spec file has its own country, so files running in parallel never edit the same table
 export const x02ExtentOfForest: TableLocation = { countryIso: 'X02', ...extentOfForest }
@@ -33,6 +34,8 @@ export const albExtentOfForest2020: TableLocation = {
 
 export const x01ExtentOfForest: TableLocation = { countryIso: 'X01', ...extentOfForest }
 
+export const x02ContactPersons: TableLocation = { countryIso: 'X02', ...contactPersons }
+
 export const x02ExtentOfForestPath = SectionUtils.path(x02ExtentOfForest)
 export const x05ForestAreaChangePath = SectionUtils.path(x05ForestAreaChange)
 export const x06ExtentOfForestPath = SectionUtils.path(x06ExtentOfForest)
@@ -43,3 +46,4 @@ export const x16ExtentOfForestPath = SectionUtils.path(x16ExtentOfForest)
 export const x16ForestAreaChangePath = SectionUtils.path(x16ForestAreaChange)
 export const x14ExtentOfForestPath = SectionUtils.path(x14ExtentOfForest)
 export const x14PrintTablesPath = SectionUtils.printTablesPath('X14')
+export const x02ContactPersonsPath = SectionUtils.path(x02ContactPersons)
