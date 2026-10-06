@@ -1,5 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { Numbers } from 'utils/numbers'
+
 import { DOMUtils } from '../dom'
 import { NdpPathProps, SectionUtils } from '../section'
 
@@ -71,6 +73,24 @@ const expectTableHasNoError = async (page: Page, tableName: string): Promise<voi
   await expect(tableValidationErrors(page, tableName)).toHaveCount(0)
 }
 
+const expectSeededValuesMatch = async (
+  page: Page,
+  colNames: Array<string>,
+  variableNames: Array<string>,
+  getSeededDatum: (props: { colName: string; variableName: string }) => string | undefined
+): Promise<void> => {
+  await Promise.all(
+    colNames.flatMap((colName) =>
+      variableNames.map((variableName) => {
+        const expectedRaw = getSeededDatum({ colName, variableName })
+        // A blank cell shows as '' in the DOM, not null - match that instead of Numbers.toFixed's null
+        const expectedValue = Numbers.toFixed(expectedRaw) ?? ''
+        return expectCellValue(page, variableName, colName, expectedValue)
+      })
+    )
+  )
+}
+
 const clickOdpLink = async (page: Page, props: NdpPathProps): Promise<void> => {
   const path = SectionUtils.ndpPath(props)
 
@@ -88,6 +108,7 @@ export const TableDomUtils = {
   expectCellMissing,
   expectCellReadOnly,
   expectCellValue,
+  expectSeededValuesMatch,
   expectTableHasError,
   expectTableHasNoError,
   fillCell,

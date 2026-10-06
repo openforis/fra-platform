@@ -6,7 +6,6 @@ import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
 import { Routes } from 'meta/routes/routes'
-import { Numbers } from 'utils/numbers'
 
 import { type TableLocation, type TableSeedValue } from 'test/e2e/api/table'
 import { expect, test } from 'test/e2e/fixtures/table'
@@ -18,22 +17,38 @@ const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
 const homePath = Routes.CountryHome.generatePath({ assessmentName, countryIso, cycleName })
 
-const location: TableLocation = {
+const FRA_YEARS = Years.fraYears({ name: cycleName } as Cycle)
+
+const extentOfForestLocation: TableLocation = {
   countryIso,
   sectionName: SectionNames.extentOfForest,
   tableName: TableNames.extentOfForest,
 }
-const sectionPath = SectionUtils.path(location)
-
-const FRA_YEARS = Years.fraYears({ name: cycleName } as Cycle)
+const extentOfForestPath = SectionUtils.path(extentOfForestLocation)
 
 const VARIABLES_EXTENT_OF_FOREST: Record<string, string> = {
   forestArea: '500',
   otherWoodedLand: '100',
 }
 
-const values: Array<TableSeedValue> = FRA_YEARS.flatMap((colName) =>
+const extentOfForestValues: Array<TableSeedValue> = FRA_YEARS.flatMap((colName) =>
   Object.entries(VARIABLES_EXTENT_OF_FOREST).map(([variableName, value]) => ({ colName, value, variableName }))
+)
+
+const forestCharacteristicsLocation: TableLocation = {
+  countryIso,
+  sectionName: SectionNames.forestCharacteristics,
+  tableName: TableNames.forestCharacteristics,
+}
+const forestCharacteristicsPath = SectionUtils.path(forestCharacteristicsLocation)
+
+const VARIABLES_FOREST_CHARACTERISTICS: Record<string, string> = {
+  naturalForestArea: '400',
+  plantationForestArea: '50',
+}
+
+const forestCharacteristicsValues: Array<TableSeedValue> = FRA_YEARS.flatMap((colName) =>
+  Object.entries(VARIABLES_FOREST_CHARACTERISTICS).map(([variableName, value]) => ({ colName, value, variableName }))
 )
 
 test.describe('Public view', () => {
@@ -46,7 +61,7 @@ test.describe('Public view', () => {
   })
 
   test.describe('Extent of forest (1a)', () => {
-    test.use({ tableSeeds: [{ ...location, values }] })
+    test.use({ tableSeeds: [{ ...extentOfForestLocation, values: extentOfForestValues }] })
 
     test('a public (not logged in) user sees the seeded values with no errors', async ({
       browser,
@@ -55,20 +70,36 @@ test.describe('Public view', () => {
       const context = await browser.newContext()
       const page = await context.newPage()
 
-      await page.goto(sectionPath)
-
-      await Promise.all(
-        FRA_YEARS.flatMap((colName) =>
-          Object.keys(VARIABLES_EXTENT_OF_FOREST).map((variableName) => {
-            const expectedRaw = seededTableData({ colName, variableName })
-            // A blank cell shows as '' in the DOM, not null
-            // match that instead of Numbers.toFixed's null
-            const expectedValue = Numbers.toFixed(expectedRaw) ?? ''
-            return TableDomUtils.expectCellValue(page, variableName, colName, expectedValue)
-          })
-        )
+      await page.goto(extentOfForestPath)
+      await TableDomUtils.expectSeededValuesMatch(
+        page,
+        FRA_YEARS,
+        Object.keys(VARIABLES_EXTENT_OF_FOREST),
+        seededTableData
       )
+      await expect(page.locator('.toast.error')).toHaveCount(0)
 
+      await context.close()
+    })
+  })
+
+  test.describe('Forest characteristics (1b)', () => {
+    test.use({ tableSeeds: [{ ...forestCharacteristicsLocation, values: forestCharacteristicsValues }] })
+
+    test('a public (not logged in) user sees the seeded values with no errors', async ({
+      browser,
+      seededTableData,
+    }) => {
+      const context = await browser.newContext()
+      const page = await context.newPage()
+
+      await page.goto(forestCharacteristicsPath)
+      await TableDomUtils.expectSeededValuesMatch(
+        page,
+        FRA_YEARS,
+        Object.keys(VARIABLES_FOREST_CHARACTERISTICS),
+        seededTableData
+      )
       await expect(page.locator('.toast.error')).toHaveCount(0)
 
       await context.close()
