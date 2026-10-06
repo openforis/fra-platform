@@ -1,14 +1,31 @@
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+
+import { type DescriptionLocation } from 'test/e2e/api/descriptions'
 import { SectionUtils } from 'test/e2e/utils/section'
 
-const commentsSection = {
+const comments = { name: CommentableDescriptionName.generalComments } as const
+const dataSources = { name: CommentableDescriptionName.dataSources } as const
+
+// Each spec file has its own country and section, so files running in parallel never edit the same description
+export const x12SpecificForestCategories: DescriptionLocation = {
   countryIso: 'X12',
   sectionName: 'specificForestCategories',
-} as const
+  ...comments,
+}
+export const x12ForestOwnership: DescriptionLocation = {
+  countryIso: 'X12',
+  sectionName: 'forestOwnership',
+  ...comments,
+}
 
-const dataSourcesSection = {
+export const x13SpecificForestCategories: DescriptionLocation = {
   countryIso: 'X13',
   sectionName: 'specificForestCategories',
-} as const
+  ...dataSources,
+}
+export const x13GrowingStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'growingStock', ...dataSources }
 
-export const commentsSectionPath = SectionUtils.path(commentsSection)
-export const dataSourcesSectionPath = SectionUtils.path(dataSourcesSection)
+export const x12SpecificForestCategoriesPath = SectionUtils.path(x12SpecificForestCategories)
+export const x12ForestOwnershipPath = SectionUtils.path(x12ForestOwnership)
+export const x13SpecificForestCategoriesPath = SectionUtils.path(x13SpecificForestCategories)
+export const x13GrowingStockPath = SectionUtils.path(x13GrowingStock)

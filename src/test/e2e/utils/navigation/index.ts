@@ -1,5 +1,9 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+
+import { DOMUtils } from '../dom'
+
 const getNavigationSubSectionItem = (page: Page, path: string): Locator =>
   page.locator(`.nav-section__item[href="${path}"]`)
 
@@ -33,6 +37,11 @@ const subSectionHasError = async (page: Page, path: string, hasError: boolean): 
   await _expectErrorIndicator(getNavigationSubSectionItem(page, path), hasError)
 }
 
+// Call this before page.goto, the navbar shows no warnings until the summary request is done
+const waitForValidationSummary = async (page: Page): Promise<void> => {
+  await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.summary(), 'GET')
+}
+
 // Check for the error on the subsection and on the top level section header
 const expectNavigationError = async (page: Page, props: ExpectNavigationErrorProps): Promise<void> => {
   const { hasError, sectionHeader, sectionItemPath } = props
@@ -48,4 +57,5 @@ export const NavigationUtils = {
   expectNavigationError,
   getNavigationSubSectionItem,
   subSectionHasError,
+  waitForValidationSummary,
 }

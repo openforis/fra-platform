@@ -1,5 +1,9 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+
+import { DOMUtils } from '../dom'
+
 const getDataSourceTable = (page: Page): Locator => page.locator('.data-grid.data-source')
 
 const getDataSourceReferenceCells = (page: Page): Locator =>
@@ -60,8 +64,11 @@ const getDataSourceDeleteButtons = (page: Page): Locator =>
 // delete is only available when data source editing is unlocked
 const deleteDataSourceRow = async (page: Page, text: string): Promise<void> => {
   const rowIndex = await findDataSourceRowIndex(page, text)
+
+  const deleted = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Descriptions.DataSources.one(), 'DELETE')
   page.once('dialog', (dialog) => dialog.accept())
   await getDataSourceDeleteButtons(page).nth(rowIndex).click()
+  await deleted
 }
 
 export const DataSourceUtils = {
