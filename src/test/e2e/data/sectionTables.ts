@@ -34,7 +34,13 @@ export const albExtentOfForest2020: TableLocation = {
 
 export const x01ExtentOfForest: TableLocation = { countryIso: 'X01', ...extentOfForest }
 
+// Publishing X01 in latest redirects users that aren't logged in away from its 2025 report, so 2025 uses X02
 export const x02ContactPersons: TableLocation = { countryIso: 'X02', ...contactPersons }
+export const x01ContactPersonsLatest: TableLocation = {
+  countryIso: 'X01',
+  cycleName: CycleNames.latest,
+  ...contactPersons,
+}
 
 export const x02ExtentOfForestPath = SectionUtils.path(x02ExtentOfForest)
 export const x05ForestAreaChangePath = SectionUtils.path(x05ForestAreaChange)
@@ -47,3 +53,5 @@ export const x16ForestAreaChangePath = SectionUtils.path(x16ForestAreaChange)
 export const x14ExtentOfForestPath = SectionUtils.path(x14ExtentOfForest)
 export const x14PrintTablesPath = SectionUtils.printTablesPath('X14')
 export const x02ContactPersonsPath = SectionUtils.path(x02ContactPersons)
+export const x01ContactPersonsLatestPath = SectionUtils.path(x01ContactPersonsLatest)
+export const x01PrintTablesLatestPath = SectionUtils.printTablesPath('X01', CycleNames.latest)
