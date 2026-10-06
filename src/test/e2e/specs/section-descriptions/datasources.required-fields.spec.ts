@@ -20,7 +20,7 @@ const yearOption = '2020'
 const randomString = Date.now().toString()
 
 // Timeout time for the socket event that updates the cell errors
-const cellTimeout = 10000
+const cellTimeout = 10_000
 
 const expectCellError = async (page: Page, cell: Locator): Promise<void> => {
   await expect(cell).toHaveClass(/validation-error/, { timeout: cellTimeout })
