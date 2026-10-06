@@ -24,8 +24,10 @@ export const x13SpecificForestCategories: DescriptionLocation = {
   ...dataSources,
 }
 export const x13GrowingStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'growingStock', ...dataSources }
+export const x13BiomassStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'biomassStock', ...dataSources }
 
 export const x12SpecificForestCategoriesPath = SectionUtils.path(x12SpecificForestCategories)
 export const x12ForestOwnershipPath = SectionUtils.path(x12ForestOwnership)
 export const x13SpecificForestCategoriesPath = SectionUtils.path(x13SpecificForestCategories)
 export const x13GrowingStockPath = SectionUtils.path(x13GrowingStock)
+export const x13BiomassStockPath = SectionUtils.path(x13BiomassStock)
