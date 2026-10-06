@@ -1,7 +1,9 @@
 import { TFunction } from 'i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { Descriptions } from 'meta/assessment/description/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Labels } from 'meta/assessment/labels'
@@ -19,6 +21,7 @@ const getI18nValidationStatusLabelKey = (code: LinkValidationStatusCode): string
 }
 
 type GetLocationLabelProps = {
+  assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
   includeCountryIso?: boolean
@@ -29,7 +32,7 @@ type GetLocationLabelProps = {
 }
 
 const getLocationLabel = (props: GetLocationLabelProps): string => {
-  const { countryIso, cycle, includeCountryIso = true, isPanEuropean, location, subSections, t } = props
+  const { assessment, countryIso, cycle, includeCountryIso = true, isPanEuropean, location, subSections, t } = props
 
   const { sectionName } = location
 
@@ -65,7 +68,8 @@ const getLocationLabel = (props: GetLocationLabelProps): string => {
 
   const subSectionLabel = Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })
 
-  const label = `${subSectionLabel} - ${t(descriptionLabelKey, { cycleName: cycle.name })}`
+  const { name: cycleName } = Cycles.getFirstYearlyCycle({ assessment, cycle })
+  const label = `${subSectionLabel} - ${t(descriptionLabelKey, { cycleName })}`
 
   return includeCountryIso ? `${countryIso} - ${label}` : label
 }
