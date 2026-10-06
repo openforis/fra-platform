@@ -32,6 +32,15 @@ export type TableSeed = TableLocation & {
   values?: Array<TableSeedValue>
 }
 
+// variableName -> seeded value, for every colName given
+export const buildSeedValues = (
+  colNames: Array<ColName>,
+  variables: Record<VariableName, string>
+): Array<TableSeedValue> =>
+  colNames.flatMap((colName) =>
+    Object.entries(variables).map(([variableName, value]) => ({ colName, value, variableName }))
+  )
+
 const _getBaseParams = (props: { countryIso: CountryIso; cycleName?: CycleNames }): URLSearchParams => {
   const { countryIso, cycleName = CycleNames._2025 } = props
   return new URLSearchParams({ assessmentName, countryIso, cycleName })
