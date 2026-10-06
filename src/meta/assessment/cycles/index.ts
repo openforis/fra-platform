@@ -12,13 +12,12 @@ const getPreviousCycle = (props: { assessment: Assessment; cycle: Cycle }): Cycl
   return Assessments.getCycle({ assessment, cycleUuid: cycle.cycleUuidSource })
 }
 
-const isYearly = (cycle: Cycle): boolean => !Number.isNaN(Number(cycle.name))
-
 const getFirstYearlyCycle = (props: { assessment: Assessment; cycle: Cycle }): Cycle => {
   const { assessment, cycle } = props
   return assessment.cycles.reduce<Cycle>((current) => {
+    const isYearly = !Number.isNaN(Number(current.name))
     // Returns self if it's a yearly cycle
-    if (isYearly(current) || !current.cycleUuidSource) return current
+    if (isYearly || !current.cycleUuidSource) return current
     return getPreviousCycle({ assessment, cycle: current })
   }, cycle)
 }
