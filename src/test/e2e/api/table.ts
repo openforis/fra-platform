@@ -8,6 +8,7 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 import { type SectionName } from 'meta/assessment/section'
 import { type TableName } from 'meta/assessment/table'
 import { type VariableName } from 'meta/assessment/variable'
+import { type RecordAssessmentData } from 'meta/data/recordData'
 
 const assessmentName = AssessmentNames.fra
 
@@ -31,10 +32,16 @@ export type TableSeed = TableLocation & {
   values?: Array<TableSeedValue>
 }
 
-const _getQueryParams = (location: TableLocation, options: { withTableName: boolean }): string => {
-  const { countryIso, cycleName = CycleNames._2025, sectionName, tableName } = location
+const _getBaseParams = (props: { countryIso: CountryIso; cycleName?: CycleNames }): URLSearchParams => {
+  const { countryIso, cycleName = CycleNames._2025 } = props
+  return new URLSearchParams({ assessmentName, countryIso, cycleName })
+}
 
-  const params = new URLSearchParams({ assessmentName, countryIso, cycleName, sectionName })
+const _getQueryParams = (location: TableLocation, options: { withTableName: boolean }): string => {
+  const { sectionName, tableName } = location
+
+  const params = _getBaseParams(location)
+  params.set('sectionName', sectionName)
   if (options.withTableName) params.set('tableName', tableName)
 
   return params.toString()
@@ -61,7 +68,23 @@ const clear = async (page: Page, location: TableLocation): Promise<void> => {
   expect(response.ok(), `POST ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
 }
 
+const getValues = async (page: Page, location: TableLocation): Promise<RecordAssessmentData> => {
+  const { countryIso, tableName } = location
+
+  const params = _getBaseParams(location)
+  params.set('mergeOdp', 'true')
+  params.append('tableNames[]', tableName)
+  params.append('countryISOs[]', countryIso)
+
+  const url = `${ApiEndPoint.CycleData.Table.tableData()}?${params.toString()}`
+  const response = await page.request.get(url)
+  expect(response.ok(), `GET ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+
+  return response.json()
+}
+
 export const TableApi = {
   clear,
+  getValues,
   setValues,
 }
