@@ -7,7 +7,7 @@ import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
 import { Routes } from 'meta/routes/routes'
 
-import { type TableLocation, type TableSeedValue } from 'test/e2e/api/table'
+import { buildSeedValues, type TableLocation } from 'test/e2e/api/table'
 import { expect, test } from 'test/e2e/fixtures/table'
 import { SectionUtils } from 'test/e2e/utils/section'
 import { TableDomUtils } from 'test/e2e/utils/table'
@@ -18,6 +18,8 @@ const cycleName = CycleNames._2025
 const homePath = Routes.CountryHome.generatePath({ assessmentName, countryIso, cycleName })
 
 const FRA_YEARS = Years.fraYears({ name: cycleName } as Cycle)
+
+// Extent of forest
 
 const extentOfForestLocation: TableLocation = {
   countryIso,
@@ -31,9 +33,9 @@ const VARIABLES_EXTENT_OF_FOREST: Record<string, string> = {
   otherWoodedLand: '100',
 }
 
-const extentOfForestValues: Array<TableSeedValue> = FRA_YEARS.flatMap((colName) =>
-  Object.entries(VARIABLES_EXTENT_OF_FOREST).map(([variableName, value]) => ({ colName, value, variableName }))
-)
+const extentOfForestValues = buildSeedValues(FRA_YEARS, VARIABLES_EXTENT_OF_FOREST)
+
+// Forest characteristics
 
 const forestCharacteristicsLocation: TableLocation = {
   countryIso,
@@ -47,9 +49,24 @@ const VARIABLES_FOREST_CHARACTERISTICS: Record<string, string> = {
   plantationForestArea: '50',
 }
 
-const forestCharacteristicsValues: Array<TableSeedValue> = FRA_YEARS.flatMap((colName) =>
-  Object.entries(VARIABLES_FOREST_CHARACTERISTICS).map(([variableName, value]) => ({ colName, value, variableName }))
-)
+const forestCharacteristicsValues = buildSeedValues(FRA_YEARS, VARIABLES_FOREST_CHARACTERISTICS)
+
+// Growing stock
+
+const growingStockLocation: TableLocation = {
+  countryIso,
+  sectionName: 'growingStock',
+  // section: growingStock has no matching table name
+  // table names: growingStockAvg and growingStockTotal
+  tableName: TableNames.growingStockAvg,
+}
+const growingStockPath = SectionUtils.path(growingStockLocation)
+const VARIABLES_GROWING_STOCK: Record<string, string> = {
+  naturallyRegeneratingForest: '150',
+  otherWoodedLand: '30',
+}
+
+const growingStockValues = buildSeedValues(FRA_YEARS, VARIABLES_GROWING_STOCK)
 
 test.describe('Public view', () => {
   test('a public (not logged in) user can access a country overview page with no errors', async ({ page }) => {
@@ -98,6 +115,29 @@ test.describe('Public view', () => {
         page,
         FRA_YEARS,
         Object.keys(VARIABLES_FOREST_CHARACTERISTICS),
+        seededTableData
+      )
+      await expect(page.locator('.toast.error')).toHaveCount(0)
+
+      await context.close()
+    })
+  })
+
+  test.describe('Growing stock (2a)', () => {
+    test.use({ tableSeeds: [{ ...growingStockLocation, values: growingStockValues }] })
+
+    test('a public (not logged in) user sees the seeded values with no errors', async ({
+      browser,
+      seededTableData,
+    }) => {
+      const context = await browser.newContext()
+      const page = await context.newPage()
+
+      await page.goto(growingStockPath)
+      await TableDomUtils.expectSeededValuesMatch(
+        page,
+        FRA_YEARS,
+        Object.keys(VARIABLES_GROWING_STOCK),
         seededTableData
       )
       await expect(page.locator('.toast.error')).toHaveCount(0)
