@@ -1,10 +1,12 @@
 import { Locator, Page } from '@playwright/test'
 
-import { commentsSectionPath } from 'test/e2e/data/sectionDescriptions'
+import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { x12ForestOwnership, x12ForestOwnershipPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
+import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const commentsTitle = 'Comments'
@@ -19,11 +21,18 @@ const commentsToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
 test.describe.serial('Section descriptions: comments - failure', () => {
   const commentsInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`comments-${randomString}`)
 
+  test.afterAll(async ({ browser }) => {
+    await DescriptionsApi.clear(browser, x12ForestOwnership)
+  })
+
   test('NC enters an empty link and a broken link, sees both validation errors', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(commentsSectionPath)
+    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+    await page.goto(x12ForestOwnershipPath)
+    await summaryLoaded
     await DOMUtils.ensureEditingUnlocked(page)
+    await NavigationUtils.subSectionHasError(page, x12ForestOwnershipPath, false)
 
     await DescriptionUtils.save(page, async () => {
       await commentsToggleEditButton(page, 'Edit').click()
@@ -42,5 +51,7 @@ test.describe.serial('Section descriptions: comments - failure', () => {
       commentsValidationError(page),
       `Invalid link: "${commentsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
     )
+
+    await NavigationUtils.subSectionHasError(page, x12ForestOwnershipPath, true)
   })
 })
