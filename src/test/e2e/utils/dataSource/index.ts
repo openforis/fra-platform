@@ -44,12 +44,41 @@ const getDataSourceFieldCell = async (page: Page, text: string, field: string): 
   return getDataSourceTable(page).locator(`.${rowClass}.datasource-column-${field}`)
 }
 
+const getDataSourceRowUuid = async (page: Page, text: string): Promise<string> => {
+  const rowClass = await getDataSourceRowClass(page, text)
+  return rowClass.replace('datasource-row-', '')
+}
+
 const getDataSourceTypeCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'type')
 const getDataSourceVariablesCell = (page: Page, text: string): Promise<Locator> =>
   getDataSourceFieldCell(page, text, 'variables')
 const getDataSourceYearCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'year')
 const getDataSourceCommentsCell = (page: Page, text: string): Promise<Locator> =>
   getDataSourceFieldCell(page, text, 'comments')
+
+type DataSourceSelectField = 'type' | 'variables' | 'year'
+
+// Editing must be on, the selects are disabled otherwise
+const selectDataSourceOption = async (
+  page: Page,
+  text: string,
+  field: DataSourceSelectField,
+  optionName: string
+): Promise<void> => {
+  const cell = await getDataSourceFieldCell(page, text, field)
+  await cell.locator('.select__wrapper').click()
+  await page.keyboard.type(optionName)
+  await page.getByRole('option', { name: optionName, exact: true }).click()
+  await page.keyboard.press('Escape')
+}
+
+// Removes the last picked option, editing must be on
+const clearDataSourceOption = async (page: Page, text: string, field: DataSourceSelectField): Promise<void> => {
+  const cell = await getDataSourceFieldCell(page, text, field)
+  await cell.locator('.select__wrapper').click()
+  await page.keyboard.press('Backspace')
+  await page.keyboard.press('Escape')
+}
 
 const findDataSourceRowIndex = async (page: Page, text: string): Promise<number> => {
   await getDataSourceReferenceCell(page, text).waitFor()
@@ -73,12 +102,15 @@ const deleteDataSourceRow = async (page: Page, text: string): Promise<void> => {
 
 export const DataSourceUtils = {
   addDataSource,
+  clearDataSourceOption,
   deleteDataSourceRow,
   getDataSourceCommentsCell,
   getDataSourceReferenceEditor,
   getDataSourceReferenceValidationError,
+  getDataSourceRowUuid,
   getDataSourceTable,
   getDataSourceTypeCell,
   getDataSourceVariablesCell,
   getDataSourceYearCell,
+  selectDataSourceOption,
 }
