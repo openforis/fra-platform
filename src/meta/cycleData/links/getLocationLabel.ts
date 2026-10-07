@@ -3,6 +3,7 @@ import { TFunction } from 'i18next'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { Descriptions } from 'meta/assessment/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Labels } from 'meta/assessment/labels'
@@ -57,7 +58,8 @@ export const getLocationLabel = (props: GetLocationLabelProps): string => {
 
   const subSectionLabel = Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })
 
-  const label = `${subSectionLabel} - ${t(descriptionLabelKey, { cycleName: cycle.name })}`
+  const { name: cycleName } = Cycles.getFirstYearlyCycle({ assessment, cycle })
+  const label = `${subSectionLabel} - ${t(descriptionLabelKey, { cycleName })}`
 
   return includeCountryIso ? `${countryIso} - ${label}` : label
 }

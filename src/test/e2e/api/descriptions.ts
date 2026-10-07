@@ -1,4 +1,4 @@
-import { type Browser, expect, test } from '@playwright/test'
+import { type Browser, expect, type Page, test } from '@playwright/test'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { type CountryIso } from 'meta/area/countryIso'
@@ -6,9 +6,11 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { CommentableDescriptionName, type CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { type SectionName } from 'meta/assessment/section'
+import { type RecordDescriptionValidations } from 'meta/assessment/validation/description'
 
 import { testCredentials } from 'test/e2e/config/credentials'
 import { AuthUtils } from 'test/e2e/utils/Auth'
+import { DOMUtils } from 'test/e2e/utils/dom'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
@@ -44,6 +46,13 @@ const clear = async (browser: Browser, location: DescriptionLocation): Promise<v
   }
 }
 
+// Call this before page.goto, the validations come in a separate request after the page loads
+const waitForValidations = async (page: Page): Promise<RecordDescriptionValidations> => {
+  const response = await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.descriptions(), 'GET')
+  return response.json()
+}
+
 export const DescriptionsApi = {
   clear,
+  waitForValidations,
 }
