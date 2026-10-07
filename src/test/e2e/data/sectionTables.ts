@@ -32,6 +32,9 @@ export const albExtentOfForest2020: TableLocation = {
   ...extentOfForest,
 }
 
+// Every Atlantis country is taken, and the submit to review spec changes AND's status, so no other spec should use it
+export const andExtentOfForest: TableLocation = { countryIso: 'AND', ...extentOfForest }
+
 export const x01ExtentOfForest: TableLocation = { countryIso: 'X01', ...extentOfForest }
 
 // Publishing X01 in latest redirects users that aren't logged in away from its 2025 report, so 2025 uses X02
@@ -55,3 +58,4 @@ export const x14PrintTablesPath = SectionUtils.printTablesPath('X14')
 export const x02ContactPersonsPath = SectionUtils.path(x02ContactPersons)
 export const x01ContactPersonsLatestPath = SectionUtils.path(x01ContactPersonsLatest)
 export const x01PrintTablesLatestPath = SectionUtils.printTablesPath('X01', CycleNames.latest)
+export const andExtentOfForestPath = SectionUtils.path(andExtentOfForest)
