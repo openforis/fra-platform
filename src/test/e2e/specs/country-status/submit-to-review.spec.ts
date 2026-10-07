@@ -1,9 +1,11 @@
-import { mergeTests } from '@playwright/test'
+import { Locator, mergeTests, Page } from '@playwright/test'
+import { enTranslation } from 'i18n/resources/en'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
+import { CountryApi } from 'test/e2e/api/country'
 import { andExtentOfForest, andExtentOfForestPath } from 'test/e2e/data/sectionTables'
 import { test as countryTest } from 'test/e2e/fixtures/country'
 import { expect, test as tableTest } from 'test/e2e/fixtures/table'
@@ -20,10 +22,15 @@ const countrySeed = {
   status: CountryStatus.editing,
 }
 
+const statusLabel = (page: Page): Locator => page.locator('.nav-header__status')
+
 test.describe('Country status: submit to review - without errors', () => {
   test.use({ countrySeed })
 
-  test('Admin opens send to review and sees no errors warning', async ({ authenticatedPage, country }) => {
+  test('Admin sends to review with no errors warning and sees the in review status', async ({
+    authenticatedPage,
+    country,
+  }) => {
     const page = authenticatedPage
     expect(country.props.status).toBe(CountryStatus.editing)
 
@@ -31,7 +38,14 @@ test.describe('Country status: submit to review - without errors', () => {
     await page.goto(andExtentOfForestPath)
     await summaryLoaded
 
-    await CountryStatusUtils.submitToReviewHasWarning(page, false)
+    await expect(statusLabel(page)).toHaveText(enTranslation.assessment.status.editing.label)
+
+    await CountryStatusUtils.sendToReviewHasWarning(page, false)
+    await CountryStatusUtils.sendToReview(page)
+
+    await expect(statusLabel(page)).toHaveText(enTranslation.assessment.status.review.label)
+    const reviewCountry = await CountryApi.get(page, countrySeed)
+    expect(reviewCountry.props.status).toBe(CountryStatus.review)
   })
 })
 
@@ -59,6 +73,6 @@ test.describe('Country status: submit to review - with errors', () => {
     await cellSaved
 
     await NavigationUtils.subSectionHasError(page, andExtentOfForestPath, true)
-    await CountryStatusUtils.submitToReviewHasWarning(page, true)
+    await CountryStatusUtils.sendToReviewHasWarning(page, true)
   })
 })
