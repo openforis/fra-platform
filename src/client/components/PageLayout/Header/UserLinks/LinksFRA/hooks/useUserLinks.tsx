@@ -25,11 +25,11 @@ export const useUserLinks = (): Array<PopoverItem> => {
   const toaster = useToaster()
   const navigate = useNavigate()
 
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-  const userCountryIso = countryIso ?? UserRoles.getLastRole({ assessment, user })?.countryIso ?? Global.WO
-
   if (!user) return []
+
+  const assessmentName = assessment.props.name
+  const cycleName = cycle?.name
+  const userCountryIso = countryIso ?? UserRoles.getLastRole({ assessment, user })?.countryIso ?? Global.WO
 
   const userProfileProps = { assessmentName, cycleName, countryIso: userCountryIso, id: String(user.id) }
   const items: Array<PopoverItem> = [
