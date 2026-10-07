@@ -88,12 +88,12 @@ test.describe('Public view', () => {
       const page = await context.newPage()
 
       await page.goto(extentOfForestPath)
-      await TableDomUtils.expectSeededValuesMatch(
+      await TableDomUtils.expectSeededValuesMatch({
         page,
-        FRA_YEARS,
-        Object.keys(VARIABLES_EXTENT_OF_FOREST),
-        seededTableData
-      )
+        colNames: FRA_YEARS,
+        variableNames: Object.keys(VARIABLES_EXTENT_OF_FOREST),
+        getSeededDatum: seededTableData,
+      })
       await expect(page.locator('.toast.error')).toHaveCount(0)
 
       await context.close()
@@ -111,12 +111,12 @@ test.describe('Public view', () => {
       const page = await context.newPage()
 
       await page.goto(forestCharacteristicsPath)
-      await TableDomUtils.expectSeededValuesMatch(
+      await TableDomUtils.expectSeededValuesMatch({
         page,
-        FRA_YEARS,
-        Object.keys(VARIABLES_FOREST_CHARACTERISTICS),
-        seededTableData
-      )
+        colNames: FRA_YEARS,
+        variableNames: Object.keys(VARIABLES_FOREST_CHARACTERISTICS),
+        getSeededDatum: seededTableData,
+      })
       await expect(page.locator('.toast.error')).toHaveCount(0)
 
       await context.close()
@@ -134,12 +134,14 @@ test.describe('Public view', () => {
       const page = await context.newPage()
 
       await page.goto(growingStockPath)
-      await TableDomUtils.expectSeededValuesMatch(
+      await TableDomUtils.expectSeededValuesMatch({
         page,
-        FRA_YEARS,
-        Object.keys(VARIABLES_GROWING_STOCK),
-        seededTableData
-      )
+        colNames: FRA_YEARS,
+        variableNames: Object.keys(VARIABLES_GROWING_STOCK),
+        getSeededDatum: seededTableData,
+        // growingStockTotal renders on the same page and shares these row variable names
+        tableName: growingStockLocation.tableName,
+      })
       await expect(page.locator('.toast.error')).toHaveCount(0)
 
       await context.close()
