@@ -14,11 +14,11 @@ export const getManyDashboardItems = async (
 ): Promise<Array<DashboardItem<DashboardItemType>>> => {
   const { assessment, cycle, region } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  return client.one<Array<DashboardItem<DashboardItemType>>>(
+  const items = await client.oneOrNone<Array<DashboardItem<DashboardItemType>>>(
     `
-    select value 
-    from ${schemaCycle}.node_ext 
-    where type = $1 
+    select value
+    from ${schemaCycle}.node_ext
+    where type = $1
     ${
       region
         ? `and (props->>'region')::boolean = true`
@@ -26,6 +26,7 @@ export const getManyDashboardItems = async (
     }
     `,
     [NodeExtType.dashboard],
-    (result) => result.value
+    (result) => result?.value
   )
+  return items ?? []
 }
