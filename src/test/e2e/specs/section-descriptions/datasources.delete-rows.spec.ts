@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test'
+import { Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
@@ -9,23 +9,13 @@ import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
-import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const dataSourcesTitle = enTranslation.description.dataSourcesPlus
-const emptyValueMessage = enTranslation.generalValidation.notEmpty
 const typeOption = enTranslation.dataSource.nationalForestInventory
 const variableOption = enTranslation.biomassStock.aboveGround
 const yearOption = '2020'
 
 const randomString = Date.now().toString()
-
-// Timeout time for the socket event that updates the cell errors
-const cellTimeout = 10_000
-
-const expectCellError = async (page: Page, cell: Locator): Promise<void> => {
-  await expect(cell).toHaveClass(/validation-error/, { timeout: cellTimeout })
-  await TooltipUtils.expectValidationTooltip(page, cell, emptyValueMessage)
-}
 
 const addDataSource = async (page: Page, html: string): Promise<void> => {
   await DescriptionUtils.save(page, async () => {
@@ -68,9 +58,12 @@ test.describe.serial('Section descriptions: data sources - delete rows', () => {
     )
 
     await addDataSource(page, deletedReference.html)
-    await expectCellError(page, await DataSourceUtils.getDataSourceTypeCell(page, deletedReference.text))
-    await expectCellError(page, await DataSourceUtils.getDataSourceVariablesCell(page, deletedReference.text))
-    await expectCellError(page, await DataSourceUtils.getDataSourceYearCell(page, deletedReference.text))
+    const deletedTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, deletedReference.text)
+    const deletedVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, deletedReference.text)
+    const deletedYearCell = await DataSourceUtils.getDataSourceYearCell(page, deletedReference.text)
+    await DataSourceUtils.expectDataSourceCellError(page, deletedTypeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, deletedVariablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, deletedYearCell)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
     const keptTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, keptReference.text)
@@ -123,11 +116,12 @@ test.describe.serial('Section descriptions: data sources - delete rows', () => {
     await addDataSource(page, firstReference.html)
     await addDataSource(page, secondReference.html)
 
+    const firstTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, firstReference.text)
     const secondTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, secondReference.text)
     const secondVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, secondReference.text)
     const secondYearCell = await DataSourceUtils.getDataSourceYearCell(page, secondReference.text)
-    await expectCellError(page, await DataSourceUtils.getDataSourceTypeCell(page, firstReference.text))
-    await expectCellError(page, secondTypeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, firstTypeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, secondTypeCell)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
     const firstUuid = await DataSourceUtils.getDataSourceRowUuid(page, firstReference.text)
@@ -135,9 +129,9 @@ test.describe.serial('Section descriptions: data sources - delete rows', () => {
 
     await DataSourceUtils.deleteDataSourceRow(page, firstReference.text)
     await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(firstReference.text)
-    await expectCellError(page, secondTypeCell)
-    await expectCellError(page, secondVariablesCell)
-    await expectCellError(page, secondYearCell)
+    await DataSourceUtils.expectDataSourceCellError(page, secondTypeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, secondVariablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, secondYearCell)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
     const storedValidations = DescriptionsApi.waitForValidations(page)

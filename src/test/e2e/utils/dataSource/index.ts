@@ -1,8 +1,10 @@
 import { expect, Locator, Page } from '@playwright/test'
+import { enTranslation } from 'i18n/resources/en'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { DOMUtils } from '../dom'
+import { TooltipUtils } from '../tooltip'
 
 const getDataSourceTable = (page: Page): Locator => page.locator('.data-grid.data-source')
 
@@ -103,10 +105,20 @@ const deleteDataSourceRow = async (page: Page, text: string): Promise<void> => {
   await deleted
 }
 
+// Timeout time for the socket event that updates the cell errors
+const _cellErrorTimeout = 10_000
+
+// Type, variables and year only have the empty value error
+const expectDataSourceCellError = async (page: Page, cell: Locator): Promise<void> => {
+  await expect(cell).toHaveClass(/validation-error/, { timeout: _cellErrorTimeout })
+  await TooltipUtils.expectValidationTooltip(page, cell, enTranslation.generalValidation.notEmpty)
+}
+
 export const DataSourceUtils = {
   addDataSource,
   clearDataSourceOption,
   deleteDataSourceRow,
+  expectDataSourceCellError,
   getDataSourceCommentsCell,
   getDataSourceReferenceEditor,
   getDataSourceReferenceValidationError,

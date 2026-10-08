@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test'
+import { Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
@@ -9,10 +9,8 @@ import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
-import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const dataSourcesTitle = enTranslation.description.dataSourcesPlus
-const emptyValueMessage = enTranslation.generalValidation.notEmpty
 const typeOption = enTranslation.dataSource.nationalForestInventory
 const yearOption = '2020'
 
@@ -22,11 +20,6 @@ const randomString = Date.now().toString()
 const cellTimeout = 10_000
 // Timeout time for the links worker that checks the reference and updates its errors
 const referenceTimeout = 20_000
-
-const expectCellError = async (page: Page, cell: Locator): Promise<void> => {
-  await expect(cell).toHaveClass(/validation-error/, { timeout: cellTimeout })
-  await TooltipUtils.expectValidationTooltip(page, cell, emptyValueMessage)
-}
 
 const fillRequiredFields = async (page: Page, text: string, variableOption: string): Promise<void> => {
   await DescriptionUtils.save(page, () => DataSourceUtils.selectDataSourceOption(page, text, 'type', typeOption))
@@ -67,9 +60,9 @@ test.describe.serial('Section descriptions: data sources - reference and require
     const yearCell = await DataSourceUtils.getDataSourceYearCell(page, invalidLinks.emptyLinkText)
 
     await expect(referenceField).toHaveClass(/validation-error/, { timeout: referenceTimeout })
-    await expectCellError(page, typeCell)
-    await expectCellError(page, variablesCell)
-    await expectCellError(page, yearCell)
+    await DataSourceUtils.expectDataSourceCellError(page, typeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
 
     await DescriptionUtils.save(page, () =>
@@ -82,9 +75,9 @@ test.describe.serial('Section descriptions: data sources - reference and require
     await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: referenceTimeout })
 
     // The links worker only updates the reference, so the required field errors are still there
-    await expectCellError(page, typeCell)
-    await expectCellError(page, variablesCell)
-    await expectCellError(page, yearCell)
+    await DataSourceUtils.expectDataSourceCellError(page, typeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
   })
 

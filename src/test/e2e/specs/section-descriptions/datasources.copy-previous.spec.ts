@@ -13,11 +13,9 @@ import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
-import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const dataSourcesTitle = enTranslation.description.dataSourcesPlus
 const copyLabel = enTranslation.nationalDataPoint.copyPreviousValues
-const emptyValueMessage = enTranslation.generalValidation.notEmpty
 const variableOption = enTranslation.areaAffectedByFire.totalLandAreaAffectedByFire
 const yearOption = '2020'
 
@@ -25,11 +23,6 @@ const randomString = Date.now().toString()
 
 // Timeout time for the socket event that updates the cell errors
 const cellTimeout = 10_000
-
-const expectCellError = async (page: Page, cell: Locator): Promise<void> => {
-  await expect(cell).toHaveClass(/validation-error/, { timeout: cellTimeout })
-  await TooltipUtils.expectValidationTooltip(page, cell, emptyValueMessage)
-}
 
 const getCopyButton = (page: Page): Locator =>
   DescriptionUtils.getDescriptionBlock(page, dataSourcesTitle).locator('button', { hasText: copyLabel })
@@ -92,6 +85,7 @@ test.describe.serial('Section descriptions: data sources - copy previous section
 
     const sourceDataSources = (await DescriptionsApi.getValue(page, x12Disturbances))?.dataSources ?? []
     const copiedDataSources = (await DescriptionsApi.getValue(page, x12AreaAffectedByFire))?.dataSources ?? []
+    expect(sourceDataSources).toHaveLength(copiedReferences.length)
     const sourceUuids = sourceDataSources.map<string>((dataSource) => dataSource.uuid)
 
     // The deleted row doesn't come back, the section only has the copied rows
@@ -107,8 +101,8 @@ test.describe.serial('Section descriptions: data sources - copy previous section
 
     const firstVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, firstReference.text)
     const secondVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, secondReference.text)
-    await expectCellError(page, firstVariablesCell)
-    await expectCellError(page, secondVariablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, firstVariablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, secondVariablesCell)
 
     // The variable errors are already shown, so the type and year results have arrived too
     const firstTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, firstReference.text)
@@ -133,13 +127,13 @@ test.describe.serial('Section descriptions: data sources - copy previous section
 
     const firstVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, firstReference.text)
     const secondVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, secondReference.text)
-    await expectCellError(page, firstVariablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, firstVariablesCell)
 
     await DescriptionUtils.save(page, () =>
       DataSourceUtils.selectDataSourceOption(page, firstReference.text, 'variables', variableOption)
     )
     await expect(firstVariablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expectCellError(page, secondVariablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, secondVariablesCell)
     await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, true)
 
     await DescriptionUtils.save(page, () =>

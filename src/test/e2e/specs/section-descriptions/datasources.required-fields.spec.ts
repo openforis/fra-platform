@@ -1,4 +1,3 @@
-import { Locator, Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
@@ -9,10 +8,8 @@ import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
-import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const dataSourcesTitle = enTranslation.description.dataSourcesPlus
-const emptyValueMessage = enTranslation.generalValidation.notEmpty
 const typeOption = enTranslation.dataSource.nationalForestInventory
 const variableOption = enTranslation.biomassStock.aboveGround
 const yearOption = '2020'
@@ -21,11 +18,6 @@ const randomString = Date.now().toString()
 
 // Timeout time for the socket event that updates the cell errors
 const cellTimeout = 10_000
-
-const expectCellError = async (page: Page, cell: Locator): Promise<void> => {
-  await expect(cell).toHaveClass(/validation-error/, { timeout: cellTimeout })
-  await TooltipUtils.expectValidationTooltip(page, cell, emptyValueMessage)
-}
 
 test.describe.serial('Section descriptions: data sources - required fields', () => {
   const reference = LinkBuilder.buildValidLinkHtml(`data-source-required-${randomString}`)
@@ -56,21 +48,21 @@ test.describe.serial('Section descriptions: data sources - required fields', () 
     const yearCell = await DataSourceUtils.getDataSourceYearCell(page, reference.text)
 
     // A new row with only a reference has all three required fields marked
-    await expectCellError(page, typeCell)
-    await expectCellError(page, variablesCell)
-    await expectCellError(page, yearCell)
+    await DataSourceUtils.expectDataSourceCellError(page, typeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, true)
 
     await DescriptionUtils.save(page, () =>
       DataSourceUtils.selectDataSourceOption(page, reference.text, 'type', typeOption)
     )
     await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expectCellError(page, variablesCell)
-    await expectCellError(page, yearCell)
+    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
 
     // The error comes back once a filled field is empty again
     await DescriptionUtils.save(page, () => DataSourceUtils.clearDataSourceOption(page, reference.text, 'type'))
-    await expectCellError(page, typeCell)
+    await DataSourceUtils.expectDataSourceCellError(page, typeCell)
 
     await DescriptionUtils.save(page, () =>
       DataSourceUtils.selectDataSourceOption(page, reference.text, 'type', typeOption)
@@ -81,7 +73,7 @@ test.describe.serial('Section descriptions: data sources - required fields', () 
       DataSourceUtils.selectDataSourceOption(page, reference.text, 'variables', variableOption)
     )
     await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expectCellError(page, yearCell)
+    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, true)
 
     // Year is the last empty field, so the section isn't flagged anymore
