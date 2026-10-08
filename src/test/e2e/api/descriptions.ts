@@ -4,7 +4,11 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { type CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
-import { CommentableDescriptionName, type CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import {
+  CommentableDescriptionName,
+  type CommentableDescriptionValue,
+  type DescriptionCountryValues,
+} from 'meta/assessment/descriptionValue'
 import { type SectionName } from 'meta/assessment/section'
 import { type RecordDescriptionValidations } from 'meta/assessment/validation/description'
 
@@ -26,6 +30,32 @@ const _getQueryParams = (location: DescriptionLocation): string => {
   return new URLSearchParams({ assessmentName, countryIso, cycleName, name, sectionName }).toString()
 }
 
+const getValue = async (
+  page: Page,
+  location: DescriptionLocation
+): Promise<CommentableDescriptionValue | undefined> => {
+  const { countryIso, name, sectionName } = location
+
+  const url = `${ApiEndPoint.CycleData.Descriptions.many()}?${_getQueryParams(location)}`
+  const response = await page.request.get(url)
+  expect(response.ok(), `GET ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+
+  const values: DescriptionCountryValues = await response.json()
+  return values[countryIso]?.[sectionName]?.[name]
+}
+
+// Saves through the same request as the UI, so the server validates it like any other save
+const setValue = async (
+  page: Page,
+  location: DescriptionLocation,
+  value: CommentableDescriptionValue
+): Promise<void> => {
+  const url = `${ApiEndPoint.CycleData.Descriptions.many()}?${_getQueryParams(location)}`
+  const response = await page.request.put(url, { data: { value } })
+
+  expect(response.ok(), `PUT ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+}
+
 // Empties the description once the whole spec is done (even if a test failed)
 const clear = async (browser: Browser, location: DescriptionLocation): Promise<void> => {
   const { baseURL } = test.info().project.use
@@ -36,11 +66,7 @@ const clear = async (browser: Browser, location: DescriptionLocation): Promise<v
 
     const isDataSources = location.name === CommentableDescriptionName.dataSources
     const value: CommentableDescriptionValue = isDataSources ? { text: '', dataSources: [] } : { text: '' }
-
-    const url = `${ApiEndPoint.CycleData.Descriptions.many()}?${_getQueryParams(location)}`
-    const response = await page.request.put(url, { data: { value } })
-
-    expect(response.ok(), `PUT ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+    await setValue(page, location, value)
   } finally {
     await page.close()
   }
@@ -54,5 +80,7 @@ const waitForValidations = async (page: Page): Promise<RecordDescriptionValidati
 
 export const DescriptionsApi = {
   clear,
+  getValue,
+  setValue,
   waitForValidations,
 }
