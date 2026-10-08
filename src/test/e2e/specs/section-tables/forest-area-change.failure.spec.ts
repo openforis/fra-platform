@@ -172,6 +172,7 @@ test.describe('Section tables: 1d - validation errors persist on page reload', (
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1500')
     await cellSaved
 
+    await NavigationUtils.subSectionHasError(page, x16ForestAreaChangePath, true)
     await forestAreaChangeNavItem.click()
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
     await TableDomUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
