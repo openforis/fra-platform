@@ -187,6 +187,6 @@ test.describe('Section tables: 1d - validation errors persist on page reload', (
       sectionHeader: forestExtentSectionHeader,
       sectionItemPath: x16ForestAreaChangePath,
     })
-    await CountryStatusUtils.expectSubmitToReviewWarning(page)
+    await CountryStatusUtils.sendToReviewHasWarning(page, true)
   })
 })

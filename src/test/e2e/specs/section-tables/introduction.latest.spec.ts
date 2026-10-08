@@ -1,6 +1,7 @@
 import { mergeTests } from '@playwright/test'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
@@ -41,11 +42,11 @@ test.describe('Section tables: introduction latest - admin', () => {
 })
 
 test.describe('Section tables: introduction latest - logged out', () => {
-  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest } })
+  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest, status: CountryStatus.published } })
 
-  test('Logged out user sees the publication year and no expected year', async ({ publicPage, publishedCountry }) => {
+  test('Logged out user sees the publication year and no expected year', async ({ country, publicPage }) => {
     const page = publicPage
-    const publicationYear = String(new Date(publishedCountry.lastInPublished).getFullYear())
+    const publicationYear = String(new Date(country.lastInPublished).getFullYear())
 
     await page.goto(x01ContactPersonsLatestPath)
 
