@@ -1,5 +1,9 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+
+import { DOMUtils } from '../dom'
+
 const getDataSourceTable = (page: Page): Locator => page.locator('.data-grid.data-source')
 
 const getDataSourceReferenceCells = (page: Page): Locator =>
@@ -40,12 +44,41 @@ const getDataSourceFieldCell = async (page: Page, text: string, field: string): 
   return getDataSourceTable(page).locator(`.${rowClass}.datasource-column-${field}`)
 }
 
+const getDataSourceRowUuid = async (page: Page, text: string): Promise<string> => {
+  const rowClass = await getDataSourceRowClass(page, text)
+  return rowClass.replace('datasource-row-', '')
+}
+
 const getDataSourceTypeCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'type')
 const getDataSourceVariablesCell = (page: Page, text: string): Promise<Locator> =>
   getDataSourceFieldCell(page, text, 'variables')
 const getDataSourceYearCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'year')
 const getDataSourceCommentsCell = (page: Page, text: string): Promise<Locator> =>
   getDataSourceFieldCell(page, text, 'comments')
+
+type DataSourceSelectField = 'type' | 'variables' | 'year'
+
+// Editing must be on, the selects are disabled otherwise
+const selectDataSourceOption = async (
+  page: Page,
+  text: string,
+  field: DataSourceSelectField,
+  optionName: string
+): Promise<void> => {
+  const cell = await getDataSourceFieldCell(page, text, field)
+  await cell.locator('.select__wrapper').click()
+  await page.keyboard.type(optionName)
+  await page.getByRole('option', { name: optionName, exact: true }).click()
+  await page.keyboard.press('Escape')
+}
+
+// Removes the last picked option, editing must be on
+const clearDataSourceOption = async (page: Page, text: string, field: DataSourceSelectField): Promise<void> => {
+  const cell = await getDataSourceFieldCell(page, text, field)
+  await cell.locator('.select__wrapper').click()
+  await page.keyboard.press('Backspace')
+  await page.keyboard.press('Escape')
+}
 
 const findDataSourceRowIndex = async (page: Page, text: string): Promise<number> => {
   await getDataSourceReferenceCell(page, text).waitFor()
@@ -60,18 +93,24 @@ const getDataSourceDeleteButtons = (page: Page): Locator =>
 // delete is only available when data source editing is unlocked
 const deleteDataSourceRow = async (page: Page, text: string): Promise<void> => {
   const rowIndex = await findDataSourceRowIndex(page, text)
+
+  const deleted = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Descriptions.DataSources.one(), 'DELETE')
   page.once('dialog', (dialog) => dialog.accept())
   await getDataSourceDeleteButtons(page).nth(rowIndex).click()
+  await deleted
 }
 
 export const DataSourceUtils = {
   addDataSource,
+  clearDataSourceOption,
   deleteDataSourceRow,
   getDataSourceCommentsCell,
   getDataSourceReferenceEditor,
   getDataSourceReferenceValidationError,
+  getDataSourceRowUuid,
   getDataSourceTable,
   getDataSourceTypeCell,
   getDataSourceVariablesCell,
   getDataSourceYearCell,
+  selectDataSourceOption,
 }

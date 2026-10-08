@@ -1,11 +1,13 @@
 import { Locator, Page } from '@playwright/test'
 
-import { dataSourcesSectionPath } from 'test/e2e/data/sectionDescriptions'
+import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { x13GrowingStock, x13GrowingStockPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
 import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
+import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const dataSourcesTitle = 'Data sources + type of data source eg NFI, etc'
@@ -19,11 +21,18 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
   const invalidLinks = LinkBuilder.buildInvalidLinksHtml(`data-source-${randomString}`)
   const fixedReference = LinkBuilder.buildValidLinkHtml(`data-source-fixed-${randomString}`)
 
+  test.afterAll(async ({ browser }) => {
+    await DescriptionsApi.clear(browser, x13GrowingStock)
+  })
+
   test('NC creates a data source with an empty link and a broken link', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(dataSourcesSectionPath)
+    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+    await page.goto(x13GrowingStockPath)
+    await summaryLoaded
     await DOMUtils.ensureEditingUnlocked(page)
+    await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, false)
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
@@ -63,12 +72,14 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     // Comment cell is the only cell without errors (optional)
     const commentsCell = await DataSourceUtils.getDataSourceCommentsCell(page, invalidLinks.emptyLinkText)
     await expect(commentsCell).not.toHaveClass(/validation-error/)
+
+    await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
   })
 
   test('NC fixes the invalid reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(dataSourcesSectionPath)
+    await page.goto(x13GrowingStockPath)
     await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
@@ -81,13 +92,17 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     await expect(DataSourceUtils.getDataSourceReferenceValidationError(page, fixedReference.text)).not.toBeVisible({
       timeout: 20000,
     })
+
+    // Type, variables and year are still empty, so the section keeps the error
+    await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
   })
 
   test('NC removes the data source', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(dataSourcesSectionPath)
+    await page.goto(x13GrowingStockPath)
     await DOMUtils.ensureEditingUnlocked(page)
+    await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()
     await DataSourceUtils.deleteDataSourceRow(page, fixedReference.text)
@@ -95,5 +110,6 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(fixedReference.text, {
       timeout: 10000,
     })
+    await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, false)
   })
 })

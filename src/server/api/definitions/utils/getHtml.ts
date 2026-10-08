@@ -32,7 +32,8 @@ export const getHtml = async (props: Props): Promise<string> => {
   const toc: Array<Record<string, string>> = []
   const renderer = new marked.Renderer()
   renderer.heading = ({ depth, tokens }): string => {
-    const text = tokens.at(0).raw
+    // Render every inline token (italics, links, text after them), not just the first one
+    const text = renderer.parser.parseInline(tokens)
 
     if (depth < 3) {
       const { anchor, text: newText } = _getAnchorAndTextFromHeader(text)
