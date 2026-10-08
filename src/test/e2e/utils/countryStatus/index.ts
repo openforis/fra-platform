@@ -1,4 +1,4 @@
-import { expect, Locator, Page, Route } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -7,7 +7,7 @@ import { DOMUtils } from '../dom'
 
 const sendToReviewLabel = enTranslation.assessment.status.review.next
 const submitToReviewWarning = enTranslation.navigation.submitToReviewWithErrorsWarning
-const notifySelfLabel = enTranslation.navigation.notifySelf
+const messagePlaceholder = enTranslation.navigation.changeStatusTextPlaceholder
 const submitLabel = enTranslation.common.submit
 const cancelLabel = enTranslation.common.cancel
 
@@ -39,26 +39,14 @@ const sendToReviewHasWarning = async (page: Page, hasWarning: boolean): Promise<
   await expect(modal).toHaveCount(0)
 }
 
-// The modal can hide recipients, so setting notify to false in the request
-const _notificationsOff = async (route: Route): Promise<void> => {
-  const url = new URL(route.request().url())
-  url.searchParams.set('notifyUsers', 'false')
-  url.searchParams.set('notifySelf', 'false')
-  await route.continue({ url: url.toString() })
-}
-
-const _isCountryUpdate = (url: URL): boolean => url.pathname === ApiEndPoint.Area.country()
-
-// Sends to review without notifying anyone
-const sendToReview = async (page: Page): Promise<void> => {
+// Sends to review and both admin and reviewers get the email
+const sendToReview = async (page: Page, message: string): Promise<void> => {
   const modal = await _openSendToReview(page)
-  await modal.getByRole('button', { name: notifySelfLabel, exact: true }).click()
+  await modal.getByPlaceholder(messagePlaceholder, { exact: true }).fill(message)
 
-  await page.route(_isCountryUpdate, _notificationsOff)
   const countrySaved = DOMUtils.waitForResponse(page, ApiEndPoint.Area.country(), 'PATCH')
   await modal.getByRole('button', { name: submitLabel, exact: true }).click()
   await countrySaved
-  await page.unroute(_isCountryUpdate, _notificationsOff)
 
   await expect(modal).toHaveCount(0)
 }
