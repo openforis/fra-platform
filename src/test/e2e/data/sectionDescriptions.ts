@@ -5,8 +5,20 @@ import { SectionUtils } from 'test/e2e/utils/section'
 
 const comments = { name: CommentableDescriptionName.generalComments } as const
 const dataSources = { name: CommentableDescriptionName.dataSources } as const
+const estimationAndForecasting = { name: CommentableDescriptionName.estimationAndForecasting } as const
+const nationalClassification = { name: CommentableDescriptionName.nationalClassificationAndDefinitions } as const
 
 // Each spec file has its own country and section, so files running in parallel never edit the same description
+export const x12CarbonStockEstimation: DescriptionLocation = {
+  countryIso: 'X12',
+  sectionName: 'carbonStock',
+  ...estimationAndForecasting,
+}
+export const x12CarbonStockClassification: DescriptionLocation = {
+  countryIso: 'X12',
+  sectionName: 'carbonStock',
+  ...nationalClassification,
+}
 export const x12SpecificForestCategories: DescriptionLocation = {
   countryIso: 'X12',
   sectionName: 'specificForestCategories',
@@ -28,6 +40,7 @@ export const x13BiomassStock: DescriptionLocation = { countryIso: 'X13', section
 export const x13CarbonStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'carbonStock', ...dataSources }
 export const x13Disturbances: DescriptionLocation = { countryIso: 'X13', sectionName: 'disturbances', ...dataSources }
 
+export const x12CarbonStockPath = SectionUtils.path(x12CarbonStockEstimation)
 export const x12SpecificForestCategoriesPath = SectionUtils.path(x12SpecificForestCategories)
 export const x12ForestOwnershipPath = SectionUtils.path(x12ForestOwnership)
 export const x13SpecificForestCategoriesPath = SectionUtils.path(x13SpecificForestCategories)
