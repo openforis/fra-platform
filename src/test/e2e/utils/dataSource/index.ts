@@ -49,6 +49,9 @@ const getDataSourceRowUuid = async (page: Page, text: string): Promise<string> =
   return rowClass.replace('datasource-row-', '')
 }
 
+const getDataSourceRowReferenceCell = (page: Page, text: string): Promise<Locator> =>
+  getDataSourceFieldCell(page, text, 'reference')
+
 const getDataSourceTypeCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'type')
 const getDataSourceVariablesCell = (page: Page, text: string): Promise<Locator> =>
   getDataSourceFieldCell(page, text, 'variables')
@@ -107,6 +110,7 @@ export const DataSourceUtils = {
   getDataSourceCommentsCell,
   getDataSourceReferenceEditor,
   getDataSourceReferenceValidationError,
+  getDataSourceRowReferenceCell,
   getDataSourceRowUuid,
   getDataSourceTable,
   getDataSourceTypeCell,
