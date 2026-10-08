@@ -15,12 +15,13 @@ export const useInitMetaCache = (): void => {
   const cycle = useCycle()
 
   const assessmentName = assessment.props.name
-  const cycleName = cycle.name
-  const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
+  const cycleName = cycle?.name
+  // cycle not loaded or invalid
+  const metaCache = cycle ? AssessmentMetaCaches.getMetaCache({ assessment, cycle }) : undefined
 
   useEffect(() => {
-    if (!metaCache) {
+    if (cycle && !metaCache) {
       dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, metaCache])
+  }, [assessmentName, countryIso, cycle, cycleName, dispatch, metaCache])
 }
