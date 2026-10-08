@@ -1,4 +1,5 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionNames } from 'meta/assessment/section'
 
 import { type DescriptionLocation } from 'test/e2e/api/descriptions'
 import { SectionUtils } from 'test/e2e/utils/section'
@@ -41,6 +42,18 @@ export const x13BiomassStock: DescriptionLocation = { countryIso: 'X13', section
 export const x13CarbonStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'carbonStock', ...dataSources }
 export const x13Disturbances: DescriptionLocation = { countryIso: 'X13', sectionName: 'disturbances', ...dataSources }
 
+// Every X country is already used on 1a and 1b, and BEL has no NDPs
+export const belExtentOfForest: DescriptionLocation = {
+  countryIso: 'BEL',
+  sectionName: SectionNames.extentOfForest,
+  ...dataSources,
+}
+export const belForestCharacteristics: DescriptionLocation = {
+  countryIso: 'BEL',
+  sectionName: SectionNames.forestCharacteristics,
+  ...dataSources,
+}
+
 export const x12CarbonStockPath = SectionUtils.path(x12CarbonStockEstimation)
 export const x12SpecificForestCategoriesPath = SectionUtils.path(x12SpecificForestCategories)
 export const x12ForestOwnershipPath = SectionUtils.path(x12ForestOwnership)
@@ -50,3 +63,5 @@ export const x13GrowingStockPath = SectionUtils.path(x13GrowingStock)
 export const x13BiomassStockPath = SectionUtils.path(x13BiomassStock)
 export const x13CarbonStockPath = SectionUtils.path(x13CarbonStock)
 export const x13DisturbancesPath = SectionUtils.path(x13Disturbances)
+export const belExtentOfForestPath = SectionUtils.path(belExtentOfForest)
+export const belForestCharacteristicsPath = SectionUtils.path(belForestCharacteristics)
