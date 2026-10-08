@@ -1,14 +1,24 @@
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { type ColName } from 'meta/assessment/col'
+import { CycleNames } from 'meta/assessment/cycle/names'
+import { type VariableName } from 'meta/assessment/variable'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Promises } from 'utils/promises'
 
 import { TableApi, type TableSeed } from 'test/e2e/api/table'
 import { test as base } from 'test/e2e/fixtures/auth'
 
+const assessmentName = AssessmentNames.fra
+
 type TableOptions = {
   tableSeeds: Array<TableSeed>
 }
 
+type GetSeededDatum = (props: { colName: ColName; variableName: VariableName }) => string | undefined
+
 type TableFixtures = {
   tables: void
+  seededTableData: GetSeededDatum
 }
 
 export const test = base.extend<TableOptions & TableFixtures>({
@@ -32,6 +42,23 @@ export const test = base.extend<TableOptions & TableFixtures>({
     },
     { auto: true },
   ],
+
+  // param _tables: wait for 'tables' to be ready before executing seededTableData
+  seededTableData: async ({ authenticatedPage, tableSeeds, tables: _tables }, use): Promise<void> => {
+    const [seed] = tableSeeds
+    if (!seed) {
+      await use(() => undefined)
+      return
+    }
+
+    const { countryIso, cycleName = CycleNames._2025, tableName } = seed
+    const data = await TableApi.getValues(authenticatedPage, seed)
+
+    const getSeededDatum: GetSeededDatum = ({ colName, variableName }) =>
+      RecordAssessmentDatas.getDatum({ assessmentName, countryIso, cycleName, data, tableName, colName, variableName })
+
+    await use(getSeededDatum)
+  },
 })
 
 export { expect } from '@playwright/test'
