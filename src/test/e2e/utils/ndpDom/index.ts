@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { DataTestId } from 'meta/dataTestId/id'
 
 import { DescriptionUtils } from '../description'
@@ -242,7 +243,7 @@ const prefillFromYear = async (page: Page, year: string): Promise<void> => {
 
 // Toggle ndp usage in section 1b
 const clickToggleNDPUsage = async (page: Page): Promise<void> => {
-  const saved = DOMUtils.waitForResponse(page, '/area/country/prop', 'PATCH')
+  const saved = DOMUtils.waitForResponse(page, ApiEndPoint.Area.countryProp(), 'PATCH')
   await page.getByRole('button', { name: /Don.t use national data points|Use national data points/i }).click()
   await saved
 }
