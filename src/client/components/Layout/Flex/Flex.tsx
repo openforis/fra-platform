@@ -4,7 +4,10 @@ import classNames from 'classnames'
 
 type Alignment = 'start' | 'end' | 'center' | 'stretch' | 'baseline' | 'space-between' | 'space-around' | 'space-evenly'
 type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse'
-type PropsDiv = Pick<HTMLAttributes<HTMLDivElement>, 'className'> & {
+type PropsDiv = Pick<
+  HTMLAttributes<HTMLDivElement>,
+  'className' | 'onPointerCancel' | 'onPointerDown' | 'onPointerMove' | 'onPointerUp'
+> & {
   alignContent?: Alignment
   alignItems?: Alignment
   flexDirection?: FlexDirection
@@ -33,6 +36,10 @@ const Flex: React.FC<Props> = (props) => {
     gap = defaults.gap,
     justifyContent = defaults.justifyContent,
     justifyItems = defaults.justifyItems,
+    onPointerCancel,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
   } = props
 
   return (
@@ -47,6 +54,10 @@ const Flex: React.FC<Props> = (props) => {
         `gap-${gap}`,
         className
       )}
+      onPointerCancel={onPointerCancel}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
     >
       {React.Children.toArray(children)}
     </div>
