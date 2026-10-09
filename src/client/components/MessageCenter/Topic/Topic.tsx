@@ -7,6 +7,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket/sockets'
+import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -16,6 +17,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
+import { useDraggable } from 'client/hooks/useDraggable'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import Flex from 'client/components/Layout/Flex'
@@ -39,6 +41,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   const cycle = useCycle()
   const user = useUser()
   const dataLocked = useIsDataLocked()
+  const { handleProps, moved, reset, style } = useDraggable()
 
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
@@ -112,20 +115,35 @@ const Topic: React.FC<TopicProps> = (props) => {
       minHeight={300}
       minWidth={300}
       onResize={handleTopicResize}
+      style={style}
     >
-      <Flex className="topic-header" justifyContent={'space-between'}>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <Flex className="topic-header" justifyContent={'space-between'} {...handleProps}>
         <div className="topic-title">
           {topic.title || topicKey}
           {topic.subtitle && <div className="topic-subtitle">{topic.subtitle}</div>}
         </div>
-        <Button
-          className="topic-close"
-          iconName="remove"
-          inverse
-          onClick={closeTopic}
-          size={ButtonSize.l}
-          type={ButtonType.anonymous}
-        />
+        <Flex gap="0">
+          <Button
+            className="topic-reset"
+            dataTooltipContent={moved ? t('review.resetPosition') : undefined}
+            dataTooltipId={TooltipId.info}
+            disabled={!moved}
+            iconName="arrow-down-right2"
+            inverse
+            onClick={reset}
+            size={ButtonSize.l}
+            type={ButtonType.anonymous}
+          />
+          <Button
+            className="topic-close"
+            iconName="remove"
+            inverse
+            onClick={closeTopic}
+            size={ButtonSize.l}
+            type={ButtonType.anonymous}
+          />
+        </Flex>
       </Flex>
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!topic.loading &&
