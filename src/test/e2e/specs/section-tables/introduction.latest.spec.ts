@@ -5,6 +5,7 @@ import { CountryStatus } from 'meta/area/countryStatus'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   x01ContactPersonsLatest,
   x01ContactPersonsLatestPath,
@@ -51,7 +52,7 @@ test.describe('Section tables: introduction latest - logged out', () => {
     await page.goto(x01ContactPersonsLatestPath)
 
     const table = TableDomUtils.tableContainer(page, reportLastUpdate)
-    await expect(table).toBeVisible({ timeout: 10000 })
+    await expect(table).toBeVisible({ timeout: Timeouts.medium })
     await TableDomUtils.expectCellValue(page, reportLastUpdate, expectedYear, publicationYear)
     // The year is calculated, so there should be no input
     await expect(table.locator('input')).toHaveCount(0)
@@ -72,7 +73,9 @@ test.describe('Section tables: introduction latest - print view', () => {
 
     await page.goto(x01PrintTablesLatestPath)
     // Table 1a comes after the introduction, so once it's there the introduction has been rendered
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
 
     await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
   })

@@ -1,6 +1,7 @@
 import { SectionNames } from 'meta/assessment/section'
 
 import { NdpApi } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { NdpData } from 'test/e2e/data/ndp'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
@@ -42,7 +43,7 @@ test.describe('National data point: edit', () => {
 
     // ==== the copied classes have no area, so every one of them is marked in 1a
     const areaCells = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-    await expect(areaCells).toHaveCount(3, { timeout: 10000 })
+    await expect(areaCells).toHaveCount(3, { timeout: Timeouts.medium })
     await TooltipUtils.expectValidationTooltip(page, areaCells.first(), 'Value cannot be empty')
     await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1a')).toBeVisible()
 
@@ -60,7 +61,7 @@ test.describe('National data point: edit', () => {
 
     await NDPDomUtils.fillNationalClassArea(page, 'Forest', '22543')
     await expect(NDPDomUtils.getNationalClassAreaCell(page, 'Forest')).not.toHaveClass(/validation-error/, {
-      timeout: 10000,
+      timeout: Timeouts.medium,
     })
     await expect(areaCells).toHaveCount(2)
     await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1a')).toBeVisible()
@@ -68,7 +69,7 @@ test.describe('National data point: edit', () => {
     // ==== filling the remaining areas clears the 1a error of the point
     await NDPDomUtils.fillNationalClassArea(page, 'Other land', '7099')
     await NDPDomUtils.fillNationalClassArea(page, 'Other wooded land', '752')
-    await expect(areaCells).toHaveCount(0, { timeout: 10000 })
+    await expect(areaCells).toHaveCount(0, { timeout: Timeouts.medium })
     await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1a')).toHaveCount(0)
 
     // ==== no area error is stored for any of the copied classes

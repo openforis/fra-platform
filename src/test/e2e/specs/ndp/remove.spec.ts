@@ -1,6 +1,7 @@
 import { SectionNames } from 'meta/assessment/section'
 
 import { NdpApi } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -35,14 +36,14 @@ test.describe('National data point: remove', () => {
 
       // ==== a class without area puts an error on the point
       await NDPDomUtils.createNewNationalClassification(page, className)
-      await expect(page.locator(areaCell)).toBeVisible({ timeout: 10000 })
+      await expect(page.locator(areaCell)).toBeVisible({ timeout: Timeouts.medium })
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
       await NDPDomUtils.deleteNationalDataPoint(page)
       await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
       await expect(page.locator('.table-grid__odp-link', { hasText: String(seededYear) })).toHaveCount(0, {
-        timeout: 10000,
+        timeout: Timeouts.medium,
       })
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
 
@@ -77,19 +78,19 @@ test.describe('National data point: remove', () => {
       await page.goto(SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: seededYear }))
       await DOMUtils.ensureEditingUnlocked(page)
       await NDPDomUtils.createNewNationalClassification(page, className)
-      await expect(page.locator(areaCell)).toBeVisible({ timeout: 10000 })
+      await expect(page.locator(areaCell)).toBeVisible({ timeout: Timeouts.medium })
 
       await page.goto(SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: otherYear }))
       await DOMUtils.ensureEditingUnlocked(page)
       await NDPDomUtils.createNewNationalClassification(page, className)
-      await expect(page.locator(areaCell)).toBeVisible({ timeout: 10000 })
+      await expect(page.locator(areaCell)).toBeVisible({ timeout: Timeouts.medium })
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
       await NDPDomUtils.deleteNationalDataPoint(page)
       await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
       await expect(page.locator('.table-grid__odp-link', { hasText: String(otherYear) })).toHaveCount(0, {
-        timeout: 10000,
+        timeout: Timeouts.medium,
       })
       await expect(page.locator('.table-grid__odp-link', { hasText: String(seededYear) })).toBeVisible()
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)

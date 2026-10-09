@@ -3,6 +3,8 @@ import { enTranslation } from 'i18n/resources/en'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
+
 import { DOMUtils } from '../dom'
 
 const sendToReviewLabel = enTranslation.assessment.status.review.next
@@ -14,7 +16,7 @@ const cancelLabel = enTranslation.common.cancel
 const _openSendToReview = async (page: Page): Promise<Locator> => {
   const status = page.locator('.nav-header__status.actionable-true')
   await DOMUtils.ensureEditingUnlocked(page)
-  await expect(status).toBeVisible({ timeout: 10_000 })
+  await expect(status).toBeVisible({ timeout: Timeouts.medium })
   await status.click()
   await page.getByText(sendToReviewLabel, { exact: true }).click()
 

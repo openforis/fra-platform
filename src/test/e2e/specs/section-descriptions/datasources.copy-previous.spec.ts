@@ -6,6 +6,7 @@ import { type DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { UUIDs } from 'meta/uuid/uuids'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x12AreaAffectedByFire, x12AreaAffectedByFirePath, x12Disturbances } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
@@ -20,9 +21,6 @@ const variableOption = enTranslation.areaAffectedByFire.totalLandAreaAffectedByF
 const yearOption = '2020'
 
 const randomString = Date.now().toString()
-
-// Timeout time for the socket event that updates the cell errors
-const cellTimeout = 10_000
 
 const getCopyButton = (page: Page): Locator =>
   DescriptionUtils.getDescriptionBlock(page, dataSourcesTitle).locator('button', { hasText: copyLabel })
@@ -132,14 +130,14 @@ test.describe.serial('Section descriptions: data sources - copy previous section
     await DescriptionUtils.save(page, () =>
       DataSourceUtils.selectOption(page, firstReference.text, 'variables', variableOption)
     )
-    await expect(firstVariablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(firstVariablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
     await DataSourceUtils.expectCellError(page, secondVariablesCell)
     await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, true)
 
     await DescriptionUtils.save(page, () =>
       DataSourceUtils.selectOption(page, secondReference.text, 'variables', variableOption)
     )
-    await expect(secondVariablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(secondVariablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
     await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, false)
   })
 

@@ -1,6 +1,7 @@
 import { SectionNames } from 'meta/assessment/section'
 
 import { NdpApi, type NdpSeed } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -45,7 +46,7 @@ test.describe('National data point: year', () => {
 
       // ==== a class without area puts an error on the point
       await NDPDomUtils.createNewNationalClassification(page, className)
-      await expect(page.locator(areaCell)).toBeVisible({ timeout: 10000 })
+      await expect(page.locator(areaCell)).toBeVisible({ timeout: Timeouts.medium })
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
       await NDPDomUtils.changeYear(page, String(otherYear))

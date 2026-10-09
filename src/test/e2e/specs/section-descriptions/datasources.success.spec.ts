@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x13SpecificForestCategories, x13SpecificForestCategoriesPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
@@ -66,8 +67,8 @@ test.describe.serial('Section descriptions: data sources - success', () => {
     })
 
     const table = DataSourceUtils.getTable(page)
-    await expect(table).toContainText(updatedReference.text, { timeout: 10000 })
-    await expect(table).not.toContainText(validReference.text, { timeout: 10000 })
+    await expect(table).toContainText(updatedReference.text, { timeout: Timeouts.medium })
+    await expect(table).not.toContainText(validReference.text, { timeout: Timeouts.medium })
   })
 
   test('NC removes the data source', async ({ authenticatedPage }) => {
@@ -81,7 +82,7 @@ test.describe.serial('Section descriptions: data sources - success', () => {
     await DataSourceUtils.deleteRow(page, updatedReference.text)
 
     await expect(DataSourceUtils.getTable(page)).not.toContainText(updatedReference.text, {
-      timeout: 10000,
+      timeout: Timeouts.medium,
     })
     await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, false)
   })
