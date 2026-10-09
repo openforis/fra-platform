@@ -44,6 +44,16 @@ export const x13SpecificForestCategories: DescriptionLocation = {
 }
 export const x13GrowingStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'growingStock', ...dataSources }
 export const x13BiomassStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'biomassStock', ...dataSources }
+export const x13HolderOfManagementRights: DescriptionLocation = {
+  countryIso: 'X13',
+  sectionName: 'holderOfManagementRights',
+  ...dataSources,
+}
+export const x13HolderOfManagementRightsComments: DescriptionLocation = {
+  countryIso: 'X13',
+  sectionName: 'holderOfManagementRights',
+  ...comments,
+}
 export const x13CarbonStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'carbonStock', ...dataSources }
 export const x13Disturbances: DescriptionLocation = { countryIso: 'X13', sectionName: 'disturbances', ...dataSources }
 
@@ -55,5 +65,7 @@ export const x12AreaAffectedByFirePath = SectionUtils.path(x12AreaAffectedByFire
 export const x13SpecificForestCategoriesPath = SectionUtils.path(x13SpecificForestCategories)
 export const x13GrowingStockPath = SectionUtils.path(x13GrowingStock)
 export const x13BiomassStockPath = SectionUtils.path(x13BiomassStock)
+export const x13HolderOfManagementRightsPath = SectionUtils.path(x13HolderOfManagementRights)
+export const x13PrintPath = SectionUtils.printPath('X13')
 export const x13CarbonStockPath = SectionUtils.path(x13CarbonStock)
 export const x13DisturbancesPath = SectionUtils.path(x13Disturbances)
