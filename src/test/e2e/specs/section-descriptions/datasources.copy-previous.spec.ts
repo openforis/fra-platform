@@ -65,7 +65,7 @@ test.describe.serial('Section descriptions: data sources - copy previous section
 
     // Copying replaces every row of the section, so it's only possible once the section has none
     await expect(getCopyButton(page)).toBeDisabled()
-    await DataSourceUtils.deleteDataSourceRow(page, existingReference.text)
+    await DataSourceUtils.deleteRow(page, existingReference.text)
     await expect(getCopyButton(page)).toBeEnabled()
   })
 
@@ -99,16 +99,16 @@ test.describe.serial('Section descriptions: data sources - copy previous section
       expect(copied.variables).toEqual([])
     })
 
-    const firstVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, firstReference.text)
-    const secondVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, secondReference.text)
-    await DataSourceUtils.expectDataSourceCellError(page, firstVariablesCell)
-    await DataSourceUtils.expectDataSourceCellError(page, secondVariablesCell)
+    const firstVariablesCell = await DataSourceUtils.getVariablesCell(page, firstReference.text)
+    const secondVariablesCell = await DataSourceUtils.getVariablesCell(page, secondReference.text)
+    await DataSourceUtils.expectCellError(page, firstVariablesCell)
+    await DataSourceUtils.expectCellError(page, secondVariablesCell)
 
     // The variable errors are already shown, so the type and year results have arrived too
-    const firstTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, firstReference.text)
-    const firstYearCell = await DataSourceUtils.getDataSourceYearCell(page, firstReference.text)
-    const secondTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, secondReference.text)
-    const secondYearCell = await DataSourceUtils.getDataSourceYearCell(page, secondReference.text)
+    const firstTypeCell = await DataSourceUtils.getTypeCell(page, firstReference.text)
+    const firstYearCell = await DataSourceUtils.getYearCell(page, firstReference.text)
+    const secondTypeCell = await DataSourceUtils.getTypeCell(page, secondReference.text)
+    const secondYearCell = await DataSourceUtils.getYearCell(page, secondReference.text)
     await expect(firstTypeCell).not.toHaveClass(/validation-error/)
     await expect(firstYearCell).not.toHaveClass(/validation-error/)
     await expect(secondTypeCell).not.toHaveClass(/validation-error/)
@@ -125,19 +125,19 @@ test.describe.serial('Section descriptions: data sources - copy previous section
     await DOMUtils.ensureEditingUnlocked(page)
     await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
 
-    const firstVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, firstReference.text)
-    const secondVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, secondReference.text)
-    await DataSourceUtils.expectDataSourceCellError(page, firstVariablesCell)
+    const firstVariablesCell = await DataSourceUtils.getVariablesCell(page, firstReference.text)
+    const secondVariablesCell = await DataSourceUtils.getVariablesCell(page, secondReference.text)
+    await DataSourceUtils.expectCellError(page, firstVariablesCell)
 
     await DescriptionUtils.save(page, () =>
-      DataSourceUtils.selectDataSourceOption(page, firstReference.text, 'variables', variableOption)
+      DataSourceUtils.selectOption(page, firstReference.text, 'variables', variableOption)
     )
     await expect(firstVariablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await DataSourceUtils.expectDataSourceCellError(page, secondVariablesCell)
+    await DataSourceUtils.expectCellError(page, secondVariablesCell)
     await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, true)
 
     await DescriptionUtils.save(page, () =>
-      DataSourceUtils.selectDataSourceOption(page, secondReference.text, 'variables', variableOption)
+      DataSourceUtils.selectOption(page, secondReference.text, 'variables', variableOption)
     )
     await expect(secondVariablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
     await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, false)
@@ -150,8 +150,8 @@ test.describe.serial('Section descriptions: data sources - copy previous section
     await page.goto(x12AreaAffectedByFirePath)
     const dataSourceValidations = (await storedValidations)[x12AreaAffectedByFire.sectionName]?.dataSources ?? {}
 
-    const firstUuid = await DataSourceUtils.getDataSourceRowUuid(page, firstReference.text)
-    const secondUuid = await DataSourceUtils.getDataSourceRowUuid(page, secondReference.text)
+    const firstUuid = await DataSourceUtils.getRowUuid(page, firstReference.text)
+    const secondUuid = await DataSourceUtils.getRowUuid(page, secondReference.text)
     expect(Object.keys(dataSourceValidations).sort()).toEqual([firstUuid, secondUuid].sort())
     expect(dataSourceValidations[firstUuid]?.variables?.valid).toBe(true)
     expect(dataSourceValidations[secondUuid]?.variables?.valid).toBe(true)

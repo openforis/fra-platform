@@ -52,13 +52,13 @@ test.describe.serial('Print view: descriptions - no validation UI', () => {
 
     await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
     await DescriptionUtils.save(page, async () => {
-      const referenceEditor = await DataSourceUtils.addDataSource(page)
+      const referenceEditor = await DataSourceUtils.addRow(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
     })
 
     const commentsError = DescriptionUtils.getDescriptionValidationError(page, commentsTitle)
     await expect(commentsError).toBeVisible({ timeout: linksTimeout })
-    const typeCell = await DataSourceUtils.getDataSourceTypeCell(page, reference.text)
+    const typeCell = await DataSourceUtils.getTypeCell(page, reference.text)
     await expect(typeCell).toHaveClass(/validation-error/, { timeout: cellTimeout })
     await NavigationUtils.subSectionHasError(page, x13HolderOfManagementRightsPath, true)
   })

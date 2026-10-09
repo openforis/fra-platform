@@ -22,11 +22,9 @@ const cellTimeout = 10_000
 const referenceTimeout = 20_000
 
 const fillRequiredFields = async (page: Page, text: string, variableOption: string): Promise<void> => {
-  await DescriptionUtils.save(page, () => DataSourceUtils.selectDataSourceOption(page, text, 'type', typeOption))
-  await DescriptionUtils.save(page, () =>
-    DataSourceUtils.selectDataSourceOption(page, text, 'variables', variableOption)
-  )
-  await DescriptionUtils.save(page, () => DataSourceUtils.selectDataSourceOption(page, text, 'year', yearOption))
+  await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, text, 'type', typeOption))
+  await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, text, 'variables', variableOption))
+  await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, text, 'year', yearOption))
 }
 
 test.describe.serial('Section descriptions: data sources - reference and required field errors', () => {
@@ -49,20 +47,20 @@ test.describe.serial('Section descriptions: data sources - reference and require
 
     await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
     await DescriptionUtils.save(page, async () => {
-      const referenceEditor = await DataSourceUtils.addDataSource(page)
+      const referenceEditor = await DataSourceUtils.addRow(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, invalidLinks.html)
     })
 
-    const referenceCell = await DataSourceUtils.getDataSourceRowReferenceCell(page, invalidLinks.emptyLinkText)
+    const referenceCell = await DataSourceUtils.getReferenceCell(page, invalidLinks.emptyLinkText)
     const referenceField = referenceCell.locator('.editorWYSIWYG')
-    const typeCell = await DataSourceUtils.getDataSourceTypeCell(page, invalidLinks.emptyLinkText)
-    const variablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, invalidLinks.emptyLinkText)
-    const yearCell = await DataSourceUtils.getDataSourceYearCell(page, invalidLinks.emptyLinkText)
+    const typeCell = await DataSourceUtils.getTypeCell(page, invalidLinks.emptyLinkText)
+    const variablesCell = await DataSourceUtils.getVariablesCell(page, invalidLinks.emptyLinkText)
+    const yearCell = await DataSourceUtils.getYearCell(page, invalidLinks.emptyLinkText)
 
     await expect(referenceField).toHaveClass(/validation-error/, { timeout: referenceTimeout })
-    await DataSourceUtils.expectDataSourceCellError(page, typeCell)
-    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
-    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
+    await DataSourceUtils.expectCellError(page, typeCell)
+    await DataSourceUtils.expectCellError(page, variablesCell)
+    await DataSourceUtils.expectCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
 
     await DescriptionUtils.save(page, () =>
@@ -75,9 +73,9 @@ test.describe.serial('Section descriptions: data sources - reference and require
     await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: referenceTimeout })
 
     // The links worker only updates the reference, so the required field errors are still there
-    await DataSourceUtils.expectDataSourceCellError(page, typeCell)
-    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
-    await DataSourceUtils.expectDataSourceCellError(page, yearCell)
+    await DataSourceUtils.expectCellError(page, typeCell)
+    await DataSourceUtils.expectCellError(page, variablesCell)
+    await DataSourceUtils.expectCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
   })
 
@@ -88,7 +86,7 @@ test.describe.serial('Section descriptions: data sources - reference and require
     await page.goto(x13DisturbancesPath)
     const validations = await storedValidations
 
-    const uuid = await DataSourceUtils.getDataSourceRowUuid(page, validReference.text)
+    const uuid = await DataSourceUtils.getRowUuid(page, validReference.text)
     const rowValidations = validations[x13Disturbances.sectionName]?.dataSources?.[uuid]
     expect(rowValidations?.reference?.valid).toBe(true)
     expect(rowValidations?.type?.valid).toBe(false)
@@ -105,11 +103,11 @@ test.describe.serial('Section descriptions: data sources - reference and require
     await DOMUtils.ensureEditingUnlocked(page)
     await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
 
-    const referenceCell = await DataSourceUtils.getDataSourceRowReferenceCell(page, validReference.text)
+    const referenceCell = await DataSourceUtils.getReferenceCell(page, validReference.text)
     const referenceField = referenceCell.locator('.editorWYSIWYG')
-    const typeCell = await DataSourceUtils.getDataSourceTypeCell(page, validReference.text)
-    const variablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, validReference.text)
-    const yearCell = await DataSourceUtils.getDataSourceYearCell(page, validReference.text)
+    const typeCell = await DataSourceUtils.getTypeCell(page, validReference.text)
+    const variablesCell = await DataSourceUtils.getVariablesCell(page, validReference.text)
+    const yearCell = await DataSourceUtils.getYearCell(page, validReference.text)
 
     await DescriptionUtils.save(page, () =>
       DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceCell.locator('.jodit-wysiwyg'), invalidLinks.html)
@@ -133,7 +131,7 @@ test.describe.serial('Section descriptions: data sources - reference and require
     await page.goto(x13DisturbancesPath)
     const validations = await storedValidations
 
-    const uuid = await DataSourceUtils.getDataSourceRowUuid(page, invalidLinks.emptyLinkText)
+    const uuid = await DataSourceUtils.getRowUuid(page, invalidLinks.emptyLinkText)
     const rowValidations = validations[x13Disturbances.sectionName]?.dataSources?.[uuid]
     expect(rowValidations?.reference?.valid).toBe(false)
     expect(rowValidations?.type?.valid).toBe(true)

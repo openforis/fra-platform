@@ -19,7 +19,7 @@ const randomString = Date.now().toString()
 
 const addDataSource = async (page: Page, html: string): Promise<void> => {
   await DescriptionUtils.save(page, async () => {
-    const referenceEditor = await DataSourceUtils.addDataSource(page)
+    const referenceEditor = await DataSourceUtils.addRow(page)
     await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, html)
   })
 }
@@ -47,28 +47,24 @@ test.describe.serial('Section descriptions: data sources - delete rows', () => {
 
     await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
     await addDataSource(page, keptReference.html)
+    await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, keptReference.text, 'type', typeOption))
     await DescriptionUtils.save(page, () =>
-      DataSourceUtils.selectDataSourceOption(page, keptReference.text, 'type', typeOption)
+      DataSourceUtils.selectOption(page, keptReference.text, 'variables', variableOption)
     )
-    await DescriptionUtils.save(page, () =>
-      DataSourceUtils.selectDataSourceOption(page, keptReference.text, 'variables', variableOption)
-    )
-    await DescriptionUtils.save(page, () =>
-      DataSourceUtils.selectDataSourceOption(page, keptReference.text, 'year', yearOption)
-    )
+    await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, keptReference.text, 'year', yearOption))
 
     await addDataSource(page, deletedReference.html)
-    const deletedTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, deletedReference.text)
-    const deletedVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, deletedReference.text)
-    const deletedYearCell = await DataSourceUtils.getDataSourceYearCell(page, deletedReference.text)
-    await DataSourceUtils.expectDataSourceCellError(page, deletedTypeCell)
-    await DataSourceUtils.expectDataSourceCellError(page, deletedVariablesCell)
-    await DataSourceUtils.expectDataSourceCellError(page, deletedYearCell)
+    const deletedTypeCell = await DataSourceUtils.getTypeCell(page, deletedReference.text)
+    const deletedVariablesCell = await DataSourceUtils.getVariablesCell(page, deletedReference.text)
+    const deletedYearCell = await DataSourceUtils.getYearCell(page, deletedReference.text)
+    await DataSourceUtils.expectCellError(page, deletedTypeCell)
+    await DataSourceUtils.expectCellError(page, deletedVariablesCell)
+    await DataSourceUtils.expectCellError(page, deletedYearCell)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
-    const keptTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, keptReference.text)
-    const keptVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, keptReference.text)
-    const keptYearCell = await DataSourceUtils.getDataSourceYearCell(page, keptReference.text)
+    const keptTypeCell = await DataSourceUtils.getTypeCell(page, keptReference.text)
+    const keptVariablesCell = await DataSourceUtils.getVariablesCell(page, keptReference.text)
+    const keptYearCell = await DataSourceUtils.getYearCell(page, keptReference.text)
 
     await expect(keptTypeCell).not.toHaveClass(/validation-error/)
     await expect(keptVariablesCell).not.toHaveClass(/validation-error/)
@@ -86,12 +82,12 @@ test.describe.serial('Section descriptions: data sources - delete rows', () => {
     await DOMUtils.ensureEditingUnlocked(page)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
-    const keptUuid = await DataSourceUtils.getDataSourceRowUuid(page, keptReference.text)
-    const deletedUuid = await DataSourceUtils.getDataSourceRowUuid(page, deletedReference.text)
+    const keptUuid = await DataSourceUtils.getRowUuid(page, keptReference.text)
+    const deletedUuid = await DataSourceUtils.getRowUuid(page, deletedReference.text)
 
     await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
-    await DataSourceUtils.deleteDataSourceRow(page, deletedReference.text)
-    await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(deletedReference.text)
+    await DataSourceUtils.deleteRow(page, deletedReference.text)
+    await expect(DataSourceUtils.getTable(page)).not.toContainText(deletedReference.text)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, false)
 
     const storedValidations = DescriptionsApi.waitForValidations(page)
@@ -116,22 +112,22 @@ test.describe.serial('Section descriptions: data sources - delete rows', () => {
     await addDataSource(page, firstReference.html)
     await addDataSource(page, secondReference.html)
 
-    const firstTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, firstReference.text)
-    const secondTypeCell = await DataSourceUtils.getDataSourceTypeCell(page, secondReference.text)
-    const secondVariablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, secondReference.text)
-    const secondYearCell = await DataSourceUtils.getDataSourceYearCell(page, secondReference.text)
-    await DataSourceUtils.expectDataSourceCellError(page, firstTypeCell)
-    await DataSourceUtils.expectDataSourceCellError(page, secondTypeCell)
+    const firstTypeCell = await DataSourceUtils.getTypeCell(page, firstReference.text)
+    const secondTypeCell = await DataSourceUtils.getTypeCell(page, secondReference.text)
+    const secondVariablesCell = await DataSourceUtils.getVariablesCell(page, secondReference.text)
+    const secondYearCell = await DataSourceUtils.getYearCell(page, secondReference.text)
+    await DataSourceUtils.expectCellError(page, firstTypeCell)
+    await DataSourceUtils.expectCellError(page, secondTypeCell)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
-    const firstUuid = await DataSourceUtils.getDataSourceRowUuid(page, firstReference.text)
-    const secondUuid = await DataSourceUtils.getDataSourceRowUuid(page, secondReference.text)
+    const firstUuid = await DataSourceUtils.getRowUuid(page, firstReference.text)
+    const secondUuid = await DataSourceUtils.getRowUuid(page, secondReference.text)
 
-    await DataSourceUtils.deleteDataSourceRow(page, firstReference.text)
-    await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(firstReference.text)
-    await DataSourceUtils.expectDataSourceCellError(page, secondTypeCell)
-    await DataSourceUtils.expectDataSourceCellError(page, secondVariablesCell)
-    await DataSourceUtils.expectDataSourceCellError(page, secondYearCell)
+    await DataSourceUtils.deleteRow(page, firstReference.text)
+    await expect(DataSourceUtils.getTable(page)).not.toContainText(firstReference.text)
+    await DataSourceUtils.expectCellError(page, secondTypeCell)
+    await DataSourceUtils.expectCellError(page, secondVariablesCell)
+    await DataSourceUtils.expectCellError(page, secondYearCell)
     await NavigationUtils.subSectionHasError(page, x12BiomassStockPath, true)
 
     const storedValidations = DescriptionsApi.waitForValidations(page)

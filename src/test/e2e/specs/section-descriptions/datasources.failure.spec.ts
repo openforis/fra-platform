@@ -36,12 +36,12 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = await DataSourceUtils.addDataSource(page)
+      const referenceEditor = await DataSourceUtils.addRow(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, invalidLinks.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
-    const validationError = DataSourceUtils.getDataSourceReferenceValidationError(page, invalidLinks.emptyLinkText)
+    const validationError = DataSourceUtils.getReferenceValidationError(page, invalidLinks.emptyLinkText)
     await expect(validationError).toBeVisible({ timeout: 20000 })
     await TooltipUtils.expectValidationTooltip(
       page,
@@ -56,9 +56,9 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
 
     // Check that empty cells are showing validation error
     const emptyValueMessage = 'Value cannot be empty'
-    const typeCell = await DataSourceUtils.getDataSourceTypeCell(page, invalidLinks.emptyLinkText)
-    const variablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, invalidLinks.emptyLinkText)
-    const yearCell = await DataSourceUtils.getDataSourceYearCell(page, invalidLinks.emptyLinkText)
+    const typeCell = await DataSourceUtils.getTypeCell(page, invalidLinks.emptyLinkText)
+    const variablesCell = await DataSourceUtils.getVariablesCell(page, invalidLinks.emptyLinkText)
+    const yearCell = await DataSourceUtils.getYearCell(page, invalidLinks.emptyLinkText)
 
     await expect(typeCell).toHaveClass(/validation-error/)
     await TooltipUtils.expectValidationTooltip(page, typeCell, emptyValueMessage)
@@ -70,7 +70,7 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     await TooltipUtils.expectValidationTooltip(page, yearCell, emptyValueMessage)
 
     // Comment cell is the only cell without errors (optional)
-    const commentsCell = await DataSourceUtils.getDataSourceCommentsCell(page, invalidLinks.emptyLinkText)
+    const commentsCell = await DataSourceUtils.getCommentsCell(page, invalidLinks.emptyLinkText)
     await expect(commentsCell).not.toHaveClass(/validation-error/)
 
     await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
@@ -84,12 +84,12 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getDataSourceReferenceEditor(page, invalidLinks.emptyLinkText)
+      const referenceEditor = DataSourceUtils.getReferenceEditor(page, invalidLinks.emptyLinkText)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, fixedReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
-    await expect(DataSourceUtils.getDataSourceReferenceValidationError(page, fixedReference.text)).not.toBeVisible({
+    await expect(DataSourceUtils.getReferenceValidationError(page, fixedReference.text)).not.toBeVisible({
       timeout: 20000,
     })
 
@@ -105,9 +105,9 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()
-    await DataSourceUtils.deleteDataSourceRow(page, fixedReference.text)
+    await DataSourceUtils.deleteRow(page, fixedReference.text)
 
-    await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(fixedReference.text, {
+    await expect(DataSourceUtils.getTable(page)).not.toContainText(fixedReference.text, {
       timeout: 10000,
     })
     await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, false)
