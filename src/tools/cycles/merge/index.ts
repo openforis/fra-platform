@@ -14,6 +14,7 @@ import { updateCache } from 'tools/cycles/merge/updateCache'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { cloneValidations } from 'server/controller/assessment/cloneCycle/_cloneValidations'
 import { DB } from 'server/db/db'
 
 const assessmentName = AssessmentNames.fra
@@ -40,6 +41,7 @@ const merge = async (): Promise<void> => {
     await mergeData(propsMerge, client)
     await mergeMessageTopics(propsMerge, client)
     await mergeActivityLog(propsMerge, client)
+    await cloneValidations({ assessment, countryISOs, cycleSource: cycleFrom, cycleTarget: cycleTo }, client)
 
     // 2. deprecate cycle from
     await deprecateCycleFrom(propsMerge, client)

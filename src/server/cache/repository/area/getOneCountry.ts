@@ -1,15 +1,14 @@
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { _cacheCountries } from 'server/cache/repository/area/cacheCountries'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -29,7 +28,7 @@ export const getOneCountry = async (props: Props, client: BaseProtocol = DB): Pr
 
   _validateCountryIso(countryIso)
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
   const cachedData = await redis.hget(key, countryIso)

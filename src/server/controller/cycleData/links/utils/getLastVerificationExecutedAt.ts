@@ -7,7 +7,6 @@ type LastLinksCheckCompleteTime = Awaited<ReturnType<typeof ActivityLogRepositor
 type Props = {
   activityLog?: LastLinksCheckCompleteTime
   jobStatus?: JobStatusPayload
-  lastVisitedAt?: string
 }
 
 export const getLatestDate = (dates: Array<string | Date | undefined>): string | undefined => {
@@ -24,10 +23,10 @@ export const getLatestDate = (dates: Array<string | Date | undefined>): string |
 }
 
 export const getLastVerificationExecutedAt = (props: Props): string | undefined => {
-  const { activityLog, jobStatus, lastVisitedAt } = props
+  const { activityLog, jobStatus } = props
 
   const lastJobFinishedAt = jobStatus?.status === JobStatus.success ? jobStatus.finishedAt : undefined
   const lastActivityLogCompleteTime = activityLog?.lastCompletedAt ?? undefined
 
-  return getLatestDate([lastJobFinishedAt, lastActivityLogCompleteTime, lastVisitedAt])
+  return getLatestDate([lastJobFinishedAt, lastActivityLogCompleteTime])
 }

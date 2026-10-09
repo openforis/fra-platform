@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { DataTestId } from 'meta/dataTestId/id'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import Select from 'client/components/Inputs/Select'
@@ -31,7 +32,7 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
   return (
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.methodsUsed')}</DataCell>
-      <DataCell lastCol>
+      <DataCell dataTestId={DataTestId.ndpDataSourcesV1MethodsUsed} lastCol>
         {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"

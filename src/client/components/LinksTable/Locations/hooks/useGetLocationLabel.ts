@@ -9,7 +9,6 @@ import { Links } from 'meta/cycleData/links/links'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 
 type Props = {
   includeCountryIso?: boolean
@@ -25,9 +24,8 @@ type Returned = (props: GetLabelProps) => string
 export const useGetLocationLabel = (props: Props): Returned => {
   const { includeCountryIso } = props
   const { t } = useTranslation()
-  const isPanEuropean = useIsPanEuropeanRoute()
-  const sections = useSections()
   const assessment = useAssessment()
+  const sections = useSections()
   const cycle = useCycle()
 
   const subSections = useMemo<Array<SubSection>>(
@@ -42,12 +40,11 @@ export const useGetLocationLabel = (props: Props): Returned => {
         countryIso,
         cycle,
         includeCountryIso,
-        isPanEuropean,
         location,
         subSections,
         t,
       })
     },
-    [assessment, cycle, includeCountryIso, isPanEuropean, subSections, t]
+    [assessment, cycle, includeCountryIso, subSections, t]
   )
 }

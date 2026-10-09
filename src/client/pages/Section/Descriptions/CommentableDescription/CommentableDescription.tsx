@@ -9,16 +9,16 @@ import {
 } from 'client/store/data/descriptions/hooks/descriptions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
-import { useCanEditCycleData, useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import { useLinkValidationErrors } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
 import { useSectionContext } from 'client/pages/Section/context'
 import Title from 'client/pages/Section/Descriptions/Title'
 
 import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
 import { useOnChange } from './hooks/useOnChange'
+import { useValidationErrors } from './hooks/useValidationErrors'
 import DescriptionDiffView from './DescriptionDiffView'
 
 type Props = {
@@ -40,10 +40,9 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const displayHistory = historyLastApprovedIsActive && historyLastApprovedDescriptionFetched && descriptionsFetched
 
   const canEdit = useCanEditDescription({ sectionName })
-  const canEditCycleData = useCanEditCycleData()
   const editable = useIsDescriptionEditable({ sectionName, name })
   const onChange = useOnChange({ sectionName, name })
-  const validationErrors = useLinkValidationErrors({ enabled: canEditCycleData && !print, value: value.text })
+  const validationErrors = useValidationErrors({ name, sectionName })
 
   return (
     <DataGrid className="description" withActions={canEdit}>

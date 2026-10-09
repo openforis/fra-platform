@@ -10,18 +10,18 @@ import { getNDPSelect } from './_getNDPSelect'
 
 type Props = {
   assessment: Assessment
-  countryIso: CountryIso
+  countryISOs: Array<CountryIso>
   cycle: Cycle
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<OriginalDataPoint>> => {
-  const { assessment, countryIso, cycle } = props
+  const { assessment, countryISOs, cycle } = props
 
   const select = getNDPSelect({ assessment, cycle })
 
   return client.map<OriginalDataPoint>(
-    `${select} where odp.country_iso = $(countryIso);`,
-    { countryIso },
+    `${select} where odp.country_iso in ($(countryISOs:csv));`,
+    { countryISOs },
     OriginalDataPointAdapter
   )
 }

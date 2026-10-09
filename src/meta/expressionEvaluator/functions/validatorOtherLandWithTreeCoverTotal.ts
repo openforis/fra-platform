@@ -1,14 +1,14 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorOtherLandWithTreeCoverTotal: ExpressionFunction<Context> = {
-  name: 'validatorOtherLandWithTreeCoverTotal',
+  name: ValidatorName.otherLandWithTreeCoverTotal,
   minArity: 2,
   executor: () => {
     return (otherLand?: string, otherLandWithTreeCoverTotal?: string): NodeValueValidation => {
@@ -19,7 +19,12 @@ export const validatorOtherLandWithTreeCoverTotal: ExpressionFunction<Context> =
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.otherLandExceedsExtentOfForest' }]
+        : [
+            {
+              name: ValidatorName.otherLandWithTreeCoverTotal,
+              key: 'generalValidation.otherLandExceedsExtentOfForest',
+            },
+          ]
 
       return { valid, messages }
     }
