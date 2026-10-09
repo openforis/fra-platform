@@ -2,6 +2,7 @@ import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
 import { NdpApi } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -54,7 +55,7 @@ test.describe('National data point: percentages', () => {
       await NDPDomUtils.fillNationalClassForestPercent(page, className, '60')
       await NDPDomUtils.fillNationalClassOWLPercent(page, className, '40') // totals to 100
 
-      await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0, { timeout: 10000 })
+      await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0, { timeout: Timeouts.medium })
       await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1a')).toHaveCount(0)
 
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
@@ -85,13 +86,13 @@ test.describe('National data point: percentages', () => {
       await page.goto(ndp1bPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
-      await expect(NDPDomUtils.getNaturallyRegeneratingTable(page)).toBeVisible({ timeout: 10000 })
-      await expect(NDPDomUtils.getPlantationTable(page)).toBeVisible({ timeout: 10000 })
+      await expect(NDPDomUtils.getNaturallyRegeneratingTable(page)).toBeVisible({ timeout: Timeouts.medium })
+      await expect(NDPDomUtils.getPlantationTable(page)).toBeVisible({ timeout: Timeouts.medium })
 
       await NDPDomUtils.fillNationalClassPrimaryForestPercent(page, className, '100')
       await NDPDomUtils.fillNationalClassPlantationIntroducedPercent(page, className, '100')
 
-      await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0, { timeout: 10000 })
+      await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0, { timeout: Timeouts.medium })
       await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1b')).toHaveCount(0)
 
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
@@ -128,7 +129,7 @@ test.describe('National data point: percentages', () => {
         year: seededYear,
       })
       const percentageCell = page.locator('.fra-table:not(.odp__sub-table) td.fra-table__cell.validation-error')
-      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await expect(percentageCell.first()).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, percentageCell.first(), `${className} sum must be equal to 100%`)
       await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1b')).toBeVisible()
 
@@ -157,7 +158,7 @@ test.describe('National data point: percentages', () => {
         sectionName: SectionNames.forestCharacteristics,
         year: seededYear,
       })
-      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await expect(percentageCell.first()).toBeVisible({ timeout: Timeouts.medium })
     })
   })
 })

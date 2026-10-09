@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x13GrowingStock, x13GrowingStockPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
@@ -42,7 +43,7 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     })
 
     const validationError = DataSourceUtils.getReferenceValidationError(page, invalidLinks.emptyLinkText)
-    await expect(validationError).toBeVisible({ timeout: 20000 })
+    await expect(validationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
       validationError,
@@ -90,7 +91,7 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     })
 
     await expect(DataSourceUtils.getReferenceValidationError(page, fixedReference.text)).not.toBeVisible({
-      timeout: 20000,
+      timeout: Timeouts.extraLong,
     })
 
     // Type, variables and year are still empty, so the section keeps the error
@@ -108,7 +109,7 @@ test.describe.serial('Section descriptions: data sources - failure', () => {
     await DataSourceUtils.deleteRow(page, fixedReference.text)
 
     await expect(DataSourceUtils.getTable(page)).not.toContainText(fixedReference.text, {
-      timeout: 10000,
+      timeout: Timeouts.medium,
     })
     await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, false)
   })

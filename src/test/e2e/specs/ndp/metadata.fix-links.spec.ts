@@ -2,6 +2,7 @@ import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 
 import { NdpApi } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
@@ -43,10 +44,10 @@ test.describe('National data point: metadata - fix links', () => {
     // ==== 1a comments: the links worker flags the invalid links, then clears them once replaced
     await NDPDomUtils.fillComments(page, extentOfForestInvalidLinks.html)
     const extentOfForestValidationError = NDPDomUtils.getCommentsValidationError(page)
-    await expect(extentOfForestValidationError).toBeVisible({ timeout: 20000 })
+    await expect(extentOfForestValidationError).toBeVisible({ timeout: Timeouts.extraLong })
 
     await NDPDomUtils.fillComments(page, extentOfForestValidLink.html)
-    await expect(extentOfForestValidationError).not.toBeVisible({ timeout: 20000 })
+    await expect(extentOfForestValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
 
     // ==== 1b comments: same clearing on the forestCharacteristics link field
     await NDPDomUtils.switchSection(page, {
@@ -56,10 +57,10 @@ test.describe('National data point: metadata - fix links', () => {
     })
     await NDPDomUtils.fillComments(page, forestCharacteristicsInvalidLinks.html)
     const forestCharacteristicsValidationError = NDPDomUtils.getCommentsValidationError(page)
-    await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: 20000 })
+    await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: Timeouts.extraLong })
 
     await NDPDomUtils.fillComments(page, forestCharacteristicsValidLink.html)
-    await expect(forestCharacteristicsValidationError).not.toBeVisible({ timeout: 20000 })
+    await expect(forestCharacteristicsValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
 
     // ==== valid links aren't stored, so after a reload the fixed fields are missing from the stored validations
     let storedValidations = NdpApi.waitForValidations(page)
@@ -87,10 +88,10 @@ test.describe('National data point: metadata - fix links', () => {
 
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
     const referenceValidationError = NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)
-    await expect(referenceValidationError).toBeVisible({ timeout: 20000 })
+    await expect(referenceValidationError).toBeVisible({ timeout: Timeouts.extraLong })
 
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
-    await expect(referenceValidationError).not.toBeVisible({ timeout: 20000 })
+    await expect(referenceValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
 
     // ==== valid links aren't stored, so after a reload the fixed reference is missing from the stored validations
     const storedValidations = NdpApi.waitForValidations(page)

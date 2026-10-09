@@ -1,6 +1,7 @@
 import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -38,7 +39,7 @@ test.describe('National data point: extent of forest - failure', () => {
       await NDPDomUtils.editNationalClassification(page, '')
 
       const nameCell = page.locator('.data-cell.validation-error')
-      await expect(nameCell).toBeVisible({ timeout: 10000 })
+      await expect(nameCell).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, nameCell, 'Value cannot be empty')
 
       // Check for error flag in navigation for both 1a and 1b
@@ -60,7 +61,7 @@ test.describe('National data point: extent of forest - failure', () => {
       await NDPDomUtils.createNewNationalClassification(page, className)
 
       const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-      await expect(areaCell).toBeVisible({ timeout: 10000 })
+      await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
 
       // Check for error flag in navigation for 1a - 1b show not have an error
@@ -81,15 +82,15 @@ test.describe('National data point: extent of forest - failure', () => {
       await NDPDomUtils.createNewNationalClassification(page, className)
 
       const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-      await expect(areaCell).toBeVisible({ timeout: 10000 })
+      await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
 
       // Zero counts as a value, only an empty area is invalid
       await NDPDomUtils.fillNationalClassArea(page, className, '0')
-      await expect(areaCell).toHaveCount(0, { timeout: 10000 })
+      await expect(areaCell).toHaveCount(0, { timeout: Timeouts.medium })
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
 
       await NDPDomUtils.fillNationalClassArea(page, className, '')
-      await expect(areaCell).toBeVisible({ timeout: 10000 })
+      await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
     })
@@ -112,7 +113,7 @@ test.describe('National data point: extent of forest - failure', () => {
       await NDPDomUtils.fillNationalClassOWLPercent(page, className, '50') // totals to 110
 
       const percentageCell = page.locator('td.fra-table__cell.validation-error')
-      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await expect(percentageCell.first()).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(
         page,
         percentageCell.first(),

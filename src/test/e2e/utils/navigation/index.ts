@@ -2,6 +2,8 @@ import { expect, Locator, Page } from '@playwright/test'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
+
 import { DOMUtils } from '../dom'
 
 const getNavigationSubSectionItem = (page: Page, path: string): Locator =>
@@ -10,9 +12,9 @@ const getNavigationSubSectionItem = (page: Page, path: string): Locator =>
 const _expectErrorIndicator = async (locator: Locator, visible: boolean): Promise<void> => {
   const indicator = locator.locator('.validation-error-indicator')
   if (visible) {
-    await expect(indicator).toBeVisible({ timeout: 20000 })
+    await expect(indicator).toBeVisible({ timeout: Timeouts.extraLong })
   } else {
-    await expect(indicator).toHaveCount(0, { timeout: 20000 })
+    await expect(indicator).toHaveCount(0, { timeout: Timeouts.extraLong })
   }
 }
 

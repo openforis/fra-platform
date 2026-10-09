@@ -1,5 +1,6 @@
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
@@ -44,7 +45,7 @@ test.describe('National data point: metadata - failure', () => {
     await NDPDomUtils.fillComments(page, extentOfForestInvalidLinks.html)
 
     const extentOfForestValidationError = NDPDomUtils.getCommentsValidationError(page)
-    await expect(extentOfForestValidationError).toBeVisible({ timeout: 20000 })
+    await expect(extentOfForestValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
       extentOfForestValidationError,
@@ -73,7 +74,7 @@ test.describe('National data point: metadata - failure', () => {
     await NDPDomUtils.fillComments(page, forestCharacteristicsInvalidLinks.html)
 
     const forestCharacteristicsValidationError = NDPDomUtils.getCommentsValidationError(page)
-    await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: 20000 })
+    await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
       forestCharacteristicsValidationError,
@@ -105,7 +106,7 @@ test.describe('National data point: metadata - failure', () => {
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
 
     const referenceValidationError = NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)
-    await expect(referenceValidationError).toBeVisible({ timeout: 20000 })
+    await expect(referenceValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
       referenceValidationError,

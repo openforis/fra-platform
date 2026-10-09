@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   x12CarbonStockClassification,
   x12CarbonStockEstimation,
@@ -19,9 +20,6 @@ const classificationTitle = enTranslation.description.nationalClassificationAndD
 
 const randomString = Date.now().toString()
 
-// Timeout time for the links worker that checks the text and updates its errors
-const linksTimeout = 20_000
-
 const pasteLinks = async (page: Page, title: string, html: string): Promise<void> => {
   await DescriptionUtils.save(page, async () => {
     await DescriptionUtils.getDescriptionToggleEditButton(page, title, 'Edit').click()
@@ -31,7 +29,7 @@ const pasteLinks = async (page: Page, title: string, html: string): Promise<void
 }
 
 const expectLinkErrors = async (page: Page, error: Locator, emptyLinkText: string): Promise<void> => {
-  await expect(error).toBeVisible({ timeout: linksTimeout })
+  await expect(error).toBeVisible({ timeout: Timeouts.extraLong })
   await TooltipUtils.expectValidationTooltip(page, error, `Invalid link: "${emptyLinkText}" (Empty)`)
 }
 
@@ -78,7 +76,7 @@ test.describe.serial('Section descriptions: text links - fix and remove', () => 
     await expect(estimationError).toBeVisible()
 
     await pasteLinks(page, estimationTitle, estimationValidLink.html)
-    await expect(estimationError).not.toBeVisible({ timeout: linksTimeout })
+    await expect(estimationError).not.toBeVisible({ timeout: Timeouts.extraLong })
 
     // Only the edited description gets its links checked again, so the other one still has its error
     await expect(classificationError).toBeVisible()
@@ -115,7 +113,7 @@ test.describe.serial('Section descriptions: text links - fix and remove', () => 
       await DescriptionUtils.fillEditorWysiwyg(page, classificationEditor, [classificationPlainText])
       await DescriptionUtils.getDescriptionToggleEditButton(page, classificationTitle, 'Done').click()
     })
-    await expect(classificationError).not.toBeVisible({ timeout: linksTimeout })
+    await expect(classificationError).not.toBeVisible({ timeout: Timeouts.extraLong })
     await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
   })
 

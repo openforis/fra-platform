@@ -1,5 +1,6 @@
 import { TableNames } from 'meta/assessment/table'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   x05ForestAreaChange,
   x05ForestAreaChangePath,
@@ -26,7 +27,9 @@ test.describe('Section tables: 1d - negative forest_expansion and deforestation'
     const page = authenticatedPage
 
     await page.goto(x05ForestAreaChangePath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -78,7 +81,9 @@ test.describe('Section tables: 1d - afforestation exceeds forest_expansion', () 
     const page = authenticatedPage
 
     await page.goto(x05ForestAreaChangePath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -113,7 +118,9 @@ test.describe('Section tables: 1d - afforestation and natural_expansion do not s
     const page = authenticatedPage
 
     await page.goto(x05ForestAreaChangePath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -165,7 +172,9 @@ test.describe('Section tables: 1d - validation errors persist on page reload', (
     const forestAreaChangeNavItem = NavigationUtils.getNavigationSubSectionItem(page, x16ForestAreaChangePath)
 
     await page.goto(x16ExtentOfForestPath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -174,11 +183,15 @@ test.describe('Section tables: 1d - validation errors persist on page reload', (
 
     await NavigationUtils.subSectionHasError(page, x16ForestAreaChangePath, true)
     await forestAreaChangeNavItem.click()
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await TableDomUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
 
     await page.goto(x16ForestAreaChangePath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
 
     await TableDomUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
     await TableDomUtils.expectTableHasError(page, TableNames.forestAreaChange)

@@ -2,6 +2,7 @@ import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 
 import { NdpApi } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
@@ -37,16 +38,16 @@ test.describe('National data point: preserve errors', () => {
     // ==== a class without area and invalid links in the comments put two errors on 1a
     await NDPDomUtils.createNewNationalClassification(page, className)
     const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-    await expect(areaCell).toBeVisible({ timeout: 10000 })
+    await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
 
     await NDPDomUtils.fillComments(page, invalidLinks.html)
     const commentsValidationError = NDPDomUtils.getCommentsValidationError(page)
-    await expect(commentsValidationError).toBeVisible({ timeout: 20000 })
+    await expect(commentsValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
     // ==== fixing the area leaves the link error in place
     await NDPDomUtils.fillNationalClassArea(page, className, '1000')
-    await expect(areaCell).toHaveCount(0, { timeout: 10000 })
+    await expect(areaCell).toHaveCount(0, { timeout: Timeouts.medium })
     await expect(commentsValidationError).toBeVisible()
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
@@ -61,7 +62,7 @@ test.describe('National data point: preserve errors', () => {
     // ==== fixing the link clears the point
     await DOMUtils.ensureEditingUnlocked(page)
     await NDPDomUtils.fillComments(page, validLink.html)
-    await expect(commentsValidationError).not.toBeVisible({ timeout: 20000 })
+    await expect(commentsValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
 
     storedValidations = NdpApi.waitForValidations(page)
@@ -84,16 +85,16 @@ test.describe('National data point: preserve errors', () => {
     // ==== a class without area and invalid links in the comments put two errors on 1a
     await NDPDomUtils.createNewNationalClassification(page, className)
     const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-    await expect(areaCell).toBeVisible({ timeout: 10000 })
+    await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
 
     await NDPDomUtils.fillComments(page, invalidLinks.html)
     const commentsValidationError = NDPDomUtils.getCommentsValidationError(page)
-    await expect(commentsValidationError).toBeVisible({ timeout: 20000 })
+    await expect(commentsValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
     // ==== fixing the link leaves the area error in place
     await NDPDomUtils.fillComments(page, validLink.html)
-    await expect(commentsValidationError).not.toBeVisible({ timeout: 20000 })
+    await expect(commentsValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
     await expect(areaCell).toBeVisible()
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
 
@@ -108,7 +109,7 @@ test.describe('National data point: preserve errors', () => {
     // ==== filling the area clears the point
     await DOMUtils.ensureEditingUnlocked(page)
     await NDPDomUtils.fillNationalClassArea(page, className, '1000')
-    await expect(areaCell).toHaveCount(0, { timeout: 10000 })
+    await expect(areaCell).toHaveCount(0, { timeout: Timeouts.medium })
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
 
     storedValidations = NdpApi.waitForValidations(page)
