@@ -7,6 +7,6 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 export const PrintApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.CycleData.Print.Report.one(), AuthMiddleware.requireView, report)
+    express.get(ApiEndPoint.CycleData.Print.Report.one(), AuthMiddleware.requireViewCountry, report)
   },
 }

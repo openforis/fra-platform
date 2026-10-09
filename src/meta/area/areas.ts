@@ -30,6 +30,8 @@ const isISOCountry = (isoCode: string): boolean => (countryISOs as ReadonlyArray
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => regionCodes.includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
+const isAreaCode = (isoCode: string): boolean =>
+  isISOCountry(isoCode) || isGlobal(isoCode as Global) || isRegion(isoCode)
 const getStatus = (country: Country): CountryStatus => {
   const { status } = country?.props ?? {}
 
@@ -73,6 +75,7 @@ export const Areas = {
   getStatus,
   getTranslationKey,
   hasVoluntaryUpdates,
+  isAreaCode,
   isAtlantis,
   isFRARegion,
   isGlobal,

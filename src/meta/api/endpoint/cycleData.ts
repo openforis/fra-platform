@@ -83,6 +83,7 @@ export const CycleData = {
     estimate: (): string => apiPath('cycle-data', 'table', 'estimate'),
     nodes: (): string => apiPath('cycle-data', 'table', 'nodes'),
     tableData: (): string => apiPath('cycle-data', 'table', 'table-data'),
+    tableDataAggregated: (): string => apiPath('cycle-data', 'table', 'table-data', 'aggregated'),
     tableDataHistory: (): string => apiPath('cycle-data', 'table', 'table-data', 'history'),
     tableClear: (): string => apiPath('cycle-data', 'table', 'clear'),
     nodeValuesEstimations: (): string => apiPath('cycle-data', 'table', 'node-values-estimations'),
