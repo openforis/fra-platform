@@ -53,7 +53,7 @@ const seedDataSourceWithoutVariables = async (page: Page, location: DescriptionL
 
 const expectDataSourcesHidden = async (page: Page): Promise<void> => {
   await expect(DescriptionUtils.getDescriptionBlock(page, commentsTitle)).toBeVisible()
-  await expect(DataSourceUtils.getDataSourceTable(page)).toHaveCount(0)
+  await expect(DataSourceUtils.getTable(page)).toHaveCount(0)
 }
 
 test.describe('Section descriptions: data sources - hidden with NDP data', () => {
@@ -78,8 +78,8 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     let summaryLoaded = NavigationUtils.waitForValidationSummary(page)
     await page.goto(belExtentOfForestPath)
     await summaryLoaded
-    const variablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, reference)
-    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    const variablesCell = await DataSourceUtils.getVariablesCell(page, reference)
+    await DataSourceUtils.expectCellError(page, variablesCell)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, true)
 
     await NdpApi.create(page, ndpSeed)
@@ -97,7 +97,7 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     summaryLoaded = NavigationUtils.waitForValidationSummary(page)
     await page.goto(belExtentOfForestPath)
     await summaryLoaded
-    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    await DataSourceUtils.expectCellError(page, variablesCell)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, true)
   })
 
@@ -112,8 +112,8 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     await page.goto(belForestCharacteristicsPath)
     await summaryLoaded
     await DOMUtils.ensureEditingUnlocked(page)
-    const variablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, reference)
-    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    const variablesCell = await DataSourceUtils.getVariablesCell(page, reference)
+    await DataSourceUtils.expectCellError(page, variablesCell)
     await NavigationUtils.subSectionHasError(page, belForestCharacteristicsPath, true)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, false)
 
@@ -131,7 +131,7 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     summaryRefetched = NavigationUtils.waitForValidationSummary(page)
     await NDPDomUtils.clickToggleNDPUsage(page)
     await summaryRefetched
-    await DataSourceUtils.expectDataSourceCellError(page, variablesCell)
+    await DataSourceUtils.expectCellError(page, variablesCell)
     await NavigationUtils.subSectionHasError(page, belForestCharacteristicsPath, true)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, false)
   })
