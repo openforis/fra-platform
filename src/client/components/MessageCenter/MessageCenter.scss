@@ -8,4 +8,6 @@
   position: fixed;
   height: calc(100% - $ui-app-header-height - 50px);
   display: flex;
+  // allow pass through the container
+  pointer-events: none;
 }
