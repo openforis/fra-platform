@@ -1,26 +1,45 @@
 import React, { useMemo } from 'react'
-
-import { Resizable as ReResizable, ResizeCallback } from 're-resizable'
+import { Props as RndProps, Rnd, RndDragCallback, RndResizeCallback } from 'react-rnd'
 
 type ResizableProps = {
+  // bonds: selector for the element the box must stay inside of
+  bounds?: string
   className?: string
-  defaultSize?: {
-    width: number | string
-    height: number | string
-  }
+  // dragHandleClassName: makes the element draggable
+  dragHandleClassName?: string
   maxHeight?: number | string
   minHeight?: number | string
   maxWidth?: number | string
   minWidth?: number | string
-  onResize?: ResizeCallback
+  onDragStop?: RndDragCallback
+  onResize?: RndResizeCallback
+  onResizeStop?: RndResizeCallback
+  position: RndProps['position']
+  size: RndProps['size']
+  style?: React.CSSProperties
 }
 
 type Props = React.PropsWithChildren<ResizableProps>
 
 const Resizable: React.FC<Props> = (props: Props) => {
-  const { children, className, defaultSize, maxHeight, maxWidth, minHeight, minWidth, onResize } = props
+  const {
+    bounds,
+    children,
+    className,
+    dragHandleClassName,
+    maxHeight,
+    maxWidth,
+    minHeight,
+    minWidth,
+    onDragStop,
+    onResize,
+    onResizeStop,
+    position,
+    size,
+    style,
+  } = props
 
-  const enable = useMemo(
+  const enableResizing = useMemo(
     () => ({
       bottom: false,
       bottomLeft: false,
@@ -35,18 +54,26 @@ const Resizable: React.FC<Props> = (props: Props) => {
   )
 
   return (
-    <ReResizable
+    <Rnd
+      bounds={bounds}
+      cancel="button"
       className={className}
-      defaultSize={defaultSize}
-      enable={enable}
+      disableDragging={!dragHandleClassName}
+      dragHandleClassName={dragHandleClassName}
+      enableResizing={enableResizing}
       maxHeight={maxHeight}
       maxWidth={maxWidth}
       minHeight={minHeight}
       minWidth={minWidth}
+      onDragStop={onDragStop}
       onResize={onResize}
+      onResizeStop={onResizeStop}
+      position={position}
+      size={size}
+      style={style}
     >
       {React.Children.toArray(children)}
-    </ReResizable>
+    </Rnd>
   )
 }
 
