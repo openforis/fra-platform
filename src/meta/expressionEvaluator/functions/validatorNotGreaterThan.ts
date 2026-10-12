@@ -11,7 +11,7 @@ export const validatorNotGreaterThan: ExpressionFunction<Context> = {
   name: ValidatorName.notGreaterThan,
   minArity: 2,
   executor: () => {
-    return (value?: string, maxValue?: string): NodeValueValidation => {
+    return (value?: string, maxValue?: string, additionalMessageKey?: string): NodeValueValidation => {
       const valid = Objects.isEmpty(value) || !Numbers.greaterThan(value, maxValue)
 
       const messages: Array<NodeValueValidationMessage> = valid
@@ -23,6 +23,9 @@ export const validatorNotGreaterThan: ExpressionFunction<Context> = {
               params: { maxValue },
             },
           ]
+      if (!valid && !Objects.isEmpty(additionalMessageKey)) {
+        messages.push({ name: ValidatorName.notGreaterThan, key: additionalMessageKey })
+      }
 
       return { valid, messages }
     }
