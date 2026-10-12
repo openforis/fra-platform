@@ -130,7 +130,7 @@
     "bignumber.js": "^11.1.4",
     "bullmq": "^5.79.1",
     "classnames": "^2.3.1",
-    "compression": "^1.8.1",
+    "compression": "^1.8.2",
     "connect-wwwhisper": "^0.1.21",
     "cookie-parser": "^1.4.7",
     "d3": "^7.9.0",
