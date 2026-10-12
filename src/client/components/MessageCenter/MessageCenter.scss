@@ -1,11 +1,21 @@
 @use 'src/client/style/partials' as *;
 
 .topic-container {
+  left: 0;
   right: 0;
   height: calc(100vh - $ui-app-header-height);
   z-index: $z-index-panel-review;
   flex-shrink: 0;
   position: fixed;
   height: calc(100% - $ui-app-header-height - 50px);
-  display: flex;
+  // allow click through
+  pointer-events: none;
+}
+
+.topic-dock {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
 }
