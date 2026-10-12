@@ -5,6 +5,8 @@ import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
+
 import { DOMUtils } from './dom'
 import { MailUtil } from './Mail'
 import { TestUserData } from './User'
@@ -43,7 +45,7 @@ const adminInvite = async (
   await DOMUtils.selectOption(page, { id: 'select-role' }, role)
   await page.getByRole('button', { name: 'Submit' }).click()
   // Wait for the success toast confirming the invite was sent
-  await expect(page.getByText(`${email} has been added`)).toBeVisible({ timeout: 10_000 })
+  await expect(page.getByText(`${email} has been added`)).toBeVisible({ timeout: Timeouts.medium })
 
   return MailUtil.getInvitationLink(email)
 }

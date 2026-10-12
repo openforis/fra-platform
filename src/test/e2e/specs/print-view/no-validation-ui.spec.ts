@@ -1,3 +1,4 @@
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x14ExtentOfForest, x14PrintTablesPath } from 'test/e2e/data/sectionTables'
 import { expect, test } from 'test/e2e/fixtures/table'
 import { TableDomUtils } from 'test/e2e/utils/table'
@@ -12,7 +13,7 @@ test.describe('Print view: no validation UI', () => {
     const page = authenticatedPage
 
     await page.goto(x14PrintTablesPath)
-    await expect(page.locator('.print__container')).toBeVisible({ timeout: 20000 })
+    await expect(page.locator('.print__container')).toBeVisible({ timeout: Timeouts.extraLong })
 
     await expect(page.locator('.data-validations')).toHaveCount(0)
     await TableDomUtils.expectCellHasNoValidationError(page, 'forestArea', '2025')

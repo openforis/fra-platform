@@ -2,6 +2,8 @@ import { expect, Locator, Page } from '@playwright/test'
 
 import { Numbers } from 'utils/numbers'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
+
 import { DOMUtils } from '../dom'
 import { NdpPathProps, SectionUtils } from '../section'
 
@@ -30,30 +32,32 @@ const expectCellValue = async (
 ): Promise<void> => {
   await expect(async () => {
     expect(await getCellValue(page, variableName, colName, tableName)).toBe(value)
-  }).toPass({ timeout: 10000 })
+  }).toPass({ timeout: Timeouts.medium })
 }
 
 // A NDP column only exists while there is NDP for that year
 const expectCellMissing = async (page: Page, variableName: string, colName: string): Promise<void> => {
-  await expect(cellLocator(page, variableName, colName)).toHaveCount(0, { timeout: 10000 })
+  await expect(cellLocator(page, variableName, colName)).toHaveCount(0, { timeout: Timeouts.medium })
 }
 
 const expectCellReadOnly = async (page: Page, variableName: string, colName: string): Promise<void> => {
   await expect(cellLocator(page, variableName, colName).locator('.input-text.disabled')).toBeVisible({
-    timeout: 10000,
+    timeout: Timeouts.medium,
   })
 }
 
 const expectCellEditable = async (page: Page, variableName: string, colName: string): Promise<void> => {
-  await expect(cellLocator(page, variableName, colName).locator('input')).toBeEnabled({ timeout: 10000 })
+  await expect(cellLocator(page, variableName, colName).locator('input')).toBeEnabled({ timeout: Timeouts.medium })
 }
 
 const expectCellHasValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
-  await expect(cellLocator(page, variableName, colName)).toHaveClass(/validation-error/, { timeout: 10000 })
+  await expect(cellLocator(page, variableName, colName)).toHaveClass(/validation-error/, { timeout: Timeouts.medium })
 }
 
 const expectCellHasNoValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
-  await expect(cellLocator(page, variableName, colName)).not.toHaveClass(/validation-error/, { timeout: 10000 })
+  await expect(cellLocator(page, variableName, colName)).not.toHaveClass(/validation-error/, {
+    timeout: Timeouts.medium,
+  })
 }
 
 const fillCell = async (page: Page, variableName: string, colName: string, value: string): Promise<void> => {
@@ -74,7 +78,7 @@ const clearTable = async (page: Page, tableName: string): Promise<void> => {
 }
 
 const expectTableHasError = async (page: Page, tableName: string): Promise<void> => {
-  await expect(tableValidationErrors(page, tableName)).toBeVisible({ timeout: 10000 })
+  await expect(tableValidationErrors(page, tableName)).toBeVisible({ timeout: Timeouts.medium })
 }
 
 const expectTableHasNoError = async (page: Page, tableName: string): Promise<void> => {

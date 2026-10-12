@@ -7,6 +7,7 @@ import { Numbers } from 'utils/numbers'
 
 import { InviteApi } from 'test/e2e/api/invite'
 import { testCredentials } from 'test/e2e/config/credentials'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { AuthUtils } from 'test/e2e/utils/Auth'
 import { DOMUtils } from 'test/e2e/utils/dom'
@@ -228,7 +229,7 @@ testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, ro
       // Should NOT land on the invitation accept form
       await expect(authenticatedPage).not.toHaveURL(/\/login\/invitation\//)
       // Should show a notification explaining the mismatch
-      await expect(authenticatedPage.getByText(/linked to a different user/i)).toBeVisible({ timeout: 10_000 })
+      await expect(authenticatedPage.getByText(/linked to a different user/i)).toBeVisible({ timeout: Timeouts.medium })
     })
   })
 })

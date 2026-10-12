@@ -1,5 +1,6 @@
 import { TableNames } from 'meta/assessment/table'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   albExtentOfForest,
   albExtentOfForest2020,
@@ -47,18 +48,24 @@ test.describe('Section tables: 1a - forestArea change triggers net change error 
     const forestAreaChangeNavItem = NavigationUtils.getNavigationSubSectionItem(page, x07ForestAreaChangePath)
 
     await page.goto(x07ExtentOfForestPath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1500')
     await cellSaved
 
-    await expect(forestAreaChangeNavItem.locator('.validation-error-indicator')).toBeVisible({ timeout: 20000 })
+    await expect(forestAreaChangeNavItem.locator('.validation-error-indicator')).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
 
     await forestAreaChangeNavItem.click()
     await expect(page).toHaveURL(/\/sections\/forestAreaChange$/)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await TableDomUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
     await TableDomUtils.expectTableHasError(page, TableNames.forestAreaChange)
 
@@ -69,7 +76,9 @@ test.describe('Section tables: 1a - forestArea change triggers net change error 
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1000')
     await cellRestored
 
-    await expect(forestAreaChangeNavItem.locator('.validation-error-indicator')).toHaveCount(0, { timeout: 20000 })
+    await expect(forestAreaChangeNavItem.locator('.validation-error-indicator')).toHaveCount(0, {
+      timeout: Timeouts.extraLong,
+    })
     await forestAreaChangeNavItem.click()
     await expect(page).toHaveURL(/\/sections\/forestAreaChange$/)
     await TableDomUtils.expectCellHasNoValidationError(page, 'forestAreaNetChange', '2020-2025')
@@ -86,7 +95,9 @@ test.describe('Section tables: 1a - negative forestArea and otherWoodedLand', ()
     const page = authenticatedPage
 
     await page.goto(x06ExtentOfForestPath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -134,7 +145,9 @@ test.describe('Section tables: 1a - forestArea exceeds total land area', () => {
     const page = authenticatedPage
 
     await page.goto(x06ExtentOfForestPath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -185,7 +198,9 @@ test.describe('Section tables: 1a - forestArea differs from FRA 2020 reported va
     const page = authenticatedPage
 
     await page.goto(albSectionPath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
     await DOMUtils.ensureEditingUnlocked(page)
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')

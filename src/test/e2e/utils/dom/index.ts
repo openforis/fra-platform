@@ -1,5 +1,7 @@
 import { expect, Locator, Page, Response } from '@playwright/test'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
+
 // Eg. { id: 'telephone-field' }
 type Selector = Record<string, string>
 
@@ -40,7 +42,7 @@ const _unlockEditing = async (page: Page): Promise<void> => {
 
 // Unlock editing if it is locked; do nothing if it is already unlocked
 const ensureEditingUnlocked = async (page: Page): Promise<void> => {
-  await page.locator('.btn-lock').waitFor({ timeout: 5000 })
+  await page.locator('.btn-lock').waitFor({ timeout: Timeouts.short })
 
   const editingIsLocked = await page.locator('.btn-lock.locked').isVisible()
   if (editingIsLocked) await _unlockEditing(page)

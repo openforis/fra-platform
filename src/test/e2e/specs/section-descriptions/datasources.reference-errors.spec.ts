@@ -2,6 +2,7 @@ import { Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x13Disturbances, x13DisturbancesPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
@@ -15,11 +16,6 @@ const typeOption = enTranslation.dataSource.nationalForestInventory
 const yearOption = '2020'
 
 const randomString = Date.now().toString()
-
-// Timeout time for the socket event that updates the cell errors
-const cellTimeout = 10_000
-// Timeout time for the links worker that checks the reference and updates its errors
-const referenceTimeout = 20_000
 
 const fillRequiredFields = async (page: Page, text: string, variableOption: string): Promise<void> => {
   await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, text, 'type', typeOption))
@@ -57,7 +53,7 @@ test.describe.serial('Section descriptions: data sources - reference and require
     const variablesCell = await DataSourceUtils.getVariablesCell(page, invalidLinks.emptyLinkText)
     const yearCell = await DataSourceUtils.getYearCell(page, invalidLinks.emptyLinkText)
 
-    await expect(referenceField).toHaveClass(/validation-error/, { timeout: referenceTimeout })
+    await expect(referenceField).toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
     await DataSourceUtils.expectCellError(page, typeCell)
     await DataSourceUtils.expectCellError(page, variablesCell)
     await DataSourceUtils.expectCellError(page, yearCell)
@@ -70,7 +66,7 @@ test.describe.serial('Section descriptions: data sources - reference and require
         validReference.html
       )
     )
-    await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: referenceTimeout })
+    await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
 
     // The links worker only updates the reference, so the required field errors are still there
     await DataSourceUtils.expectCellError(page, typeCell)
@@ -112,12 +108,12 @@ test.describe.serial('Section descriptions: data sources - reference and require
     await DescriptionUtils.save(page, () =>
       DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceCell.locator('.jodit-wysiwyg'), invalidLinks.html)
     )
-    await expect(referenceField).toHaveClass(/validation-error/, { timeout: referenceTimeout })
+    await expect(referenceField).toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
 
     await fillRequiredFields(page, invalidLinks.emptyLinkText, variableOption)
-    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expect(yearCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
+    await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
+    await expect(yearCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
 
     // Saving the required fields keeps the stored reference result, so its error is still there
     await expect(referenceField).toHaveClass(/validation-error/)
