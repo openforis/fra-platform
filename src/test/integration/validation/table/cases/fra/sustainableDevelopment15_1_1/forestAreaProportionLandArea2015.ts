@@ -11,10 +11,11 @@ const cell = { colName, tableName, variableName }
 
 const datum = (raw: string): NodeUpdate => ({ ...cell, value: { raw } })
 
-// The metadata passes the maximum as the string '100'
+// The metadata passes the maximum as the string '100' and a second message key pointing to table 1a
 const over100 = {
   messages: [
     { key: 'generalValidation.valueNotGreaterThan', name: ValidatorName.notGreaterThan, params: { maxValue: '100' } },
+    { key: 'generalValidation.forestAreaExceedsTotalLandArea', name: ValidatorName.notGreaterThan },
   ],
   valid: false,
 }
