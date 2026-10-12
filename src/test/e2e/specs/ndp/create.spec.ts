@@ -2,6 +2,7 @@ import { SectionNames } from 'meta/assessment/section'
 import { Promises } from 'utils/promises'
 
 import { NdpApi, type NdpSeed } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { NdpData } from 'test/e2e/data/ndp'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
@@ -44,7 +45,7 @@ test.describe('National data point: create', () => {
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
     await expect(page.locator('.table-grid__odp-link', { hasText: String(createdYearSimple) })).toBeVisible({
-      timeout: 10000,
+      timeout: Timeouts.medium,
     })
   })
 
@@ -87,7 +88,7 @@ test.describe('National data point: create', () => {
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
     const year = String(createdYearComprehensive)
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
     await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
     await TableDomUtils.expectCellValue(page, 'otherWoodedLand', year, expectedOtherWoodedLand)
   })

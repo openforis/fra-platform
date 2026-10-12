@@ -1,6 +1,7 @@
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x13BiomassStock, x13BiomassStockPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
@@ -15,9 +16,6 @@ const variableOption = enTranslation.biomassStock.aboveGround
 const yearOption = '2020'
 
 const randomString = Date.now().toString()
-
-// Timeout time for the socket event that updates the cell errors
-const cellTimeout = 10_000
 
 test.describe.serial('Section descriptions: data sources - required fields', () => {
   const reference = LinkBuilder.buildValidLinkHtml(`data-source-required-${randomString}`)
@@ -54,7 +52,7 @@ test.describe.serial('Section descriptions: data sources - required fields', () 
     await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, true)
 
     await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, reference.text, 'type', typeOption))
-    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
     await DataSourceUtils.expectCellError(page, variablesCell)
     await DataSourceUtils.expectCellError(page, yearCell)
 
@@ -63,20 +61,20 @@ test.describe.serial('Section descriptions: data sources - required fields', () 
     await DataSourceUtils.expectCellError(page, typeCell)
 
     await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, reference.text, 'type', typeOption))
-    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
 
     await DescriptionUtils.save(page, () =>
       DataSourceUtils.selectOption(page, reference.text, 'variables', variableOption)
     )
-    await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
     await DataSourceUtils.expectCellError(page, yearCell)
     await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, true)
 
     // Year is the last empty field, so the section isn't flagged anymore
     await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, reference.text, 'year', yearOption))
-    await expect(yearCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
-    await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(yearCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
+    await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
+    await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
     await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, false)
   })
 

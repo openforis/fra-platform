@@ -1,5 +1,6 @@
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
@@ -26,7 +27,7 @@ test.describe('National data point: metadata - success', () => {
     await DOMUtils.ensureEditingUnlocked(page)
 
     await NDPDomUtils.fillComments(page, extentOfForestValidLink.html)
-    await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible({ timeout: 20000 })
+    await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible({ timeout: Timeouts.extraLong })
 
     await NDPDomUtils.switchSection(page, {
       countryIso,
@@ -34,7 +35,7 @@ test.describe('National data point: metadata - success', () => {
       year: seededYear,
     })
     await NDPDomUtils.fillComments(page, forestCharacteristicsValidLink.html)
-    await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible({ timeout: 20000 })
+    await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible({ timeout: Timeouts.extraLong })
   })
 
   test('NC enters a valid link in the data source reference and sees no validation errors', async ({
@@ -48,6 +49,8 @@ test.describe('National data point: metadata - success', () => {
     await DOMUtils.ensureEditingUnlocked(page)
 
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
-    await expect(NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)).not.toBeVisible({ timeout: 20000 })
+    await expect(NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)).not.toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
   })
 })

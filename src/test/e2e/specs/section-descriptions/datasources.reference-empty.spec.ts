@@ -2,6 +2,7 @@ import { Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x13CarbonStock, x13CarbonStockPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DataSourceUtils } from 'test/e2e/utils/dataSource'
@@ -17,9 +18,6 @@ const typeOption = enTranslation.dataSource.nationalForestInventory
 const yearOption = '2020'
 
 const randomString = Date.now().toString()
-
-// Timeout time for the links worker that checks the reference and updates its errors
-const referenceTimeout = 20_000
 
 const fillRequiredFields = async (page: Page, text: string, variableOption: string): Promise<void> => {
   await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, text, 'type', typeOption))
@@ -59,14 +57,14 @@ test.describe.serial('Section descriptions: data sources - empty reference', () 
     const referenceEditor = referenceCell.locator('.jodit-wysiwyg')
 
     await DescriptionUtils.save(page, () => DescriptionUtils.fillEditorWysiwyg(page, referenceEditor, []))
-    await expect(referenceField).toHaveClass(/validation-error/, { timeout: referenceTimeout })
+    await expect(referenceField).toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(page, referenceField, emptyValueMessage)
     await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, true)
 
     await DescriptionUtils.save(page, () =>
       DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
     )
-    await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: referenceTimeout })
+    await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
     await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
   })
 

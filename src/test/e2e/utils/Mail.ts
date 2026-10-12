@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
+
 interface MailHogMessage {
   Content: {
     Headers: Record<string, Array<string>>
@@ -61,7 +63,7 @@ const getEmailWithText = async (recipient: string, text: string): Promise<Email>
         email = await _findEmail(recipient, text)
         return email
       },
-      { message: `No email to ${recipient} containing "${text}"`, timeout: 10_000 }
+      { message: `No email to ${recipient} containing "${text}"`, timeout: Timeouts.medium }
     )
     .toBeDefined()
   return email

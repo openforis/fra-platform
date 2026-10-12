@@ -6,6 +6,7 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 import { RoleName } from 'meta/user/role/name'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x02ContactPersons, x02ContactPersonsPath } from 'test/e2e/data/sectionTables'
 import { expect, test as tableTest } from 'test/e2e/fixtures/table'
 import { test as userTest } from 'test/e2e/fixtures/user'
@@ -65,7 +66,7 @@ test.describe('Section tables: introduction 2025 - user of another country', () 
     await page.goto(x02ContactPersonsPath)
     await tablesLoaded
 
-    await expect(page.locator('.section__contactPersons')).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.section__contactPersons')).toBeVisible({ timeout: Timeouts.medium })
     await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
   })
 })
@@ -79,7 +80,7 @@ test.describe('Section tables: introduction 2025 - logged out', () => {
     await page.goto(x02ContactPersonsPath)
     await tablesLoaded
 
-    await expect(page.locator('.section__contactPersons')).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.section__contactPersons')).toBeVisible({ timeout: Timeouts.medium })
     await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
   })
 })

@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x12ForestOwnership, x12ForestOwnershipPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DescriptionUtils } from 'test/e2e/utils/description'
@@ -40,7 +41,7 @@ test.describe.serial('Section descriptions: comments - failure', () => {
       await commentsToggleEditButton(page, 'Done').click()
     })
 
-    await expect(commentsValidationError(page)).toBeVisible({ timeout: 20000 })
+    await expect(commentsValidationError(page)).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
       commentsValidationError(page),

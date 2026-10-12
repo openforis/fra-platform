@@ -1,6 +1,7 @@
 import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { SectionUtils } from 'test/e2e/utils/section'
@@ -72,7 +73,7 @@ test.describe('National data point: propagation', () => {
     await DOMUtils.ensureEditingUnlocked(page)
 
     // Check ODP link exists
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
 
     // Check values are as expected from NDP
     await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
@@ -84,7 +85,7 @@ test.describe('National data point: propagation', () => {
     await page.goto(forestCharacteristicsPath)
     await DOMUtils.ensureEditingUnlocked(page)
 
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
 
     // Check values are as expected from NDP
     await TableDomUtils.expectCellValue(page, 'naturalForestArea', year, expectedNaturalForestArea)
@@ -153,13 +154,13 @@ test.describe('National data point: propagation', () => {
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
     // == Expect 1a gone
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: Timeouts.medium })
     await TableDomUtils.expectCellMissing(page, 'forestArea', year)
 
     // == Expect 1b gone
     await page.goto(forestCharacteristicsPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: Timeouts.medium })
     await TableDomUtils.expectCellMissing(page, 'naturalForestArea', year)
   })
 
@@ -176,7 +177,7 @@ test.describe('National data point: propagation', () => {
       await page.goto(extentOfForestPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
       await expect(page.locator(`[id$="variableName_forestArea_colName_${year}"]`)).toHaveCount(1)
 
       await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
@@ -187,7 +188,7 @@ test.describe('National data point: propagation', () => {
       await page.goto(forestCharacteristicsPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
       await expect(page.locator(`[id$="variableName_naturalForestArea_colName_${year}"]`)).toHaveCount(1)
 
       await TableDomUtils.expectCellValue(page, 'naturalForestArea', year, expectedNaturalForestArea)

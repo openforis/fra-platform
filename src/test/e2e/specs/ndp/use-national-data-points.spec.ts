@@ -1,6 +1,7 @@
 import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
@@ -19,7 +20,9 @@ test.describe('National data point: use national data points toggle', () => {
       await DOMUtils.ensureEditingUnlocked(page)
 
       // Toggle button hidden when country has no NDPs
-      await expect(page.getByRole('button', { name: /national data points/i })).toHaveCount(0, { timeout: 10000 })
+      await expect(page.getByRole('button', { name: /national data points/i })).toHaveCount(0, {
+        timeout: Timeouts.medium,
+      })
     })
   })
 
@@ -61,24 +64,26 @@ test.describe('National data point: use national data points toggle', () => {
       // == 1a shows NDP regardless of 1b status
       await page.goto(extentOfForestPath)
 
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
       await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
 
       // == 1b shows initially NDP
       await page.goto(forestCharacteristicsPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
 
       await NDPDomUtils.clickToggleNDPUsage(page)
 
       // == 1b - Opting out hides all NDPs
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, {
+        timeout: Timeouts.medium,
+      })
       await TableDomUtils.expectCellMissing(page, 'naturalForestArea', year)
 
       // == 1a - Opting out has no effect on how we show NDPs
       await page.goto(extentOfForestPath)
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
       await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
 
       // Opt back in restoring NDP visibility
@@ -87,7 +92,7 @@ test.describe('National data point: use national data points toggle', () => {
 
       await NDPDomUtils.clickToggleNDPUsage(page)
 
-      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
       await TableDomUtils.expectCellValue(page, 'naturalForestArea', year, expectedNaturalForestArea)
     })
   })

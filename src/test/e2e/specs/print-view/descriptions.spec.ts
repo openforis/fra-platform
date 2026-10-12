@@ -1,6 +1,7 @@
 import { enTranslation } from 'i18n/resources/en'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   x13HolderOfManagementRights,
   x13HolderOfManagementRightsComments,
@@ -18,10 +19,6 @@ const commentsTitle = enTranslation.description.generalCommentsTitle
 const dataSourcesTitle = enTranslation.description.dataSourcesPlus
 
 const randomString = Date.now().toString()
-
-const cellTimeout = 10_000
-const linksTimeout = 20_000
-const printTimeout = 20_000
 
 test.describe.serial('Print view: descriptions - no validation UI', () => {
   const commentsInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`print-comments-${randomString}`)
@@ -57,9 +54,9 @@ test.describe.serial('Print view: descriptions - no validation UI', () => {
     })
 
     const commentsError = DescriptionUtils.getDescriptionValidationError(page, commentsTitle)
-    await expect(commentsError).toBeVisible({ timeout: linksTimeout })
+    await expect(commentsError).toBeVisible({ timeout: Timeouts.extraLong })
     const typeCell = await DataSourceUtils.getTypeCell(page, reference.text)
-    await expect(typeCell).toHaveClass(/validation-error/, { timeout: cellTimeout })
+    await expect(typeCell).toHaveClass(/validation-error/, { timeout: Timeouts.medium })
     await NavigationUtils.subSectionHasError(page, x13HolderOfManagementRightsPath, true)
   })
 
@@ -69,11 +66,11 @@ test.describe.serial('Print view: descriptions - no validation UI', () => {
     const page = authenticatedPage
 
     await page.goto(x13PrintPath)
-    await expect(page.locator('.print__container')).toBeVisible({ timeout: printTimeout })
+    await expect(page.locator('.print__container')).toBeVisible({ timeout: Timeouts.extraLong })
 
     // The report shows every section, so the checks stay inside the one that has the errors
     const section = page.locator(`.section__${x13HolderOfManagementRights.sectionName}`)
-    await expect(section).toContainText(commentsInvalidLinks.emptyLinkText, { timeout: printTimeout })
+    await expect(section).toContainText(commentsInvalidLinks.emptyLinkText, { timeout: Timeouts.extraLong })
     await expect(section).toContainText(reference.text)
     await expect(section.locator('.validation-error')).toHaveCount(0)
   })

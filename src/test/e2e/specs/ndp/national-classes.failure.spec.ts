@@ -2,6 +2,7 @@ import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
 import { NdpApi } from 'test/e2e/api/ndp'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -39,7 +40,7 @@ test.describe('National data point: national classes - failure', () => {
     await NDPDomUtils.editNationalClassification(page, '', 1)
 
     const nameCells = page.locator('.data-cell.validation-error')
-    await expect(nameCells).toHaveCount(1, { timeout: 10000 })
+    await expect(nameCells).toHaveCount(1, { timeout: Timeouts.medium })
     await expect(nameCells.locator('input')).toHaveValue('')
     await TooltipUtils.expectValidationTooltip(page, nameCells, 'Value cannot be empty')
 
@@ -51,7 +52,7 @@ test.describe('National data point: national classes - failure', () => {
     const nameInputs = NDPDomUtils.getNationalClassNameInputs(page)
     await expect(nameInputs.nth(0)).toHaveValue('Class A')
     await expect(nameInputs.nth(1)).toHaveValue('Class C')
-    await expect(nameCells).toHaveCount(0, { timeout: 10000 })
+    await expect(nameCells).toHaveCount(0, { timeout: Timeouts.medium })
 
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
     await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
@@ -77,7 +78,7 @@ test.describe('National data point: national classes - failure', () => {
     await NDPDomUtils.editNationalClassification(page, '', 2)
 
     const nameCells = page.locator('.data-cell.validation-error')
-    await expect(nameCells).toHaveCount(2, { timeout: 10000 })
+    await expect(nameCells).toHaveCount(2, { timeout: Timeouts.medium })
 
     await NDPDomUtils.deleteNationalClass(page, 1)
 
@@ -85,7 +86,7 @@ test.describe('National data point: national classes - failure', () => {
     const nameInputs = NDPDomUtils.getNationalClassNameInputs(page)
     await expect(nameInputs.nth(0)).toHaveValue('Class A')
     await expect(nameInputs.nth(1)).toHaveValue('')
-    await expect(nameCells).toHaveCount(1, { timeout: 10000 })
+    await expect(nameCells).toHaveCount(1, { timeout: Timeouts.medium })
     await expect(nameCells.locator('input')).toHaveValue('')
 
     // ==== the stored errors are keyed by class uuid, so only Class C is left after the reload
@@ -96,7 +97,7 @@ test.describe('National data point: national classes - failure', () => {
 
     await DOMUtils.ensureEditingUnlocked(page)
     await NDPDomUtils.editNationalClassification(page, 'Class C', 1)
-    await expect(nameCells).toHaveCount(0, { timeout: 10000 })
+    await expect(nameCells).toHaveCount(0, { timeout: Timeouts.medium })
 
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
     await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
