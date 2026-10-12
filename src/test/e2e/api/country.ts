@@ -1,11 +1,12 @@
 import { expect, type Page } from '@playwright/test'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { type Country } from 'meta/area/country'
+import { type Country, type CountryProps } from 'meta/area/country'
 import { type CountryIso } from 'meta/area/countryIso'
 import { type CountryStatus } from 'meta/area/countryStatus'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { type CycleNames } from 'meta/assessment/cycle/names'
+import { SectionNames } from 'meta/assessment/section'
 
 const assessmentName = AssessmentNames.fra
 
@@ -45,7 +46,24 @@ const setStatus = async (page: Page, location: CountryLocation, status: CountryS
   return response.json()
 }
 
+const setUseNationalDataPoints = async (
+  page: Page,
+  location: CountryLocation,
+  useOriginalDataPoint: CountryProps['forestCharacteristics']['useOriginalDataPoint']
+): Promise<void> => {
+  const params = new URLSearchParams(_getQueryParams(location))
+  // The section is required by the endpoint
+  params.set('sectionName', SectionNames.forestCharacteristics)
+
+  const url = `${ApiEndPoint.Area.countryProp()}?${params.toString()}`
+  const data = { countryProp: { forestCharacteristics: { useOriginalDataPoint } } }
+  const response = await page.request.patch(url, { data })
+
+  expect(response.ok(), `PATCH ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+}
+
 export const CountryApi = {
   get,
   setStatus,
+  setUseNationalDataPoints,
 }

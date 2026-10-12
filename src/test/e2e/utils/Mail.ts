@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test'
+
 interface MailHogMessage {
   Content: {
     Headers: Record<string, Array<string>>
@@ -34,7 +36,39 @@ const getInvitationLink = async (recipient: string): Promise<string> => {
   return `${url.pathname}${url.search}`
 }
 
+type Email = {
+  body: string
+  subject: string
+}
+
+const _findEmail = async (recipient: string, text: string): Promise<Email | undefined> => {
+  const query = new URLSearchParams({ kind: 'containing', query: text }).toString()
+  const response = await fetch(`${mailHogUrl}/api/v2/search?${query}`)
+  const data: { items?: Array<MailHogMessage> } = await response.json()
+
+  const message = data.items?.find((item) => item.Content.Headers.To?.some((to) => to.includes(recipient)))
+  if (!message) return undefined
+
+  return { body: decodeQuotedPrintable(message.Content.Body), subject: message.Content.Headers.Subject?.[0] ?? '' }
+}
+
+// The text has to be unique to the test because the inbox is shared and the admin also gets other tests' emails
+const getEmailWithText = async (recipient: string, text: string): Promise<Email> => {
+  let email: Email | undefined
+  await expect
+    .poll(
+      async () => {
+        email = await _findEmail(recipient, text)
+        return email
+      },
+      { message: `No email to ${recipient} containing "${text}"`, timeout: 10_000 }
+    )
+    .toBeDefined()
+  return email
+}
+
 export const MailUtil = {
   getEmailByRecipient,
+  getEmailWithText,
   getInvitationLink,
 }

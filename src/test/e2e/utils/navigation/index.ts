@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { type ValidationSummary } from 'meta/assessment/validation/summary'
 
 import { DOMUtils } from '../dom'
 
@@ -38,8 +39,9 @@ const subSectionHasError = async (page: Page, path: string, hasError: boolean): 
 }
 
 // Call this before page.goto, the navbar shows no warnings until the summary request is done
-const waitForValidationSummary = async (page: Page): Promise<void> => {
-  await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.summary(), 'GET')
+const waitForValidationSummary = async (page: Page): Promise<ValidationSummary> => {
+  const response = await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.summary(), 'GET')
+  return response.json()
 }
 
 // Check for the error on the subsection and on the top level section header

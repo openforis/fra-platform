@@ -1,22 +1,35 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { Numbers } from 'utils/numbers'
+
 import { DOMUtils } from '../dom'
 import { NdpPathProps, SectionUtils } from '../section'
 
-const cellLocator = (page: Page, variableName: string, colName: string): Locator =>
-  page.locator(`[id$="variableName_${variableName}_colName_${colName}"]`)
+const tableContainer = (page: Page, tableName: string): Locator =>
+  page.locator(`[id$="tableName_${tableName}"]`).locator('xpath=..')
 
-const getCellValue = async (page: Page, variableName: string, colName: string): Promise<string> => {
-  const cell = cellLocator(page, variableName, colName)
+const cellLocator = (page: Page, variableName: string, colName: string, tableName?: string): Locator => {
+  const selector = `[id$="variableName_${variableName}_colName_${colName}"]`
+  return tableName ? tableContainer(page, tableName).locator(selector) : page.locator(selector)
+}
+
+const getCellValue = async (page: Page, variableName: string, colName: string, tableName?: string): Promise<string> => {
+  const cell = cellLocator(page, variableName, colName, tableName)
   const input = cell.locator('input')
   if (await input.count()) return input.inputValue()
   const text = await cell.innerText()
   return text.replace(/\s/g, '')
 }
 
-const expectCellValue = async (page: Page, variableName: string, colName: string, value: string): Promise<void> => {
+const expectCellValue = async (
+  page: Page,
+  variableName: string,
+  colName: string,
+  value: string,
+  tableName?: string
+): Promise<void> => {
   await expect(async () => {
-    expect(await getCellValue(page, variableName, colName)).toBe(value)
+    expect(await getCellValue(page, variableName, colName, tableName)).toBe(value)
   }).toPass({ timeout: 10000 })
 }
 
@@ -50,9 +63,6 @@ const fillCell = async (page: Page, variableName: string, colName: string, value
   await cellInput.blur()
 }
 
-const tableContainer = (page: Page, tableName: string): Locator =>
-  page.locator(`[id$="tableName_${tableName}"]`).locator('xpath=..')
-
 const tableValidationErrors = (page: Page, tableName: string): Locator =>
   tableContainer(page, tableName).locator('.data-validations')
 
@@ -69,6 +79,29 @@ const expectTableHasError = async (page: Page, tableName: string): Promise<void>
 
 const expectTableHasNoError = async (page: Page, tableName: string): Promise<void> => {
   await expect(tableValidationErrors(page, tableName)).toHaveCount(0)
+}
+
+type ExpectSeededValuesMatchProps = {
+  page: Page
+  colNames: Array<string>
+  variableNames: Array<string>
+  getSeededDatum: (props: { colName: string; variableName: string }) => string | undefined
+  tableName?: string
+}
+
+const expectSeededValuesMatch = async (props: ExpectSeededValuesMatchProps): Promise<void> => {
+  const { colNames, getSeededDatum, page, tableName, variableNames } = props
+
+  await Promise.all(
+    colNames.flatMap((colName) =>
+      variableNames.map((variableName) => {
+        const expectedRaw = getSeededDatum({ colName, variableName })
+        // A blank cell shows as '' in the DOM, not null - match that instead of Numbers.toFixed's null
+        const expectedValue = Numbers.toFixed(expectedRaw) ?? ''
+        return expectCellValue(page, variableName, colName, expectedValue, tableName)
+      })
+    )
+  )
 }
 
 const clickOdpLink = async (page: Page, props: NdpPathProps): Promise<void> => {
@@ -88,6 +121,7 @@ export const TableDomUtils = {
   expectCellMissing,
   expectCellReadOnly,
   expectCellValue,
+  expectSeededValuesMatch,
   expectTableHasError,
   expectTableHasNoError,
   fillCell,

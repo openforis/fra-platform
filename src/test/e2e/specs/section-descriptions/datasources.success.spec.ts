@@ -30,7 +30,7 @@ test.describe.serial('Section descriptions: data sources - success', () => {
     await page.goto(x13SpecificForestCategoriesPath)
 
     await expect(page.getByText(dataSourcesTitle)).toBeVisible()
-    await DOMUtils.elementNotExists(DataSourceUtils.getDataSourceTable(page).filter({ hasText: validReference.text }))
+    await DOMUtils.elementNotExists(DataSourceUtils.getTable(page).filter({ hasText: validReference.text }))
   })
 
   test('NC creates a new data source with a valid reference', async ({ authenticatedPage }) => {
@@ -41,12 +41,12 @@ test.describe.serial('Section descriptions: data sources - success', () => {
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = await DataSourceUtils.addDataSource(page)
+      const referenceEditor = await DataSourceUtils.addRow(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, validReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
-    await expect(DataSourceUtils.getDataSourceReferenceValidationError(page, validReference.text)).not.toBeVisible()
+    await expect(DataSourceUtils.getReferenceValidationError(page, validReference.text)).not.toBeVisible()
 
     // Only the reference is filled in, so the empty type, variables and year still cause an error
     await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
@@ -60,12 +60,12 @@ test.describe.serial('Section descriptions: data sources - success', () => {
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getDataSourceReferenceEditor(page, validReference.text)
+      const referenceEditor = DataSourceUtils.getReferenceEditor(page, validReference.text)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, updatedReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
-    const table = DataSourceUtils.getDataSourceTable(page)
+    const table = DataSourceUtils.getTable(page)
     await expect(table).toContainText(updatedReference.text, { timeout: 10000 })
     await expect(table).not.toContainText(validReference.text, { timeout: 10000 })
   })
@@ -78,9 +78,9 @@ test.describe.serial('Section descriptions: data sources - success', () => {
     await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()
-    await DataSourceUtils.deleteDataSourceRow(page, updatedReference.text)
+    await DataSourceUtils.deleteRow(page, updatedReference.text)
 
-    await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(updatedReference.text, {
+    await expect(DataSourceUtils.getTable(page)).not.toContainText(updatedReference.text, {
       timeout: 10000,
     })
     await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, false)
