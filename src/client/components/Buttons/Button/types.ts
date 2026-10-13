@@ -2,7 +2,6 @@ import React, { ButtonHTMLAttributes } from 'react'
 import { PlacesType } from 'react-tooltip'
 
 import { TooltipId } from 'meta/tooltip/id'
-import { TrackId } from 'meta/tracking/id'
 
 export enum ButtonSize {
   xs = 'xs',
@@ -30,7 +29,6 @@ export type ButtonProps = Pick<
   dataTooltipDelayHide?: number
   dataTooltipId?: TooltipId
   dataTooltipPlace?: PlacesType
-  dataTrackId?: TrackId
   htmlButtonType?: HtmlButtonProps['type']
   icon?: React.ReactNode
   iconName?: string
