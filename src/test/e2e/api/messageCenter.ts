@@ -30,6 +30,14 @@ const addMessage = async (page: Page, location: TopicLocation, message: string):
   expect(response.ok(), `POST ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
 }
 
+// Resolves the topic without going through the UI
+const resolveTopic = async (page: Page, location: TopicLocation): Promise<void> => {
+  const url = `${ApiEndPoint.MessageCenter.topicResolve()}?${_getQueryParams(location)}`
+  const response = await page.request.put(url)
+
+  expect(response.ok(), `PUT ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+}
+
 // Returns the topic the page loads when its comments open, so call this before opening them
 const waitForTopic = async (page: Page): Promise<MessageTopic> => {
   const response = await page.waitForResponse((r) => {
@@ -44,5 +52,6 @@ const waitForTopic = async (page: Page): Promise<MessageTopic> => {
 
 export const MessageCenterApi = {
   addMessage,
+  resolveTopic,
   waitForTopic,
 }

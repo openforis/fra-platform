@@ -30,15 +30,18 @@ const getNationalClassTopicLocation = (props: NationalClassTopicProps): TopicLoc
 
 const getTopic = (page: Page): Locator => page.locator('.topic')
 
+const getMessage = (page: Page, text: string): Locator => getTopic(page).locator('.message', { hasText: text })
+
+const getCommentBox = (page: Page): Locator =>
+  getTopic(page).getByPlaceholder(enTranslation.review.writeComment, { exact: true })
+
 const getResolveButton = (page: Page): Locator =>
   getTopic(page).getByRole('button', { name: enTranslation.review.resolve, exact: true })
 
 const addComment = async (page: Page, text: string): Promise<void> => {
-  const topic = getTopic(page)
-
   const posted = DOMUtils.waitForResponse(page, ApiEndPoint.MessageCenter.topicMessage(), 'POST')
-  await topic.getByPlaceholder(enTranslation.review.writeComment, { exact: true }).fill(text)
-  await topic.getByRole('button', { name: enTranslation.common.add, exact: true }).click()
+  await getCommentBox(page).fill(text)
+  await getTopic(page).getByRole('button', { name: enTranslation.common.add, exact: true }).click()
   await posted
 }
 
@@ -57,6 +60,8 @@ const resolveComments = async (page: Page): Promise<void> => {
 export const MessageCenterUtils = {
   addComment,
   deleteComment,
+  getCommentBox,
+  getMessage,
   getNationalClassTopicLocation,
   getResolveButton,
   getTopic,
