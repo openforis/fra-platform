@@ -120,6 +120,9 @@ const deleteNationalClass = async (page: Page, index: number): Promise<void> => 
   await expect(inputs).toHaveCount(inputCount - 1)
 }
 
+const getNationalClassReviewButton = (page: Page, index = 0): Locator =>
+  _nationalClassesGrid(page).locator('button.review-indicator').nth(index)
+
 const _fillOriginalData = async (page: Page, input: Locator, value: string): Promise<void> => {
   await input.fill('')
 
@@ -272,6 +275,7 @@ export const NDPDomUtils = {
   getDataSourcesV1ReferenceValidationError,
   getNationalClassAreaCell,
   getNationalClassNameInputs,
+  getNationalClassReviewButton,
   clickToggleNDPUsage,
   getNaturallyRegeneratingTable,
   getPlantationTable,
