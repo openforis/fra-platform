@@ -273,3 +273,36 @@ test.describe('Message center: review comments - admin and NC', () => {
     await expect(MessageCenterUtils.getCommentBox(ncPage)).toHaveCount(0)
   })
 })
+
+test.describe('Message center: review comments - NC in review', () => {
+  test.use({
+    countrySeed: { countryIso, cycleName: CycleNames._2025, status: CountryStatus.review },
+    ndpSeeds: [{ countryIso, nationalClasses: [nationalClass], year: seededYear }],
+    userSeed: {
+      assessmentName: AssessmentNames.fra,
+      countryIso,
+      cycleName: CycleNames._2025,
+      role: RoleName.NATIONAL_CORRESPONDENT,
+    },
+  })
+
+  test('NC sees the comments but no comment box while the country is in review', async ({
+    authenticatedPage,
+    country,
+    ndp,
+    userPage,
+  }) => {
+    const ncPage = userPage
+    expect(country.props.status).toBe(CountryStatus.review)
+    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
+    await MessageCenterApi.addMessage(authenticatedPage, topicLocation, comment)
+
+    await ncPage.goto(ndpPath)
+    await DOMUtils.ensureEditingUnlocked(ncPage)
+    await NDPDomUtils.getNationalClassReviewButton(ncPage).click()
+
+    // The comment box is also hidden while the comments load, so wait for them first
+    await expect(MessageCenterUtils.getMessage(ncPage, comment)).toBeVisible()
+    await expect(MessageCenterUtils.getCommentBox(ncPage)).toHaveCount(0)
+  })
+})
