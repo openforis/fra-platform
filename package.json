@@ -181,6 +181,7 @@
     "pg": "^8.22.0",
     "pg-promise": "^12.6.2",
     "pg-query-stream": "^4.16.0",
+    "posthog-js": "^1.434.7",
     "puppeteer": "^25.2.0",
     "puppeteer-cluster": "^0.25.0",
     "qs": "^6.15.2",
