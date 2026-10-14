@@ -28,6 +28,12 @@ const getNationalClassTopicLocation = (props: NationalClassTopicProps): TopicLoc
   }
 }
 
+// The Message button on the user's card in the collaborators list
+const getChatButton = (page: Page, fullName: string): Locator =>
+  page
+    .locator('.home-user-card', { hasText: fullName })
+    .getByRole('button', { name: enTranslation.landing.users.message })
+
 const getTopic = (page: Page): Locator => page.locator('.topic')
 
 const getMessage = (page: Page, text: string): Locator => getTopic(page).locator('.message', { hasText: text })
@@ -60,6 +66,7 @@ const resolveComments = async (page: Page): Promise<void> => {
 export const MessageCenterUtils = {
   addComment,
   deleteComment,
+  getChatButton,
   getCommentBox,
   getMessage,
   getNationalClassTopicLocation,
