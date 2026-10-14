@@ -15,6 +15,13 @@ const cellLocator = (page: Page, variableName: string, colName: string, tableNam
   return tableName ? tableContainer(page, tableName).locator(selector) : page.locator(selector)
 }
 
+// The review button is in the first actions cell after the row's header cell
+const getRowReviewButton = (page: Page, tableName: string, variableName: string): Locator =>
+  tableContainer(page, tableName)
+    .locator(`[id$="variableName_${variableName}"] ~ .data-cell.actions`)
+    .first()
+    .locator('button.review-indicator')
+
 const getCellValue = async (page: Page, variableName: string, colName: string, tableName?: string): Promise<string> => {
   const cell = cellLocator(page, variableName, colName, tableName)
   const input = cell.locator('input')
@@ -130,6 +137,7 @@ export const TableDomUtils = {
   expectTableHasNoError,
   fillCell,
   getCellValue,
+  getRowReviewButton,
   tableContainer,
   tableValidationErrors,
 }
