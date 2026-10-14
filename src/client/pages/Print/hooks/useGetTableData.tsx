@@ -29,7 +29,7 @@ export const useGetTableData = (): void => {
 
   useEffect(() => {
     if (tableNames.length > 0) {
-      const propsFetch = { assessmentName, cycleName, countryIso, tableNames }
+      const propsFetch = { assessmentName, cycleName, countryISOs: [countryIso], tableNames }
       dispatch(NodeValuesActions.getTableData(propsFetch))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, tableNames])

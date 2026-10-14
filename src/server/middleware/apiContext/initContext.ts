@@ -1,24 +1,17 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { Areas } from 'meta/area/areas'
-import { CountryIso } from 'meta/area/countryIso'
-import { Assessment, AssessmentName } from 'meta/assessment/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
-import { CycleName } from 'meta/assessment/cycle'
 import { Objects } from 'utils/objects'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-
-type BaseType = {
-  assessmentName?: AssessmentName
-  cycleName?: CycleName
-  countryIso?: CountryIso
-}
+import { BaseType } from 'server/middleware/apiContext/types'
 
 const metaCache = true
 
-const initContext = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
+export const initContext = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
   try {
     // ensure body is always set
     if (!req.body) {
@@ -50,8 +43,4 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
   } catch (error) {
     next(error)
   }
-}
-
-export const ApiContextMiddleware = {
-  initContext,
 }

@@ -7,12 +7,13 @@ import { UUID } from 'meta/uuid/uuid'
 export type SectionName = string
 
 export enum SectionNames {
-  areaAffectedByFire = 'areaAffectedByFire',
+  // == Custom section names
+  chat = 'chat', // 1 to 1 messages
   contactPersons = 'contactPersons',
   contacts = 'contacts',
-  disturbances = 'disturbances',
   extentOfForest = 'extentOfForest',
   forestCharacteristics = 'forestCharacteristics',
+  messageBoard = 'messageBoard', // country message board
   nationalDataPoint = 'nationalDataPoint',
   originalDataPoints = 'originalDataPoints',
 }

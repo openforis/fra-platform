@@ -1,17 +1,14 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area/countryIso'
-
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useGetTableSections = (): void => {
   const dispatch = useAppDispatch()
-  const { assessmentName, countryIso: _countryIso, cycleName } = useCountryRouteParams()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const sections = useSections()
-  const countryIso = _countryIso as CountryIso
 
   useEffect(() => {
     if (sections) {
@@ -19,7 +16,7 @@ export const useGetTableSections = (): void => {
         Object.values(section.subSections).flatMap((sectionItem) => sectionItem.props.name)
       )
 
-      dispatch(MetaActions.getTableSections({ assessmentName, cycleName, countryIso, sectionNames }))
+      dispatch(MetaActions.getTableSections({ assessmentName, cycleName, sectionNames }))
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, sections])
+  }, [assessmentName, cycleName, dispatch, sections])
 }

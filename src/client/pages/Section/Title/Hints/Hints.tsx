@@ -10,7 +10,7 @@ import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import DefinitionLink from 'client/components/Links/DefinitionLink'
 import Link from 'client/components/Links/Link'
 import { Props } from 'client/pages/Section/Title/props'
@@ -32,18 +32,12 @@ export const HintsSustainableDevelopment: React.FC<Props> = () => {
   const lang = useLanguage()
 
   const fileNames: Array<SdgMetadataFileName> = [SdgMetadataFileName.Metadata150101, SdgMetadataFileName.Metadata150201]
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const { assessmentName, cycleName } = useCycleRouteParams()
 
   return (
     <div className="title-hints">
       {fileNames.map((key) => {
-        const href = Files.Static.getSdgMetadata({
-          file: key,
-          language: lang,
-          assessmentName,
-          cycleName,
-          countryIso,
-        })
+        const href = Files.Static.getSdgMetadata({ assessmentName, cycleName, file: key, language: lang })
 
         return (
           <Link key={key} className="no-print" rel="noreferrer" target="_blank" to={href}>

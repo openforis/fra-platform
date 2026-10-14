@@ -1,10 +1,9 @@
 import { useEffect, useMemo } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { Objects } from 'utils/objects'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
@@ -25,7 +24,7 @@ export const useSortedDomains = (): Returned => {
 
   useEffect(() => {
     const tableNames = [TableNames.climaticDomain]
-    const propsFetch = { assessmentName, countryIso, cycleName, tableNames }
+    const propsFetch = { assessmentName, countryISOs: [countryIso], cycleName, tableNames }
     dispatch(NodeValuesActions.getTableData(propsFetch))
   }, [assessmentName, countryIso, cycleName, dispatch])
 

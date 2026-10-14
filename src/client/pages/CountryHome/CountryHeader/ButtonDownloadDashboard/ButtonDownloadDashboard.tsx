@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { Link, matchPath, useLocation } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
+import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { Files } from 'meta/file/files'
 import { Routes } from 'meta/routes/routes'
@@ -18,18 +19,13 @@ const ButtonDownloadDashboard: React.FC = () => {
   const { pathname } = useLocation()
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
-  const lang = useLanguage()
+  const language = useLanguage()
   const className = useButtonClassName({})
 
   const to = useMemo<string>(() => {
-    return Files.Static.getStatisticalFactsheet({
-      region: countryIso as RegionCode,
-      language: lang,
-      assessmentName,
-      cycleName,
-      countryIso,
-    })
-  }, [assessmentName, countryIso, cycleName, lang])
+    const regionCode = countryIso as RegionCode | Global.WO
+    return Files.Static.getStatisticalFactsheet({ assessmentName, cycleName, language, regionCode })
+  }, [assessmentName, countryIso, cycleName, language])
 
   const renderButton = useMemo<boolean>(() => {
     const overviewPath = Routes.CountryHomeSection.generatePath({ assessmentName, cycleName, countryIso, sectionName })

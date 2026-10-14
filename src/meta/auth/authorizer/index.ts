@@ -8,7 +8,8 @@ import { canEditUserRolePermissions } from 'meta/auth/authorizer/canEditUserRole
 import { canEditUserRoleProps } from 'meta/auth/authorizer/canEditUserRoleProps'
 import { canExportUsers } from 'meta/auth/authorizer/canExportUsers'
 import { canVerifyLinks } from 'meta/auth/authorizer/canVerifyLinks'
-import { canView } from 'meta/auth/authorizer/canView'
+import { canViewCountry } from 'meta/auth/authorizer/canViewCountry'
+import { canViewCycle } from 'meta/auth/authorizer/canViewCycle'
 import { canViewCycleData } from 'meta/auth/authorizer/canViewCycleData'
 import { canViewGeo } from 'meta/auth/authorizer/canViewGeo'
 import { canViewHistory } from 'meta/auth/authorizer/canViewHistory'
@@ -27,7 +28,8 @@ export const Authorizer = {
   canEditSectionData,
   canEditSomeData,
   // view
-  canView,
+  canViewCountry,
+  canViewCycle,
   canViewCycleData,
   // links
   canVerifyLinks,

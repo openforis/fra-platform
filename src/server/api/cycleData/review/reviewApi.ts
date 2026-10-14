@@ -8,7 +8,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 export const ReviewApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
-    express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
+    express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireViewCountry, getReviewStatus)
+    express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireViewCountry, getReviewSummary)
   },
 }

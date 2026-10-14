@@ -2,7 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { canView } from 'meta/auth/authorizer/canView'
+import { canViewCountry } from 'meta/auth/authorizer/canViewCountry'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
@@ -20,7 +20,7 @@ export const canViewRepositoryItem = (props: Props): boolean => {
   const { areaCode, assessment, country, cycle, repositoryItem, user } = props
 
   if (repositoryItem?.props?.public) {
-    return canView({ assessment, cycle, country, areaCode, user })
+    return canViewCountry({ assessment, cycle, country, areaCode, user })
   }
 
   return Users.hasRoleInCountry({ user, countryIso: areaCode, cycle })

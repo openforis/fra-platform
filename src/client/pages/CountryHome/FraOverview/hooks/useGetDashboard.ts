@@ -7,12 +7,12 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useGetDashboard = (): void => {
   const dispatch = useAppDispatch()
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const { assessmentName, countryIso: areaCode, cycleName } = useCountryRouteParams()
   const dashboardItems = useDashboardItems()
 
   useEffect(() => {
     if (!dashboardItems) {
-      dispatch(MetaActions.getDashboard({ assessmentName, cycleName, countryIso }))
+      dispatch(MetaActions.getDashboard({ assessmentName, cycleName, areaCode }))
     }
-  }, [assessmentName, countryIso, cycleName, dashboardItems, dispatch])
+  }, [areaCode, assessmentName, cycleName, dashboardItems, dispatch])
 }

@@ -18,4 +18,25 @@ describe('Areas', () => {
       expect(Areas.isISOCountry(isoCode)).toBe(false)
     })
   })
+
+  describe('isAreaCode', () => {
+    test.each([
+      'ITA', // country
+      'FIN', // country
+      'X01', // atlantis
+      'WO', // global
+      'EU', // region
+    ])('returns true for a valid area code "%s"', (isoCode) => {
+      expect(Areas.isAreaCode(isoCode)).toBe(true)
+    })
+
+    test.each([
+      'AAA', // not a real area code
+      'CAM', // subregion code, not a region code
+      'ita', // lowercase
+      '',
+    ])('returns false for "%s"', (isoCode) => {
+      expect(Areas.isAreaCode(isoCode)).toBe(false)
+    })
+  })
 })
