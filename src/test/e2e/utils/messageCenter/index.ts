@@ -34,6 +34,9 @@ const getChatButton = (page: Page, fullName: string): Locator =>
     .locator('.home-user-card', { hasText: fullName })
     .getByRole('button', { name: enTranslation.landing.users.message })
 
+const getMessageBoardButton = (page: Page): Locator =>
+  page.getByRole('button', { name: enTranslation.landing.sections.messageBoard })
+
 const getTopic = (page: Page): Locator => page.locator('.topic')
 
 const getMessage = (page: Page, text: string): Locator => getTopic(page).locator('.message', { hasText: text })
@@ -69,6 +72,7 @@ export const MessageCenterUtils = {
   getChatButton,
   getCommentBox,
   getMessage,
+  getMessageBoardButton,
   getNationalClassTopicLocation,
   getResolveButton,
   getTopic,
