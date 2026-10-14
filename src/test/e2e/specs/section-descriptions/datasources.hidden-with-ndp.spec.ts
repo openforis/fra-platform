@@ -12,6 +12,8 @@ import { UUIDs } from 'meta/uuid/uuids'
 import { CountryApi, type CountryLocation } from 'test/e2e/api/country'
 import { type DescriptionLocation, DescriptionsApi } from 'test/e2e/api/descriptions'
 import { NdpApi, type NdpSeed } from 'test/e2e/api/ndp'
+import { ValidationsApi } from 'test/e2e/api/validations'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   belExtentOfForest,
   belExtentOfForestPath,
@@ -53,7 +55,8 @@ const seedDataSourceWithoutVariables = async (page: Page, location: DescriptionL
 
 const expectDataSourcesHidden = async (page: Page): Promise<void> => {
   await expect(DescriptionUtils.getDescriptionBlock(page, commentsTitle)).toBeVisible()
-  await expect(DataSourceUtils.getTable(page)).toHaveCount(0)
+  // When the page is already open, the NDP change reaches it over the socket
+  await expect(DataSourceUtils.getTable(page)).toHaveCount(0, { timeout: Timeouts.medium })
 }
 
 test.describe('Section descriptions: data sources - hidden with NDP data', () => {
@@ -75,28 +78,24 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     const page = authenticatedPage
     const reference = await seedDataSourceWithoutVariables(page, belExtentOfForest)
 
-    let summaryLoaded = NavigationUtils.waitForValidationSummary(page)
     await page.goto(belExtentOfForestPath)
-    await summaryLoaded
     const variablesCell = await DataSourceUtils.getVariablesCell(page, reference)
     await DataSourceUtils.expectCellError(page, variablesCell)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, true)
 
     await NdpApi.create(page, ndpSeed)
-    summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(belExtentOfForestPath)
-    const summary = await summaryLoaded
+    const summary = await ValidationsApi.getSummary(page, country)
 
     // The error is still stored, it just doesn't count while the data sources are hidden
     expect(summary.descriptions[belExtentOfForest.sectionName]?.dataSources?.valid).toBe(false)
     expect(getSubsection(summary, belExtentOfForest.sectionName)?.valid).toBe(true)
+    // No reload, so the table and the error the page showed have to go away
     await expectDataSourcesHidden(page)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, false)
 
     await NdpApi.removeIfExists(page, ndpSeed)
-    summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+    // Reload because the open page can refetch the summary before the server drops the NDP from its cache
     await page.goto(belExtentOfForestPath)
-    await summaryLoaded
     await DataSourceUtils.expectCellError(page, variablesCell)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, true)
   })
@@ -117,10 +116,9 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     await NavigationUtils.subSectionHasError(page, belForestCharacteristicsPath, true)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, false)
 
-    // The summary is fetched again once the option changes
-    let summaryRefetched = NavigationUtils.waitForValidationSummary(page)
     await NDPDomUtils.clickToggleNDPUsage(page)
-    const summary = await summaryRefetched
+    // The page also refetches the summary when the 1b NDP data loads, so a wait could get that one
+    const summary = await ValidationsApi.getSummary(page, country)
 
     expect(summary.descriptions[belForestCharacteristics.sectionName]?.dataSources?.valid).toBe(false)
     expect(getSubsection(summary, belForestCharacteristics.sectionName)?.valid).toBe(true)
@@ -128,7 +126,7 @@ test.describe('Section descriptions: data sources - hidden with NDP data', () =>
     await NavigationUtils.subSectionHasError(page, belForestCharacteristicsPath, false)
     await NavigationUtils.subSectionHasError(page, belExtentOfForestPath, false)
 
-    summaryRefetched = NavigationUtils.waitForValidationSummary(page)
+    const summaryRefetched = NavigationUtils.waitForValidationSummary(page)
     await NDPDomUtils.clickToggleNDPUsage(page)
     await summaryRefetched
     await DataSourceUtils.expectCellError(page, variablesCell)
