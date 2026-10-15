@@ -17,11 +17,13 @@ export const useNationalDataPointListener = (): void => {
   const { uuid: nationalDataPointUuid, year: nationalDataPointYear } = useOriginalDataPoint()
 
   useEffect(() => {
-    const eventName = Sockets.getNationalDataPointUpdateEvent({ assessmentName, countryIso, cycleName })
+    // New point not created yet
+    if (!nationalDataPointUuid) return
+
+    const eventName = Sockets.getNationalDataPointUpdateEvent({ uuid: nationalDataPointUuid })
 
     const listener = (args: NationalDataPointUpdateListenerArgs): void => {
       const [{ nationalDataPoint }] = args
-      if (nationalDataPoint.uuid !== nationalDataPointUuid) return
 
       // == Year changed
       if (nationalDataPoint.year !== nationalDataPointYear) {
