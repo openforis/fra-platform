@@ -8,7 +8,6 @@ import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import originalDataPoint from 'test/integration/assessment/originalDataPoint'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
-import messageCenter from 'test/integration/messageCenter/messageCenter'
 import sectionCreateChild from 'test/integration/section/createChildSection'
 import sectionCreate from 'test/integration/section/createSection'
 import sectionRemove from 'test/integration/section/removeSection'
@@ -69,7 +68,6 @@ describe('Metadata integration test', () => {
   userInvite()
   userResetPassword()
   originalDataPoint()
-  messageCenter()
 
   // remove from db
   assessmentRemove()
