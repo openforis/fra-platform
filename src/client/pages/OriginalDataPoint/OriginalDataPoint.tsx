@@ -19,6 +19,7 @@ import { useGetOriginalDataPoint } from './hooks/useGetOriginalDataPoint'
 import { useGetOriginalDataPointHistory } from './hooks/useGetOriginalDataPointHistory'
 import { useGetReviewStatus } from './hooks/useGetReviewStatus'
 import { useIsEditODPEnabled } from './hooks/useIsEditODPEnabled'
+import { useNationalDataPointListener } from './hooks/useNationalDataPointListener'
 import { useReservedYears } from './hooks/useReservedYears'
 
 const OriginalDataPoint: React.FC = () => {
@@ -36,6 +37,7 @@ const OriginalDataPoint: React.FC = () => {
   useGetOriginalDataPoint()
   useGetOriginalDataPointHistory()
   useGetReviewStatus()
+  useNationalDataPointListener()
 
   if (originalDataPoint.countryIso !== countryIso) navigate('/')
 

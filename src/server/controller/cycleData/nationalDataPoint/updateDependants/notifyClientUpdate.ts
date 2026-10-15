@@ -29,13 +29,20 @@ export const notifyClientUpdate = async (props: Props): Promise<void> => {
   const { name: cycleName } = cycle
 
   try {
+    const propsEvent = { countryIso, assessmentName, cycleName }
+
+    // send updated national data points to clients viewing them, before computing table values
+    const nationalDataPointUpdateEvent = Sockets.getNationalDataPointUpdateEvent(propsEvent)
+    originalDataPoints.forEach((nationalDataPoint) => {
+      SocketServer.emit(nationalDataPointUpdateEvent, { nationalDataPoint })
+    })
+
     const countryISOs = [countryIso]
     const tableNames = [TableNames.extentOfForest, TableNames.forestCharacteristics]
     const data = await getData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true })
     const originalDataPointVariables = getVariables({ cycle, sectionName })
 
     // send originalDataPointValue table updates to client via websocket
-    const propsEvent = { countryIso, assessmentName, cycleName }
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
 
     const nodesUpdated: Array<NodeUpdate> = []
