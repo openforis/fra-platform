@@ -214,22 +214,29 @@ testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, ro
     })
   })
 
-  test.describe.serial(`${label} - Logged in as different user`, () => {
-    const testUser = UserUtils.createTestUser(roleLabel)
-    let invitationPath: string
+  // Opening another user's invitation shows the same error whatever the role, so it's only tested once, as FRA NC
+  if (role === RoleName.NATIONAL_CORRESPONDENT && assessmentName === fraConfig.assessmentName) {
+    test.describe.serial(`${label} - Logged in as different user`, () => {
+      const testUser = UserUtils.createTestUser(roleLabel)
+      let invitationPath: string
 
-    test.beforeAll(async ({ browser }, testInfo) => {
-      invitationPath = await seedInvitation(browser, testInfo, testUser)
+      test.beforeAll(async ({ browser }, testInfo) => {
+        invitationPath = await seedInvitation(browser, testInfo, testUser)
+      })
+
+      test(`Admin visits ${label} invitation link (wrong user) and sees notification`, async ({
+        authenticatedPage,
+      }) => {
+        // Admin is already logged in as a different user
+        await authenticatedPage.goto(invitationPath)
+
+        // Should NOT land on the invitation accept form
+        await expect(authenticatedPage).not.toHaveURL(/\/login\/invitation\//)
+        // Should show a notification explaining the mismatch
+        await expect(authenticatedPage.getByText(/linked to a different user/i)).toBeVisible({
+          timeout: Timeouts.medium,
+        })
+      })
     })
-
-    test(`Admin visits ${label} invitation link (wrong user) and sees notification`, async ({ authenticatedPage }) => {
-      // Admin is already logged in as a different user
-      await authenticatedPage.goto(invitationPath)
-
-      // Should NOT land on the invitation accept form
-      await expect(authenticatedPage).not.toHaveURL(/\/login\/invitation\//)
-      // Should show a notification explaining the mismatch
-      await expect(authenticatedPage.getByText(/linked to a different user/i)).toBeVisible({ timeout: Timeouts.medium })
-    })
-  })
+  }
 })
