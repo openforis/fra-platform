@@ -1,10 +1,8 @@
 import { SectionNames } from 'meta/assessment/section'
 
 import { NdpApi, type NdpSeed } from 'test/e2e/api/ndp'
-import { testCredentials } from 'test/e2e/config/credentials'
 import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
-import { AuthUtils } from 'test/e2e/utils/Auth'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
@@ -67,15 +65,10 @@ test.describe('National data point: year', () => {
 
     test('another client viewing the point follows the year change', async ({
       authenticatedPage,
-      baseURL,
-      browser,
       ndp,
+      otherAuthenticatedPage: otherPage,
     }) => {
       expect(ndp.id).toBeTruthy()
-
-      const otherContext = await browser.newContext({ baseURL })
-      const otherPage = await otherContext.newPage()
-      await AuthUtils.login(otherPage, testCredentials)
 
       await authenticatedPage.goto(ndpPath(seededYear))
       await DOMUtils.ensureEditingUnlocked(authenticatedPage)
@@ -86,8 +79,6 @@ test.describe('National data point: year', () => {
 
       await expect(otherPage).toHaveURL(new RegExp(`${ndpPath(otherYear)}$`), { timeout: Timeouts.medium })
       await expect(otherPage.locator('.odp__year-selection')).toHaveText(String(otherYear))
-
-      await otherContext.close()
     })
   })
 

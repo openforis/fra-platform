@@ -12,6 +12,8 @@ import { getData } from 'server/controller/cycleData/tableData/getData'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
+import { notifyNationalDataPointUpdate } from './notifyNationalDataPointUpdate'
+
 type Props = {
   assessment: Assessment
   cycle: Cycle
@@ -30,10 +32,7 @@ export const notifyClientUpdate = async (props: Props): Promise<void> => {
 
   try {
     // send updated national data points to clients viewing them, before computing table values
-    originalDataPoints.forEach((nationalDataPoint) => {
-      const { uuid } = nationalDataPoint
-      SocketServer.emit(Sockets.getNationalDataPointUpdateEvent({ uuid }), { nationalDataPoint })
-    })
+    notifyNationalDataPointUpdate({ nationalDataPoints: originalDataPoints })
 
     const countryISOs = [countryIso]
     const tableNames = [TableNames.extentOfForest, TableNames.forestCharacteristics]

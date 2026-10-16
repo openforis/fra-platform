@@ -13,6 +13,8 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { LinksService } from 'server/service/links'
 
+import { notifyNationalDataPointUpdate } from './updateDependants/notifyNationalDataPointUpdate'
+
 type Props = {
   assessment: Assessment
   cycle: Cycle
@@ -55,6 +57,8 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
 
     return updated
   })
+
+  notifyNationalDataPointUpdate({ nationalDataPoints: [updatedNationalDataPoint] })
 
   const commentLinkField = NDPCommentLinkFields.find(({ commentKey }) => commentKey === field)
   await LinksService.enqueueNationalDataPointLinksValidation({
