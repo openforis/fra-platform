@@ -14,6 +14,8 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { LinksService } from 'server/service/links'
 
+import { notifyNationalDataPointUpdate } from './updateDependants/notifyNationalDataPointUpdate'
+
 type Props = {
   assessment: Assessment
   cycle: Cycle
@@ -49,6 +51,8 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
   })
+
+  notifyNationalDataPointUpdate({ nationalDataPoints: [nationalDataPoint] })
 
   await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
