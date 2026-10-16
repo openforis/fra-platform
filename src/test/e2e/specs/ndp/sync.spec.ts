@@ -10,6 +10,9 @@ import { SectionUtils } from 'test/e2e/utils/section'
 const countryIso = 'X02'
 const year = 2003
 const ndpPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year })
+const ndp1bPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.forestCharacteristics, year })
+const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
+const forestCharacteristicsPath = SectionUtils.path({ countryIso, sectionName: SectionNames.forestCharacteristics })
 
 const renamedClass = 'Forest land'
 const dataSourcesText = 'Synced data source reference'
@@ -57,5 +60,29 @@ test.describe('National data point: sync between clients', () => {
     // ==== the editing client keeps its own edits
     await expect(NDPDomUtils.getNationalClassNameInputs(page).first()).toHaveValue(renamedClass)
     await expect(page.locator('.data-grid.odp__section.description')).toContainText(commentsText)
+  })
+
+  test('another client viewing the point is sent back to its section when the point is deleted', async ({
+    authenticatedPage: page,
+    ndp,
+    otherAuthenticatedPage: otherPage,
+  }) => {
+    expect(ndp.id).toBeTruthy()
+
+    await page.goto(ndpPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    // The other client is on the 1b tab, so it goes back to 1b
+    await otherPage.goto(ndp1bPath)
+    await DOMUtils.ensureEditingUnlocked(otherPage)
+
+    await expect(NDPDomUtils.getNationalClassNameInputs(page).first()).toHaveValue('Forest')
+    await expect(NDPDomUtils.getNationalClassNameInputs(otherPage).first()).toHaveValue('Forest')
+
+    await NDPDomUtils.deleteNationalDataPoint(page)
+
+    await expect(otherPage).toHaveURL(new RegExp(`${forestCharacteristicsPath}$`), { timeout: Timeouts.medium })
+    await expect(otherPage.locator('.toast.error')).toContainText(`The national data point ${year} has been deleted`)
+
+    await expect(page).toHaveURL(new RegExp(`${extentOfForestPath}$`))
   })
 })

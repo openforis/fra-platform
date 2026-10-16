@@ -17,6 +17,11 @@ export const getODPReservedYearsEvent = (props: Props): string => {
   return `${countryIso}-${assessmentName}-${cycleName}-odpReservedYears`
 }
 
+export const getNationalDataPointDeleteEvent = (props: { uuid: UUID }): string => {
+  const { uuid } = props
+  return `nationalDataPoint-${uuid}-delete`
+}
+
 export const getNationalDataPointUpdateEvent = (props: { uuid: UUID }): string => {
   const { uuid } = props
   return `nationalDataPoint-${uuid}-update`
