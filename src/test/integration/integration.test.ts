@@ -6,7 +6,6 @@ import { RedisQueueClient } from 'server/service/redis/queueClient'
 
 import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
-import originalDataPoint from 'test/integration/assessment/originalDataPoint'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
 import sectionCreateChild from 'test/integration/section/createChildSection'
 import sectionCreate from 'test/integration/section/createSection'
@@ -67,7 +66,6 @@ describe('Metadata integration test', () => {
   // user
   userInvite()
   userResetPassword()
-  originalDataPoint()
 
   // remove from db
   assessmentRemove()
