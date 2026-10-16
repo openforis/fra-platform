@@ -83,6 +83,8 @@ test.describe('National data point: sync between clients', () => {
     await expect(otherPage).toHaveURL(new RegExp(`${forestCharacteristicsPath}$`), { timeout: Timeouts.medium })
     await expect(otherPage.locator('.toast.error')).toContainText(`The national data point ${year} has been deleted`)
 
+    // ==== the server skips the deleting client, so it gets no notice
     await expect(page).toHaveURL(new RegExp(`${extentOfForestPath}$`))
+    await expect(page.locator('.toast.error')).toHaveCount(0)
   })
 })

@@ -19,12 +19,13 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
   sectionName: string
 }
 
 export const updateOriginalData = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
+  const { assessment, country, cycle, originalDataPoint, sectionName, socketId, user } = props
   const { countryIso } = originalDataPoint
 
   const updatedNationalDataPoint = await client.tx(async (t) => {
@@ -67,6 +68,7 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
     countryIso,
     sectionName,
     originalDataPoints: [updatedNationalDataPoint],
+    socketId,
   })
 
   await DataValidationService.validateNDPNationalClasses({

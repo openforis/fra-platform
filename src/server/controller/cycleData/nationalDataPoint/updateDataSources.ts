@@ -21,6 +21,7 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
@@ -28,7 +29,7 @@ const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
 export const updateDataSources = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint: nationalDataPoint, user } = props
+  const { assessment, country, cycle, originalDataPoint: nationalDataPoint, socketId, user } = props
   const { countryIso, dataSources, uuid } = nationalDataPoint
 
   await client.tx(async (t) => {
@@ -52,7 +53,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
   })
 
-  notifyNationalDataPointUpdate({ nationalDataPoints: [nationalDataPoint] })
+  notifyNationalDataPointUpdate({ nationalDataPoints: [nationalDataPoint], socketId })
 
   await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
