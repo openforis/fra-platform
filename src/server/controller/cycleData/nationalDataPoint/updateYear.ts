@@ -25,13 +25,14 @@ type Props = {
   cycle: Cycle
   id: string
   sectionName: string
+  socketId?: string
   targetYear: string
   user: User
   year: string
 }
 
 export const updateYear = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, user, year } = props
+  const { assessment, country, cycle, socketId, user, year } = props
   const { countryIso } = country
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
@@ -74,6 +75,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     cycle,
     countryIso,
     originalDataPoints: [updatedNationalDataPoint],
+    socketId,
   })
 
   await DataValidationService.validateNDPYear({

@@ -27,6 +27,7 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
@@ -34,7 +35,7 @@ const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
 export const remove = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
+  const { assessment, country, cycle, originalDataPoint, socketId, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { countryIso, uuid } = originalDataPoint
@@ -78,7 +79,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     return target
   })
 
-  SocketServer.emit(Sockets.getNationalDataPointDeleteEvent({ uuid }), { year: originalDataPoint.year })
+  SocketServer.emitExcept(socketId, Sockets.getNationalDataPointDeleteEvent({ uuid }), { year: originalDataPoint.year })
 
   await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
 

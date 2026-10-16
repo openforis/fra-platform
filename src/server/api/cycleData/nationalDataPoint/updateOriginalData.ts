@@ -14,7 +14,15 @@ export const updateOriginalData = async (req: Request, res: Response): Promise<v
     const { assessment, country, cycle } = req.context
     const user = Requests.getUser(req)
 
-    const propsUpdate = { assessment, cycle, sectionName, country, originalDataPoint, user }
+    const propsUpdate = {
+      assessment,
+      cycle,
+      sectionName,
+      country,
+      originalDataPoint,
+      socketId: Requests.getSocketId(req),
+      user,
+    }
     const returnedOriginalDataPoint = await NationalDataPointController.updateOriginalData(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)

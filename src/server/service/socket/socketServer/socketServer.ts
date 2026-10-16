@@ -32,7 +32,14 @@ const emit = (event: string, ...args: Array<any>): void => {
   io.emit(event, args)
 }
 
+// Emit to all clients but the one that made the change (all clients when socketId is missing)
+const emitExcept = (socketId: string | undefined, event: string, ...args: Array<unknown>): void => {
+  const target = socketId ? io.except(socketId) : io
+  target.emit(event, args)
+}
+
 export const SocketServer = {
   init,
   emit,
+  emitExcept,
 }
