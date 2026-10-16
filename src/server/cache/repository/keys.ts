@@ -34,6 +34,12 @@ enum Section {
   subSectionsIndex = 'subSectionsIndex',
 }
 
+enum Validation {
+  descriptions = 'validation:descriptions',
+  nationalDataPoints = 'validation:nationalDataPoints',
+  tables = 'validation:tables',
+}
+
 export const Keys = {
   Assessments,
   Data,
@@ -41,6 +47,7 @@ export const Keys = {
   Section,
   Area,
   Explorer,
+  Validation,
 }
 
 // ===== Getters

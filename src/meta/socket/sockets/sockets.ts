@@ -5,13 +5,25 @@ import {
   getTopicMessageDeleteEvent,
   getTopicStatusEvent,
 } from 'meta/socket/sockets/messageTopic'
-import { getNodeValidationsUpdateEvent, getNodeValuesUpdateEvent } from 'meta/socket/sockets/node'
-import { getODPDeleteEvent, getODPReservedYearsEvent } from 'meta/socket/sockets/originalDataPoint'
+import {
+  getDescriptionValidationsUpdateEvent,
+  getNodeValuesUpdateEvent,
+  getTableValidationsUpdateEvent,
+} from 'meta/socket/sockets/node'
+import {
+  getNationalDataPointValidationDeleteEvent,
+  getNationalDataPointValidationsUpdateEvent,
+  getODPDeleteEvent,
+  getODPReservedYearsEvent,
+} from 'meta/socket/sockets/originalDataPoint'
 import { getRequestReviewStatusEvent, getRequestReviewSummaryEvent } from 'meta/socket/sockets/review'
 
 export const Sockets = {
-  getNodeValidationsUpdateEvent,
+  getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
+  getTableValidationsUpdateEvent,
+  getNationalDataPointValidationDeleteEvent,
+  getNationalDataPointValidationsUpdateEvent,
   getODPDeleteEvent,
   getODPReservedYearsEvent,
   getRequestReviewStatusEvent,

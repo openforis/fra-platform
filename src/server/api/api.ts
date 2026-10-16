@@ -12,6 +12,7 @@ import { NationalDataPointApi } from 'server/api/cycleData/nationalDataPoint'
 import { RepositoryApi } from 'server/api/cycleData/repository'
 import { ReviewApi } from 'server/api/cycleData/review'
 import { TableDataApi } from 'server/api/cycleData/table'
+import { ValidationsApi } from 'server/api/cycleData/validations'
 import { ExtDataApi } from 'server/api/extData'
 import { ApiContextMiddleware } from 'server/middleware/apiContext'
 import Requests from 'server/utils/requests'
@@ -67,5 +68,6 @@ export const Api = {
     RepositoryApi.init(express)
     ReviewApi.init(express)
     TableDataApi.init(express)
+    ValidationsApi.init(express)
   },
 }
