@@ -69,7 +69,9 @@ const VARIABLES_GROWING_STOCK: Record<string, string> = {
 const growingStockValues = buildSeedValues(FRA_YEARS, VARIABLES_GROWING_STOCK)
 
 test.describe('Public view', () => {
-  test('a public (not logged in) user can access a country overview page with no errors', async ({ page }) => {
+  test('a public (not logged in) user can access a country overview page with no errors', async ({ publicPage }) => {
+    // The table fixture logs the default page in as admin, so this test uses a page that's not logged in
+    const page = publicPage
     await page.goto(homePath)
 
     await expect(page).toHaveURL(new RegExp(homePath))

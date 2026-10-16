@@ -10,7 +10,6 @@ import {
   x16ForestAreaChangePath,
 } from 'test/e2e/data/sectionTables'
 import { expect, test } from 'test/e2e/fixtures/table'
-import { CountryStatusUtils } from 'test/e2e/utils/countryStatus'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { TableDomUtils } from 'test/e2e/utils/table'
@@ -200,6 +199,5 @@ test.describe('Section tables: 1d - validation errors persist on page reload', (
       sectionHeader: forestExtentSectionHeader,
       sectionItemPath: x16ForestAreaChangePath,
     })
-    await CountryStatusUtils.sendToReviewHasWarning(page, true)
   })
 })
