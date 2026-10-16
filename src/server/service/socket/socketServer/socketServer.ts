@@ -33,9 +33,10 @@ const emit = (event: string, ...args: Array<any>): void => {
 }
 
 // Emit to all clients but the one that made the change (all clients when socketId is missing)
-const emitExcept = (socketId: string | undefined, event: string, ...args: Array<unknown>): void => {
+const emitExcept = (props: { eventName: string; socketId?: string }, ...args: Array<unknown>): void => {
+  const { eventName, socketId } = props
   const target = socketId ? io.except(socketId) : io
-  target.emit(event, args)
+  target.emit(eventName, args)
 }
 
 export const SocketServer = {

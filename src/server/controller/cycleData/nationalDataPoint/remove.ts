@@ -79,7 +79,8 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     return target
   })
 
-  SocketServer.emitExcept(socketId, Sockets.getNationalDataPointDeleteEvent({ uuid }), { year: originalDataPoint.year })
+  const eventName = Sockets.getNationalDataPointDeleteEvent({ uuid })
+  SocketServer.emitExcept({ eventName, socketId }, { year: originalDataPoint.year })
 
   await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
 

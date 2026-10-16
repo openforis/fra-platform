@@ -15,6 +15,7 @@ export const notifyNationalDataPointUpdate = (props: Props): void => {
 
   nationalDataPoints.forEach((nationalDataPoint) => {
     const { uuid } = nationalDataPoint
-    SocketServer.emitExcept(socketId, Sockets.getNationalDataPointUpdateEvent({ uuid }), { nationalDataPoint })
+    const eventName = Sockets.getNationalDataPointUpdateEvent({ uuid })
+    SocketServer.emitExcept({ eventName, socketId }, { nationalDataPoint })
   })
 }
