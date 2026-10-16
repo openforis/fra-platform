@@ -14,7 +14,7 @@ export const updateDataSources = async (req: Request, res: Response): Promise<vo
     const user = Requests.getUser(req)
     const { assessment, country, cycle } = req.context
 
-    const propsUpdate = { assessment, cycle, country, originalDataPoint, user }
+    const propsUpdate = { assessment, cycle, country, originalDataPoint, socketId: Requests.getSocketId(req), user }
     const returnedOriginalDataPoint = await NationalDataPointController.updateDataSources(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)
