@@ -24,6 +24,7 @@
   },
   "dataSources": "Data sources",
   "definition": "Definition",
+  "deleted": "The national data point {{year}} has been deleted",
   "disabled": "Disabled, enable in section 1b",
   "discardChanges": "Discard changes",
   "doneEditing": "Done editing",

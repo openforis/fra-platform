@@ -78,6 +78,8 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     return target
   })
 
+  SocketServer.emit(Sockets.getNationalDataPointDeleteEvent({ uuid }), { year: originalDataPoint.year })
+
   await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
 
   // Remove the deleted national data point's link locations.
