@@ -63,33 +63,38 @@ testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, ro
       invitationPath = await seedInvitation(browser, testInfo, testUser)
     })
 
-    test(`${label} registers and accepts invitation`, async ({ browser }) => {
-      const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
-      const page = await context.newPage()
+    test(`${label} registers and accepts invitation and Admin sees no pending badge`, async ({
+      authenticatedPage,
+      browser,
+    }) => {
+      await test.step(`${label} registers and accepts invitation`, async () => {
+        const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
+        const page = await context.newPage()
 
-      await page.goto(invitationPath)
+        await page.goto(invitationPath)
 
-      // Tutorial links visible for new users
-      await expect(page.locator('a.btn-help[href*="youtube"]')).toHaveCount(2, { timeout: 30_000 })
-      await expect(page.getByText('How to log in with a self-defined password')).toBeVisible()
-      await expect(page.getByText('How to log in using Google authentication')).toBeVisible()
+        // Tutorial links visible for new users
+        await expect(page.locator('a.btn-help[href*="youtube"]')).toHaveCount(2, { timeout: 30_000 })
+        await expect(page.getByText('How to log in with a self-defined password')).toBeVisible()
+        await expect(page.getByText('How to log in using Google authentication')).toBeVisible()
 
-      // Forgot password not visible for new users
-      await expect(page.getByText('Forgot your password?')).not.toBeVisible()
+        // Forgot password not visible for new users
+        await expect(page.getByText('Forgot your password?')).not.toBeVisible()
 
-      await AuthUtils.fillRegisterForm(page, testUser.password)
-      if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
-      else await expect(page.locator('.user-form')).not.toBeVisible()
-      await page.getByRole('button', { name: 'Accept Invitation' }).click()
-      await expect(page).toHaveURL(expectedUrl)
-      await context.close()
-    })
+        await AuthUtils.fillRegisterForm(page, testUser.password)
+        if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
+        else await expect(page.locator('.user-form')).not.toBeVisible()
+        await page.getByRole('button', { name: 'Accept Invitation' }).click()
+        await expect(page).toHaveURL(expectedUrl)
+        await context.close()
+      })
 
-    test('Admin confirms no pending badge', async ({ authenticatedPage }) => {
-      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
-        assessmentName,
-        countryIso,
-        cycleName,
+      await test.step('Admin confirms no pending badge', async () => {
+        await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
+          assessmentName,
+          countryIso,
+          cycleName,
+        })
       })
     })
   })
@@ -113,26 +118,31 @@ testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, ro
       await context.close()
     })
 
-    test(`${label} logs in and accepts invitation`, async ({ browser }) => {
-      const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
-      const page = await context.newPage()
+    test(`${label} logs in and accepts invitation and Admin sees no pending badge`, async ({
+      authenticatedPage,
+      browser,
+    }) => {
+      await test.step(`${label} logs in and accepts invitation`, async () => {
+        const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
+        const page = await context.newPage()
 
-      await page.goto(invitationPath)
-      // Email is pre-filled and disabled, existing user sees only the password field
-      await expect(page.locator('input[name="password2"]')).not.toBeVisible()
-      await AuthUtils.fillLoginForm(page, testUser.password)
-      if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
-      else await expect(page.locator('.user-form')).not.toBeVisible()
-      await page.getByRole('button', { name: 'Accept Invitation' }).click()
-      await expect(page).toHaveURL(expectedUrl)
-      await context.close()
-    })
+        await page.goto(invitationPath)
+        // Email is pre-filled and disabled, existing user sees only the password field
+        await expect(page.locator('input[name="password2"]')).not.toBeVisible()
+        await AuthUtils.fillLoginForm(page, testUser.password)
+        if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
+        else await expect(page.locator('.user-form')).not.toBeVisible()
+        await page.getByRole('button', { name: 'Accept Invitation' }).click()
+        await expect(page).toHaveURL(expectedUrl)
+        await context.close()
+      })
 
-    test('Admin confirms no pending badge', async ({ authenticatedPage }) => {
-      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
-        assessmentName,
-        countryIso,
-        cycleName,
+      await test.step('Admin confirms no pending badge', async () => {
+        await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
+          assessmentName,
+          countryIso,
+          cycleName,
+        })
       })
     })
   })
@@ -145,28 +155,33 @@ testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, ro
       invitationPath = await seedInvitation(browser, testInfo, testUser)
     })
 
-    test(`${label} accepts invitation while already logged in`, async ({ browser }) => {
-      const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
-      const page = await context.newPage()
+    test(`${label} accepts invitation while already logged in and Admin sees no pending badge`, async ({
+      authenticatedPage,
+      browser,
+    }) => {
+      await test.step(`${label} accepts invitation while already logged in`, async () => {
+        const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
+        const page = await context.newPage()
 
-      // Register via the form - creates account and sets JWT cookie (user is now logged in)
-      await page.goto(invitationPath)
-      await AuthUtils.fillRegisterForm(page, testUser.password)
+        // Register via the form - creates account and sets JWT cookie (user is now logged in)
+        await page.goto(invitationPath)
+        await AuthUtils.fillRegisterForm(page, testUser.password)
 
-      // Already logged in - Login page redirects straight to the accept form
-      await page.goto(invitationPath)
-      if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
-      else await expect(page.locator('.user-form')).not.toBeVisible()
-      await page.getByRole('button', { name: 'Accept Invitation' }).click()
-      await expect(page).toHaveURL(expectedUrl)
-      await context.close()
-    })
+        // Already logged in - Login page redirects straight to the accept form
+        await page.goto(invitationPath)
+        if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
+        else await expect(page.locator('.user-form')).not.toBeVisible()
+        await page.getByRole('button', { name: 'Accept Invitation' }).click()
+        await expect(page).toHaveURL(expectedUrl)
+        await context.close()
+      })
 
-    test('Admin confirms no pending badge', async ({ authenticatedPage }) => {
-      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
-        assessmentName,
-        countryIso,
-        cycleName,
+      await test.step('Admin confirms no pending badge', async () => {
+        await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
+          assessmentName,
+          countryIso,
+          cycleName,
+        })
       })
     })
   })
