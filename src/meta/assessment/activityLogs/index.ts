@@ -1,5 +1,4 @@
 import { TFunction } from 'i18next'
-import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { CountryIso } from 'meta/area/countryIso'
@@ -8,17 +7,22 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Routes } from 'meta/routes/routes'
+import { SectionNames as RouteSectionNames } from 'meta/routes/sectionNames'
 import { RoleName } from 'meta/user/role/name'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
-const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
+const messageToKey: Partial<Record<ActivityLogMessage, string>> = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
   [ActivityLogMessage.contactCreate]: 'added',
   [ActivityLogMessage.contactDelete]: 'deleted',
   [ActivityLogMessage.invitationAccept]: 'acceptInvitation',
   [ActivityLogMessage.invitationAdd]: 'addInvitation',
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
+  [ActivityLogMessage.userRoleDeleteRole]: 'removeRole',
   [ActivityLogMessage.messageCreate]: 'commented',
   [ActivityLogMessage.messageMarkDeleted]: 'deleted',
   [ActivityLogMessage.originalDataPointCreate]: 'added',
@@ -30,43 +34,36 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
   [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+  [ActivityLogMessage.repositoryItemCreate]: 'added',
+  [ActivityLogMessage.repositoryItemDelete]: 'deleted',
   [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
-const _getLabelActionKey = (activity: ActivityLog<unknown>): string => {
-  const { message } = activity
+const _getLabelActionKey = (activity: ActivityLog<unknown>): string =>
+  `landing.recentActivity.actions.${messageToKey[activity.message] ?? 'edited'}`
 
-  const key = messageToKey[message]
-  if (key) {
-    return `landing.recentActivity.actions.${key}`
-  }
-  return 'landing.recentActivity.actions.edited'
-}
+const userRoleMessages: Array<ActivityLogMessage> = [
+  ActivityLogMessage.invitationAccept,
+  ActivityLogMessage.invitationAdd,
+  ActivityLogMessage.invitationRemove,
+  ActivityLogMessage.userRoleDeleteRole,
+]
 
+// Note: When adding new cases, use ActivityLogMessage
 const _getLabelActionParams = (activity: ActivityLog<unknown>, t: TFunction): Record<string, string | null> => {
-  const { target } = activity
-  let params: Record<string, string | null> = {}
+  const { message, target } = activity
 
-  if (target && typeof target === 'object') {
-    if ('user' in target && target.user) {
-      const { role, user } = target as { user: string; role?: RoleName }
-      params = {
-        user,
-        role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
-      }
-    } else if ('assessment' in target && target.assessment) {
-      const { assessment, status } = target as { assessment: string; status: string }
-      params = {
-        assessment: t(`assessment.${assessment}`),
-        status: t(`assessment.status.${status}.label`),
-      }
-    } else if ('file' in target && target.file) {
-      const { file } = target as { file: string }
-      params = { file }
-    }
+  if (message === ActivityLogMessage.assessmentStatusUpdate) {
+    const { status } = target as { status: string }
+    return { status: t(`assessment.status.${status}.label`) }
   }
 
-  return params
+  if (userRoleMessages.includes(message)) {
+    const { role, user } = target as { role?: RoleName; user: string }
+    return { role: role ? t(Users.getI18nRoleLabelKey(role)) : null, user }
+  }
+
+  return {}
 }
 
 const odpCommentMessageToSection: Partial<Record<ActivityLogMessage, SectionName>> = {
@@ -91,6 +88,15 @@ const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction })
   return label !== labelActionKey ? label : t('landing.recentActivity.actions.edited')
 }
 
+// Repository activities are logged with the repository item as target.
+// Folders are excluded from the activity view
+const _getRepositoryItemKey = (activity: ActivityLog<unknown>): string => {
+  const repositoryItem = activity.target as RepositoryItem
+
+  if (RepositoryItems.isLink(repositoryItem)) return 'landing.recentActivity.actions.repositoryLink'
+  return 'landing.recentActivity.actions.repositoryFile'
+}
+
 const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
   const { section } = activity
   if (section.indexOf('odp') !== -1) {
@@ -99,6 +105,10 @@ const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
 
   if (section === SectionNames.contacts) {
     return 'landing.users.users'
+  }
+
+  if (section === RouteSectionNames.Country.Home.repository) {
+    return _getRepositoryItemKey(activity)
   }
 
   return `${section}.${section}`
@@ -167,6 +177,15 @@ const getSectionLink = (props: GetSectionLinkProp): string => {
       cycleName,
       sectionName: odpSection,
       year: String(year),
+    })
+  }
+
+  if (sectionNameProp === RouteSectionNames.Country.Home.repository) {
+    return Routes.CountryHomeSection.generatePath({
+      assessmentName,
+      countryIso,
+      cycleName,
+      sectionName: sectionNameProp,
     })
   }
 

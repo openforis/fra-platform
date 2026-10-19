@@ -6,7 +6,7 @@ import { User } from 'meta/user/user'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { UserController } from 'server/controller/user'
 
 import { assessmentCycleName, assessmentParams, originalDataPoint } from 'test/integration/mock/assessment'
@@ -32,7 +32,7 @@ export default (): void => {
     })
 
     test('Create new Original data point', async () => {
-      const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
+      const createdOriginalDataPoint = await NationalDataPointController.create({
         assessment,
         cycle,
         country,
@@ -42,7 +42,7 @@ export default (): void => {
         notifyClient: false,
       })
 
-      gotOriginalDataPoint = await CycleDataController.getOriginalDataPoint({
+      gotOriginalDataPoint = await NationalDataPointController.getOne({
         assessment,
         cycle,
         year: String(createdOriginalDataPoint.year),
@@ -101,7 +101,7 @@ export default (): void => {
 
     test('Get not existing Original data point', async () => {
       await expect(
-        CycleDataController.getOriginalDataPoint({
+        NationalDataPointController.getOne({
           assessment,
           cycle,
           year: '2299',

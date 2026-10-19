@@ -1,15 +1,15 @@
 import http from 'http'
 import { createAdapter } from '@socket.io/redis-streams-adapter'
-import IORedis from 'ioredis'
 import { Server } from 'socket.io'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { RedisClient } from 'server/utils/redis/client'
 
 let io: Server
 
 const init = async (server: http.Server): Promise<void> => {
-  const client = new IORedis(ProcessEnv.redisQueueUrl)
+  const client = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
 
   io = new Server(server, {
     adapter: createAdapter(client),

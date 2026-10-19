@@ -4,6 +4,19 @@
 
 $icon-size: 14px;
 
+.multiselect__tooltip-trigger {
+  height: 100%;
+}
+
+.multiselect__tooltip-values {
+  display: grid;
+  row-gap: $spacing-xxxs;
+}
+
+.multiselect__tooltip-value {
+  padding: $spacing-xxxs 0;
+}
+
 div.multiselect__container {
   border-radius: 2px;
   border: 1px solid $ui-border;

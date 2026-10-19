@@ -4,7 +4,7 @@ import { CountryRequest } from 'meta/api/request/country'
 import { Lang } from 'meta/lang'
 import { Translations } from 'meta/translation/translations'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { RepositoryController } from 'server/controller/cycleData/repository'
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
@@ -17,7 +17,7 @@ export const getRepositoryFile = async (req: Request, res: Response): Promise<vo
     const { uuid } = req.params
 
     const props = { assessment, cycle, uuid }
-    const { file, repositoryItem } = await CycleDataController.Repository.getOneFile(props)
+    const { file, repositoryItem } = await RepositoryController.getOneFile(props)
 
     // Append the original file extension to the file name
     const label = Translations.getLabel({ translation: repositoryItem.props.translation, language: Lang.en })

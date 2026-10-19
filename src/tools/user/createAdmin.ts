@@ -7,8 +7,8 @@ import { Logger } from 'server/utils/logger'
 
 const ADMIN = {
   name: 'Admin',
-  email: 'admin@admin.com',
-  password: 'admin1234',
+  email: 'test@test.com',
+  password: 'password123',
 }
 
 const exec = async (): Promise<void> => {

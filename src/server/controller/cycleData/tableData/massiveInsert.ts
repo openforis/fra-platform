@@ -1,5 +1,3 @@
-import { Promises } from 'utils/promises'
-
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
@@ -11,10 +9,11 @@ import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { User } from 'meta/user/user'
+import { Promises } from 'utils/promises'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { RowRedisRepository } from 'server/cache/repository/row'
-import { updateTableDataDependencies } from 'server/controller/cycleData/tableData/updateTableDataDependencies'
+import { updateDependencies } from 'server/controller/cycleData/tableData/updateDependencies/updateDependencies'
 import { DB } from 'server/db/db'
 import { NodeDb, NodeRepository } from 'server/db/repository/assessmentCycle/node'
 import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -79,7 +78,7 @@ export const massiveInsert = async (props: Props): Promise<void> => {
       )
 
       // 5. Update dependencies
-      await updateTableDataDependencies({ assessment, cycle, country, nodes, user }, client)
+      await updateDependencies({ assessment, cycle, country, nodes, user }, client)
     })
   })
 }

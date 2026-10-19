@@ -22,6 +22,8 @@ const getName = (item: Pick<RepositoryItem, 'folderName' | 'props'>): string =>
 
 const isFolder = (item: Pick<RepositoryItem, 'folderName'>): boolean => typeof item.folderName === 'string'
 
+const isLink = (item: Pick<RepositoryItem, 'folderName' | 'link'>): boolean => !isFolder(item) && Boolean(item.link)
+
 // Recursively collect all folder UUIDs from a tree
 const getFolderUuids = (items: Array<RepositoryItemTree>): Array<string> =>
   items.reduce<Array<string>>((acc, item) => {
@@ -40,4 +42,5 @@ export const RepositoryItems = {
   getURL,
   isFolder,
   isGlobal,
+  isLink,
 }

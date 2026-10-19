@@ -2,6 +2,8 @@ import './CountryField.scss'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
+import { CountryIso } from 'meta/area/countryIso'
+
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 import FormField from 'client/components/Form/FormFields/FormField'
 
@@ -36,7 +38,7 @@ const CountryField: React.FC<FieldProps> = (props) => {
                   isMulti={isMulti}
                   onChange={onChange}
                   placeholder={placeholder}
-                  value={value as string | Array<string>}
+                  value={value as CountryIso | Array<CountryIso>}
                 />
               )
             }}

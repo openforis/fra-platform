@@ -4,6 +4,7 @@ import JoditEditor from 'jodit-react'
 
 import AddFromRepository from 'client/components/EditorWYSIWYG/AddFromRepository'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
+import WithTooltip from 'client/components/Tooltips/WithTooltip'
 
 import { useConfigs } from './hooks/useConfigs'
 import { useOnBlur } from './hooks/useOnBlur'
@@ -26,23 +27,22 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
 
   const { configs } = useConfigs({ onlyLinks, options, repository })
   const onBlur = useOnBlur({ onChange, value })
-  const { dataTooltipHtml, dataTooltipId, hasValidationErrors } = useValidationTooltip({ validationErrors })
+  const { hasValidationErrors, tooltip } = useValidationTooltip({ validationErrors })
 
   return (
     <>
-      <div
+      <WithTooltip
         className={classNames(
           'editorWYSIWYG',
           { disabled, [className]: className },
           { 'validation-error': hasValidationErrors }
         )}
-        data-tooltip-html={dataTooltipHtml}
-        data-tooltip-id={dataTooltipId}
         id={id}
+        tooltip={tooltip}
       >
         {disabled && <JoditEditor config={configs.configReadOnly} value={value} />}
         {!disabled && <JoditEditor config={configs.config} onBlur={onBlur} value={value} />}
-      </div>
+      </WithTooltip>
       <AddFromRepository />
     </>
   )

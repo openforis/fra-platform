@@ -1,5 +1,4 @@
 import { useLayoutEffect } from 'react'
-
 import { DiffDOM, stringToObj } from 'diff-dom'
 
 import {
@@ -21,7 +20,7 @@ type Props = DiffDOMProps & {
   ref: React.MutableRefObject<HTMLDivElement>
 }
 
-export const useDOMChanges = (props: Props) => {
+export const useDOMChanges = (props: Props): void => {
   const { current, prev, ref } = props
 
   useLayoutEffect(() => {
@@ -44,7 +43,7 @@ export const useDOMChanges = (props: Props) => {
             return false
         }
       },
-      textDiff(node, currentValue, _expectedValue, newValue) {
+      textDiff(node, currentValue, _expectedValue, newValue): void {
         if (node instanceof Text) {
           node.replaceWith(getTextDiffNode(currentValue, newValue))
         }

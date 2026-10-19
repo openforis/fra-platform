@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
 import { Dates } from 'utils/dates'
@@ -7,12 +6,13 @@ import { Dates } from 'utils/dates'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useNodeValuesEstimation } from 'client/store/data/tableData/estimations/hooks/useNodeValuesEstimation'
 import Icon from 'client/components/Icon'
+import { TooltipProps } from 'client/components/Tooltips/type'
 
 import { Props } from '../props'
 
 type Returned = {
   node: ReactNode
-  tooltipContent?: string
+  tooltip: TooltipProps
 }
 
 export const useEstimationDetails = (props: Props): Returned => {
@@ -24,7 +24,7 @@ export const useEstimationDetails = (props: Props): Returned => {
   const odpLastUpdatedTimestamp = country.lastEditOdp
 
   if (!tableEstimation) {
-    return { node: '', tooltipContent: undefined }
+    return { node: '', tooltip: undefined }
   }
 
   const { createdAt, method, variables } = tableEstimation
@@ -41,7 +41,7 @@ export const useEstimationDetails = (props: Props): Returned => {
     </div>
   )
 
-  const tooltipContent = ReactDOMServer.renderToStaticMarkup(
+  const content: ReactNode = (
     <div>
       {t(`tableWithOdp.${method}Extrapolation`)}
       {changeRates && (
@@ -58,5 +58,5 @@ export const useEstimationDetails = (props: Props): Returned => {
     </div>
   )
 
-  return { node, tooltipContent }
+  return { node, tooltip: { content } }
 }

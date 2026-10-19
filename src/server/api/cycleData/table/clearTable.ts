@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { TableName } from 'meta/assessment/table'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import Requests from 'server/utils/requests'
 
 export const clearTable = async (req: CycleDataRequest<{ tableName: TableName }>, res: Response): Promise<void> => {
@@ -12,7 +12,7 @@ export const clearTable = async (req: CycleDataRequest<{ tableName: TableName }>
     const user = Requests.getUser(req)
     const { assessment, country, cycle } = req.context
 
-    const nodes = await CycleDataController.clearTableData({ assessment, country, cycle, sectionName, tableName, user })
+    const nodes = await TableDataController.clearData({ assessment, country, cycle, sectionName, tableName, user })
 
     return Requests.sendOk(res, nodes)
   } catch (e) {

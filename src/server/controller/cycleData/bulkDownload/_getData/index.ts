@@ -1,0 +1,47 @@
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { Assessments } from 'meta/assessment/assessments'
+
+import {
+  BulkDownloadData,
+  BulkDownloadMetadata,
+  PropsBulkDownload,
+} from 'server/controller/cycleData/bulkDownload/types'
+
+import { _getCycleCountries } from './_getCycleCountries'
+import { _getDescriptions } from './_getDescriptions'
+import { _getNames } from './_getNames'
+import { _getODPData } from './_getODPData'
+import { _getTableData } from './_getTableData'
+
+type Props = PropsBulkDownload & {
+  countries: Array<Country>
+  includeVoluntaryUpdates: boolean
+  metadata: BulkDownloadMetadata
+}
+
+export const getData = async (props: Props): Promise<BulkDownloadData> => {
+  const { assessment, countries, cycle, includeVoluntaryUpdates, metadata } = props
+  const countryISOs = countries.map<CountryIso>((country) => country.countryIso)
+  const { sectionNames, tableNames } = _getNames({ metadata })
+
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  // Voluntary updates are published in cycles after the last published one,
+  // hence they exist only when exporting it
+  const isLastPublishedCycle = lastPublishedCycle?.uuid === cycle.uuid
+
+  // When exporting from the last published cycle, group countries by their last published cycle
+  // to include voluntary updates from non-published cycles
+  const cycleCountries =
+    isLastPublishedCycle && includeVoluntaryUpdates
+      ? await _getCycleCountries({ assessment, countryISOs, cycle: lastPublishedCycle })
+      : undefined
+
+  const [tables, descriptions, odp] = await Promise.all([
+    _getTableData({ assessment, countryISOs, cycle, includeVoluntaryUpdates, isLastPublishedCycle, tableNames }),
+    _getDescriptions({ assessment, countryISOs, cycle, cycleCountries, sectionNames }),
+    _getODPData({ assessment, countryISOs, cycle, cycleCountries }),
+  ])
+
+  return { descriptions, odp, tables }
+}

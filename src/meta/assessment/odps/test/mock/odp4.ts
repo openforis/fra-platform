@@ -4,6 +4,7 @@ import { commonProps } from './commonProps'
 
 export const odp4 = {
   ...commonProps,
+  uuid: '4',
   nationalClasses: [
     {
       area: null,
@@ -51,12 +52,6 @@ export const odp4 = {
       definition: '',
       forestPercent: '0.00',
       otherWoodedLandPercent: '100.00',
-    },
-    {
-      name: '',
-      definition: '',
-      uuid: 'd747092c-bf76-42c0-afd9-dced0e5d8a75',
-      placeHolder: true,
     },
   ],
 } as OriginalDataPoint

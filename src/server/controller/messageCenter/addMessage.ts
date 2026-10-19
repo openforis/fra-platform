@@ -58,7 +58,7 @@ export const addMessage = async (
     }
 
     const activityLog = {
-      target: message,
+      target: { id: message.id, topicUuid: topic.uuid },
       section: sectionName,
       message: ActivityLogMessage.messageCreate,
       countryIso,

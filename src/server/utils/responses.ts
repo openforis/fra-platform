@@ -1,5 +1,5 @@
 import { Readable } from 'stream'
-import archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 import { Response } from 'express'
 
 import Requests from 'server/utils/requests'
@@ -22,7 +22,7 @@ const sendZip = async (
   res.setHeader('Content-Disposition', `attachment; filename="${fileName}.zip"`)
   res.setHeader('Content-Type', 'application/zip')
 
-  const archive = archiver('zip', {
+  const archive = new ZipArchive({
     zlib: { level: 9 },
   })
 

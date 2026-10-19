@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { ReviewController } from 'server/controller/cycleData/review'
 import Requests from 'server/utils/requests'
 
 export const getReviewSummary = async (req: CountryRequest, res: Response): Promise<void> => {
@@ -11,7 +11,7 @@ export const getReviewSummary = async (req: CountryRequest, res: Response): Prom
     const { assessment, cycle } = req.context
 
     const user = Requests.getUser(req)
-    const reviewSummary = await CycleDataController.getReviewSummary({ countryIso, assessment, cycle, user })
+    const reviewSummary = await ReviewController.getReviewSummary({ countryIso, assessment, cycle, user })
 
     Requests.send(res, reviewSummary)
   } catch (e) {

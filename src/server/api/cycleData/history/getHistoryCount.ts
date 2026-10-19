@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { HistoryController } from 'server/controller/cycleData/history'
 import Requests from 'server/utils/requests'
 
 export const getHistoryCount = async (req: TablePaginatedDataRequest, res: Response): Promise<void> => {
@@ -12,7 +12,7 @@ export const getHistoryCount = async (req: TablePaginatedDataRequest, res: Respo
     const { target } = req.params
 
     const props = { assessment, cycle, countryIso, sectionName, target }
-    const count = await CycleDataController.History.Activities.getCount(props)
+    const count = await HistoryController.Activities.getCount(props)
 
     Requests.send(res, count)
   } catch (e) {

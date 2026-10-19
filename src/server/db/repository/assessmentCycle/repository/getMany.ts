@@ -2,6 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionNames } from 'meta/assessment/section'
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
@@ -32,8 +33,13 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
               'locations', jsonb_build_array(jsonb_build_object('key', 'nationalDataPoint.references'))
             ) as u
             from ${schemaCycle}.original_data_point odp
+              left join ${schemaCycle}.descriptions d 
+                on odp.uuid = d.section_uuid and d.name = '${CommentableDescriptionName.dataSources}' and d.section_name = '${SectionNames.nationalDataPoint}'
             where odp.country_iso = tree.country_iso
-              and odp.data_source_references ilike '%' || tree.uuid::text || '%'
+              and exists
+                  (select 1
+                   from jsonb_array_elements(d.value) elem
+                   where elem ->> 'type' ilike '%' || tree.uuid::text || '%')
             `
     : ''
 

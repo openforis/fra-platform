@@ -4,7 +4,7 @@ import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { NodesBody } from 'meta/api/request/cycleData/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import Requests from 'server/utils/requests'
 
 export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response): Promise<void> => {
@@ -19,7 +19,7 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
       return { tableName, variableName, colName, value }
     })
     const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
-    await CycleDataController.persistNodeValues({ assessment, cycle, country, nodeUpdates, sectionName, user })
+    await TableDataController.persistNodeValues({ assessment, cycle, country, nodeUpdates, sectionName, user })
 
     Requests.sendOk(res)
   } catch (e) {

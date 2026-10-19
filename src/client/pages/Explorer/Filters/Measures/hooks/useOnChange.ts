@@ -1,35 +1,28 @@
 import { useCallback } from 'react'
 
+import { MeasureName } from 'meta/measurement/measure'
 import { Objects } from 'utils/objects'
 
+import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
-import { Option } from 'client/components/Inputs/Select'
-
-type Props = {
-  options: Array<Option> | undefined
-}
 
 type Returned = (value: Array<string>) => void
 
-export const useOnChange = (props: Props): Returned => {
-  const { options } = props
+export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
+  const { measures } = useExplorerSectionMetadata() ?? {}
 
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
 
   return useCallback<Returned>(
     (selectedValues) => {
-      if (Objects.isEmpty(options)) return
+      if (Objects.isEmpty(measures)) return
 
+      // keep the selection in table order
       const selectedSet = new Set(selectedValues)
-      const sortedSelection = options.reduce<Array<string>>((acc, { value }) => {
-        if (selectedSet.has(value)) {
-          acc.push(value)
-        }
-        return acc
-      }, [])
+      const sortedSelection = measures.filter(({ name }) => selectedSet.has(name)).map<MeasureName>(({ name }) => name)
 
       dispatch(
         ExplorerSelectionActions.setMeasures({
@@ -40,6 +33,6 @@ export const useOnChange = (props: Props): Returned => {
         })
       )
     },
-    [assessmentName, cycleName, dispatch, options, sectionName]
+    [assessmentName, cycleName, dispatch, measures, sectionName]
   )
 }

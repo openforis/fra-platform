@@ -3,10 +3,12 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   includeClimaticDomain: boolean
+  includeVoluntaryUpdates: boolean
   linkRef: RefObject<HTMLAnchorElement>
 }
 
@@ -16,9 +18,10 @@ type Returned = {
 }
 
 export const useBulkDownloadProps = (props: Props): Returned => {
-  const { includeClimaticDomain, linkRef } = props
+  const { includeClimaticDomain, includeVoluntaryUpdates, linkRef } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const lang = useLanguage()
   const [downloading, setDownloading] = useState<boolean>()
 
   const fileLinkParams = new URLSearchParams({
@@ -26,6 +29,8 @@ export const useBulkDownloadProps = (props: Props): Returned => {
     countryIso,
     cycleName,
     includeClimaticDomain: String(includeClimaticDomain),
+    includeVoluntaryUpdates: String(includeVoluntaryUpdates),
+    lang,
   })
 
   const fileLink = `${ApiEndPoint.File.bulkDownload()}?${fileLinkParams.toString()}`

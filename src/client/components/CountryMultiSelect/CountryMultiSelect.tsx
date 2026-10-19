@@ -5,12 +5,13 @@ import classNames from 'classnames'
 
 import { Objects } from 'utils/objects'
 
+import TooltipCountries from 'client/components/CountryMultiSelect/TooltipCountries'
 import Select from 'client/components/Inputs/Select'
 
 import { useCountriesByRegionOptions } from './hooks/useCountriesByRegionOptions'
 import { useIsOptionDisabled } from './hooks/useIsOptionDisabled'
 import { useMenuActions } from './hooks/useMenuActions'
-import { useTooltipContent } from './hooks/useTooltipContent'
+import { useTooltipProps } from './hooks/useTooltipProps'
 import { Props } from './types'
 
 const defaults: Readonly<Partial<Props>> = {
@@ -35,22 +36,15 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const optionGroups = useCountriesByRegionOptions({ allowedCountries, allowAtlantis, disabledOptions })
   const isOptionDisabled = useIsOptionDisabled(props)
-  const tooltip = useTooltipContent({ allowAtlantis, allowedCountries, error, isMulti, value })
+  const tooltip = useTooltipProps({ error })
   const { onMenuClose, onMenuOpen } = useMenuActions({ ...props, tooltip })
 
   const active = useMemo(() => !Objects.isEmpty(value), [value])
   const container = classNames('country-multiselect__container', { active, error })
-  const { dataTooltipId, tooltipContent } = tooltip
+  const { canDisplayTooltip, tooltipId, tooltipLevel } = tooltip
 
   return (
-    <div
-      className="country-multiselect__tooltip-trigger"
-      data-tooltip-class-name="country-multiselect__tooltip"
-      data-tooltip-delay-hide={100}
-      data-tooltip-html={tooltipContent}
-      data-tooltip-id={dataTooltipId}
-      data-tooltip-place="bottom"
-    >
+    <div className="country-multiselect__tooltip-trigger" data-tooltip-id={tooltipId}>
       <Select
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...otherProps}
@@ -66,6 +60,16 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
         placeholder={placeholder ?? t('common.countriesAreas')}
         selectableGroups
         toggleAll
+        value={value}
+      />
+      <TooltipCountries
+        allowAtlantis={allowAtlantis}
+        allowedCountries={allowedCountries}
+        canDisplayTooltip={canDisplayTooltip}
+        error={error}
+        isMulti={isMulti}
+        tooltipId={tooltipId}
+        tooltipLevel={tooltipLevel}
         value={value}
       />
     </div>

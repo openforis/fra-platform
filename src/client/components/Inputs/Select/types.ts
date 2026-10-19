@@ -3,6 +3,7 @@ import { CreatableProps } from 'react-select/creatable'
 import { PlacesType } from 'react-tooltip'
 
 export type Option = {
+  className?: string
   label: React.ReactNode
   value: string
 }

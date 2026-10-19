@@ -9,6 +9,7 @@ import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
+import { useIsFileUploadLoading } from 'client/store/fileUpload/hooks/fileUpload'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 import Form from 'client/components/Form'
@@ -18,6 +19,7 @@ import { useFileMeta } from './hooks/useFileMeta'
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnDelete } from './hooks/useOnDelete'
 import { useOnSuccess } from './hooks/useOnSuccess'
+import { useValidationSchema } from './hooks/useValidationSchema'
 import FileUsages from './FileUsages'
 
 type Props = {
@@ -32,6 +34,8 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
 
   const { fileSummary, isLoading } = useFileMeta(repositoryItem)
   const formDefinition = useFormDefinition(repositoryItem, fileSummary, isLoading)
+  const validationSchema = useValidationSchema(repositoryItem)
+  const isFileUploading = useIsFileUploadLoading()
   const onSuccess = useOnSuccess(onClose)
   const onDelete = useOnDelete(onClose, repositoryItem)
 
@@ -48,15 +52,19 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
     cycleName,
   })
 
+  const editingOverride = isEditing || undefined
+  const dirtyOverride = !isFileUploading && editingOverride
+
   return (
     <div className="repository-item-form">
       <Form
         action={action}
         formDefinition={formDefinition}
-        isDirtyOverride={isEditing || undefined}
+        isDirtyOverride={dirtyOverride}
         method={method}
         onCancel={onClose}
         onSuccess={onSuccess}
+        validationSchema={validationSchema}
       />
       <FileUsages usages={repositoryItem?.usages} />
       {isEditing && (

@@ -33,7 +33,7 @@
   "valueEqualToSumParent": "Сумма подкатегорий {{subcategories}} не равна {{parentvariable}} {{parentcol}} {{parenttable}} <{{valuErounded}}>>>>>>>>>>>>",
   "valueMustBePositive": "Значение должно быть больше нуля",
   "valueMustBeYear": "Значение должно быть действительным годом",
-  "valueNotGreaterThan": "Значение должно быть не больше, чем {{maxValue}}",
+  "valueNotGreaterThan": "Значение не должно превышать {{maxValue}}",
   "valuesAreInconsistent1aOr1b": "Значения не соответствуют площадям, представленным в таблицах 1a или 1b",
   "valuesAreInconsistentWithNetChange": "Значения не соответствуют чистому изменению площади лесов"
 }

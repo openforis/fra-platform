@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter/messageTopic'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -19,9 +18,9 @@ export const getOneOrNone = async (
   return client.oneOrNone<{ lastOpenTime: string } | null>(
     `
       select last_open_time from ${cycleSchema}.message_topic_user
-      where topic_id = $1 and user_id = $2
+      where topic_uuid = $1 and user_id = $2
     `,
-    [topic.id, user.id],
+    [topic.uuid, user.id],
     Objects.camelize
   )
 }

@@ -33,7 +33,7 @@
   "valueEqualToSumParent": "The sum of subcategories {{subcategories}} is not equal to {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>",
   "valueMustBePositive": "Value should be greater than zero",
   "valueMustBeYear": "Value should be a valid year",
-  "valueNotGreaterThan": "Value should be not greater than {{maxValue}}",
+  "valueNotGreaterThan": "Value should not exceed {{maxValue}}",
   "valuesAreInconsistent1aOr1b": "Values are inconsistent with Areas reported in tables 1a or 1b",
   "valuesAreInconsistentWithNetChange": "Values are inconsistent with Forest area net change"
 }

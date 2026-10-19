@@ -5,7 +5,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Link } from 'meta/cycleData/links/link'
 import { Users } from 'meta/user/users'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import Requests from 'server/utils/requests'
 
 type Body = {
@@ -23,7 +23,7 @@ export const updateLink = async (req: Request, res: Response): Promise<void> => 
     const user = Requests.getUser(req)
 
     const props = { assessment, countryIso: Users.isAdministrator(user) ? undefined : countryIso, cycle, link, user }
-    const updatedLink = await CycleDataController.Links.update(props)
+    const updatedLink = await LinksController.update(props)
 
     Requests.send(res, updatedLink)
   } catch (e) {

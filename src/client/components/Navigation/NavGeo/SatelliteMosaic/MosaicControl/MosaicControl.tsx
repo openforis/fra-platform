@@ -37,7 +37,7 @@ const MosaicControl: React.FC = () => {
               checked={checked}
               label={label}
               onClick={() =>
-                dispatch(MosaicActions.setOption({ key: 'sources', value: { ...uiSources, [key]: !checked } }))
+                dispatch(MosaicActions.setOption({ key: 'sources', value: checked ? {} : { [key]: true } }))
               }
             />
           )

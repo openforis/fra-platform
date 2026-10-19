@@ -7,7 +7,6 @@ import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
-import { TooltipId } from 'meta/tooltip/id'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useHistoryLastApprovedDataTableFetched } from 'client/store/data/history/hooks/lastApprovedTableData'
@@ -86,7 +85,7 @@ const Cell: React.FC<Props> = (props) => {
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
   const validation = useNodeValueValidation({ col, row, table })
-  const errorMessages = useErrorMessages({ validation })
+  const tooltip = useErrorMessages({ validation })
   const className = useClassName({ col, cycle, enabled, row, validation })
 
   const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle }) || !enabled
@@ -106,8 +105,6 @@ const Cell: React.FC<Props> = (props) => {
   return (
     <DataCell
       className={className}
-      data-tooltip-html={errorMessages}
-      data-tooltip-id={TooltipId.error}
       editable={!disabled && isInput}
       firstCol={firstCol}
       firstHighlightCol={firstHighlightCol}
@@ -119,6 +116,7 @@ const Cell: React.FC<Props> = (props) => {
       lastHighlightCol={lastHighlightCol}
       lastRow={lastRow}
       style={style}
+      tooltip={tooltip}
     >
       <Component
         assessmentName={assessmentName}

@@ -1,11 +1,10 @@
-import { Objects } from 'utils/objects'
-
 import { Country } from 'meta/area/country'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Table, TableVisibility } from 'meta/assessment/table'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Table }): Table['props'] => {
   const { cycleSource, cycleTarget, table } = props
@@ -28,6 +27,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Tabl
     _props.disableErrorMessage[cycleTargetUuid] = Objects.cloneDeep(_props.disableErrorMessage[cycleSourceUuid])
   if (!Objects.isNil(_props.style?.[cycleSourceUuid]))
     _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
+  if (!Objects.isNil(_props.visibility?.[cycleSourceUuid]))
+    _props.visibility[cycleTargetUuid] = Objects.cloneDeep(_props.visibility[cycleSourceUuid])
 
   return _props
 }

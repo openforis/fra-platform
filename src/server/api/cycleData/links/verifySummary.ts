@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleRequest } from 'meta/api/request/cycle'
 import { AreaCode } from 'meta/area/areaCode'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import Requests from 'server/utils/requests'
 
 type Request = CycleRequest<{ countryIso?: AreaCode }>
@@ -13,7 +13,7 @@ export const verifySummary = async (req: Request, res: Response): Promise<void> 
     const { assessment, country, cycle } = req.context
     const { countryIso } = country ?? {}
 
-    const summary = await CycleDataController.Links.getVerificationSummary({ assessment, countryIso, cycle })
+    const summary = await LinksController.getVerificationSummary({ assessment, countryIso, cycle })
     Requests.sendOk(res, summary)
   } catch (e) {
     Requests.sendErr(res, e)

@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { CountryIso } from 'meta/area/countryIso'
-import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Functions } from 'utils/functions'
 
 type Props = CycleDataParams & {
   countryIso: CountryIso
@@ -17,11 +16,11 @@ const putOriginalDataPointOriginalData = Functions.debounce(
   async (props: Props) => {
     const { assessmentName, countryIso, cycleName, originalDataPoint, sectionName } = props
 
+    const data = { originalDataPoint }
     const params = { countryIso, assessmentName, cycleName, sectionName }
-    const data = { originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint) }
     const config = { params }
 
-    await axios.put(ApiEndPoint.CycleData.OriginalDataPoint.originalData(), data, config)
+    await axios.put(ApiEndPoint.CycleData.NationalDataPoint.originalData(), data, config)
   },
   1000,
   'updateOriginalDataPointOriginalData'

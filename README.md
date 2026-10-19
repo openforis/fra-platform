@@ -34,7 +34,7 @@ To constantly build it when something changes, run:
 Create a new Postgres local instance via Docker. Run the command:
 
 ```shell
-sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRES_PASSWORD=frap -e POSTGRES_USER=frap postgres:15.4
+sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRES_PASSWORD=frap -e POSTGRES_USER=frap postgres:18.6
 ```
 
 Otherwise, check `.env` configurations for setting it up manually (note that the server port is not default!)
@@ -67,3 +67,14 @@ Now you'll see new sql files in `src/tools/migrations/steps/steps/`.
 
 You should edit the `<timestamp-kuikka-up.ts` to contain your `create table` -statement.
 Make sure migrations can be ran twice without side effects.
+
+### Update database e2e test fixtures
+
+```shell
+ts-node src/tools/db/export.ts
+```
+
+```shell
+(cd src/tools/db && tar -czf fixtures.tar.gz fixtures && gpg --batch --yes --passphrase "$BACKUP_PASSPHRASE" --symmetric --cipher-algo AES256 -o fixtures.tar.gz.gpg fixtures.tar.gz && rm fixtures.tar.gz)
+```
+

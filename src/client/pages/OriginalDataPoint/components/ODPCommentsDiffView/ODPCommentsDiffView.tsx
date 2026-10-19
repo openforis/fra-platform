@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
@@ -15,8 +15,11 @@ const ODPCommentsDiffView: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
 
-  const current = originalDataPoint.comments?.[field] ?? ''
-  const prev = originalDataPointHistory?.comments?.[field] ?? ''
+  const current = useMemo<string>(() => originalDataPoint.comments?.[field] ?? '', [field, originalDataPoint.comments])
+  const prev = useMemo<string>(
+    () => originalDataPointHistory?.comments?.[field] ?? '',
+    [field, originalDataPointHistory?.comments]
+  )
 
   return <DiffDOM current={current} prev={prev} />
 }

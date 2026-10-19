@@ -1,7 +1,8 @@
+import { CountryIso } from 'meta/area/countryIso'
+import { ODPReservedYear, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 import { Arrays } from 'utils/arrays'
 import { Dates } from 'utils/dates'
-
-import { ODPReservedYear, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -13,18 +14,17 @@ interface ReservedYear {
 }
 
 export const useOriginalDataPoint = (): OriginalDataPoint => {
-  const { countryIso } = useCountryRouteParams()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const originalDataPoint = useAppSelector(OriginalDataPointSelectors.getOriginalDataPoint)
-  const originalDataPointTemplate = {
-    comments: {},
+
+  const originalDataPointTemplate: Partial<OriginalDataPoint> = {
+    comments: { [TableNames.extentOfForest]: '', [TableNames.forestCharacteristics]: '' },
     countryIso,
-    dataSourceAdditionalComments: '',
-    dataSourceMethods: [],
-    dataSourceReferences: '',
     nationalClasses: [],
     values: {},
     year: -1,
-  } as OriginalDataPoint
+  }
+
   return originalDataPoint ?? originalDataPointTemplate
 }
 

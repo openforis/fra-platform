@@ -3,7 +3,6 @@ import { CountryIso } from 'meta/area/countryIso'
 export enum UserContactPreferenceMethod {
   primaryEmail = 'primaryEmail',
   secondaryEmail = 'secondaryEmail',
-  skype = 'skype',
   primaryPhoneNumber = 'primaryPhoneNumber',
   secondaryPhoneNumber = 'secondaryPhoneNumber',
   platformChat = 'platformChat',
@@ -39,6 +38,5 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
   secondaryEmail?: string
   primaryPhoneNumber?: string
   secondaryPhoneNumber?: string
-  skype?: string
   contactPreference?: UserContactPreference
 }

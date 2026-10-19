@@ -1,0 +1,1 @@
+export { updateCalculationDependencies } from 'server/controller/cycleData/tableData/updateDependencies/updateCalculationDependencies/updateCalculationDependencies'

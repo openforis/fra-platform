@@ -1,12 +1,13 @@
 import 'dotenv/config'
 
 import { RedisData } from 'server/cache/repository/redisData'
-import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
-import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
+import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/tableData/updateDependencies/queueFactory'
+import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { DB } from 'server/db/db'
 import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
+import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import originalDataPoint from 'test/integration/assessment/originalDataPoint'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
@@ -40,6 +41,9 @@ afterAll(async () => {
 })
 
 describe('Metadata integration test', () => {
+  // area
+  countryIso()
+
   // TODO: rename userCreate to userAdminCreate (and add mock user as admin)
   userCreate()
 

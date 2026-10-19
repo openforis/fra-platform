@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { RepositoryController } from 'server/controller/cycleData/repository'
 import Requests from 'server/utils/requests'
 
 type QueryParams = {
@@ -17,7 +17,7 @@ export const removeRepositoryItem = async (req: CycleDataRequest<QueryParams>, r
     const user = Requests.getUser(req)
 
     const props = { assessment, cycle, countryIso, sectionName, user, uuid }
-    await CycleDataController.Repository.remove(props)
+    await RepositoryController.remove(props)
 
     Requests.sendOk(res)
   } catch (e) {

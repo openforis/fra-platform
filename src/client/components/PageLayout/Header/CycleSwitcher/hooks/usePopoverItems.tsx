@@ -58,6 +58,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
 
           const assessmentName = assessment.props.name
           const cycleName = t(Assessments.getCycleTranslationKey({ cycleName: cycle.name }))
+
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycle.name === routeParams.cycleName
           const content = t('common.cycleLabel', { assessmentName, cycleName })
 

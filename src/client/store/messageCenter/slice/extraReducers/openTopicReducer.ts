@@ -17,6 +17,7 @@ export const openTopicReducer = (builder: ActionReducerMapBuilder<MessageCenterS
       if (state.topics.length === 2) state.topics.shift()
       state.topics.push({
         id: -1,
+        uuid: null,
         countryIso,
         key,
         title,

@@ -11,5 +11,6 @@
     "M": "M = Missing value, cannot exist, denominator is zero or missing",
     "O": "O = Missing value"
   },
-  "includeClimaticDomain": "Include climatic domain"
+  "includeClimaticDomain": "Include climatic domain",
+  "includeVoluntaryUpdates": "Include voluntary updates"
 }

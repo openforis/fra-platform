@@ -5,9 +5,9 @@
 $border: 1px solid color.adjust($text-body, $lightness: -4%, $space: hsl);
 
 .tooltip-container {
-  z-index: $z-index-tooltip;
-
   .react-tooltip {
+    z-index: $z-index-tooltip;
+
     ul {
       list-style: none;
       padding: 0;

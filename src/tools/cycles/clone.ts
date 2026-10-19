@@ -1,20 +1,18 @@
 import '../scriptInit'
 
-import { ToolsUtils } from 'tools/utils/toolsUtils'
-
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { ColProps, ColType } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { DB } from 'server/db/db'
-import { TableRepository } from 'server/db/repository/assessment/table'
-import { Schemas } from 'server/db/schemas'
-import { AssessmentController } from 'server/controller/assessment'
-import { MetadataController } from 'server/controller/metadata'
-import { UserController } from 'server/controller/user'
 import { CacheController } from 'server/cache/controller'
 import { TableRedisRepository } from 'server/cache/repository/table'
+import { MetadataController } from 'server/controller/metadata'
+import { DB } from 'server/db/db'
+import { TableRepository } from 'server/db/repository/assessment/table'
+
+import { rawClone } from './_rawClone'
 
 const client = DB
 const assessmentName = AssessmentNames.fra
@@ -45,11 +43,7 @@ const _addColumns = async (props: { assessment: Assessment; cycle: Cycle }): Pro
 }
 
 export const cloneCycle = async (): Promise<void> => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
-  await DB.query(`drop schema if exists ${Schemas.getNameCycle(assessment, { name: cycleNameClone })} cascade;`)
-
-  const user = await UserController.getOne({ email: 'fra@fao.org' }, client)
-  const clone = await AssessmentController.cloneCycle({ assessment, cycle, name: cycleNameClone, user }, client)
+  const clone = await rawClone({ assessmentName, cycleNameSource: cycleName, cycleNameTarget: cycleNameClone }, client)
 
   await _addColumns(clone)
 }

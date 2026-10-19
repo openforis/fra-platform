@@ -29,7 +29,7 @@ const Measures: React.FC = () => {
   const openDefinition = useOpenDefinition({ anchor, document })
   const options = useOptions()
   const explorerMeasures = useExplorerMeasures()
-  const onChange = useOnChange({ options })
+  const onChange = useOnChange()
 
   return (
     <Flex className="measure-filter-container" gap="0">
@@ -40,6 +40,7 @@ const Measures: React.FC = () => {
         onChange={onChange}
         options={options ?? []}
         placeholder={t('common.variable')}
+        selectableGroups
         toggleAll
         tooltipPlace="bottom"
         value={explorerMeasures}

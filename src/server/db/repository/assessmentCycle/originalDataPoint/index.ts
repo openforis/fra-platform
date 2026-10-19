@@ -8,7 +8,6 @@ import { getManyWithReferenceLinks } from 'server/db/repository/assessmentCycle/
 import { getOne } from 'server/db/repository/assessmentCycle/originalDataPoint/getOne'
 import { getReservedYears } from 'server/db/repository/assessmentCycle/originalDataPoint/getReservedYears'
 import { remove } from 'server/db/repository/assessmentCycle/originalDataPoint/remove'
-import { updateDataSources } from 'server/db/repository/assessmentCycle/originalDataPoint/updateDataSources'
 import { updateDescription } from 'server/db/repository/assessmentCycle/originalDataPoint/updateDescription'
 import { updateNationalClasses } from 'server/db/repository/assessmentCycle/originalDataPoint/updateNationalClasses'
 import { updateOriginalData } from 'server/db/repository/assessmentCycle/originalDataPoint/updateOriginalData'
@@ -25,7 +24,6 @@ export const OriginalDataPointRepository = {
   getOne,
   getReservedYears,
   remove,
-  updateDataSources,
   updateDescription,
   updateNationalClasses,
   updateOriginalData,

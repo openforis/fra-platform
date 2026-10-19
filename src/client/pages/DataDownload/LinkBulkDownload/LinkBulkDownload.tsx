@@ -18,8 +18,9 @@ const LinkBulkDownload: React.FC = () => {
   const linkRef = useRef<HTMLAnchorElement>(undefined)
   const administrator = Users.isAdministrator(user)
   const [includeClimaticDomain, setIncludeClimaticDomain] = useState<boolean>(administrator)
+  const [includeVoluntaryUpdates, setIncludeVoluntaryUpdates] = useState<boolean>(true)
 
-  const { downloading, onClick } = useBulkDownloadProps({ includeClimaticDomain, linkRef })
+  const { downloading, onClick } = useBulkDownloadProps({ includeClimaticDomain, includeVoluntaryUpdates, linkRef })
   const className = useButtonClassName({ disabled: downloading, size: ButtonSize.m })
 
   return (
@@ -32,6 +33,12 @@ const LinkBulkDownload: React.FC = () => {
           variant={ButtonCheckboxVariant.checkbox}
         />
       )}
+      <ButtonCheckbox
+        checked={includeVoluntaryUpdates}
+        label={t('bulkDownload.includeVoluntaryUpdates')}
+        onClick={() => setIncludeVoluntaryUpdates((prevState) => !prevState)}
+        variant={ButtonCheckboxVariant.checkbox}
+      />
       <a className={className} href={ApiEndPoint.File.bulkDownload()} onClick={onClick}>
         <Icon name="hit-down" />
         ZIP

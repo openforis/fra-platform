@@ -1,14 +1,13 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { RecordCountryData } from 'meta/data/recordData'
 import { TablesCondition } from 'meta/data/tableCondition'
+import { Objects } from 'utils/objects'
 
+import { AreaRedisRepository } from 'server/cache/repository/area'
 import { BaseProtocol } from 'server/db/db'
-import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment
@@ -38,8 +37,7 @@ const _mergeODPTable = (props: PropsInnerMerge): void => {
 export const mergeOdpCountryData = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, countryISOs, cycle, data, excludeOdpTable, tables } = props
 
-  // TODO: add country cache and add AreaRedisRepository.getCountriesRecord()
-  const countries = await CountryRepository.getManyRecord({ assessment, cycle }, client)
+  const countries = await AreaRedisRepository.getCountriesMap({ assessment, countryISOs, cycle }, client)
 
   countryISOs.forEach((countryIso) => {
     const country = countries[countryIso]

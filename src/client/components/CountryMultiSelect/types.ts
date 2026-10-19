@@ -8,5 +8,5 @@ export interface Props extends Omit<SelectProps, 'isOptionDisabled' | 'options' 
   disabledOptions?: Array<CountryIso | string>
   error?: string
   minCountries?: number
-  value?: Array<CountryIso>
+  value?: CountryIso | Array<CountryIso>
 }

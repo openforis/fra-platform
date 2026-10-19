@@ -5,7 +5,7 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Numbers } from 'utils/numbers'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = { assessment: Assessment; countryIso: CountryIso }
@@ -25,7 +25,7 @@ export const _getLastPublishedFra1aForestArea = async (
   const variableName = 'forestArea'
   const tableName = TableNames.extentOfForest
 
-  const data = await CycleDataController.getLastPublishedData(
+  const data = await TableDataController.getLastPublishedData(
     {
       assessment,
       columns: [lastPublishedCycleName],

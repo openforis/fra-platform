@@ -19,6 +19,7 @@ describe('OriginalDataPoint test:', () => {
         { area: null, forestPercent: '5' },
         { area: '400', forestPercent: null },
       ],
+      uuid: '1',
       values: {},
     }
     expect(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' })).toEqual(t(200.0))
@@ -30,6 +31,7 @@ describe('OriginalDataPoint test:', () => {
       comments: {},
       countryIso,
       nationalClasses: [{ name: '' }],
+      uuid: '1',
       values: {},
     }
     expect(ODPs.canCopyPreviousValues(originalDataPoint)).toEqual(true)
@@ -41,6 +43,7 @@ describe('OriginalDataPoint test:', () => {
       comments: {},
       countryIso,
       nationalClasses: [{ name: 'national class 1' }],
+      uuid: '1',
       values: {},
     }
     expect(ODPs.canCopyPreviousValues(originalDataPoint)).toEqual(false)

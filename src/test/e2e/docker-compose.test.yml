@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16
+    image: postgres:18.6
     environment:
       POSTGRES_USER: 'fra'
       POSTGRES_PASSWORD: 'fra'
@@ -9,11 +9,10 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
       - ./init-db:/docker-entrypoint-initdb.d
-      - ./healthcheck.sh:/healthcheck.sh
     healthcheck:
-      test: ['CMD-SHELL', '/healthcheck.sh']
+      test: ['CMD-SHELL', 'pg_isready -U fra -d fra']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -53,7 +52,7 @@ services:
       - FRA_MAIL_HOST=mailhog
       - FRA_MAIL_PORT=1025
       - FRA_MAIL_ENABLED=true
-      - NODE_ENV=test
+      - NODE_ENV=test-e2e
       - REDIS_QUEUE_URL=redis://redis-queue:6379
       - REDIS_DATA_URL=redis://redis-data:6379
       - PORT=9001

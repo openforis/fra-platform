@@ -4,62 +4,43 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { getOne } from 'server/db/repository/assessmentCycle/originalDataPoint/getOne'
 import { Schemas } from 'server/db/schemas'
 
-export const create = async (
-  params: {
-    assessment: Assessment
-    cycle: Cycle
-    originalDataPoint: OriginalDataPoint
-  },
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
-  const {
-    assessment,
-    cycle,
-    originalDataPoint: {
-      comments,
-      countryIso,
-      dataSourceAdditionalComments,
-      dataSourceMethods,
-      dataSourceReferences,
-      nationalClasses,
-      values,
-      year,
-    },
-  } = params
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  originalDataPoint: OriginalDataPoint
+}
+
+export const create = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
+  const { assessment, cycle, originalDataPoint } = props
+  const { comments, countryIso, nationalClasses, values, year } = originalDataPoint
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
-
   const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
   const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
-  return client.one<OriginalDataPoint>(
+  await client.query(
     `
         insert into ${schemaName}.original_data_point (
           country_iso,
           year,
-          data_source_additional_comments,
-          data_source_methods,
-          data_source_references,
           ${commentColumnExtent},
           ${commentColumnForestCharacteristics},
           national_classes,
           values
-        ) values ($1, $2, $3, $4::jsonb, $5, $6, $7, $8::jsonb, $9::jsonb) returning *;`,
-    [
+        ) values ($(countryIso), $(year), $(commentsExtentOfForest), $(commentsForestCharacteristics), $(nationalClasses)::jsonb, $(values)::jsonb);`,
+    {
       countryIso,
       year,
-      dataSourceAdditionalComments || '',
-      dataSourceMethods ? JSON.stringify(dataSourceMethods) : '[]',
-      dataSourceReferences || '',
-      comments?.[TableNames.extentOfForest] ?? '',
-      comments?.[TableNames.forestCharacteristics] ?? '',
-      nationalClasses ? JSON.stringify(nationalClasses) : '[]',
-      values ? JSON.stringify(values) : '{}',
-    ],
-    OriginalDataPointAdapter
+      commentsExtentOfForest: comments?.[TableNames.extentOfForest] ?? '',
+      commentsForestCharacteristics: comments?.[TableNames.forestCharacteristics] ?? '',
+      nationalClasses: nationalClasses ? JSON.stringify(nationalClasses) : '[]',
+      values: values ? JSON.stringify(values) : '{}',
+    }
   )
+
+  return getOne({ assessment, cycle, countryIso, year: String(year) }, client)
 }

@@ -22,6 +22,10 @@ type ToggleStatusFilterPayload = {
   status: CountryStatus
 }
 
+type ResetStatusFilterPayload = {
+  roleName: string
+}
+
 export const AreaSelectorSlice = createSlice({
   name: AreaSelectorSliceName,
   initialState,
@@ -53,6 +57,10 @@ export const AreaSelectorSlice = createSlice({
       } else {
         Objects.setInPath({ obj: state.filters, path: [roleName, 'statusFilter'], value: updated })
       }
+    },
+    resetStatusFilter: (state, action: PayloadAction<ResetStatusFilterPayload>) => {
+      const { roleName } = action.payload
+      delete state.filters[roleName].statusFilter
     },
   },
 })

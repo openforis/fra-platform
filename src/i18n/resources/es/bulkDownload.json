@@ -11,5 +11,6 @@
     "M": "M = Valor faltante, no puede existir, el denominador es cero o falta",
     "O": "O = Valor faltante"
   },
-  "includeClimaticDomain": "Incluye dominio climático"
+  "includeClimaticDomain": "Incluye dominio climático",
+  "includeVoluntaryUpdates": "Incluir actualizaciones voluntarias"
 }

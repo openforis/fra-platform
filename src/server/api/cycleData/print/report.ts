@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { AreaController } from 'server/controller/area'
-import { CycleDataController } from 'server/controller/cycleData'
+import { ReportController } from 'server/controller/cycleData/report'
 import { Buffers } from 'server/utils/buffers'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
@@ -52,14 +52,14 @@ const getPdf = async (req: Request, fileName: string): ReturnType<Page['pdf']> =
   const { assessment, cycle } = req.context
 
   const [cachedPdfInfo, country] = await Promise.all([
-    CycleDataController.Report.getOne({ assessment, cycle, fileName }),
+    ReportController.getOne({ assessment, cycle, fileName }),
     AreaController.getCountry({ assessment, countryIso, cycle }),
   ])
   const countryCycleLastUpdate = country?.lastUpdate
 
   if (Objects.isEmpty(cachedPdfInfo)) {
     const bufferView = await buildPdf(req)
-    await CycleDataController.Report.create({ assessment, bufferView, countryIso, cycle, fileName })
+    await ReportController.create({ assessment, bufferView, countryIso, cycle, fileName })
 
     return bufferView
   }
@@ -71,7 +71,7 @@ const getPdf = async (req: Request, fileName: string): ReturnType<Page['pdf']> =
 
   if (shouldRefreshCache) {
     const bufferView = await buildPdf(req)
-    await CycleDataController.Report.updateFile({ assessment, bufferView, countryIso, cycle, fileName })
+    await ReportController.updateFile({ assessment, bufferView, countryIso, cycle, fileName })
 
     return bufferView
   }

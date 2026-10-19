@@ -13,11 +13,10 @@ import { Logger } from 'server/utils/logger'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  force?: boolean
 }
 
 export const generateData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, force } = props
+  const { assessment, cycle } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
@@ -39,7 +38,10 @@ export const generateData = async (props: Props, client: BaseProtocol = DB): Pro
   const countries = await CountryRepository.getMany({ assessment, cycle }, client)
   const countryISOs = countries.map((c) => c.countryIso)
 
-  const data = await DataRedisRepository.getCountriesData({ assessment, cycle, countryISOs, tables, force }, client)
+  const data = await DataRedisRepository.getCountriesData(
+    { assessment, cycle, countryISOs, tables, force: true },
+    client
+  )
   Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(data).length} data" generated`)
 
   return data

@@ -9,6 +9,7 @@ import {
   systemsOfMeasurement,
 } from 'meta/measurement/systemOfMeasurement'
 
+import { buildMeasures } from 'server/cache/repository/explorer/buildMeasures'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { SectionRedisRepository } from 'server/cache/repository/section'
@@ -57,7 +58,7 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
     }, [])
 
     const [sectionsMetadata, systemsWithUnits] = await Promise.all([
-      SectionRedisRepository.getManyMetadata(props, client),
+      SectionRedisRepository.getManyMetadata({ assessment, cycle }, client),
       SystemOfMeasurementController.getAllWithUnits(client),
     ])
 
@@ -89,7 +90,7 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
       const explorerMetadata: ExplorerMetadata = {
         cellsExportAlways,
         dimensions,
-        measures,
+        measures: buildMeasures({ cycle, measures, table }),
         systemsOfMeasurements: systemsOfMeasurementRecord,
         tableName,
       }

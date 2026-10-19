@@ -21,6 +21,10 @@ export const acceptedMessages = [
   ActivityLogMessage.originalDataPointUpdateNationalClasses,
   ActivityLogMessage.originalDataPointUpdateOriginalData,
   ActivityLogMessage.originalDataPointUpdateYear,
+  ActivityLogMessage.repositoryItemCreate,
+  ActivityLogMessage.repositoryItemDelete,
+  ActivityLogMessage.repositoryItemUpdate,
   ActivityLogMessage.topicStatusChange,
   ActivityLogMessage.tableValuesClear,
+  ActivityLogMessage.userRoleDeleteRole,
 ]

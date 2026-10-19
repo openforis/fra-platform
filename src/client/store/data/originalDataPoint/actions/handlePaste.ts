@@ -1,8 +1,7 @@
-import { Arrays } from 'utils/arrays'
-import { Objects } from 'utils/objects'
-
 import { ODPs } from 'meta/assessment/odps'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Arrays } from 'utils/arrays'
+import { Objects } from 'utils/objects'
 
 import { Sanitizer } from 'client/utils/sanitizer'
 
@@ -15,8 +14,8 @@ const handlePaste = (
   rowIndex: number,
   colIndex: number
 ): { updatedOdp: OriginalDataPoint; firstPastedCellData: string } => {
-  const sanitizerFor = (type: string) => {
-    let sanitizer = (newValue: string, _oldValue: string, _precision?: number) => newValue
+  const sanitizerFor = (type: string): ((newValue: string, _oldValue: string, _precision?: number) => string) => {
+    let sanitizer = (newValue: string, _oldValue: string, _precision?: number): string => newValue
     if (type === 'decimal') sanitizer = Sanitizer.acceptNextDecimal
     if (type === 'integer') sanitizer = Sanitizer.acceptNextInteger
     return sanitizer
@@ -32,7 +31,7 @@ const handlePaste = (
 
   const allowedClasses = odp.nationalClasses
     .map((nc, rowIndex) => ({ ...nc, rowIndex }))
-    .filter((nc) => !nc.placeHolder && allowedClass(nc))
+    .filter((nc) => allowedClass(nc))
 
   const rowCount = allowedClasses.length
 
@@ -45,22 +44,17 @@ const handlePaste = (
   const pastedData: Array<Array<string>> = allowGrow ? rawPastedData : rawPastedData.slice(0, rowCount - rowOffset)
   const handleRow = (pastedRowIndex: number, pastedRow: Array<string>, odp: OriginalDataPoint): OriginalDataPoint =>
     pastedRow.reduce<{ odp: OriginalDataPoint; colIndex: number }>(
-      (accu, pastedColumnValue) => ({
-        odp: updateOdp(
-          accu.odp,
-          allowedIndexes[pastedRowIndex] + rowOffset,
-          accu.colIndex + colIndex,
-          pastedColumnValue
-        ),
-        colIndex: accu.colIndex + 1,
+      (acc, pastedColumnValue) => ({
+        odp: updateOdp(acc.odp, allowedIndexes[pastedRowIndex] + rowOffset, acc.colIndex + colIndex, pastedColumnValue),
+        colIndex: acc.colIndex + 1,
       }),
       { odp, colIndex: 0 }
     ).odp
 
   const updatedOdp: OriginalDataPoint = pastedData.reduce<{ odp: OriginalDataPoint; pastedRowIndex: number }>(
-    (accu, pastedRow) => ({
-      odp: handleRow(accu.pastedRowIndex, pastedRow, accu.odp),
-      pastedRowIndex: accu.pastedRowIndex + 1,
+    (acc, pastedRow) => ({
+      odp: handleRow(acc.pastedRowIndex, pastedRow, acc.odp),
+      pastedRowIndex: acc.pastedRowIndex + 1,
     }),
     { odp, pastedRowIndex: 0 }
   ).odp

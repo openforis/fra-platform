@@ -48,6 +48,7 @@ export const ProcessEnv = {
   // Redis
   redisDataUrl: process.env.REDISCLOUD_DATA_URL ?? process.env.REDIS_DATA_URL ?? 'redis://127.0.0.1:6389',
   redisQueueUrl: process.env.REDISCLOUD_URL ?? process.env.REDIS_QUEUE_URL ?? 'redis://127.0.0.1:6379',
+  redisTlsRejectUnauthorized: process.env.REDIS_TLS_REJECT_UNAUTHORIZED !== 'false',
 
   // Kiosk
   kioskActivitiesSheetUrl: process.env.KIOSK_ACTIVITIES_SHEET_URL,

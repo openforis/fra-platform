@@ -4,7 +4,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import { UserController } from 'server/controller/user'
 import { MailService } from 'server/service'
 import { ProcessEnv } from 'server/utils'
@@ -31,7 +31,7 @@ export class NotifyLinksInvalid extends Job {
 
     // get existing job or create new job and process it
     const existingJob = await VisitCycleLinksQueueFactory.getQueuedOrActiveJob({ assessment, cycle })
-    const job = existingJob ?? (await CycleDataController.Links.verify({ assessment, cycle, user }))
+    const job = existingJob ?? (await LinksController.verify({ assessment, cycle, user }))
     await triggerVerifyLinksWorker()
 
     const connection = { url: ProcessEnv.redisQueueUrl }

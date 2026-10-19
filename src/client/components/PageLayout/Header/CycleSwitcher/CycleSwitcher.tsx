@@ -10,6 +10,7 @@ import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
 
+import { useDisplayName } from './hooks/useDisplayName'
 import { usePopoverItems } from './hooks/usePopoverItems'
 
 const CycleSwitcher: React.FC = () => {
@@ -18,13 +19,12 @@ const CycleSwitcher: React.FC = () => {
   const { cycleName } = useCycleRouteParams()
   const popoverItems = usePopoverItems()
 
+  const displayName = useDisplayName()
+
   if (popoverItems.length < 1) {
     const cycleLabel = Cycles.isPublished(cycle) ? cycleName : Assessments.getLastPublishedCycle(assessment).name
     return <div>{cycleLabel}</div>
   }
-
-  const latestCycle = Assessments.getLastCreatedCycle(assessment)
-  const displayName = latestCycle.name === cycleName ? '' : cycleName
 
   return (
     <div className="cycle-switcher">

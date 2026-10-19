@@ -1,11 +1,10 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ReviewStatus } from 'meta/assessment/review'
 import { Topics } from 'meta/messageCenter/topics'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -22,14 +21,14 @@ export const getOdpReviewStatus = async (
     `
       with m as (
         select
-          topic_id,
+          topic_uuid,
           count(*) messages_count,
           max(created_time) last_message_time
         from ${cycleSchema}.message m
         left join ${cycleSchema}.message_topic mt
-          on mt.id = m.topic_id
+          on mt.uuid = m.topic_uuid
         where not m.deleted and mt.key like '${Topics.getOdpReviewTopicKeyPrefix('$1:value')}%'
-        group by topic_id
+        group by topic_uuid
       )
       select
         mt.key,
@@ -41,10 +40,10 @@ export const getOdpReviewStatus = async (
         left join ${cycleSchema}.message msg
           on m.last_message_time = msg.created_time
         left join ${cycleSchema}.message_topic_user mtu
-          on mtu.topic_id = m.topic_id
+          on mtu.topic_uuid = m.topic_uuid
           and mtu.user_id = $2
         left join ${cycleSchema}.message_topic mt
-          on mt.id = m.topic_id
+          on mt.uuid = m.topic_uuid
       where mt.country_iso = $3
     `,
     [odpId, user.id, countryIso],

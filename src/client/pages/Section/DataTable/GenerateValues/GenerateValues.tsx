@@ -29,8 +29,8 @@ type Props = {
 
 const methods: Array<{ method: Method; labelKey: string }> = [
   { method: Method.linear, labelKey: 'tableWithOdp.linearExtrapolation' },
-  { method: Method.repeatLast, labelKey: 'tableWithOdp.annualChangeExtrapolation' },
-  { method: Method.annualChange, labelKey: 'tableWithOdp.repeatLastExtrapolation' },
+  { method: Method.repeatLast, labelKey: 'tableWithOdp.repeatLastExtrapolation' },
+  { method: Method.annualChange, labelKey: 'tableWithOdp.annualChangeExtrapolation' },
 ]
 
 const GenerateValues: React.FC<Props> = (props) => {

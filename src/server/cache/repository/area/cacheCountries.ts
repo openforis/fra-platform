@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { Country, LastPublishedInfo } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
@@ -61,8 +60,11 @@ export const _cacheCountries = async (props: Props, client: BaseProtocol): Promi
   const countries = await _getCountries({ assessment, cycle, countryIso }, client)
   await _setCache(key, countries)
 
-  return countries.reduce<Record<CountryIso, Country>>((acc, country) => {
-    acc[country.countryIso] = country
-    return acc
-  }, {} as Record<CountryIso, Country>)
+  return countries.reduce<Record<CountryIso, Country>>(
+    (acc, country) => {
+      acc[country.countryIso] = country
+      return acc
+    },
+    {} as Record<CountryIso, Country>
+  )
 }

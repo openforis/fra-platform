@@ -4,6 +4,6 @@
   "disclaimerGeneratedDeskStudy": "本文件是根据一项案头研究自动生成的。粮农组织不对本文件所载信息的任何使用负责。",
   "header": "{{assessmentName}}{{cycleName}}，{{countryName}}",
   "tableOfContent": "目录",
-  "title": "FRA {{cycleName}}报告",
-  "titleTables": "FRA {{cycleName}}报告表"
+  "title": "{{assessmentName}} {{cycleName}}报告",
+  "titleTables": "{{assessmentName}} {{cycleName}}报告表"
 }
