@@ -62,6 +62,24 @@ test.describe('National data point: year', () => {
       await expect(page.locator(areaCell)).toBeVisible()
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
     })
+
+    test('another client viewing the point follows the year change', async ({
+      authenticatedPage,
+      ndp,
+      otherAuthenticatedPage: otherPage,
+    }) => {
+      expect(ndp.id).toBeTruthy()
+
+      await authenticatedPage.goto(ndpPath(seededYear))
+      await DOMUtils.ensureEditingUnlocked(authenticatedPage)
+      await otherPage.goto(ndpPath(seededYear))
+      await DOMUtils.ensureEditingUnlocked(otherPage)
+
+      await NDPDomUtils.changeYear(authenticatedPage, String(otherYear))
+
+      await expect(otherPage).toHaveURL(new RegExp(`${ndpPath(otherYear)}$`), { timeout: Timeouts.medium })
+      await expect(otherPage.locator('.odp__year-selection')).toHaveText(String(otherYear))
+    })
   })
 
   test.describe('occupied year', () => {
