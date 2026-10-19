@@ -237,7 +237,7 @@
       "countryRoleNotSpecified": "Error: El usuario {{user}} intentó acceder {{countryIso}} pero no se había especificado ninguna función",
       "countryUserNotReviewer": "Error: El usuario {{user}} intentó acceder {{countryIso}}, del cual no es evaluador",
       "invitationAlreadyUsed": "Error: La invitación {{invitationUuid}} ya se ha utilizado, ¡el robo del {{loginEmail}} está prohibido!",
-      "roleChangeNotAllowed": "Error: el usuario {{user}} intentó establecer otro rol de usuario a {{role}} que no está permitido para el usuario conectado",
+      "roleChangeNotAllowed": "Error: El usuario {{user}} intentó asignar otra función de usuario a {{role}}, lo que está prohibido para el usuario conectado",
       "userAlreadyAddedToCountry": "Error: El usuario {{user}} ya está añadido al país {{country Iso}}",
       "userNotAdministrator": "Error: El usuario {{user}} ha intentado acceder a un recurso disponible sólo para administradores"
     },
@@ -249,7 +249,7 @@
       "previousNdpNotFound": "No es posible encontrar ningún punto de información nacional anterior a {{year}}"
     },
     "review": {
-      "commentDeleteNotOwner": "Error: El usuario {{user}} intentó eliminar un comentario que no posee",
+      "commentDeleteNotOwner": "Error: El usuario {{user}} intentó borrar un comentario que no es suyo",
       "commentEnterResolvedIssue": "Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto"
     },
     "userInvitation": {
@@ -263,12 +263,12 @@
       "placeholderLine1": "Para empezar, añada nuevos puntos de datos nacionales y úselos",
       "placeholderLine2": "para generar los valores de FRA de forma automática."
     },
-    "dontUseOriginalDataPoints": "No utilizar puntos de datos nacionales",
+    "dontUseOriginalDataPoints": "No usar puntos de datos nacionales",
     "estimationAndForecasting": "Estimación and proyección",
     "extentOfForest": "Extensión de bosque y otras tierras boscosas",
     "fedAreasExceedTotalLandArea": "El área de bosque y otras tierras boscosas exceden la superficie total de tierra",
     "forestArea": "Bosque",
-    "forestAreaDoesNotMatchPreviouslyReported": "El área del bosque no coincide con el área de FRA {{year}} : {{previous}}",
+    "forestAreaDoesNotMatchPreviouslyReported": "El área de bosque no coincide con el área de FRA {{year}}: {{previous}}",
     "forestAreaNetChangeDoesNotMatch": "El cambio neto de la superficie forestal no coincide con el valor esperado: {{value}}",
     "hideNDPs": "Esconder puntos de datos nacionales",
     "ndpMissingValues": "El punto de dato nacional tiene valores faltantes",
@@ -295,7 +295,7 @@
     "forestAreaNetChange": "Cambio neto en el área de bosque",
     "forestAreaNetChangeFrom1a": "Cambio neto de la extensión de bosque calculado a partir de la tabla 1a",
     "forestExpansion": "Expansión del bosque",
-    "netChangeDoesNotMatch": "No coincide con el cambio de red del área del bosque",
+    "netChangeDoesNotMatch": "No coincide con el cambio neto en el área de bosque",
     "ofWhichAfforestation": "…de la cual es forestación",
     "ofWhichNaturalExpansion": "…de la cual es expansión natural"
   },
@@ -309,7 +309,7 @@
   },
   "forestCharacteristics": {
     "categoryHeader": "Categorías de FRA",
-    "dontUseOriginalDataPoints": "No utilizar puntos de datos nacionales",
+    "dontUseOriginalDataPoints": "No usar puntos de datos nacionales",
     "estimationAndForecasting": "Estimación y proyección",
     "forestCharacteristics": "Características de los bosques",
     "naturalForestArea": "Bosque regenerado de forma natural",
@@ -366,7 +366,7 @@
   },
   "graduationOfStudents": {
     "average": "en un promedio de 3 años",
-    "bachelorsDegree": "Grado de Bacelero",
+    "bachelorsDegree": "Título de grado",
     "doctoralDegree": "Doctorado",
     "female": "Mujeres",
     "fra2020Categories": "Categorías de FRA 2020",
@@ -433,7 +433,7 @@
     "other": "Desconocidas/otras (especificar en comentarios)",
     "privateBusinesses": "Entidades comerciales e instituciones privadas",
     "publicAdministration": "La Administración Pública",
-    "publicOwnershipDoesNotMatch": "No coincide con el total de propiedad pública",
+    "publicOwnershipDoesNotMatch": "No coincide con la propiedad pública total",
     "total": "Total",
     "totalPublicOwnership": "Propiedad pública total"
   },
@@ -485,7 +485,7 @@
     },
     "showAll": "Mostrar todo",
     "support": {
-      "dontDelete": "Información del sistema por favor no eliminar",
+      "dontDelete": "No elimine la información del sistema",
       "feedbackEmailSubject": "Comentarios de la plataforma de FRA",
       "manageCollaborators": "Gestionar colaboradores",
       "platformVersion": "Versión de la plataforma",

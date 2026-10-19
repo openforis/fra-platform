@@ -237,7 +237,7 @@
       "countryRoleNotSpecified": "错误: 用户 {{user}} 试图登陆 {{countryIso}} ，但未明确身份",
       "countryUserNotReviewer": "错误: 用户 {{user}} 试图登陆 {{countryIso}} ，但其并非审核人",
       "invitationAlreadyUsed": "错误: 邀请函 {{invitationUuid}}已被使用，不得通过{{loginEmail}}加以劫持!",
-      "roleChangeNotAllowed": "Error: User {{user}} tried to set another user's role to {{role}} which is not allowed for the logged in user",
+      "roleChangeNotAllowed": "错误: 用户 {{user}} 试图将另一名用户的身份设置为 {{role}}，但该用户没有这一操作权限",
       "userAlreadyAddedToCountry": "错误: 用户 {{user}} 已被添加至国家 {{countryIso}}",
       "userNotAdministrator": "错误: 用户 {{user}} 试图登陆仅向管理员开放的资源"
     },
@@ -249,7 +249,7 @@
       "previousNdpNotFound": "无法找到{{year}}前的任何国家数据点"
     },
     "review": {
-      "commentDeleteNotOwner": "Error: User {{user}} tried to delete a comment that doesn't own",
+      "commentDeleteNotOwner": "错误: 用户{{user}}试图删除他人评论",
       "commentEnterResolvedIssue": "错误: 用户{{user}}试图对已解决的问题发表评论"
     },
     "userInvitation": {
@@ -268,7 +268,7 @@
     "extentOfForest": "森林及其他林地的面积",
     "fedAreasExceedTotalLandArea": "森林和其他林地面积超过土地面积总和",
     "forestArea": "森林",
-    "forestAreaDoesNotMatchPreviouslyReported": "Forest area doesn't match FRA {{year}} area: {{previous}}",
+    "forestAreaDoesNotMatchPreviouslyReported": "森林面积与FRA {{year}}中报告的面积不匹配: {{previous}}",
     "forestAreaNetChangeDoesNotMatch": "森林面积净变化与预期值不符：{{value}}",
     "hideNDPs": "隐藏国家数据点",
     "ndpMissingValues": "国家数据点存在缺失值",
@@ -295,7 +295,7 @@
     "forestAreaNetChange": "森林面积净变化",
     "forestAreaNetChangeFrom1a": "从表1a计算得出的森林面积净变化",
     "forestExpansion": "森林扩张",
-    "netChangeDoesNotMatch": "与森林区域网变化不匹配",
+    "netChangeDoesNotMatch": "与森林面积净变化不匹配",
     "ofWhichAfforestation": "造林",
     "ofWhichNaturalExpansion": "自然扩张"
   },
@@ -366,13 +366,13 @@
   },
   "graduationOfStudents": {
     "average": "平均3年",
-    "bachelorsDegree": "学士学位",
+    "bachelorsDegree": "本科学位",
     "doctoralDegree": "博士学位",
     "female": "女性",
     "fra2020Categories": "FRA 2020中的类别",
     "graduationOfStudents": "森林相关专业毕业生",
     "male": "男性",
-    "mastersDegree": "硕士",
+    "mastersDegree": "硕士学位",
     "numberOfStudents": "毕业生人数",
     "technicianCertificate": "技术证书/文凭",
     "total": "总计"
@@ -433,7 +433,7 @@
     "other": "未知/其他(在评论中注明)",
     "privateBusinesses": "私营企业实体和机构",
     "publicAdministration": "公共管理",
-    "publicOwnershipDoesNotMatch": "不匹配全部公共所有权",
+    "publicOwnershipDoesNotMatch": "与公有合计数不匹配",
     "total": "总计",
     "totalPublicOwnership": "公有合计"
   },
@@ -485,7 +485,7 @@
     },
     "showAll": "显示所有",
     "support": {
-      "dontDelete": "系统信息不要删除",
+      "dontDelete": "系统信息，请勿移除",
       "feedbackEmailSubject": "FRA平台反馈",
       "manageCollaborators": "管理合作者",
       "platformVersion": "平台版本",

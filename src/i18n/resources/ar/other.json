@@ -237,7 +237,7 @@
       "countryRoleNotSpecified": "خطأ : المستخدم {{user}} حاول الدخول إلى {{countryIso}} لكن لم يتم تحديد دوره",
       "countryUserNotReviewer": "خطأ: المستخدم {{user}} حاول الدخول إلى {{countryIso}} وهو ليس مراجعاً فيه",
       "invitationAlreadyUsed": "خطأ: الدعوة {{invitationUuid}} استخدمت مسبقا، وإن قرصنة البريد الإلكتروني {{loginEmail}} ممنوعة!",
-      "roleChangeNotAllowed": "خطأ: حاول المستخدم {{user}} تعيين دور مستخدم آخر إلى {{role}} وهو غير مسموح به للمستخدم المسجل",
+      "roleChangeNotAllowed": "خطأ: المستخدم {{user}} المستخدم حاول تحديد دور آخر إضافة إلى  {{role}} وهو غير مسموح للشخص المسجل للدخول",
       "userAlreadyAddedToCountry": "خطأ: تمت إضافة المستخدم {{المستخدم}} بالفعل إلى البلد {{البلد}}",
       "userNotAdministrator": "خطأ: حاول المستخدم {{المستخدم}} الوصول إلى مورد متاح فقط للمسؤولين"
     },
@@ -249,7 +249,7 @@
       "previousNdpNotFound": "عاجز عن إيجاد أية نقطة بيانات وطنية قبل عام {{year}}"
     },
     "review": {
-      "commentDeleteNotOwner": "خطأ: حاول المستخدم {{user}} حذف تعليق لا يملكه",
+      "commentDeleteNotOwner": "خطأ: المستخدم {{user}} حاول حذف تعليق ليس له",
       "commentEnterResolvedIssue": "خطأ: المستخدم {{user}} حاول إدخال تعليق حول مسألة تم حلها"
     },
     "userInvitation": {
@@ -263,12 +263,12 @@
       "placeholderLine1": "للبدء، قم بإضافة نقاط بيانات وطنية جديدة واستخدمها",
       "placeholderLine2": "لإيجاد القيم الخاصة بتقييم الموارد الحرجية آلياً"
     },
-    "dontUseOriginalDataPoints": "عدم استخدام نقاط البيانات الوطنية",
+    "dontUseOriginalDataPoints": "لاتستخدم نقاط البيانات الوطنية",
     "estimationAndForecasting": "تقييمات وتنبؤات",
     "extentOfForest": "نطاق الغابة والأرض الحرجية الأخرى",
     "fedAreasExceedTotalLandArea": "مساحة الغابة والأرض الحرجية الأخرى تتجاوز إجمالي مساحة الأرض",
     "forestArea": "غابة",
-    "forestAreaDoesNotMatchPreviouslyReported": "منطقة الغابات لا تتطابق مع منطقة FRA {{year}} : {{previous}}",
+    "forestAreaDoesNotMatchPreviouslyReported": "مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام {{year}}: {{previous}}",
     "forestAreaNetChangeDoesNotMatch": "التغيير الصافي لمساحة الغابة لا يطابق القيمة المتوقعة: {{القيمه}}",
     "hideNDPs": "إخفاء نقاط البيانات الوطنية",
     "ndpMissingValues": "هنالك قيم مفقودة في نقطة البيانات الوطنية",
@@ -295,7 +295,7 @@
     "forestAreaNetChange": "صافي التغيير في مساحة الغابة",
     "forestAreaNetChangeFrom1a": "تم حساب تغيير مساحة الغابات من الجدول 1أ",
     "forestExpansion": "اتساع مساحة الغابة",
-    "netChangeDoesNotMatch": "لا يتطابق مع تغير صافي مساحة الغابات",
+    "netChangeDoesNotMatch": "غير مطابق لصافي التغيير في مساحة الغابة",
     "ofWhichAfforestation": "...منها تحريج",
     "ofWhichNaturalExpansion": "...منها اتساع طبيعي"
   },
@@ -309,7 +309,7 @@
   },
   "forestCharacteristics": {
     "categoryHeader": "فئات تقييم الموارد الحرجية",
-    "dontUseOriginalDataPoints": "عدم استخدام نقاط البيانات الوطنية",
+    "dontUseOriginalDataPoints": "لا تستخدم نقاط البيانات الوطنية",
     "estimationAndForecasting": "تقييمات وتنبؤات",
     "forestCharacteristics": "مواصفات الغابات",
     "naturalForestArea": "غابة متجددة طبيعياً",
@@ -372,7 +372,7 @@
     "fra2020Categories": "فئات تقييم الموارد الحرجية لعام 2020",
     "graduationOfStudents": "تخريج طلاب في ميدان التعليم المرتبط بالغابات",
     "male": "ذكر",
-    "mastersDegree": "درجة الماجستير",
+    "mastersDegree": "درجةالماجستير",
     "numberOfStudents": "عدد الطلاب الخريجين",
     "technicianCertificate": "شهادة/دبلوم فني",
     "total": "الإجمالي"
@@ -433,7 +433,7 @@
     "other": "مجهولة/غير ذلك (حددها في التعليقات)",
     "privateBusinesses": "كيانات ومؤسسات أعمال تابعة للقطاع الخاص",
     "publicAdministration": "إدارة عامة",
-    "publicOwnershipDoesNotMatch": "لا يتطابق مع إجمالي الملكية العامة",
+    "publicOwnershipDoesNotMatch": "غير مطابق لإجمالي الملكية العامة",
     "total": "الإجمالي",
     "totalPublicOwnership": "إجمالي الملكية العامة"
   },
@@ -485,7 +485,7 @@
     },
     "showAll": "إظهار الكل",
     "support": {
-      "dontDelete": "معلومات النظام يرجى عدم إزالتها",
+      "dontDelete": "معلومات خاصة بالنظام يرجى عدم إزالتها",
       "feedbackEmailSubject": "آراء حول منصة تقييم الموارد الحرجية",
       "manageCollaborators": "إدارة المتعاونين",
       "platformVersion": "نسخة المنصة",

@@ -3,7 +3,7 @@
     "contact": "Contact",
     "email": "Email",
     "faoForestryDepartment": "Département des forêts de la FAO",
-    "fraProcess": "Depuis 1946, la FAO surveille les forêts du monde à des intervalles de 5 à 10 ans. Les Évaluations mondiales des ressources forestières (FRA) sont maintenant produites tous les cinq ans dans le but de fournir une approche cohérente pour décrire les forêts du monde et comment elles évoluent. L'Évaluation est basée sur deux sources principales de données : les rapports par pays préparés par les correspondants nationaux et la télédétection qui sont menés par la FAO avec les points focaux nationaux et les partenaires régionaux. La portée de la FRA a changé régulièrement depuis la première évaluation publiée en 1948. Ces évaluations font une histoire intéressante des intérêts forestiers mondiaux, tant en ce qui concerne leur contenu substantiel, que dans leur champ d'application en mutation.",
+    "fraProcess": "Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
     "linkFraProcess": "En savoir davantage sur le processus de FRA",
     "or": "Ou",
     "selectArea": "Sélectionnez une zone ci-dessous pour accéder aux données FRA",
@@ -72,11 +72,11 @@
       "updateInvitation": "a mise à jour l'invitation pour {{user}} en tant que {{role}}",
       "updateUser": "a modifié {{user}}"
     },
-    "fraProcess": "Depuis 1946, la FAO surveille les forêts du monde à des intervalles de 5 à 10 ans. Les Évaluations mondiales des ressources forestières (FRA) sont maintenant produites tous les cinq ans dans le but de fournir une approche cohérente pour décrire les forêts du monde et comment elles évoluent. L'Évaluation est basée sur deux sources principales de données : les rapports par pays préparés par les correspondants nationaux et la télédétection qui sont menés par la FAO avec les points focaux nationaux et les partenaires régionaux. La portée de la FRA a changé régulièrement depuis la première évaluation publiée en 1948. Ces évaluations font une histoire intéressante des intérêts forestiers mondiaux, tant en ce qui concerne leur contenu substantiel, que dans leur champ d'application en mutation.",
+    "fraProcess": "Depuis 1946, la FAO assure le suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
     "getStarted": "Commencer",
     "linkFraProcess": "En savoir davantage sur le processus de FRA",
-    "noRecentActivityBody": "Les changements effectués sur la plateforme apparaîtront ici, de sorte que vous puissiez vous tenir au courant de ce qui se passe pendant votre absence.",
-    "noRecentActivityTitle": "Il semble qu'il n'y ait aucune activité récente"
+    "noRecentActivityBody": "Les modifications apportées dans la plateforme apparaissent ici pour vous permettre de savoir ce qui se passe quand vous n'êtes pas en ligne.",
+    "noRecentActivityTitle": "Visiblement, il n'y a pas d'activité récente"
   },
   "sections": {
     "about": "À propos de FRA",

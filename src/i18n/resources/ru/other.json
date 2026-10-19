@@ -237,7 +237,7 @@
       "countryRoleNotSpecified": "Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана роль",
       "countryUserNotReviewer": "Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь рецензентом этой страны",
       "invitationAlreadyUsed": "Ошибка: приглащение {{invitationUuid}} уже было использовано, захват {{loginEmail}} не разрешается!",
-      "roleChangeNotAllowed": "Ошибка: Пользователь {{user}} пытался установить роль другого пользователя в {{role}} , которая не разрешена для авторизованного пользователя",
+      "roleChangeNotAllowed": "Ошибка: Пользователь {{user}} попытался назначить роль другого пользователя {{role}}, что не разрешается вошедшему пользователю",
       "userAlreadyAddedToCountry": "Ошибка: пользователь {{user}} уже добавлен к стране {{sturniso}}",
       "userNotAdministrator": "Ошибка: пользователь {{user}} попытался получить доступ к ресурсу, доступному только для администраторов"
     },
@@ -249,7 +249,7 @@
       "previousNdpNotFound": "Невозможно найти Национальные отчетные годы до до {{year}}"
     },
     "review": {
-      "commentDeleteNotOwner": "Ошибка: Пользователь {{user}} пытался удалить комментарий, который не владеет",
+      "commentDeleteNotOwner": "Ошибка: Пользователь {{user}} попытался удалить чужой комментарий",
       "commentEnterResolvedIssue": "Ошибка: Пользователь {{user}} попытался добавить комментарий к разрешенной проблеме"
     },
     "userInvitation": {
@@ -263,12 +263,12 @@
       "placeholderLine1": "Чтобы начать, добавьте новые национальные отчетные годы и используйте",
       "placeholderLine2": "их для получения значений ОЛР автоматически."
     },
-    "dontUseOriginalDataPoints": "Не использовать национальные данные",
+    "dontUseOriginalDataPoints": "Не использовать национальные отчетные годы",
     "estimationAndForecasting": "Оценка и прогнозирование",
     "extentOfForest": "Площадь лесов и прочих лесопокрытых земель",
     "fedAreasExceedTotalLandArea": "Площадь лесов и прочих лесопокрытых земель превышает общую площадь земель",
     "forestArea": "Леса",
-    "forestAreaDoesNotMatchPreviouslyReported": "Зона леса не совпадает с областью ОЛР- {{year}} : {{previous}}",
+    "forestAreaDoesNotMatchPreviouslyReported": "Площадь лесов не совпадает с площадью ОЛР-{{year}}: {{previous}}",
     "forestAreaNetChangeDoesNotMatch": "Изменение сети лесов не соответствует ожидаемому значению: {{value}}",
     "hideNDPs": "Скрыть национальные отчетные годы",
     "ndpMissingValues": "Национальный отчетный год имеет отсутствующие значения",
@@ -295,7 +295,7 @@
     "forestAreaNetChange": "Чистое изменение площади лесов",
     "forestAreaNetChangeFrom1a": "Чистое изменение площади лесов рассчитано на основе таблицы 1а",
     "forestExpansion": "Расширение лесов",
-    "netChangeDoesNotMatch": "Не совпадает с изменением площади леса",
+    "netChangeDoesNotMatch": "Не совпадает с Чистым изменением лесной площади",
     "ofWhichAfforestation": "…в том числе лесоразведение",
     "ofWhichNaturalExpansion": "…в том числе естественное расширение лесов"
   },
@@ -309,7 +309,7 @@
   },
   "forestCharacteristics": {
     "categoryHeader": "Категории ОЛР",
-    "dontUseOriginalDataPoints": "Не использовать национальные данные",
+    "dontUseOriginalDataPoints": "Не использовать национальные отчетные годы",
     "estimationAndForecasting": "Оценка и прогнозирование",
     "forestCharacteristics": "Характеристики лесов",
     "naturalForestArea": "Естественно возобновляемые леса",
@@ -372,7 +372,7 @@
     "fra2020Categories": "Категории ОЛР-2020",
     "graduationOfStudents": "Получение образования в сфере лесного хозяйства",
     "male": "Мужчины",
-    "mastersDegree": "Магистерская степень",
+    "mastersDegree": "Степень магистра",
     "numberOfStudents": "Количество выпускников",
     "technicianCertificate": "Свидетельство/ диплом о профессионально-техническом образовании",
     "total": "Всего"
@@ -433,7 +433,7 @@
     "other": "Неизвестны/другие формы прав управления лесами (указать в комментариях)",
     "privateBusinesses": "Частные предприятия и учреждения",
     "publicAdministration": "Государственная администрация",
-    "publicOwnershipDoesNotMatch": "Не соответствует общему публичному владельцу",
+    "publicOwnershipDoesNotMatch": "Не совпадает с \"Общая площадь в государственной собственности\"",
     "total": "Итого",
     "totalPublicOwnership": "Общая площадь в государственной собственности"
   },
@@ -485,7 +485,7 @@
     },
     "showAll": "Показать все",
     "support": {
-      "dontDelete": "Информация о системе, пожалуйста, не удаляйте",
+      "dontDelete": "Системная информация, просьба не удалять",
       "feedbackEmailSubject": "Обратная связь с платформой ОЛР",
       "manageCollaborators": "Координировать сотрудников",
       "platformVersion": "Версия платформы",
