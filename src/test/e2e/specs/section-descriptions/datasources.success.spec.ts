@@ -26,16 +26,23 @@ test.describe('Section descriptions: data sources - success', () => {
   })
 
   test('NC creates, edits and removes a data source with a valid reference', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC sees no existing data source with the fixture reference', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13SpecificForestCategoriesPath)
 
       await expect(page.getByText(dataSourcesTitle)).toBeVisible()
       await DOMUtils.elementNotExists(DataSourceUtils.getTable(page).filter({ hasText: validReference.text }))
+
+      await page.close()
     })
 
     await test.step('NC creates a new data source with a valid reference', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13SpecificForestCategoriesPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
@@ -50,9 +57,13 @@ test.describe('Section descriptions: data sources - success', () => {
 
       // Only the reference is filled in, so the empty type, variables and year still cause an error
       await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
+
+      await page.close()
     })
 
     await test.step('NC edits the data source reference', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13SpecificForestCategoriesPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
@@ -66,9 +77,13 @@ test.describe('Section descriptions: data sources - success', () => {
       const table = DataSourceUtils.getTable(page)
       await expect(table).toContainText(updatedReference.text, { timeout: Timeouts.medium })
       await expect(table).not.toContainText(validReference.text, { timeout: Timeouts.medium })
+
+      await page.close()
     })
 
     await test.step('NC removes the data source', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13SpecificForestCategoriesPath)
       await DOMUtils.ensureEditingUnlocked(page)
       await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
@@ -80,6 +95,8 @@ test.describe('Section descriptions: data sources - success', () => {
         timeout: Timeouts.medium,
       })
       await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, false)
+
+      await page.close()
     })
   })
 })

@@ -47,9 +47,12 @@ test.describe('Section descriptions: text links - fix and remove', () => {
   test('NC fixes and removes invalid links in two descriptions and sees each warning go away, also after reloading the page', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC pastes invalid links in two descriptions and sees both flagged', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12CarbonStockPath)
       await summaryLoaded
@@ -64,9 +67,13 @@ test.describe('Section descriptions: text links - fix and remove', () => {
       await expectLinkErrors(page, estimationError, estimationInvalidLinks.emptyLinkText)
       await expectLinkErrors(page, classificationError, classificationInvalidLinks.emptyLinkText)
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
+
+      await page.close()
     })
 
     await test.step('NC fixes the links in one description and sees the other one stay flagged', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12CarbonStockPath)
       await summaryLoaded
@@ -82,18 +89,26 @@ test.describe('Section descriptions: text links - fix and remove', () => {
       // Only the edited description gets its links checked again, so the other one still has its error
       await expect(classificationError).toBeVisible()
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees only the other description still invalid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       await page.goto(x12CarbonStockPath)
       const descriptionValidations = (await storedValidations)[x12CarbonStockEstimation.sectionName]?.descriptions
 
       expect(descriptionValidations?.estimationAndForecasting?.valid).toBe(true)
       expect(descriptionValidations?.nationalClassificationAndDefinitions?.valid).toBe(false)
+
+      await page.close()
     })
 
     await test.step('NC removes the links from the other description and sees the warning go away', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12CarbonStockPath)
       await summaryLoaded
@@ -110,9 +125,13 @@ test.describe('Section descriptions: text links - fix and remove', () => {
       })
       await expect(classificationError).not.toBeVisible({ timeout: Timeouts.extraLong })
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees both descriptions valid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12CarbonStockPath)
@@ -125,6 +144,8 @@ test.describe('Section descriptions: text links - fix and remove', () => {
         classificationPlainText
       )
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
+
+      await page.close()
     })
   })
 })

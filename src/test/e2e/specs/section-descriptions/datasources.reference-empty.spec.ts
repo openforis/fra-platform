@@ -36,9 +36,12 @@ test.describe('Section descriptions: data sources - empty reference', () => {
   test('NC empties and refills the reference of a data source and still sees it valid after reloading the page', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC empties the reference of a filled data source and sees the error until it is filled again', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x13CarbonStockPath)
       await summaryLoaded
@@ -67,9 +70,13 @@ test.describe('Section descriptions: data sources - empty reference', () => {
       )
       await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
       await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees the reference still valid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x13CarbonStockPath)
@@ -84,6 +91,8 @@ test.describe('Section descriptions: data sources - empty reference', () => {
       const referenceCell = await DataSourceUtils.getReferenceCell(page, reference.text)
       await expect(referenceCell.locator('.editorWYSIWYG')).not.toHaveClass(/validation-error/)
       await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
+
+      await page.close()
     })
   })
 })

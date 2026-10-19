@@ -48,9 +48,12 @@ test.describe('Section descriptions: data sources - copy previous section', () =
   test('NC copies the data sources of the previous section, picks their variables and still sees them valid after reloading the page', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step("NC can't copy the previous section's data sources while the section has its own", async () => {
+      const page = await context.newPage()
+
       const sourceDataSources = copiedReferences.map<DataSource>((reference) =>
         buildDataSource(reference.html, ['insects'])
       )
@@ -66,9 +69,13 @@ test.describe('Section descriptions: data sources - copy previous section', () =
       await expect(getCopyButton(page)).toBeDisabled()
       await DataSourceUtils.deleteRow(page, existingReference.text)
       await expect(getCopyButton(page)).toBeEnabled()
+
+      await page.close()
     })
 
     await test.step('NC copies the data sources of the previous section and sees only the variables marked as empty', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12AreaAffectedByFirePath)
       await summaryLoaded
@@ -109,9 +116,13 @@ test.describe('Section descriptions: data sources - copy previous section', () =
       await expect(secondTypeCell).not.toHaveClass(/validation-error/)
       await expect(secondYearCell).not.toHaveClass(/validation-error/)
       await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, true)
+
+      await page.close()
     })
 
     await test.step('NC picks the variables of the copied data sources and sees the errors clear', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12AreaAffectedByFirePath)
       await summaryLoaded
@@ -134,9 +145,13 @@ test.describe('Section descriptions: data sources - copy previous section', () =
       )
       await expect(secondVariablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
       await NavigationUtils.subSectionHasError(page, x12AreaAffectedByFirePath, false)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees the copied data sources still valid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       await page.goto(x12AreaAffectedByFirePath)
       const dataSourceValidations = (await storedValidations)[x12AreaAffectedByFire.sectionName]?.dataSources ?? {}
@@ -146,6 +161,8 @@ test.describe('Section descriptions: data sources - copy previous section', () =
       expect(Object.keys(dataSourceValidations).sort()).toEqual([firstUuid, secondUuid].sort())
       expect(dataSourceValidations[firstUuid]?.variables?.valid).toBe(true)
       expect(dataSourceValidations[secondUuid]?.variables?.valid).toBe(true)
+
+      await page.close()
     })
   })
 })

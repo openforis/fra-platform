@@ -37,9 +37,12 @@ test.describe('Section descriptions: data sources - delete rows', () => {
   test('NC deletes empty data sources and sees the errors of the other data sources stay', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC adds a filled and an empty data source and sees only the empty one marked', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12BiomassStockPath)
       await summaryLoaded
@@ -74,9 +77,13 @@ test.describe('Section descriptions: data sources - delete rows', () => {
       await expect(keptTypeCell).not.toHaveClass(/validation-error/)
       await expect(keptVariablesCell).not.toHaveClass(/validation-error/)
       await expect(keptYearCell).not.toHaveClass(/validation-error/)
+
+      await page.close()
     })
 
     await test.step('NC deletes the empty data source and sees its errors and the warning go away', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12BiomassStockPath)
       await summaryLoaded
@@ -96,9 +103,13 @@ test.describe('Section descriptions: data sources - delete rows', () => {
       const dataSourceValidations = (await storedValidations)[x12BiomassStock.sectionName]?.dataSources
       expect(dataSourceValidations?.[deletedUuid]).toBeUndefined()
       expect(dataSourceValidations?.[keptUuid]?.type?.valid).toBe(true)
+
+      await page.close()
     })
 
     await test.step('NC deletes one of two empty data sources and sees the other one keep its errors', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x12BiomassStockPath)
       await summaryLoaded
@@ -134,6 +145,8 @@ test.describe('Section descriptions: data sources - delete rows', () => {
       expect(dataSourceValidations?.[secondUuid]?.type?.valid).toBe(false)
       expect(dataSourceValidations?.[secondUuid]?.variables?.valid).toBe(false)
       expect(dataSourceValidations?.[secondUuid]?.year?.valid).toBe(false)
+
+      await page.close()
     })
   })
 })

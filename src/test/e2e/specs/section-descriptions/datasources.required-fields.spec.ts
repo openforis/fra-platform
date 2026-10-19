@@ -27,9 +27,12 @@ test.describe('Section descriptions: data sources - required fields', () => {
   test('NC fills the required fields of a data source one at a time and still sees it valid after reloading the page', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC fills type, variables and year one at a time and sees each error clear on its own', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x13BiomassStockPath)
       await summaryLoaded
@@ -77,9 +80,13 @@ test.describe('Section descriptions: data sources - required fields', () => {
       await expect(typeCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
       await expect(variablesCell).not.toHaveClass(/validation-error/, { timeout: Timeouts.medium })
       await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, false)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees the data source still valid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x13BiomassStockPath)
@@ -99,6 +106,8 @@ test.describe('Section descriptions: data sources - required fields', () => {
       await expect(variablesCell).not.toHaveClass(/validation-error/)
       await expect(yearCell).not.toHaveClass(/validation-error/)
       await NavigationUtils.subSectionHasError(page, x13BiomassStockPath, false)
+
+      await page.close()
     })
   })
 })

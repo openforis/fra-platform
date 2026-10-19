@@ -35,9 +35,12 @@ test.describe('Section descriptions: data sources - reference and required field
   test('NC fixes the reference, then breaks it and fills the required fields, and sees each error stay after reloading the page', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC fixes an invalid reference and sees the required field errors stay', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x13DisturbancesPath)
       await summaryLoaded
@@ -76,9 +79,13 @@ test.describe('Section descriptions: data sources - reference and required field
       await DataSourceUtils.expectCellError(page, variablesCell)
       await DataSourceUtils.expectCellError(page, yearCell)
       await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees only the required fields still invalid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       await page.goto(x13DisturbancesPath)
       const validations = await storedValidations
@@ -89,9 +96,13 @@ test.describe('Section descriptions: data sources - reference and required field
       expect(rowValidations?.type?.valid).toBe(false)
       expect(rowValidations?.variables?.valid).toBe(false)
       expect(rowValidations?.year?.valid).toBe(false)
+
+      await page.close()
     })
 
     await test.step('NC breaks the reference again, fills the required fields and sees the reference error stay', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13DisturbancesPath)
       await DOMUtils.ensureEditingUnlocked(page)
       await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
@@ -119,9 +130,13 @@ test.describe('Section descriptions: data sources - reference and required field
       // Saving the required fields keeps the stored reference result, so its error is still there
       await expect(referenceField).toHaveClass(/validation-error/)
       await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
+
+      await page.close()
     })
 
     await test.step('NC reloads the page and sees only the reference still invalid', async () => {
+      const page = await context.newPage()
+
       const storedValidations = DescriptionsApi.waitForValidations(page)
       await page.goto(x13DisturbancesPath)
       const validations = await storedValidations
@@ -132,6 +147,8 @@ test.describe('Section descriptions: data sources - reference and required field
       expect(rowValidations?.type?.valid).toBe(true)
       expect(rowValidations?.variables?.valid).toBe(true)
       expect(rowValidations?.year?.valid).toBe(true)
+
+      await page.close()
     })
   })
 })

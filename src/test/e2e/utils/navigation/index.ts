@@ -42,7 +42,7 @@ const subSectionHasError = async (page: Page, path: string, hasError: boolean): 
 
 // Call this before page.goto, the navbar shows no warnings until the summary request is done
 const waitForValidationSummary = async (page: Page): Promise<ValidationSummary> => {
-  const response = await DOMUtils.waitForResponseToNewRequest(page, ApiEndPoint.CycleData.Validations.summary(), 'GET')
+  const response = await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.summary(), 'GET')
   return response.json()
 }
 

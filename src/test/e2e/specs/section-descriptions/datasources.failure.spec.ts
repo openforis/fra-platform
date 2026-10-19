@@ -29,9 +29,12 @@ test.describe('Section descriptions: data sources - failure', () => {
   test('NC creates a data source with invalid links, fixes the reference and removes the data source', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
     await test.step('NC creates a data source with an empty link and a broken link', async () => {
+      const page = await context.newPage()
+
       const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
       await page.goto(x13GrowingStockPath)
       await summaryLoaded
@@ -78,9 +81,13 @@ test.describe('Section descriptions: data sources - failure', () => {
       await expect(commentsCell).not.toHaveClass(/validation-error/)
 
       await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
+
+      await page.close()
     })
 
     await test.step('NC fixes the invalid reference', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13GrowingStockPath)
       await DOMUtils.ensureEditingUnlocked(page)
 
@@ -97,9 +104,13 @@ test.describe('Section descriptions: data sources - failure', () => {
 
       // Type, variables and year are still empty, so the section keeps the error
       await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
+
+      await page.close()
     })
 
     await test.step('NC removes the data source', async () => {
+      const page = await context.newPage()
+
       await page.goto(x13GrowingStockPath)
       await DOMUtils.ensureEditingUnlocked(page)
       await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, true)
@@ -111,6 +122,8 @@ test.describe('Section descriptions: data sources - failure', () => {
         timeout: Timeouts.medium,
       })
       await NavigationUtils.subSectionHasError(page, x13GrowingStockPath, false)
+
+      await page.close()
     })
   })
 })
