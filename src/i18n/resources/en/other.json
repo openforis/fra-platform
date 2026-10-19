@@ -237,7 +237,7 @@
       "countryRoleNotSpecified": "Error: User {{user}} tried to access {{countryIso}} but no role has been specified",
       "countryUserNotReviewer": "Error: User {{user}} tried to access {{countryIso}} of which is not reviewer",
       "invitationAlreadyUsed": "Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!",
-      "roleChangeNotAllowed": "Error: User {{user}} tried to set another user’s role to {{role}} which is not allowed for the logged in user",
+      "roleChangeNotAllowed": "Error: User {{user}} tried to set another user's role to {{role}} which is not allowed for the logged in user",
       "userAlreadyAddedToCountry": "Error: User {{user}} is already added to country {{countryIso}}",
       "userNotAdministrator": "Error: User {{user}} tried to access a resource available only to administrators"
     },
@@ -249,7 +249,7 @@
       "previousNdpNotFound": "Unable to find any National data point prior to {{year}}"
     },
     "review": {
-      "commentDeleteNotOwner": "Error: User {{user}} tried to delete a comment that doesn’t own",
+      "commentDeleteNotOwner": "Error: User {{user}} tried to delete a comment that doesn't own",
       "commentEnterResolvedIssue": "Error: User {{user}} tried to enter a comment for a resolved issue"
     },
     "userInvitation": {
@@ -263,12 +263,12 @@
       "placeholderLine1": "To get started, add new national data points and use",
       "placeholderLine2": "them to generate FRA values automatically."
     },
-    "dontUseOriginalDataPoints": "Don’t use national data points",
+    "dontUseOriginalDataPoints": "Don't use national data points",
     "estimationAndForecasting": "Estimation and forecasting",
     "extentOfForest": "Extent of forest and other wooded land",
     "fedAreasExceedTotalLandArea": "Forest area and other wooded land exceed total land area",
     "forestArea": "Forest",
-    "forestAreaDoesNotMatchPreviouslyReported": "Forest area doesn’t match FRA {{year}} area: {{previous}}",
+    "forestAreaDoesNotMatchPreviouslyReported": "Forest area doesn't match FRA {{year}} area: {{previous}}",
     "forestAreaNetChangeDoesNotMatch": "Forest area net change is different from what was reported in table 1a, provide a comment to explain why",
     "hideNDPs": "Hide National data points",
     "ndpMissingValues": "National data point has missing values",
@@ -295,7 +295,7 @@
     "forestAreaNetChange": "Forest area net change",
     "forestAreaNetChangeFrom1a": "Forest area net change calculated from table 1a",
     "forestExpansion": "Forest expansion",
-    "netChangeDoesNotMatch": "Doesn’t match Forest area net change",
+    "netChangeDoesNotMatch": "Doesn't match Forest area net change",
     "ofWhichAfforestation": "…of which afforestation",
     "ofWhichNaturalExpansion": "…of which natural expansion"
   },
@@ -309,7 +309,7 @@
   },
   "forestCharacteristics": {
     "categoryHeader": "FRA categories",
-    "dontUseOriginalDataPoints": "Don’t use national data points",
+    "dontUseOriginalDataPoints": "Don't use national data points",
     "estimationAndForecasting": "Estimation and forecasting",
     "forestCharacteristics": "Forest characteristics",
     "naturalForestArea": "Naturally regenerating forest",
@@ -366,13 +366,13 @@
   },
   "graduationOfStudents": {
     "average": "3 year average",
-    "bachelorsDegree": "Bachelor’s degree",
+    "bachelorsDegree": "Bachelor's degree",
     "doctoralDegree": "Doctoral degree",
     "female": "Female",
     "fra2020Categories": "FRA 2020 categories",
     "graduationOfStudents": "Graduation of students in forest-related education",
     "male": "Male",
-    "mastersDegree": "Master’s degree",
+    "mastersDegree": "Master's degree",
     "numberOfStudents": "Number of graduated students",
     "technicianCertificate": "Technician certificate / diploma",
     "total": "Total"
@@ -433,7 +433,7 @@
     "other": "Unknown/other (specify in comments)",
     "privateBusinesses": "Private business entities and institutions",
     "publicAdministration": "Public Administration",
-    "publicOwnershipDoesNotMatch": "Doesn’t match Total public ownership",
+    "publicOwnershipDoesNotMatch": "Doesn't match Total public ownership",
     "total": "Total",
     "totalPublicOwnership": "Total public ownership"
   },
@@ -485,7 +485,7 @@
     },
     "showAll": "Show all",
     "support": {
-      "dontDelete": "System information please don’t remove",
+      "dontDelete": "System information please don't remove",
       "feedbackEmailSubject": "FRA Platform Feedback",
       "manageCollaborators": "Manage collaborators",
       "platformVersion": "Platform version",
