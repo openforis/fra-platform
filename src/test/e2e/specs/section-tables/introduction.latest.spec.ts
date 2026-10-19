@@ -80,3 +80,22 @@ test.describe('Section tables: introduction latest - print view', () => {
     await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
   })
 })
+
+// Publishing X01 in latest stops this redirect, so it's in the same file as the publication year test and never runs alongside it
+test.describe('Section tables: introduction latest - unpublished', () => {
+  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest, status: CountryStatus.editing } })
+
+  test('Logged out user opens the unpublished latest cycle and lands on its last published cycle', async ({
+    country,
+    publicPage,
+  }) => {
+    const page = publicPage
+    expect(country.props.status).toBe(CountryStatus.editing)
+
+    await page.goto(x01ContactPersonsLatestPath)
+
+    // X01 was last published in 2020, so that's where it lands
+    await expect(page).toHaveURL(/\/assessments\/fra\/2020\/X01\/home/)
+    await expect(page.locator('.toast.error')).toHaveCount(2)
+  })
+})

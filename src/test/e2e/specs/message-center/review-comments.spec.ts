@@ -24,95 +24,86 @@ const comment = 'Please check the area of this class'
 test.describe('Message center: review comments - NDP national class', () => {
   test.use({ ndpSeeds: [{ countryIso, nationalClasses: [nationalClass], year: seededYear }] })
 
-  test('Admin adds a comment to a national class and sees it in the comments', async ({ authenticatedPage, ndp }) => {
+  test('Admin adds a comment to a national class and still sees it after reloading the page', async ({
+    authenticatedPage,
+    ndp,
+  }) => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-
     const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await expect(reviewButton).not.toHaveClass(/\bopen\b/)
-    await reviewButton.click()
-
     const topic = MessageCenterUtils.getTopic(page)
-    await expect(topic.locator('.topic-title')).toContainText(nationalClass.name)
-    await expect(topic).toContainText(enTranslation.review.noComments)
-
-    await MessageCenterUtils.addComment(page, comment)
-
     const message = topic.locator('.message')
-    await expect(message).toContainText(comment, { timeout: Timeouts.medium })
-    await expect(topic).not.toContainText(enTranslation.review.noComments)
-    await expect(reviewButton).toHaveClass(/\bopen\b/, { timeout: Timeouts.medium })
+
+    await test.step('Admin adds a comment to a national class and sees it in the comments', async () => {
+      await page.goto(ndpPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      await expect(reviewButton).not.toHaveClass(/\bopen\b/)
+      await reviewButton.click()
+
+      await expect(topic.locator('.topic-title')).toContainText(nationalClass.name)
+      await expect(topic).toContainText(enTranslation.review.noComments)
+
+      await MessageCenterUtils.addComment(page, comment)
+
+      await expect(message).toContainText(comment, { timeout: Timeouts.medium })
+      await expect(topic).not.toContainText(enTranslation.review.noComments)
+      await expect(reviewButton).toHaveClass(/\bopen\b/, { timeout: Timeouts.medium })
+    })
+
+    await test.step('Admin reloads the page and sees the comment', async () => {
+      await page.reload()
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      const topicLoaded = MessageCenterApi.waitForTopic(page)
+      await reviewButton.click()
+      const storedTopic = await topicLoaded
+      expect(storedTopic.messages.map<string>((m) => m.message)).toEqual([comment])
+
+      await expect(message).toContainText(comment)
+      await expect(reviewButton).toHaveClass(/\bopen\b/)
+    })
   })
 
-  test('Admin reloads the page and sees the comment', async ({ authenticatedPage, ndp }) => {
+  test('Admin deletes their comment and still sees it marked as deleted after reloading the page', async ({
+    authenticatedPage,
+    ndp,
+  }) => {
     const page = authenticatedPage
-    expect(ndp.id).toBeTruthy()
-
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
 
     const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await reviewButton.click()
-    await expect(MessageCenterUtils.getTopic(page)).toContainText(enTranslation.review.noComments)
-    await MessageCenterUtils.addComment(page, comment)
-
-    await page.reload()
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    const topicLoaded = MessageCenterApi.waitForTopic(page)
-    await reviewButton.click()
-    const storedTopic = await topicLoaded
-    expect(storedTopic.messages.map<string>((m) => m.message)).toEqual([comment])
-
-    await expect(MessageCenterUtils.getTopic(page).locator('.message')).toContainText(comment)
-    await expect(reviewButton).toHaveClass(/\bopen\b/)
-  })
-
-  test('Admin deletes their comment and sees it marked as deleted', async ({ authenticatedPage, ndp }) => {
-    const page = authenticatedPage
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(page, topicLocation, comment)
-
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-    await NDPDomUtils.getNationalClassReviewButton(page).click()
-
     const message = MessageCenterUtils.getTopic(page).locator('.message')
-    await expect(message).toContainText(comment)
 
-    await MessageCenterUtils.deleteComment(page)
+    await test.step('Admin deletes their comment and sees it marked as deleted', async () => {
+      const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
+      await MessageCenterApi.addMessage(page, topicLocation, comment)
 
-    await expect(message).toHaveClass(/\bdeleted\b/, { timeout: Timeouts.medium })
-    await expect(message).toContainText(enTranslation.review.commentDeleted)
-    await expect(message).not.toContainText(comment)
-    await expect(message.locator('.btn-remove-msg')).toHaveCount(0)
-  })
+      await page.goto(ndpPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+      await reviewButton.click()
 
-  test('Admin reloads the page and sees the comment still marked as deleted', async ({ authenticatedPage, ndp }) => {
-    const page = authenticatedPage
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(page, topicLocation, comment)
+      await expect(message).toContainText(comment)
 
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
+      await MessageCenterUtils.deleteComment(page)
 
-    const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await reviewButton.click()
-    await MessageCenterUtils.deleteComment(page)
+      await expect(message).toHaveClass(/\bdeleted\b/, { timeout: Timeouts.medium })
+      await expect(message).toContainText(enTranslation.review.commentDeleted)
+      await expect(message).not.toContainText(comment)
+      await expect(message.locator('.btn-remove-msg')).toHaveCount(0)
+    })
 
-    await page.reload()
-    await DOMUtils.ensureEditingUnlocked(page)
+    await test.step('Admin reloads the page and sees the comment still marked as deleted', async () => {
+      await page.reload()
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    const topicLoaded = MessageCenterApi.waitForTopic(page)
-    await reviewButton.click()
-    const storedTopic = await topicLoaded
-    expect(storedTopic.messages.map<boolean>((m) => m.deleted)).toEqual([true])
+      const topicLoaded = MessageCenterApi.waitForTopic(page)
+      await reviewButton.click()
+      const storedTopic = await topicLoaded
+      expect(storedTopic.messages.map<boolean>((m) => m.deleted)).toEqual([true])
 
-    const message = MessageCenterUtils.getTopic(page).locator('.message')
-    await expect(message).toHaveClass(/\bdeleted\b/)
-    await expect(message).toContainText(enTranslation.review.commentDeleted)
+      await expect(message).toHaveClass(/\bdeleted\b/)
+      await expect(message).toContainText(enTranslation.review.commentDeleted)
+    })
   })
 })
