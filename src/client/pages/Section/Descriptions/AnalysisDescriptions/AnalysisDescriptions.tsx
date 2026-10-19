@@ -1,10 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Cycles } from 'meta/assessment/cycles'
 import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useCycleRouteParams } from 'client/hooks/routeParams'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
 type Props = {
@@ -15,7 +17,9 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
   const { analysisAndProcessing } = props
 
   const { t } = useTranslation()
-  const { cycleName } = useCycleRouteParams()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const { name: cycleName } = Cycles.getFirstYearlyCycle({ assessment, cycle })
 
   return (
     <div className="descriptions__group">

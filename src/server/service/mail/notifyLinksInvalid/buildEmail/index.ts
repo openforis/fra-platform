@@ -38,7 +38,7 @@ export const buildEmail = async (props: Props): Promise<MailServiceEmail> => {
   const isPanEuropean = assessment.props.name === AssessmentNames.panEuropean
 
   const countryEntries = _getCountryEntries({ assessmentName, cycleName, linksByCountry, t })
-  const renderProps: RenderProps = { countryEntries, cycle, isPanEuropean, subSections, t }
+  const renderProps: RenderProps = { assessment, countryEntries, cycle, isPanEuropean, subSections, t }
   const textLines = _getTextLines(renderProps)
   const htmlItems = _getHtmlItems(renderProps)
 

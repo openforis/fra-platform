@@ -7,7 +7,6 @@ export const Admin = createRoute<CycleRouteParams>({ path: 'admin', parent: Cycl
 export const AdminCountries = createRoute<CycleRouteParams>({ path: 'countries', parent: Admin })
 export const AdminInvitations = createRoute<CycleRouteParams>({ path: 'invitations', parent: Admin })
 export const AdminLinks = createRoute<CycleRouteParams>({ path: 'links', parent: Admin })
-export const AdminTracking = createRoute<CycleRouteParams>({ path: SectionNames.Admin.tracking, parent: Admin })
 export const AdminCollaborators = createRoute<CycleRouteParams>({
   path: SectionNames.Admin.collaborators,
   parent: Admin,

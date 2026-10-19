@@ -61,8 +61,9 @@ Note(s) explicative(s)
 2.	Inclut les terres à vocation agricole, les prairies et les pâturages, les zones construites, les terres dénudées, les terres couvertes de glace permanente, etc.
 3.	Inclut toutes les zones entrant dans la sous-catégorie «Autres terres avec un couvert arboré».
 
-### CLIMATIC DOMAIN Source:
-http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
+### DOMAINE CLIMATIQUE
+
+Source : http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 
 ## 1b Caractéristiques des forêts <!-- section:1b -->
 
@@ -499,7 +500,7 @@ Note(s) explicative(s)
 
 > Autres formes de droits de propriété non couverts par les régimes de **propriété publique** ou **privée**.
 
-###PROPRIÉTÉ INCONNUE
+### PROPRIÉTÉ INCONNUE
 
 > Superficie de forêt dont la propriété est inconnue.
 

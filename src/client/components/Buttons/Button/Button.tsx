@@ -16,7 +16,6 @@ const Button: React.FC<ButtonProps> = (props) => {
     dataTooltipDelayHide,
     dataTooltipId,
     dataTooltipPlace,
-    dataTrackId,
     disabled,
     htmlButtonType = defaults.htmlButtonType,
     icon,
@@ -36,7 +35,6 @@ const Button: React.FC<ButtonProps> = (props) => {
       data-tooltip-delay-hide={dataTooltipDelayHide}
       data-tooltip-id={dataTooltipId}
       data-tooltip-place={dataTooltipPlace}
-      data-track-id={dataTrackId}
       disabled={disabled}
       onClick={onClick}
       onMouseEnter={onMouseEnter}

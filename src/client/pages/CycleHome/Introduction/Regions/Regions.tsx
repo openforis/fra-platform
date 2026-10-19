@@ -1,15 +1,12 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
-import { TrackId } from 'meta/tracking/id'
 
 import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useNavigateToArea } from 'client/hooks/navigateToArea'
 import { useShowRegions } from 'client/hooks/showRegions'
 import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
-import { Tracking } from 'client/utils/tracking'
 
 const includeRegions = ['fra2020', 'secondary']
 
@@ -38,16 +35,11 @@ const Regions: React.FC = () => {
     return null
   }
 
-  const handleChange = (areaCode: AreaCode): void => {
-    Tracking.select({ elementId: TrackId.landingSelectRegions, value: areaCode })
-    navigateToArea(areaCode)
-  }
-
   return (
     <div className="home-area-selector__group">
       <img alt="" src="/img/iconRegions.svg" />
       <div>{t('common.regions')}</div>
-      <Select onChange={handleChange} options={options} placeholder={t('common.select')} size={SelectSize.m} />
+      <Select onChange={navigateToArea} options={options} placeholder={t('common.select')} size={SelectSize.m} />
     </div>
   )
 }

@@ -3,11 +3,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Lang, LanguageCodes } from 'meta/lang'
-import { TrackId } from 'meta/tracking/id'
 
 import { useLanguage, useUpdateLanguage } from 'client/hooks/language'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
-import { Tracking } from 'client/utils/tracking'
 
 const LanguageSelectorMobile: React.FC = () => {
   const { t } = useTranslation()
@@ -21,10 +19,7 @@ const LanguageSelectorMobile: React.FC = () => {
           key={lang}
           disabled={language === lang}
           label={t(`language.${lang}`)}
-          onClick={(): void => {
-            Tracking.select({ elementId: TrackId.headerLanguageSelect, value: lang })
-            updateLanguage({ lang })
-          }}
+          onClick={(): Promise<void> => updateLanguage({ lang })}
           type={ButtonType.transparent}
         />
       ))}

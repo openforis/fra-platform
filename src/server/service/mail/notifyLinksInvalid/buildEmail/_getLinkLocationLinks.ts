@@ -5,9 +5,10 @@ import { ProcessEnv } from 'server/utils'
 import { LinkRenderProps, LocationLink } from './types'
 
 export const _getLinkLocationLinks = (props: LinkRenderProps): Array<LocationLink> => {
-  const { countryIso, cycle, isPanEuropean, link, subSections, t } = props
+  const { assessment, countryIso, cycle, isPanEuropean, link, subSections, t } = props
   return link.locations.reduce<Array<LocationLink>>((locationLinks, location) => {
     const label = Links.getLocationLabel({
+      assessment,
       countryIso,
       cycle,
       includeCountryIso: false,

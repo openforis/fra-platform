@@ -61,8 +61,9 @@ Explanatory notes
 2. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under permanent ice, etc. 
 3. Includes all areas classified under the sub-category "Other land with tree cover".
 
-### CLIMATIC DOMAIN Source:
-http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
+### CLIMATIC DOMAIN
+
+Source: http://www.fao.org/docrep/017/ap861e/ap861e00.pdf
 
 ## 1b Forest characteristics <!-- section:1b -->
 
@@ -84,7 +85,7 @@ Explanatory notes
 Explanatory notes
 1.	Includes both pristine and managed forests that meet the definition. Management practices in primary forests should imply minimum human intervention and aim for the long-term conservation of native vegetation and wildlife habitat.
 2.	Includes forests where Indigenous Peoples and local communities engage in traditional forest stewardship and management/use activities that meet the definition.
-3.	Includes forests with visible  impacts of natural disturbances (such as storms, snow, drought, wildfire or insects , pests and diseases outbreaks)
+3.	Includes forests with visible  impacts of natural disturbances (such as storms, snow, drought, wildfire or insects, pests and diseases outbreaks)
 4.	Excludes forests where hunting, poaching, trapping, or gathering have caused significant native species loss or disturbance to ecological processes.
 5.	Some key characteristics of primary forests:
 <br>i.	they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure, and natural regeneration processes;
@@ -101,7 +102,7 @@ Explanatory notes
 1. In this context, predominantly means that the planted/seeded trees are expected to constitute more than 50 percent of the growing stock at maturity.
 2. Includes coppice from trees that were originally planted or seeded.
 
-### PLANTATION FOREST(_Sub-category_ of PLANTED FOREST)
+### PLANTATION FOREST (_Sub-category_ of PLANTED FOREST)
 
 > **Planted Forest** that is intensively managed and meet ALL the following criteria at planting and stand maturity: one or two species, even age class, and regular spacing.
 
@@ -118,7 +119,7 @@ Explanatory notes
 Explanatory note
 1. In this context, predominantly means that the planted introduced trees are expected to constitute more than 50 percent of the growing stock at maturity.
 
-### OTHER PLANTED FOREST(_Sub-category_ of PLANTED FOREST)
+### OTHER PLANTED FOREST (_Sub-category_ of PLANTED FOREST)
 
 > **Planted forest** which is not classified as **plantation forest**.
 
@@ -330,7 +331,7 @@ Explanatory note
 
 Explanatory note
 
-1.	Management objectives are not exclusive. Hence, areas can be counted more than once e.g. : 
+1.	Management objectives are not exclusive. Hence, areas can be counted more than once e.g.: 
 	a) Areas where the management objective is multiple use should be counted once for each specific management objective included in the multiple use. 
 	b) Areas with primary management objective can be counted more than once if other management objectives have been considered.
 
@@ -400,7 +401,7 @@ Explanatory note
 
 > Forest where there is no **primary designated management objective**.
 
-### UNKNOWN(DESIGNATION)
+### UNKNOWN (DESIGNATION)
 
 > Forest where the **primary designated management objective** is unknown.
 
@@ -539,7 +540,7 @@ Explanatory notes
 
 ## 5a Forest damage <!-- section:5a -->
 
-### DAMAGE(To forest)
+### DAMAGE (TO FOREST)
 
 > Disturbance caused by any factor (biotic or abiotic) that adversely affects the vigor and productivity of the forest and which is not a direct result of human activities.
 
