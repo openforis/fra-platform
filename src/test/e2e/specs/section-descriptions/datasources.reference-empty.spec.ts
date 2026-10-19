@@ -25,7 +25,7 @@ const fillRequiredFields = async (page: Page, text: string, variableOption: stri
   await DescriptionUtils.save(page, () => DataSourceUtils.selectOption(page, text, 'year', yearOption))
 }
 
-test.describe.serial('Section descriptions: data sources - empty reference', () => {
+test.describe('Section descriptions: data sources - empty reference', () => {
   const reference = LinkBuilder.buildValidLinkHtml(`data-source-empty-reference-${randomString}`)
   const variableOption = enTranslation.carbonStock.carbonDeadwood
 
@@ -33,57 +33,57 @@ test.describe.serial('Section descriptions: data sources - empty reference', () 
     await DescriptionsApi.clear(browser, x13CarbonStock)
   })
 
-  test('NC empties the reference of a filled data source and sees the error until it is filled again', async ({
+  test('NC empties and refills the reference of a data source and still sees it valid after reloading the page', async ({
     authenticatedPage,
   }) => {
     const page = authenticatedPage
 
-    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(x13CarbonStockPath)
-    await summaryLoaded
-    await DOMUtils.ensureEditingUnlocked(page)
-    await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
+    await test.step('NC empties the reference of a filled data source and sees the error until it is filled again', async () => {
+      const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+      await page.goto(x13CarbonStockPath)
+      await summaryLoaded
+      await DOMUtils.ensureEditingUnlocked(page)
+      await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
 
-    await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
-    await DescriptionUtils.save(page, async () => {
-      const referenceEditor = await DataSourceUtils.addRow(page)
-      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
+      await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
+      await DescriptionUtils.save(page, async () => {
+        const referenceEditor = await DataSourceUtils.addRow(page)
+        await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
+      })
+      await fillRequiredFields(page, reference.text, variableOption)
+      await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
+
+      const referenceCell = await DataSourceUtils.getReferenceCell(page, reference.text)
+      const referenceField = referenceCell.locator('.editorWYSIWYG')
+      const referenceEditor = referenceCell.locator('.jodit-wysiwyg')
+
+      await DescriptionUtils.save(page, () => DescriptionUtils.fillEditorWysiwyg(page, referenceEditor, []))
+      await expect(referenceField).toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
+      await TooltipUtils.expectValidationTooltip(page, referenceField, emptyValueMessage)
+      await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, true)
+
+      await DescriptionUtils.save(page, () =>
+        DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
+      )
+      await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
+      await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
     })
-    await fillRequiredFields(page, reference.text, variableOption)
-    await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
 
-    const referenceCell = await DataSourceUtils.getReferenceCell(page, reference.text)
-    const referenceField = referenceCell.locator('.editorWYSIWYG')
-    const referenceEditor = referenceCell.locator('.jodit-wysiwyg')
+    await test.step('NC reloads the page and sees the reference still valid', async () => {
+      const storedValidations = DescriptionsApi.waitForValidations(page)
+      const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+      await page.goto(x13CarbonStockPath)
+      const validations = await storedValidations
+      await summaryLoaded
 
-    await DescriptionUtils.save(page, () => DescriptionUtils.fillEditorWysiwyg(page, referenceEditor, []))
-    await expect(referenceField).toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
-    await TooltipUtils.expectValidationTooltip(page, referenceField, emptyValueMessage)
-    await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, true)
+      const uuid = await DataSourceUtils.getRowUuid(page, reference.text)
+      const rowValidations = validations[x13CarbonStock.sectionName]?.dataSources?.[uuid]
+      // The server stores the reference as valid, the cell check below only makes sure the UI matches
+      expect(rowValidations?.reference?.valid).toBe(true)
 
-    await DescriptionUtils.save(page, () =>
-      DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
-    )
-    await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
-    await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
-  })
-
-  test('NC reloads the page and sees the reference still valid', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    const storedValidations = DescriptionsApi.waitForValidations(page)
-    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(x13CarbonStockPath)
-    const validations = await storedValidations
-    await summaryLoaded
-
-    const uuid = await DataSourceUtils.getRowUuid(page, reference.text)
-    const rowValidations = validations[x13CarbonStock.sectionName]?.dataSources?.[uuid]
-    // The server stores the reference as valid, the cell check below only makes sure the UI matches
-    expect(rowValidations?.reference?.valid).toBe(true)
-
-    const referenceCell = await DataSourceUtils.getReferenceCell(page, reference.text)
-    await expect(referenceCell.locator('.editorWYSIWYG')).not.toHaveClass(/validation-error/)
-    await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
+      const referenceCell = await DataSourceUtils.getReferenceCell(page, reference.text)
+      await expect(referenceCell.locator('.editorWYSIWYG')).not.toHaveClass(/validation-error/)
+      await NavigationUtils.subSectionHasError(page, x13CarbonStockPath, false)
+    })
   })
 })

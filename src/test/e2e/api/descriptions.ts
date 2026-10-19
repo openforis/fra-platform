@@ -74,7 +74,11 @@ const clear = async (browser: Browser, location: DescriptionLocation): Promise<v
 
 // Call this before page.goto, the validations come in a separate request after the page loads
 const waitForValidations = async (page: Page): Promise<RecordDescriptionValidations> => {
-  const response = await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.descriptions(), 'GET')
+  const response = await DOMUtils.waitForResponseToNewRequest(
+    page,
+    ApiEndPoint.CycleData.Validations.descriptions(),
+    'GET'
+  )
   return response.json()
 }
 

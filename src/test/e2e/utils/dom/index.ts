@@ -21,6 +21,14 @@ const fillWYSIWYG = async (page: Page, selector: Selector, value: string): Promi
 const waitForResponse = (page: Page, pathSubstring: string, method: string): Promise<Response> =>
   page.waitForResponse((response) => response.url().includes(pathSubstring) && response.request().method() === method)
 
+// Only matches a request sent after this call, so the response to a request the page sent earlier can't match
+const waitForResponseToNewRequest = async (page: Page, pathSubstring: string, method: string): Promise<Response> => {
+  const request = await page.waitForRequest((r) => r.url().includes(pathSubstring) && r.method() === method)
+  const response = await request.response()
+  if (!response) throw new Error(`${method} ${request.url()} got no response`)
+  return response
+}
+
 const nestedSelectOption = async (page: Page, selector: Selector, optionName: string, exact = true): Promise<void> => {
   await page.locator(toSelector(selector)).click()
   await page.keyboard.type(optionName)
@@ -63,4 +71,5 @@ export const DOMUtils = {
   selectOption,
   sidebarNavigate,
   waitForResponse,
+  waitForResponseToNewRequest,
 }

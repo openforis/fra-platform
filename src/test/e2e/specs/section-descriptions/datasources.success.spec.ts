@@ -17,7 +17,7 @@ const randomString = Date.now().toString()
 const dataSourcesToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
   DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, name)
 
-test.describe.serial('Section descriptions: data sources - success', () => {
+test.describe('Section descriptions: data sources - success', () => {
   const validReference = LinkBuilder.buildValidLinkHtml(`data-source-${randomString}`)
   const updatedReference = LinkBuilder.buildValidLinkHtml(`data-source-updated-${randomString}`)
 
@@ -25,65 +25,61 @@ test.describe.serial('Section descriptions: data sources - success', () => {
     await DescriptionsApi.clear(browser, x13SpecificForestCategories)
   })
 
-  test('NC sees no existing data source with the fixture reference', async ({ authenticatedPage }) => {
+  test('NC creates, edits and removes a data source with a valid reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(x13SpecificForestCategoriesPath)
+    await test.step('NC sees no existing data source with the fixture reference', async () => {
+      await page.goto(x13SpecificForestCategoriesPath)
 
-    await expect(page.getByText(dataSourcesTitle)).toBeVisible()
-    await DOMUtils.elementNotExists(DataSourceUtils.getTable(page).filter({ hasText: validReference.text }))
-  })
+      await expect(page.getByText(dataSourcesTitle)).toBeVisible()
+      await DOMUtils.elementNotExists(DataSourceUtils.getTable(page).filter({ hasText: validReference.text }))
+    })
 
-  test('NC creates a new data source with a valid reference', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+    await test.step('NC creates a new data source with a valid reference', async () => {
+      await page.goto(x13SpecificForestCategoriesPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await page.goto(x13SpecificForestCategoriesPath)
-    await DOMUtils.ensureEditingUnlocked(page)
+      await DescriptionUtils.save(page, async () => {
+        await dataSourcesToggleEditButton(page, 'Edit').click()
+        const referenceEditor = await DataSourceUtils.addRow(page)
+        await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, validReference.html)
+        await dataSourcesToggleEditButton(page, 'Done').click()
+      })
 
-    await DescriptionUtils.save(page, async () => {
+      await expect(DataSourceUtils.getReferenceValidationError(page, validReference.text)).not.toBeVisible()
+
+      // Only the reference is filled in, so the empty type, variables and year still cause an error
+      await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
+    })
+
+    await test.step('NC edits the data source reference', async () => {
+      await page.goto(x13SpecificForestCategoriesPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      await DescriptionUtils.save(page, async () => {
+        await dataSourcesToggleEditButton(page, 'Edit').click()
+        const referenceEditor = DataSourceUtils.getReferenceEditor(page, validReference.text)
+        await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, updatedReference.html)
+        await dataSourcesToggleEditButton(page, 'Done').click()
+      })
+
+      const table = DataSourceUtils.getTable(page)
+      await expect(table).toContainText(updatedReference.text, { timeout: Timeouts.medium })
+      await expect(table).not.toContainText(validReference.text, { timeout: Timeouts.medium })
+    })
+
+    await test.step('NC removes the data source', async () => {
+      await page.goto(x13SpecificForestCategoriesPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+      await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
+
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = await DataSourceUtils.addRow(page)
-      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, validReference.html)
-      await dataSourcesToggleEditButton(page, 'Done').click()
+      await DataSourceUtils.deleteRow(page, updatedReference.text)
+
+      await expect(DataSourceUtils.getTable(page)).not.toContainText(updatedReference.text, {
+        timeout: Timeouts.medium,
+      })
+      await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, false)
     })
-
-    await expect(DataSourceUtils.getReferenceValidationError(page, validReference.text)).not.toBeVisible()
-
-    // Only the reference is filled in, so the empty type, variables and year still cause an error
-    await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
-  })
-
-  test('NC edits the data source reference', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    await page.goto(x13SpecificForestCategoriesPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    await DescriptionUtils.save(page, async () => {
-      await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getReferenceEditor(page, validReference.text)
-      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, updatedReference.html)
-      await dataSourcesToggleEditButton(page, 'Done').click()
-    })
-
-    const table = DataSourceUtils.getTable(page)
-    await expect(table).toContainText(updatedReference.text, { timeout: Timeouts.medium })
-    await expect(table).not.toContainText(validReference.text, { timeout: Timeouts.medium })
-  })
-
-  test('NC removes the data source', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    await page.goto(x13SpecificForestCategoriesPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-    await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, true)
-
-    await dataSourcesToggleEditButton(page, 'Edit').click()
-    await DataSourceUtils.deleteRow(page, updatedReference.text)
-
-    await expect(DataSourceUtils.getTable(page)).not.toContainText(updatedReference.text, {
-      timeout: Timeouts.medium,
-    })
-    await NavigationUtils.subSectionHasError(page, x13SpecificForestCategoriesPath, false)
   })
 })
