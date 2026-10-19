@@ -237,7 +237,7 @@
       "countryRoleNotSpecified": "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} mais aucun rôle n'a été précisé",
       "countryUserNotReviewer": "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} dont il n'est pas examinateur",
       "invitationAlreadyUsed": "Erreur: L'invitation {{invitationUuid}} a déjà été utilisée, détournement par {{loginEmail}} non autorisé!",
-      "roleChangeNotAllowed": "Erreur: L'utilisateur {{user}} a essayé de configurer un autre profil d'utilisateur à {{role}} ce qui n'est pas autorisé pour l'utilisateur connecté",
+      "roleChangeNotAllowed": "Erreur: L'utilisateur {{user}} a essayé de définir le rôle d'un autre utilisateur à {{role}} qui n'est pas autorisé pour l'utilisateur connecté",
       "userAlreadyAddedToCountry": "Erreur : l'utilisateur {{user}} est déjà ajouté au pays {{countryIso}}",
       "userNotAdministrator": "Erreur : l'utilisateur {{user}} a tenté d'accéder à une ressource disponible uniquement pour les administrateurs"
     },
@@ -249,7 +249,7 @@
       "previousNdpNotFound": "Pas trouvé de point des données nationales avant {{year}}"
     },
     "review": {
-      "commentDeleteNotOwner": "Erreur: L'utilisateur {{user}} a essayé de supprimer un commentaire qui ne lui appartient pas",
+      "commentDeleteNotOwner": "Erreur: L'utilisateur {{user}} a essayé de supprimer un commentaire qui n'est pas propriétaire",
       "commentEnterResolvedIssue": "Erreur: L'utilisateur {{user}} a essayé de saisir un commentaire sur une question résolue"
     },
     "userInvitation": {
@@ -263,12 +263,12 @@
       "placeholderLine1": "Pour commencer, ajouter de nouveaux points de données nationales et les utiliser",
       "placeholderLine2": "pour générer automatiquement les valeurs de FRA."
     },
-    "dontUseOriginalDataPoints": "Ne pas utiliser les points de données nationales",
+    "dontUseOriginalDataPoints": "Ne pas utiliser les données nationales",
     "estimationAndForecasting": "Estimation et prévision",
     "extentOfForest": "Étendue des forêts et des autres terres boisées",
     "fedAreasExceedTotalLandArea": "La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées",
     "forestArea": "Forêt",
-    "forestAreaDoesNotMatchPreviouslyReported": "La superficie de forêt ne correspond pas à la superficie de FRA {{year}}: {{previous}}",
+    "forestAreaDoesNotMatchPreviouslyReported": "La zone forestière ne correspond pas à la zone {{year}} de FRA : {{previous}}",
     "forestAreaNetChangeDoesNotMatch": "Le changement net de la superficie forestière ne correspond pas à la valeur attendue : {{value}}",
     "hideNDPs": "Cacher les points de données nationaux",
     "ndpMissingValues": "Le point de données nationales a des valeurs manquantes",
@@ -295,7 +295,7 @@
     "forestAreaNetChange": "Changement net de la superficie forestière",
     "forestAreaNetChangeFrom1a": "Changement net de la superficie de forêt calculée à partir du tableau 1a",
     "forestExpansion": "Expansion de la forêt",
-    "netChangeDoesNotMatch": "Ne correspond pas au changement net de la superficie forestière",
+    "netChangeDoesNotMatch": "Ne correspond pas au changement net de zone forestière",
     "ofWhichAfforestation": "…dont boisement",
     "ofWhichNaturalExpansion": "…dont expansion naturelle"
   },
@@ -309,7 +309,7 @@
   },
   "forestCharacteristics": {
     "categoryHeader": "Catégories de FRA",
-    "dontUseOriginalDataPoints": "Ne pas utiliser points de données nationaux",
+    "dontUseOriginalDataPoints": "Ne pas utiliser les données nationales",
     "estimationAndForecasting": "Estimation et prévision",
     "forestCharacteristics": "Caractéristiques des forêts",
     "naturalForestArea": "Forêt naturellement régénérée",
@@ -366,13 +366,13 @@
   },
   "graduationOfStudents": {
     "average": "Moyenne triannuelle",
-    "bachelorsDegree": "Licence",
+    "bachelorsDegree": "Bachelier",
     "doctoralDegree": "Doctorat",
     "female": "Femmes",
     "fra2020Categories": "Catégories de FRA 2020",
     "graduationOfStudents": "Obtention de diplômes liés à l'enseignement forestier",
     "male": "Hommes",
-    "mastersDegree": "Master",
+    "mastersDegree": "Maîtrise",
     "numberOfStudents": "Nombre d'étudiants diplômés",
     "technicianCertificate": "Diplôme/brevet de technicien",
     "total": "Total"
@@ -485,7 +485,7 @@
     },
     "showAll": "Montrer tout",
     "support": {
-      "dontDelete": "Information de système, ne pas supprimer",
+      "dontDelete": "Information système s'il vous plaît ne pas supprimer",
       "feedbackEmailSubject": "Réactions sur la plateforme de FRA",
       "manageCollaborators": "Gérer collaborateurs",
       "platformVersion": "Version plateforme",
@@ -558,6 +558,7 @@
     "delete": "Supprimer",
     "loading": "Chargement",
     "noComments": "Pas de commentaires",
+    "resetPosition": "Réinitialiser la position",
     "resolve": "Résoudre",
     "writeComment": "Écrire un commentaire…"
   },
