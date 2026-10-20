@@ -38,107 +38,96 @@ test.describe('Message center: review comments - resolve', () => {
     ndpSeeds: [{ countryIso, nationalClasses: [nationalClass], year: seededYear }],
   })
 
-  test('Admin resolves the comments and sees them marked as resolved', async ({ authenticatedPage, country, ndp }) => {
+  test('Admin resolves the comments and still sees them resolved after reloading the page', async ({
+    authenticatedPage,
+    country,
+    ndp,
+  }) => {
     const page = authenticatedPage
     expect(country.props.status).toBe(CountryStatus.editing)
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(page, topicLocation, comment)
-
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
 
     const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await expect(reviewButton).toHaveClass(/\bopen\b/)
-    await expect(reviewButton).not.toHaveClass(/\bresolved\b/)
-    await reviewButton.click()
-    await expect(MessageCenterUtils.getMessage(page, comment)).toBeVisible()
 
-    await MessageCenterUtils.resolveComments(page)
+    await test.step('Admin resolves the comments and sees them marked as resolved', async () => {
+      const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
+      await MessageCenterApi.addMessage(page, topicLocation, comment)
 
-    await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible({ timeout: Timeouts.medium })
-    await expect(MessageCenterUtils.getResolveButton(page)).toHaveCount(0)
-    await expect(reviewButton).toHaveClass(/\bresolved\b/, { timeout: Timeouts.medium })
+      await page.goto(ndpPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      await expect(reviewButton).toHaveClass(/\bopen\b/)
+      await expect(reviewButton).not.toHaveClass(/\bresolved\b/)
+      await reviewButton.click()
+      await expect(MessageCenterUtils.getMessage(page, comment)).toBeVisible()
+
+      await MessageCenterUtils.resolveComments(page)
+
+      await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible({ timeout: Timeouts.medium })
+      await expect(MessageCenterUtils.getResolveButton(page)).toHaveCount(0)
+      await expect(reviewButton).toHaveClass(/\bresolved\b/, { timeout: Timeouts.medium })
+    })
+
+    await test.step('Admin reloads the page and sees the comments still resolved', async () => {
+      await page.reload()
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      const topicLoaded = MessageCenterApi.waitForTopic(page)
+      await reviewButton.click()
+      const storedTopic = await topicLoaded
+      expect(storedTopic.status).toBe(MessageTopicStatus.resolved)
+      expect(storedTopic.messages.map<string>((m) => m.message)).toEqual([comment, resolvedMessage])
+
+      await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible()
+      await expect(MessageCenterUtils.getResolveButton(page)).toHaveCount(0)
+      await expect(reviewButton).toHaveClass(/\bresolved\b/)
+    })
   })
 
-  test('Admin reloads the page and sees the comments still resolved', async ({ authenticatedPage, country, ndp }) => {
+  test('Admin comments on resolved comments and still sees them reopened after reloading the page', async ({
+    authenticatedPage,
+    country,
+    ndp,
+  }) => {
     const page = authenticatedPage
     expect(country.props.status).toBe(CountryStatus.editing)
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(page, topicLocation, comment)
-
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
 
     const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await reviewButton.click()
-    await expect(MessageCenterUtils.getMessage(page, comment)).toBeVisible()
-    await MessageCenterUtils.resolveComments(page)
 
-    await page.reload()
-    await DOMUtils.ensureEditingUnlocked(page)
+    await test.step('Admin comments on resolved comments and sees them reopened', async () => {
+      const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
+      await MessageCenterApi.addMessage(page, topicLocation, comment)
+      await MessageCenterApi.resolveTopic(page, topicLocation)
 
-    const topicLoaded = MessageCenterApi.waitForTopic(page)
-    await reviewButton.click()
-    const storedTopic = await topicLoaded
-    expect(storedTopic.status).toBe(MessageTopicStatus.resolved)
-    expect(storedTopic.messages.map<string>((m) => m.message)).toEqual([comment, resolvedMessage])
+      await page.goto(ndpPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible()
-    await expect(MessageCenterUtils.getResolveButton(page)).toHaveCount(0)
-    await expect(reviewButton).toHaveClass(/\bresolved\b/)
-  })
+      await expect(reviewButton).toHaveClass(/\bresolved\b/)
+      await reviewButton.click()
+      await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible()
+      await expect(MessageCenterUtils.getResolveButton(page)).toHaveCount(0)
 
-  test('Admin comments on resolved comments and sees them reopened', async ({ authenticatedPage, country, ndp }) => {
-    const page = authenticatedPage
-    expect(country.props.status).toBe(CountryStatus.editing)
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(page, topicLocation, comment)
-    await MessageCenterApi.resolveTopic(page, topicLocation)
+      await MessageCenterUtils.addComment(page, reply)
 
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
+      await expect(MessageCenterUtils.getMessage(page, reply)).toBeVisible({ timeout: Timeouts.medium })
+      await expect(MessageCenterUtils.getResolveButton(page)).toBeVisible({ timeout: Timeouts.medium })
+      await expect(reviewButton).not.toHaveClass(/\bresolved\b/, { timeout: Timeouts.medium })
+    })
 
-    const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await expect(reviewButton).toHaveClass(/\bresolved\b/)
-    await reviewButton.click()
-    await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible()
-    await expect(MessageCenterUtils.getResolveButton(page)).toHaveCount(0)
+    await test.step('Admin reloads the page and sees the comments still reopened', async () => {
+      await page.reload()
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await MessageCenterUtils.addComment(page, reply)
+      const topicLoaded = MessageCenterApi.waitForTopic(page)
+      await reviewButton.click()
+      const storedTopic = await topicLoaded
+      expect(storedTopic.status).toBe(MessageTopicStatus.opened)
+      expect(storedTopic.messages.map<string>((m) => m.message)).toEqual([comment, resolvedMessage, reply])
 
-    await expect(MessageCenterUtils.getMessage(page, reply)).toBeVisible({ timeout: Timeouts.medium })
-    await expect(MessageCenterUtils.getResolveButton(page)).toBeVisible({ timeout: Timeouts.medium })
-    await expect(reviewButton).not.toHaveClass(/\bresolved\b/, { timeout: Timeouts.medium })
-  })
-
-  test('Admin reloads the page and sees the comments still reopened', async ({ authenticatedPage, country, ndp }) => {
-    const page = authenticatedPage
-    expect(country.props.status).toBe(CountryStatus.editing)
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(page, topicLocation, comment)
-    await MessageCenterApi.resolveTopic(page, topicLocation)
-
-    await page.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    const reviewButton = NDPDomUtils.getNationalClassReviewButton(page)
-    await reviewButton.click()
-    await expect(MessageCenterUtils.getMessage(page, resolvedMessage)).toBeVisible()
-    await MessageCenterUtils.addComment(page, reply)
-
-    await page.reload()
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    const topicLoaded = MessageCenterApi.waitForTopic(page)
-    await reviewButton.click()
-    const storedTopic = await topicLoaded
-    expect(storedTopic.status).toBe(MessageTopicStatus.opened)
-    expect(storedTopic.messages.map<string>((m) => m.message)).toEqual([comment, resolvedMessage, reply])
-
-    await expect(MessageCenterUtils.getMessage(page, reply)).toBeVisible()
-    await expect(MessageCenterUtils.getResolveButton(page)).toBeVisible()
-    await expect(reviewButton).toHaveClass(/\bopen\b/)
-    await expect(reviewButton).not.toHaveClass(/\bresolved\b/)
+      await expect(MessageCenterUtils.getMessage(page, reply)).toBeVisible()
+      await expect(MessageCenterUtils.getResolveButton(page)).toBeVisible()
+      await expect(reviewButton).toHaveClass(/\bopen\b/)
+      await expect(reviewButton).not.toHaveClass(/\bresolved\b/)
+    })
   })
 })
 
