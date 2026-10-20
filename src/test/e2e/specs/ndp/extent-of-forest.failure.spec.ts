@@ -51,48 +51,40 @@ test.describe('National data point: extent of forest - failure', () => {
   test.describe('empty national class area', () => {
     test.use({ ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }] })
 
-    test('NC leaves the national class area empty and sees the error in 1a', async ({ authenticatedPage, ndp }) => {
-      const page = authenticatedPage
-      expect(ndp.id).toBeTruthy()
-
-      await page.goto(ndp1aPath)
-      await DOMUtils.ensureEditingUnlocked(page)
-
-      await NDPDomUtils.createNewNationalClassification(page, className)
-
-      const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-      await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
-      await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
-
-      // Check for error flag in navigation for 1a - 1b show not have an error
-      await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
-      await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
-    })
-
-    test('NC enters 0 as the national class area and sees no error, then clears it and sees the error again', async ({
+    test('NC leaves the national class area empty, enters 0, then clears it and sees the 1a error only while it is empty', async ({
       authenticatedPage,
       ndp,
     }) => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
-      await page.goto(ndp1aPath)
-      await DOMUtils.ensureEditingUnlocked(page)
-
-      await NDPDomUtils.createNewNationalClassification(page, className)
-
       const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
-      await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
 
-      // Zero counts as a value, only an empty area is invalid
-      await NDPDomUtils.fillNationalClassArea(page, className, '0')
-      await expect(areaCell).toHaveCount(0, { timeout: Timeouts.medium })
-      await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
+      await test.step('NC leaves the national class area empty and sees the error in 1a', async () => {
+        await page.goto(ndp1aPath)
+        await DOMUtils.ensureEditingUnlocked(page)
 
-      await NDPDomUtils.fillNationalClassArea(page, className, '')
-      await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
-      await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
-      await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
+        await NDPDomUtils.createNewNationalClassification(page, className)
+
+        await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
+        await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
+
+        // Check for error flag in navigation for 1a - 1b show not have an error
+        await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
+        await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
+      })
+
+      await test.step('NC enters 0 as the national class area and sees no error, then clears it and sees the error again', async () => {
+        // Zero counts as a value, only an empty area is invalid
+        await NDPDomUtils.fillNationalClassArea(page, className, '0')
+        await expect(areaCell).toHaveCount(0, { timeout: Timeouts.medium })
+        await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
+
+        await NDPDomUtils.fillNationalClassArea(page, className, '')
+        await expect(areaCell).toBeVisible({ timeout: Timeouts.medium })
+        await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
+        await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
+      })
     })
   })
 
