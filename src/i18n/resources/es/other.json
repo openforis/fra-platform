@@ -558,6 +558,7 @@
     "delete": "Borrar",
     "loading": "Cargando",
     "noComments": "Sin comentarios",
+    "resetPosition": "Restablecer posición",
     "resolve": "Resolver",
     "writeComment": "Escriba un comentario…"
   },
