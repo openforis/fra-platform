@@ -37,9 +37,10 @@ const expectCellValue = async (
   value: string,
   tableName?: string
 ): Promise<void> => {
+  // The default intervals slow down to one check a second, which can add almost a second to every cell check
   await expect(async () => {
     expect(await getCellValue(page, variableName, colName, tableName)).toBe(value)
-  }).toPass({ timeout: Timeouts.medium })
+  }).toPass({ intervals: [100, 250], timeout: Timeouts.medium })
 }
 
 // A NDP column only exists while there is NDP for that year
