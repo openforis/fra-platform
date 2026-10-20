@@ -558,6 +558,7 @@
     "delete": "删除",
     "loading": "正在加载",
     "noComments": "无评论",
+    "resetPosition": "重置位置",
     "resolve": "解决",
     "writeComment": "写评论…"
   },
