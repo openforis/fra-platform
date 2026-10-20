@@ -1,0 +1,101 @@
+import { mergeTests } from '@playwright/test'
+
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryStatus } from 'meta/area/countryStatus'
+import { CycleNames } from 'meta/assessment/cycle/names'
+import { TableNames } from 'meta/assessment/table'
+
+import { Timeouts } from 'test/e2e/config/timeouts'
+import {
+  x01ContactPersonsLatest,
+  x01ContactPersonsLatestPath,
+  x01PrintTablesLatestPath,
+} from 'test/e2e/data/sectionTables'
+import { test as countryTest } from 'test/e2e/fixtures/country'
+import { expect, test as tableTest } from 'test/e2e/fixtures/table'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { TableDomUtils } from 'test/e2e/utils/table'
+
+const test = mergeTests(tableTest, countryTest)
+
+// latest has the "This report was updated in" table, shown only to users that aren't logged in
+const reportLastUpdate = 'reportLastUpdate'
+const expectedYear = 'expectedYearForNextCountryReportUpdate'
+const nextYear = String(new Date().getFullYear() + 1)
+
+test.describe('Section tables: introduction latest - admin', () => {
+  test.use({ tableSeeds: [x01ContactPersonsLatest] })
+
+  test('Admin edits the expected year and sees no publication year', async ({ authenticatedPage }) => {
+    const page = authenticatedPage
+
+    await page.goto(x01ContactPersonsLatestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+
+    const cellSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Table.nodes(), 'PATCH')
+    await TableDomUtils.fillCell(page, expectedYear, expectedYear, nextYear)
+    await cellSaved
+
+    await page.reload()
+    await TableDomUtils.expectCellValue(page, expectedYear, expectedYear, nextYear)
+    await expect(TableDomUtils.tableContainer(page, reportLastUpdate)).toHaveCount(0)
+  })
+})
+
+test.describe('Section tables: introduction latest - logged out', () => {
+  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest, status: CountryStatus.published } })
+
+  test('Logged out user sees the publication year and no expected year', async ({ country, publicPage }) => {
+    const page = publicPage
+    const publicationYear = String(new Date(country.lastInPublished).getFullYear())
+
+    await page.goto(x01ContactPersonsLatestPath)
+
+    const table = TableDomUtils.tableContainer(page, reportLastUpdate)
+    await expect(table).toBeVisible({ timeout: Timeouts.medium })
+    await TableDomUtils.expectCellValue(page, reportLastUpdate, expectedYear, publicationYear)
+    // The year is calculated, so there should be no input
+    await expect(table.locator('input')).toHaveCount(0)
+    await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
+  })
+})
+
+test.describe('Section tables: introduction latest - print view', () => {
+  // The expected year has a value, has to be in the print view
+  test.use({
+    tableSeeds: [
+      { ...x01ContactPersonsLatest, values: [{ colName: expectedYear, value: nextYear, variableName: expectedYear }] },
+    ],
+  })
+
+  test('Print view shows no expected year', async ({ authenticatedPage }) => {
+    const page = authenticatedPage
+
+    await page.goto(x01PrintTablesLatestPath)
+    // Table 1a comes after the introduction, so once it's there the introduction has been rendered
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
+
+    await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
+  })
+})
+
+// Publishing X01 in latest stops this redirect, so it's in the same file as the publication year test and never runs alongside it
+test.describe('Section tables: introduction latest - unpublished', () => {
+  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest, status: CountryStatus.editing } })
+
+  test('Logged out user opens the unpublished latest cycle and lands on its last published cycle', async ({
+    country,
+    publicPage,
+  }) => {
+    const page = publicPage
+    expect(country.props.status).toBe(CountryStatus.editing)
+
+    await page.goto(x01ContactPersonsLatestPath)
+
+    // X01 was last published in 2020, so that's where it lands
+    await expect(page).toHaveURL(/\/assessments\/fra\/2020\/X01\/home/)
+    await expect(page.locator('.toast.error')).toHaveCount(2)
+  })
+})

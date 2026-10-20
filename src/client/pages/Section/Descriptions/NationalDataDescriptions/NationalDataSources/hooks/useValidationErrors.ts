@@ -1,0 +1,52 @@
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import type { DataSourceValidationErrorsRecord } from 'meta/assessment/descriptionValue/dataSource'
+import { SectionName } from 'meta/assessment/section'
+import type { DataSourceValidation, DataSourceValidationField } from 'meta/assessment/validation/description'
+import { MessageParser } from 'meta/validations/messageParser'
+
+import { useDataSourceValidations } from 'client/store/data/validations/descriptions/hooks/descriptions'
+import { useCanEditCycleData } from 'client/store/user/hooks/auth'
+import { useIsPrintRoute } from 'client/hooks/routes'
+
+type Props = {
+  sectionName: SectionName
+}
+
+type RequiredField = Exclude<DataSourceValidationField, 'reference'>
+
+export const useValidationErrors = (props: Props): DataSourceValidationErrorsRecord => {
+  const { sectionName } = props
+  const { t } = useTranslation()
+  const canEditCycleData = useCanEditCycleData()
+  const { print } = useIsPrintRoute()
+  const dataSourceValidations = useDataSourceValidations({ sectionName })
+
+  return useMemo<DataSourceValidationErrorsRecord>(() => {
+    if (!canEditCycleData || print) return {}
+
+    const getReferenceErrors = (dataSourceValidation: DataSourceValidation): Array<string> => {
+      return MessageParser.getMessages(t, dataSourceValidation.reference)
+    }
+
+    const getRequiredFieldError = (dataSourceValidation: DataSourceValidation, field: RequiredField): string => {
+      const [message = ''] = MessageParser.getMessages(t, dataSourceValidation[field])
+      return message
+    }
+
+    return Object.entries(dataSourceValidations).reduce<DataSourceValidationErrorsRecord>(
+      (acc, [uuid, dataSourceValidation]) => {
+        acc[uuid] = {
+          reference: getReferenceErrors(dataSourceValidation),
+          type: getRequiredFieldError(dataSourceValidation, 'type'),
+          variables: getRequiredFieldError(dataSourceValidation, 'variables'),
+          year: getRequiredFieldError(dataSourceValidation, 'year'),
+        }
+
+        return acc
+      },
+      {}
+    )
+  }, [canEditCycleData, dataSourceValidations, print, t])
+}

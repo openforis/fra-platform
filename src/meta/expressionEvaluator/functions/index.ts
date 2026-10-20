@@ -11,14 +11,10 @@ import { maxLandArea } from './maxLandArea'
 import { NWFPProductHasCategory } from './NWFPProductHasCategory'
 import { validatorColSumNotGreaterThanForest } from './validatorColSumNotGreaterThanForest'
 import { validatorEqualToForestExpansion } from './validatorEqualToForestExpansion'
-import { validatorEqualToPlantedForest } from './validatorEqualToPlantedForest'
 import { validatorEqualToPreviousCycleForestArea } from './validatorEqualToPreviousCycleForestArea'
-import { validatorEqualToPrimaryForest } from './validatorEqualToPrimaryForest'
 import { validatorEqualToSum } from './validatorEqualToSum'
 import { validatorEqualToTotalForest } from './validatorEqualToTotalForest'
-import { validatorEqualToTotalGrowingStock } from './validatorEqualToTotalGrowingStock'
 import { validatorForestAreaComparedTo2015 } from './validatorForestAreaComparedTo2015'
-import { validatorForestAreaComparedTo2020 } from './validatorForestAreaComparedTo2020'
 import { validatorForestAreaNetChange } from './validatorForestAreaNetChange'
 import { validatorGreaterThanOrZero } from './validatorGreaterThanOrZero'
 import { validatorIsYear } from './validatorIsYear'
@@ -36,7 +32,6 @@ import { validatorOtherLandWithTreeCoverTotal } from './validatorOtherLandWithTr
 import { validatorPlantationForestIntroduced } from './validatorPlantationForestIntroduced'
 import { validatorPrimaryForest } from './validatorPrimaryForest'
 import { validatorPrivateOwnership } from './validatorPrivateOwnership'
-import { validatorRemainingLandWithTreeCoverTotal } from './validatorRemainingLandWithTreeCoverTotal'
 import { validatorSubCategory } from './validatorSubCategory'
 import { validatorSumEqualTo } from './validatorSumEqualTo'
 import { validatorSumNotGreaterThan } from './validatorSumNotGreaterThan'
@@ -55,14 +50,10 @@ export const functions: Array<ExpressionFunction<Context>> = [
   // Validators
   validatorColSumNotGreaterThanForest,
   validatorEqualToForestExpansion,
-  validatorEqualToPlantedForest,
   validatorEqualToPreviousCycleForestArea,
-  validatorEqualToPrimaryForest,
   validatorEqualToSum,
   validatorEqualToTotalForest,
-  validatorEqualToTotalGrowingStock,
   validatorForestAreaComparedTo2015,
-  validatorForestAreaComparedTo2020,
   validatorForestAreaNetChange,
   validatorGreaterThanOrZero,
   validatorIsYear,
@@ -80,7 +71,6 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorPlantationForestIntroduced,
   validatorPrimaryForest,
   validatorPrivateOwnership,
-  validatorRemainingLandWithTreeCoverTotal,
   validatorSubCategory,
   validatorSumEqualTo,
   validatorSumNotGreaterThan,

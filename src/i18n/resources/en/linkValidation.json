@@ -1,0 +1,7 @@
+{
+  "dnsError": "DNS error",
+  "empty": "Empty",
+  "invalidEmailAddress": "Invalid email address",
+  "success": "Success",
+  "urlParsingError": "URL parsing error"
+}
