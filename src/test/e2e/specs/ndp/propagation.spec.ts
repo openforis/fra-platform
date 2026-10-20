@@ -62,72 +62,62 @@ const expectedTotalForestArea = '600.00'
 test.describe('National data point: propagation', () => {
   test.use({ ndpSeeds: [{ countryIso, nationalClasses: [nationalClass], year: seededYear }] })
 
-  test('NC sees the national data point values in sections 1a and 1b', async ({ authenticatedPage, ndp }) => {
+  test('NC sees the national data point values in sections 1a and 1b and cannot edit them', async ({
+    authenticatedPage,
+    ndp,
+  }) => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
     const year = String(seededYear)
 
-    // == Section 1a
-    await page.goto(extentOfForestPath)
-    await DOMUtils.ensureEditingUnlocked(page)
+    await test.step('Section 1a', async () => {
+      await page.goto(extentOfForestPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    // Check ODP link exists
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
+      // Check ODP link exists
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
 
-    // Check values are as expected from NDP
-    await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
-    await TableDomUtils.expectCellValue(page, 'otherWoodedLand', year, expectedOtherWoodedLand)
-    await TableDomUtils.expectCellValue(page, 'otherLand', year, expectedOtherLand)
-    await TableDomUtils.expectCellValue(page, 'totalLandArea', year, expectedTotalLandArea)
+      // Check values are as expected from NDP
+      await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
+      await TableDomUtils.expectCellValue(page, 'otherWoodedLand', year, expectedOtherWoodedLand)
+      await TableDomUtils.expectCellValue(page, 'otherLand', year, expectedOtherLand)
+      await TableDomUtils.expectCellValue(page, 'totalLandArea', year, expectedTotalLandArea)
 
-    // == Section 1b
-    await page.goto(forestCharacteristicsPath)
-    await DOMUtils.ensureEditingUnlocked(page)
+      await TableDomUtils.expectCellReadOnly(page, 'forestArea', year)
+      await TableDomUtils.expectCellReadOnly(page, 'otherWoodedLand', year)
 
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
+      // Year without NDP
+      await TableDomUtils.expectCellEditable(page, 'forestArea', String(editableYear))
+    })
 
-    // Check values are as expected from NDP
-    await TableDomUtils.expectCellValue(page, 'naturalForestArea', year, expectedNaturalForestArea)
-    await TableDomUtils.expectCellValue(page, 'primaryForest', year, expectedPrimaryForest)
-    await TableDomUtils.expectCellValue(page, 'plantationForestArea', year, expectedPlantationForestArea)
-    await TableDomUtils.expectCellValue(
-      page,
-      'plantationForestIntroducedArea',
-      year,
-      expectedPlantationForestIntroducedArea
-    )
-    await TableDomUtils.expectCellValue(page, 'otherPlantedForestArea', year, expectedOtherPlantedForestArea)
-    await TableDomUtils.expectCellValue(page, 'plantedForest', year, expectedPlantedForest)
-    await TableDomUtils.expectCellValue(page, 'totalForestArea', year, expectedTotalForestArea)
-  })
+    await test.step('Section 1b', async () => {
+      await page.goto(forestCharacteristicsPath)
+      await DOMUtils.ensureEditingUnlocked(page)
 
-  test('NC cannot edit table cells that come from a national data point', async ({ authenticatedPage, ndp }) => {
-    const page = authenticatedPage
-    expect(ndp.id).toBeTruthy()
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: Timeouts.medium })
 
-    const year = String(seededYear)
+      // Check values are as expected from NDP
+      await TableDomUtils.expectCellValue(page, 'naturalForestArea', year, expectedNaturalForestArea)
+      await TableDomUtils.expectCellValue(page, 'primaryForest', year, expectedPrimaryForest)
+      await TableDomUtils.expectCellValue(page, 'plantationForestArea', year, expectedPlantationForestArea)
+      await TableDomUtils.expectCellValue(
+        page,
+        'plantationForestIntroducedArea',
+        year,
+        expectedPlantationForestIntroducedArea
+      )
+      await TableDomUtils.expectCellValue(page, 'otherPlantedForestArea', year, expectedOtherPlantedForestArea)
+      await TableDomUtils.expectCellValue(page, 'plantedForest', year, expectedPlantedForest)
+      await TableDomUtils.expectCellValue(page, 'totalForestArea', year, expectedTotalForestArea)
 
-    // == Section 1a
-    await page.goto(extentOfForestPath)
-    await DOMUtils.ensureEditingUnlocked(page)
+      await TableDomUtils.expectCellReadOnly(page, 'naturalForestArea', year)
+      await TableDomUtils.expectCellReadOnly(page, 'plantationForestArea', year)
+      await TableDomUtils.expectCellReadOnly(page, 'otherPlantedForestArea', year)
 
-    await TableDomUtils.expectCellReadOnly(page, 'forestArea', year)
-    await TableDomUtils.expectCellReadOnly(page, 'otherWoodedLand', year)
-
-    // Year without NDP
-    await TableDomUtils.expectCellEditable(page, 'forestArea', String(editableYear))
-
-    // == Section 1b
-    await page.goto(forestCharacteristicsPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    await TableDomUtils.expectCellReadOnly(page, 'naturalForestArea', year)
-    await TableDomUtils.expectCellReadOnly(page, 'plantationForestArea', year)
-    await TableDomUtils.expectCellReadOnly(page, 'otherPlantedForestArea', year)
-
-    // Year without NDP
-    await TableDomUtils.expectCellEditable(page, 'naturalForestArea', String(editableYear))
+      // Year without NDP
+      await TableDomUtils.expectCellEditable(page, 'naturalForestArea', String(editableYear))
+    })
   })
 
   test('NC deletes the national data point and its column disappears from sections 1a and 1b', async ({
