@@ -6,99 +6,119 @@ const rootLinkLabelEdited = 'E2E test link edited'
 const folderName = 'E2E test folder'
 const nestedLinkLabel = 'E2E nested link'
 
-test.describe.serial('Repository: ', () => {
-  test('admin creates a link item', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+test.describe('Repository: ', () => {
+  test('Admin creates, edits and deletes a link, a folder and a link inside the folder and sees each change', async ({
+    authenticatedPage,
+  }) => {
+    const context = authenticatedPage.context()
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+    await test.step('admin creates a link item', async () => {
+      const page = await context.newPage()
 
-    await page.getByRole('button', { name: 'Add file' }).last().click()
-    await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabel)
-    await page.fill('input[name="repositoryItem.link"]', 'https://example.com')
-    await page.getByRole('button', { name: 'Save' }).click()
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await expect(page.locator('.repository-list-item__name', { hasText: rootLinkLabel })).toBeVisible()
-  })
+      await page.getByRole('button', { name: 'Add file' }).last().click()
+      await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabel)
+      await page.fill('input[name="repositoryItem.link"]', 'https://example.com')
+      await page.getByRole('button', { name: 'Save' }).click()
 
-  test('admin edits the link item', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+      await expect(page.locator('.repository-list-item__name', { hasText: rootLinkLabel })).toBeVisible()
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+      await page.close()
+    })
 
-    await page.locator('.repository-list-item', { hasText: rootLinkLabel }).locator('button').click()
-    await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabelEdited)
-    await page.getByRole('button', { name: 'Save' }).click()
+    await test.step('admin edits the link item', async () => {
+      const page = await context.newPage()
 
-    await expect(page.locator('.repository-list-item__name', { hasText: rootLinkLabelEdited })).toBeVisible()
-  })
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
 
-  test('admin creates a folder', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+      await page.locator('.repository-list-item', { hasText: rootLinkLabel }).locator('button').click()
+      await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabelEdited)
+      await page.getByRole('button', { name: 'Save' }).click()
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+      await expect(page.locator('.repository-list-item__name', { hasText: rootLinkLabelEdited })).toBeVisible()
 
-    await page.getByRole('button', { name: 'Add folder' }).last().click()
-    await page.fill('input[name="repositoryItem.folderName"]', folderName)
-    await page.getByRole('button', { name: 'Save' }).click()
+      await page.close()
+    })
 
-    await expect(page.locator('.repository-folder button', { hasText: folderName })).toBeVisible()
-  })
+    await test.step('admin creates a folder', async () => {
+      const page = await context.newPage()
 
-  test('admin creates a link inside the folder', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+      await page.getByRole('button', { name: 'Add folder' }).last().click()
+      await page.fill('input[name="repositoryItem.folderName"]', folderName)
+      await page.getByRole('button', { name: 'Save' }).click()
 
-    await page.locator('.repository-folder button', { hasText: folderName }).click()
-    await page.getByRole('button', { name: 'Add file' }).last().click()
-    await page.fill('input[name="repositoryItem.props.translation.en"]', nestedLinkLabel)
-    await page.fill('input[name="repositoryItem.link"]', 'https://example.com/nested')
-    await page.getByRole('button', { name: 'Save' }).click()
+      await expect(page.locator('.repository-folder button', { hasText: folderName })).toBeVisible()
 
-    await expect(page.locator('.repository-list-item__name', { hasText: nestedLinkLabel })).toBeVisible()
-  })
+      await page.close()
+    })
 
-  test('admin deletes the nested link', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+    await test.step('admin creates a link inside the folder', async () => {
+      const page = await context.newPage()
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await page.locator('.repository-folder button', { hasText: folderName }).click()
-    await page.locator('.repository-list-item', { hasText: nestedLinkLabel }).locator('button').click()
-    page.once('dialog', (dialog) => dialog.accept())
-    await page.getByRole('button', { name: 'Delete' }).click()
+      await page.locator('.repository-folder button', { hasText: folderName }).click()
+      await page.getByRole('button', { name: 'Add file' }).last().click()
+      await page.fill('input[name="repositoryItem.props.translation.en"]', nestedLinkLabel)
+      await page.fill('input[name="repositoryItem.link"]', 'https://example.com/nested')
+      await page.getByRole('button', { name: 'Save' }).click()
 
-    await expect(page.locator('.repository-list-item__name', { hasText: nestedLinkLabel })).toHaveCount(0)
-  })
+      await expect(page.locator('.repository-list-item__name', { hasText: nestedLinkLabel })).toBeVisible()
 
-  test('admin deletes the folder', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+      await page.close()
+    })
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+    await test.step('admin deletes the nested link', async () => {
+      const page = await context.newPage()
 
-    await page.locator('.repository-list-item--folder', { hasText: folderName }).locator('button').last().click()
-    page.once('dialog', (dialog) => dialog.accept())
-    await page.getByRole('button', { name: 'Delete' }).click()
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    await expect(page.locator('.repository-folder', { hasText: folderName })).toHaveCount(0)
-  })
+      await page.locator('.repository-folder button', { hasText: folderName }).click()
+      await page.locator('.repository-list-item', { hasText: nestedLinkLabel }).locator('button').click()
+      page.once('dialog', (dialog) => dialog.accept())
+      await page.getByRole('button', { name: 'Delete' }).click()
 
-  test('admin deletes the root link', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+      await expect(page.locator('.repository-list-item__name', { hasText: nestedLinkLabel })).toHaveCount(0)
 
-    await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.ensureEditingUnlocked(page)
+      await page.close()
+    })
 
-    await page.locator('.repository-list-item', { hasText: rootLinkLabelEdited }).locator('button').click()
-    page.once('dialog', (dialog) => dialog.accept())
-    await page.getByRole('button', { name: 'Delete' }).click()
+    await test.step('admin deletes the folder', async () => {
+      const page = await context.newPage()
 
-    await expect(page.locator('.repository-list-item__name', { hasText: rootLinkLabelEdited })).toHaveCount(0)
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      await page.locator('.repository-list-item--folder', { hasText: folderName }).locator('button').last().click()
+      page.once('dialog', (dialog) => dialog.accept())
+      await page.getByRole('button', { name: 'Delete' }).click()
+
+      await expect(page.locator('.repository-folder', { hasText: folderName })).toHaveCount(0)
+
+      await page.close()
+    })
+
+    await test.step('admin deletes the root link', async () => {
+      const page = await context.newPage()
+
+      await page.goto('/assessments/fra/2025/X01/home/repository')
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      await page.locator('.repository-list-item', { hasText: rootLinkLabelEdited }).locator('button').click()
+      page.once('dialog', (dialog) => dialog.accept())
+      await page.getByRole('button', { name: 'Delete' }).click()
+
+      await expect(page.locator('.repository-list-item__name', { hasText: rootLinkLabelEdited })).toHaveCount(0)
+
+      await page.close()
+    })
   })
 })
