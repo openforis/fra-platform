@@ -1,4 +1,4 @@
-import { Page, test as base } from '@playwright/test'
+import { Cookie, Page, test as base } from '@playwright/test'
 
 import { testCredentials } from '../config/credentials'
 import { AuthUtils } from '../utils/Auth'
@@ -12,16 +12,34 @@ type AuthFixtures = {
   publicPage: Page
 }
 
-export const test = base.extend<AuthFixtures>({
-  authenticatedPage: async ({ page }, use) => {
-    await AuthUtils.login(page, testCredentials)
+type AuthWorkerFixtures = {
+  // The admin logs in once per worker and every test reuses the cookies
+  adminCookies: Array<Cookie>
+}
+
+export const test = base.extend<AuthFixtures, AuthWorkerFixtures>({
+  adminCookies: [
+    async ({ browser }, use, workerInfo): Promise<void> => {
+      const context = await browser.newContext({ baseURL: workerInfo.project.use.baseURL })
+      const page = await context.newPage()
+      await AuthUtils.login(page, testCredentials)
+      const { cookies } = await context.storageState()
+      await context.close()
+
+      await use(cookies)
+    },
+    { scope: 'worker' },
+  ],
+
+  authenticatedPage: async ({ adminCookies, page }, use) => {
+    await page.context().addCookies(adminCookies)
     await use(page)
   },
 
-  otherAuthenticatedPage: async ({ baseURL, browser }, use) => {
+  otherAuthenticatedPage: async ({ adminCookies, baseURL, browser }, use) => {
     const context = await browser.newContext({ baseURL })
+    await context.addCookies(adminCookies)
     const page = await context.newPage()
-    await AuthUtils.login(page, testCredentials)
 
     await use(page)
 
