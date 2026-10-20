@@ -33,7 +33,7 @@ const expectLinkErrors = async (page: Page, error: Locator, emptyLinkText: strin
   await TooltipUtils.expectValidationTooltip(page, error, `Invalid link: "${emptyLinkText}" (Empty)`)
 }
 
-test.describe.serial('Section descriptions: text links - fix and remove', () => {
+test.describe('Section descriptions: text links - fix and remove', () => {
   const estimationInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`estimation-${randomString}`)
   const estimationValidLink = LinkBuilder.buildValidLinkHtml(`estimation-${randomString}`)
   const classificationInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`classification-${randomString}`)
@@ -44,93 +44,108 @@ test.describe.serial('Section descriptions: text links - fix and remove', () => 
     await DescriptionsApi.clear(browser, x12CarbonStockClassification)
   })
 
-  test('NC pastes invalid links in two descriptions and sees both flagged', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(x12CarbonStockPath)
-    await summaryLoaded
-    await DOMUtils.ensureEditingUnlocked(page)
-    await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
-
-    await pasteLinks(page, estimationTitle, estimationInvalidLinks.html)
-    await pasteLinks(page, classificationTitle, classificationInvalidLinks.html)
-
-    const estimationError = DescriptionUtils.getDescriptionValidationError(page, estimationTitle)
-    const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
-    await expectLinkErrors(page, estimationError, estimationInvalidLinks.emptyLinkText)
-    await expectLinkErrors(page, classificationError, classificationInvalidLinks.emptyLinkText)
-    await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
-  })
-
-  test('NC fixes the links in one description and sees the other one stay flagged', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(x12CarbonStockPath)
-    await summaryLoaded
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    const estimationError = DescriptionUtils.getDescriptionValidationError(page, estimationTitle)
-    const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
-    await expect(estimationError).toBeVisible()
-
-    await pasteLinks(page, estimationTitle, estimationValidLink.html)
-    await expect(estimationError).not.toBeVisible({ timeout: Timeouts.extraLong })
-
-    // Only the edited description gets its links checked again, so the other one still has its error
-    await expect(classificationError).toBeVisible()
-    await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
-  })
-
-  test('NC reloads the page and sees only the other description still invalid', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    const storedValidations = DescriptionsApi.waitForValidations(page)
-    await page.goto(x12CarbonStockPath)
-    const descriptionValidations = (await storedValidations)[x12CarbonStockEstimation.sectionName]?.descriptions
-
-    expect(descriptionValidations?.estimationAndForecasting?.valid).toBe(true)
-    expect(descriptionValidations?.nationalClassificationAndDefinitions?.valid).toBe(false)
-  })
-
-  test('NC removes the links from the other description and sees the warning go away', async ({
+  test('NC fixes and removes invalid links in two descriptions and sees each warning go away, also after reloading the page', async ({
     authenticatedPage,
   }) => {
-    const page = authenticatedPage
+    // Each step opens its own page, like each test did, so its waits only see its own requests
+    const context = authenticatedPage.context()
 
-    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(x12CarbonStockPath)
-    await summaryLoaded
-    await DOMUtils.ensureEditingUnlocked(page)
+    await test.step('NC pastes invalid links in two descriptions and sees both flagged', async () => {
+      const page = await context.newPage()
 
-    const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
-    await expect(classificationError).toBeVisible()
+      const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+      await page.goto(x12CarbonStockPath)
+      await summaryLoaded
+      await DOMUtils.ensureEditingUnlocked(page)
+      await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
 
-    await DescriptionUtils.save(page, async () => {
-      await DescriptionUtils.getDescriptionToggleEditButton(page, classificationTitle, 'Edit').click()
-      const classificationEditor = DescriptionUtils.getDescriptionEditor(page, classificationTitle)
-      await DescriptionUtils.fillEditorWysiwyg(page, classificationEditor, [classificationPlainText])
-      await DescriptionUtils.getDescriptionToggleEditButton(page, classificationTitle, 'Done').click()
+      await pasteLinks(page, estimationTitle, estimationInvalidLinks.html)
+      await pasteLinks(page, classificationTitle, classificationInvalidLinks.html)
+
+      const estimationError = DescriptionUtils.getDescriptionValidationError(page, estimationTitle)
+      const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
+      await expectLinkErrors(page, estimationError, estimationInvalidLinks.emptyLinkText)
+      await expectLinkErrors(page, classificationError, classificationInvalidLinks.emptyLinkText)
+      await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
+
+      await page.close()
     })
-    await expect(classificationError).not.toBeVisible({ timeout: Timeouts.extraLong })
-    await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
-  })
 
-  test('NC reloads the page and sees both descriptions valid', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
+    await test.step('NC fixes the links in one description and sees the other one stay flagged', async () => {
+      const page = await context.newPage()
 
-    const storedValidations = DescriptionsApi.waitForValidations(page)
-    const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
-    await page.goto(x12CarbonStockPath)
-    const descriptionValidations = (await storedValidations)[x12CarbonStockEstimation.sectionName]?.descriptions
-    await summaryLoaded
+      const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+      await page.goto(x12CarbonStockPath)
+      await summaryLoaded
+      await DOMUtils.ensureEditingUnlocked(page)
 
-    expect(descriptionValidations?.estimationAndForecasting?.valid).toBe(true)
-    expect(descriptionValidations?.nationalClassificationAndDefinitions?.valid).toBe(true)
-    await expect(DescriptionUtils.getDescriptionEditor(page, classificationTitle)).toContainText(
-      classificationPlainText
-    )
-    await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
+      const estimationError = DescriptionUtils.getDescriptionValidationError(page, estimationTitle)
+      const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
+      await expect(estimationError).toBeVisible()
+
+      await pasteLinks(page, estimationTitle, estimationValidLink.html)
+      await expect(estimationError).not.toBeVisible({ timeout: Timeouts.extraLong })
+
+      // Only the edited description gets its links checked again, so the other one still has its error
+      await expect(classificationError).toBeVisible()
+      await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
+
+      await page.close()
+    })
+
+    await test.step('NC reloads the page and sees only the other description still invalid', async () => {
+      const page = await context.newPage()
+
+      const storedValidations = DescriptionsApi.waitForValidations(page)
+      await page.goto(x12CarbonStockPath)
+      const descriptionValidations = (await storedValidations)[x12CarbonStockEstimation.sectionName]?.descriptions
+
+      expect(descriptionValidations?.estimationAndForecasting?.valid).toBe(true)
+      expect(descriptionValidations?.nationalClassificationAndDefinitions?.valid).toBe(false)
+
+      await page.close()
+    })
+
+    await test.step('NC removes the links from the other description and sees the warning go away', async () => {
+      const page = await context.newPage()
+
+      const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+      await page.goto(x12CarbonStockPath)
+      await summaryLoaded
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
+      await expect(classificationError).toBeVisible()
+
+      await DescriptionUtils.save(page, async () => {
+        await DescriptionUtils.getDescriptionToggleEditButton(page, classificationTitle, 'Edit').click()
+        const classificationEditor = DescriptionUtils.getDescriptionEditor(page, classificationTitle)
+        await DescriptionUtils.fillEditorWysiwyg(page, classificationEditor, [classificationPlainText])
+        await DescriptionUtils.getDescriptionToggleEditButton(page, classificationTitle, 'Done').click()
+      })
+      await expect(classificationError).not.toBeVisible({ timeout: Timeouts.extraLong })
+      await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
+
+      await page.close()
+    })
+
+    await test.step('NC reloads the page and sees both descriptions valid', async () => {
+      const page = await context.newPage()
+
+      const storedValidations = DescriptionsApi.waitForValidations(page)
+      const summaryLoaded = NavigationUtils.waitForValidationSummary(page)
+      await page.goto(x12CarbonStockPath)
+      const descriptionValidations = (await storedValidations)[x12CarbonStockEstimation.sectionName]?.descriptions
+      await summaryLoaded
+
+      expect(descriptionValidations?.estimationAndForecasting?.valid).toBe(true)
+      expect(descriptionValidations?.nationalClassificationAndDefinitions?.valid).toBe(true)
+      await expect(DescriptionUtils.getDescriptionEditor(page, classificationTitle)).toContainText(
+        classificationPlainText
+      )
+      await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
+
+      await page.close()
+    })
   })
 })
