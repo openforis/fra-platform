@@ -1,20 +1,10 @@
 FROM node:24.15.0-slim
 
-RUN apt-get update && apt-get install -y \
-    wget \
-    tar \
-    gzip \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN rm -rf /usr/local/bin/yarn \
-    && rm -rf /usr/local/bin/yarnpkg \
-    && npm install -g yarn@1.22.22
-
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install --frozen-lockfile
+# Keeps yarn's cache out of the image, private because the web image installs at the same time
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=private PUPPETEER_SKIP_DOWNLOAD=true yarn install --frozen-lockfile
 
 RUN yarn playwright install --with-deps chromium
 
