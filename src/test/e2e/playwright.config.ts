@@ -15,7 +15,7 @@ const config: PlaywrightTestConfig = {
   use: {
     baseURL: process.env.BASE_URL || 'http://web:9001',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'on-first-retry',
     trace: 'retain-on-failure',
     headless: true,
     actionTimeout: 5_000,

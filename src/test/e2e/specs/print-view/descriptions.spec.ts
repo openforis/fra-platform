@@ -1,5 +1,7 @@
 import { enTranslation } from 'i18n/resources/en'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
 import { Timeouts } from 'test/e2e/config/timeouts'
 import {
@@ -51,10 +53,13 @@ test.describe('Print view: descriptions - no validation UI', () => {
       })
 
       await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
-      await DescriptionUtils.save(page, async () => {
-        const referenceEditor = await DataSourceUtils.addRow(page)
-        await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
-      })
+      // On a slow run the new row saves on its own, so wait for it or the page can close before the reference is saved
+      const rowSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Descriptions.many(), 'PUT')
+      const referenceEditor = await DataSourceUtils.addRow(page)
+      await rowSaved
+      await DescriptionUtils.save(page, () =>
+        DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, reference.html)
+      )
 
       const commentsError = DescriptionUtils.getDescriptionValidationError(page, commentsTitle)
       await expect(commentsError).toBeVisible({ timeout: Timeouts.extraLong })
