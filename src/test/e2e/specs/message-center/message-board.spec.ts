@@ -47,36 +47,30 @@ test.describe('Message center: message board', () => {
     await expect(MessageCenterUtils.getMessage(nc.page, message)).toBeVisible({ timeout: Timeouts.medium })
   })
 
-  test('NC sees a new message from another NC on the board without reloading', async ({ otherUser, user }) => {
+  test('NC sees a new message from another NC on the board without reloading, then still sees it as unread after reloading', async ({
+    otherUser,
+    user,
+  }) => {
     const nc = user
     const otherNc = otherUser
     const message = `Please check the growing stock data ${Date.now()}`
-
-    await nc.page.goto(countryHomePath)
-    await MessageCenterUtils.getMessageBoardButton(nc.page).click()
-    await expect(MessageCenterUtils.getCommentBox(nc.page)).toBeVisible()
-
-    await MessageCenterApi.addMessage(otherNc.page, boardLocation, message)
-
-    await expect(MessageCenterUtils.getMessage(nc.page, message)).toBeVisible({ timeout: Timeouts.medium })
-  })
-
-  test('NC who read the board sees one unread message after another NC posts', async ({ otherUser, user }) => {
-    const nc = user
-    const otherNc = otherUser
-    const message = `Please check the growing stock data ${Date.now()}`
-
-    await nc.page.goto(countryHomePath)
     const boardButton = MessageCenterUtils.getMessageBoardButton(nc.page)
-    await boardButton.click()
-    // Once the board loads, the older messages count as read
-    await expect(MessageCenterUtils.getCommentBox(nc.page)).toBeVisible()
 
-    await MessageCenterApi.addMessage(otherNc.page, boardLocation, message)
+    await test.step('NC sees a new message from another NC on the board without reloading', async () => {
+      await nc.page.goto(countryHomePath)
+      await boardButton.click()
+      // Once the board loads, the older messages count as read
+      await expect(MessageCenterUtils.getCommentBox(nc.page)).toBeVisible()
 
-    // The unread count only loads with the page
-    await nc.page.reload()
-    await expect(boardButton.locator('.btn-message__count')).toHaveText('1')
+      await MessageCenterApi.addMessage(otherNc.page, boardLocation, message)
+
+      await expect(MessageCenterUtils.getMessage(nc.page, message)).toBeVisible({ timeout: Timeouts.medium })
+    })
+
+    await test.step('NC who read the board sees one unread message after another NC posts', async () => {
+      await nc.page.reload()
+      await expect(boardButton.locator('.btn-message__count')).toHaveText('1')
+    })
   })
 
   test('Admin sees the Message board button disabled', async ({ authenticatedPage }) => {
