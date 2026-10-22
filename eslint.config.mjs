@@ -4,7 +4,6 @@ import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import unusedImportsPlugin from 'eslint-plugin-unused-imports'
 import reactPlugin from 'eslint-plugin-react'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
@@ -192,14 +191,6 @@ export default defineConfig([
     rules: {
       'react-hooks/exhaustive-deps': 'error',
       'react-hooks/rules-of-hooks': 'error',
-    },
-  },
-
-  // Prettier integration
-  ...fixupConfigRules(eslintPluginPrettierRecommended),
-  {
-    rules: {
-      'prettier/prettier': 'warn',
     },
   },
 ])
