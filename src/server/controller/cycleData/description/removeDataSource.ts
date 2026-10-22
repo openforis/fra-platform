@@ -5,11 +5,11 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter/topics'
 import { User } from 'meta/user/user'
 
+import { saveDescription } from 'server/controller/cycleData/description/saveDescription'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
-
-import { upsertDescription } from './upsertDescription'
+import { DataValidationService } from 'server/service/dataValidation'
 
 type Props = {
   assessment: Assessment
@@ -26,7 +26,7 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
   const { assessment, country, cycle, sectionName, user, uuid } = props
   const { countryIso } = country
 
-  return client.tx(async (t) => {
+  const description = await client.tx(async (t) => {
     const countryISOs = [countryIso]
     const names = [name]
     const sectionNames = [sectionName]
@@ -42,8 +42,12 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     const index = value.dataSources.findIndex((d) => d.uuid === uuid)
     const [dataSource] = value.dataSources.splice(index, 1)
 
-    await upsertDescription({ assessment, cycle, country, sectionName, name, value, user }, t)
+    const description = await saveDescription({ assessment, cycle, country, sectionName, name, value, user }, t)
     const keyPrefix = Topics.getDataSourceReviewTopicKey(dataSource)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
+
+    return description
   })
+
+  await DataValidationService.validateDescriptions({ assessment, country, cycle, descriptions: [description] })
 }
