@@ -6,7 +6,8 @@ COPY package.json yarn.lock ./
 # Keeps yarn's cache out of the image, private because the web image installs at the same time
 RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=private PUPPETEER_SKIP_DOWNLOAD=true yarn install --frozen-lockfile
 
-RUN yarn playwright install --with-deps chromium
+# Headless runs only use the headless shell, so the full Chromium isn't needed
+RUN yarn playwright install --with-deps --only-shell chromium
 
 COPY . .
 
