@@ -16,12 +16,12 @@ import { CountryService } from 'server/service/country'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
-  sectionName: string
-  value: CommentableDescriptionValue
+  cycle: Cycle
   name: CommentableDescriptionName
+  sectionName: string
   user: User
+  value: CommentableDescriptionValue
 }
 
 // Saves the description without validating it, so callers can validate once their own transaction is committed

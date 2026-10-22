@@ -13,11 +13,11 @@ import { DataValidationService } from 'server/service/dataValidation'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
+  cycle: Cycle
   sectionName: string
-  uuid: string
   user: User
+  uuid: string
 }
 
 const name = CommentableDescriptionName.dataSources
@@ -42,7 +42,7 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     const index = value.dataSources.findIndex((d) => d.uuid === uuid)
     const [dataSource] = value.dataSources.splice(index, 1)
 
-    const description = await saveDescription({ assessment, cycle, country, sectionName, name, value, user }, t)
+    const description = await saveDescription({ assessment, country, cycle, name, sectionName, user, value }, t)
     const keyPrefix = Topics.getDataSourceReviewTopicKey(dataSource)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
 

@@ -10,12 +10,12 @@ import { DataValidationService } from 'server/service/dataValidation'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
-  sectionName: string
-  value: CommentableDescriptionValue
+  cycle: Cycle
   name: CommentableDescriptionName
+  sectionName: string
   user: User
+  value: CommentableDescriptionValue
 }
 
 export const upsertDescription = async (
