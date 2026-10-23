@@ -31,7 +31,7 @@ const config: PlaywrightTestConfig = {
     },
   ],
 
-  reporter: [['list'], ['html', { outputFolder: 'test-results', open: 'never' }]],
+  reporter: [['list'], ['html', { outputFolder: 'test-results/report', open: 'never' }]],
 }
 
 export default config

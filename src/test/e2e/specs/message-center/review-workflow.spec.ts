@@ -143,26 +143,46 @@ test.describe('Message center: review comments - admin and NC', () => {
     },
   })
 
-  test('NC opens unread comments and sees them marked as read', async ({
+  test("NC opens unread comments and sees them marked as read, then sees the admin's comment marked as deleted without reloading", async ({
     authenticatedPage,
     country,
     ndp,
     userPage,
   }) => {
+    const adminPage = authenticatedPage
     const ncPage = userPage
     expect(country.props.status).toBe(CountryStatus.editing)
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(authenticatedPage, topicLocation, comment)
 
-    await ncPage.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(ncPage)
+    await test.step('NC opens unread comments and sees them marked as read', async () => {
+      const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
+      await MessageCenterApi.addMessage(adminPage, topicLocation, comment)
 
-    const reviewButton = NDPDomUtils.getNationalClassReviewButton(ncPage)
-    await expect(reviewButton).toHaveClass(/\bunread\b/)
-    await reviewButton.click()
+      await ncPage.goto(ndpPath)
+      await DOMUtils.ensureEditingUnlocked(ncPage)
 
-    await expect(MessageCenterUtils.getMessage(ncPage, comment)).toBeVisible()
-    await expect(reviewButton).not.toHaveClass(/\bunread\b/, { timeout: Timeouts.medium })
+      const reviewButton = NDPDomUtils.getNationalClassReviewButton(ncPage)
+      await expect(reviewButton).toHaveClass(/\bunread\b/)
+      await reviewButton.click()
+
+      await expect(MessageCenterUtils.getMessage(ncPage, comment)).toBeVisible()
+      await expect(reviewButton).not.toHaveClass(/\bunread\b/, { timeout: Timeouts.medium })
+    })
+
+    await test.step("NC sees the admin's comment marked as deleted without reloading", async () => {
+      // Not looked up by text because the text goes away once the comment is deleted
+      const ncMessage = MessageCenterUtils.getTopic(ncPage).locator('.message')
+      await expect(ncMessage).toContainText(comment)
+
+      await adminPage.goto(ndpPath)
+      await DOMUtils.ensureEditingUnlocked(adminPage)
+      await NDPDomUtils.getNationalClassReviewButton(adminPage).click()
+      await expect(MessageCenterUtils.getMessage(adminPage, comment)).toBeVisible()
+      await MessageCenterUtils.deleteComment(adminPage)
+
+      await expect(ncMessage).toHaveClass(/\bdeleted\b/, { timeout: Timeouts.medium })
+      await expect(ncMessage).toContainText(enTranslation.review.commentDeleted)
+      await expect(ncMessage).not.toContainText(comment)
+    })
   })
 
   test('NC sees a new comment from the admin without reloading', async ({
@@ -183,37 +203,6 @@ test.describe('Message center: review comments - admin and NC', () => {
     await MessageCenterApi.addMessage(authenticatedPage, topicLocation, comment)
 
     await expect(MessageCenterUtils.getMessage(ncPage, comment)).toBeVisible({ timeout: Timeouts.medium })
-  })
-
-  test("NC sees the admin's comment marked as deleted without reloading", async ({
-    authenticatedPage,
-    country,
-    ndp,
-    userPage,
-  }) => {
-    const adminPage = authenticatedPage
-    const ncPage = userPage
-    expect(country.props.status).toBe(CountryStatus.editing)
-    const topicLocation = MessageCenterUtils.getNationalClassTopicLocation({ nationalClass, ndp, sectionName })
-    await MessageCenterApi.addMessage(adminPage, topicLocation, comment)
-
-    await ncPage.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(ncPage)
-    await NDPDomUtils.getNationalClassReviewButton(ncPage).click()
-
-    // Not looked up by text because the text goes away once the comment is deleted
-    const ncMessage = MessageCenterUtils.getTopic(ncPage).locator('.message')
-    await expect(ncMessage).toContainText(comment)
-
-    await adminPage.goto(ndpPath)
-    await DOMUtils.ensureEditingUnlocked(adminPage)
-    await NDPDomUtils.getNationalClassReviewButton(adminPage).click()
-    await expect(MessageCenterUtils.getMessage(adminPage, comment)).toBeVisible()
-    await MessageCenterUtils.deleteComment(adminPage)
-
-    await expect(ncMessage).toHaveClass(/\bdeleted\b/, { timeout: Timeouts.medium })
-    await expect(ncMessage).toContainText(enTranslation.review.commentDeleted)
-    await expect(ncMessage).not.toContainText(comment)
   })
 
   test('NC sees the delete button only on their own comment and no Resolve button', async ({
