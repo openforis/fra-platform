@@ -1,7 +1,5 @@
 import { Express } from 'express'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-
 import { ActivitiesApi } from 'server/api/cycleData/activities'
 import { ContactsApi } from 'server/api/cycleData/contacts'
 import { DashboardApi } from 'server/api/cycleData/dashboard'
@@ -12,9 +10,9 @@ import { NationalDataPointApi } from 'server/api/cycleData/nationalDataPoint'
 import { RepositoryApi } from 'server/api/cycleData/repository'
 import { ReviewApi } from 'server/api/cycleData/review'
 import { TableDataApi } from 'server/api/cycleData/table'
+import { ValidationsApi } from 'server/api/cycleData/validations'
 import { ExtDataApi } from 'server/api/extData'
 import { ApiContextMiddleware } from 'server/middleware/apiContext'
-import Requests from 'server/utils/requests'
 
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
@@ -23,6 +21,7 @@ import { DefinitionApi } from './definitions'
 import { ExplorerApi } from './explorer'
 import { FileApi } from './file'
 import { GeoApi } from './geo'
+import { HealthApi } from './health'
 import { InitApi } from './init'
 import { KioskApi } from './kiosk'
 import { MessageCenterApi } from './messageCenter'
@@ -39,10 +38,8 @@ export const Api = {
     // context middleware applied to all api endpoints
     express.use('/api/*path', ApiContextMiddleware.initContext)
 
-    // health system staus endpoint
-    express.use(ApiEndPoint.health(), (_req, res) => Requests.sendOk(res, { staus: 'ok' }))
-
     // init all endpoints
+    HealthApi.init(express)
     AuthApi.init(express)
     AdminApi.init(express)
     AreaApi.init(express)
@@ -67,5 +64,6 @@ export const Api = {
     RepositoryApi.init(express)
     ReviewApi.init(express)
     TableDataApi.init(express)
+    ValidationsApi.init(express)
   },
 }

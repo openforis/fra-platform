@@ -9,6 +9,7 @@ import { SubSection } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 import { Routes } from 'meta/routes/routes'
 
+import { useSummarySubSectionHasErrors } from 'client/store/data/validations/summary/hooks/summary'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -16,7 +17,9 @@ import { useSectionReviewSummary } from 'client/store/review/hooks/review'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useCountryIso } from 'client/hooks/country'
 import { useIsDataExportView } from 'client/hooks/dataExport'
+import Flex from 'client/components/Layout/Flex'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
+import ValidationErrorIndicator from 'client/components/ValidationErrorIndicator'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 type Props = {
@@ -38,6 +41,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(uuid)
+  const subSectionHasErrors = useSummarySubSectionHasErrors(uuid)
 
   return (
     <NavLink
@@ -61,10 +65,13 @@ const SectionItemLink: React.FC<Props> = (props) => {
       <div className="nav-section__order">
         {t(SubSections.getAnchorLabel({ assessment, cycle, subSection }), SubSections.getAnchor({ cycle, subSection }))}
       </div>
-      <div className="nav-section__label">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</div>
+      <Flex alignItems="center">
+        <div className="nav-section__label">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</div>
+      </Flex>
       {!isDataExport && (
         <div className="nav-section__status-content">
           <ReviewSummaryIndicator status={reviewStatus} />
+          <ValidationErrorIndicator show={subSectionHasErrors} />
         </div>
       )}
     </NavLink>

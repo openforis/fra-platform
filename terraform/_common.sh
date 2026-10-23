@@ -2,8 +2,9 @@
 # shared setup for deploy-incubator-*.sh
 set -e
 
-# cd to script dir (e.g. when running from project root)
-cd "$(dirname "$0")"
+# persist terraform directory to variable
+TERRAFORM_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$TERRAFORM_DIR"
 
 # deploy application
 terraform apply -auto-approve

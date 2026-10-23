@@ -1,9 +1,9 @@
 import { Assessment, AssessmentName, CycleIndexes } from 'meta/assessment/assessment'
 
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = { assessmentName: AssessmentName }
 
@@ -26,7 +26,7 @@ export const _cacheAssessment = async (props: Props, client: BaseProtocol = DB):
   // init assessment
   const assessment: Assessment = { ...assessmentBase, cycleIndexes }
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   // store assessment in redis
   const keyAssessments = getKeyAssessments()
   await redis.hmset(keyAssessments, assessmentName, JSON.stringify(assessment))

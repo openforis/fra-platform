@@ -1,4 +1,6 @@
+import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { NodeEnv } from 'server/utils/processEnv'
 import { startVerifyLinksWorkerRuntime } from 'server/worker/tasks/verifyLinks/workerRuntime/runtime'
 
 /**
@@ -25,11 +27,15 @@ type StartOptions = {
 export const startVerifyLinksWorker = async (options: StartOptions = {}): Promise<void> => {
   const exitOnIdle = options.exitOnIdle ?? isMainProcess
   const workerId = `verify-links-${process.pid}-${Date.now()}`
-  await startVerifyLinksWorkerRuntime({ exitOnIdle, workerId })
+  // standalone (Heroku dyno or e2e worker container)
+  // has no other SocketServer instance running
+  await startVerifyLinksWorkerRuntime({ exitOnIdle, standalone: isMainProcess, workerId })
 }
 
 if (isMainProcess) {
-  startVerifyLinksWorker({ exitOnIdle: true }).catch((error) => {
+  // keep alive in CI E2E
+  const exitOnIdle = ProcessEnv.nodeEnv !== NodeEnv.testE2e
+  startVerifyLinksWorker({ exitOnIdle }).catch((error) => {
     Logger.error(`[verifyLinks-worker] failed to start: ${JSON.stringify(error)}`)
     process.exit(1)
   })

@@ -10,7 +10,9 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
+import { notifyClientUpdate } from './updateDependants/notifyClientUpdate'
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
@@ -19,14 +21,15 @@ type Props = {
   country: Country
   year: string
   targetYear: string
+  socketId?: string
   user: User
 }
 
 export const copyNationalClasses = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, targetYear, user, year } = props
+  const { assessment, country, cycle, socketId, targetYear, user, year } = props
   const { countryIso } = country
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const commonProps = { assessment, cycle, countryIso }
     const [originalDataPoint, targetOriginalDataPoint] = await Promise.all([
       OriginalDataPointRepository.getOne({ ...commonProps, year }, t),
@@ -47,7 +50,7 @@ export const copyNationalClasses = async (props: Props, client: BaseProtocol = D
       },
     }
 
-    const updatedOriginalDataPoint = await OriginalDataPointRepository.updateNationalClasses(updateNCProps)
+    const updatedOriginalDataPoint = await OriginalDataPointRepository.updateNationalClasses(updateNCProps, t)
 
     const activityLog = {
       target: updatedOriginalDataPoint,
@@ -73,4 +76,21 @@ export const copyNationalClasses = async (props: Props, client: BaseProtocol = D
 
     return updatedOriginalDataPoint
   })
+
+  await notifyClientUpdate({
+    assessment,
+    cycle,
+    countryIso,
+    originalDataPoints: [updatedNationalDataPoint],
+    socketId,
+  })
+
+  await DataValidationService.validateNDPNationalClasses({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }

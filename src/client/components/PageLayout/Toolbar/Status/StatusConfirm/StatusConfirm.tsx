@@ -15,6 +15,7 @@ import Icon from 'client/components/Icon'
 import { IconName } from 'client/components/Icon/types'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 import NotifyUsers from 'client/components/PageLayout/Toolbar/Status/StatusConfirm/NotifyUsers'
+import ValidationWarning from 'client/components/PageLayout/Toolbar/Status/StatusConfirm/ValidationWarning'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
 
 import { useLinksVerificationGuard } from './hooks/useLinksVerificationGuard'
@@ -67,7 +68,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
         {isLoading && <div className="assessment-status-confirm__loading">{t('common.loading')}</div>}
 
         {hasGuardFetchError && (
-          <div className="assessment-status-confirm__notice-error">
+          <div className="assessment-status-confirm__notice assessment-status-confirm__notice-error">
             <Icon className="assessment-status-confirm__notice-icon" name={IconName.alert} />
             <div className="assessment-status-confirm__notice-content">
               <div className="assessment-status-confirm__notice-text">{t('linksGuard.fetchError')}</div>
@@ -76,7 +77,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
         )}
 
         {isBlocked && (
-          <div className="assessment-status-confirm__notice-error">
+          <div className="assessment-status-confirm__notice assessment-status-confirm__notice-error">
             <Icon className="assessment-status-confirm__notice-icon" name={IconName.alert} />
             <div className="assessment-status-confirm__notice-content">
               <div className="assessment-status-confirm__notice-text">
@@ -114,6 +115,8 @@ const StatusConfirm: React.FC<Props> = (props) => {
             />
           </>
         )}
+
+        <ValidationWarning status={status} />
       </ModalBody>
 
       <ModalFooter>

@@ -1,14 +1,14 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorForestAreaNetChange: ExpressionFunction<Context> = {
-  name: 'validatorForestAreaNetChange',
+  name: ValidatorName.forestAreaNetChange,
   minArity: 2,
   executor: () => {
     return (forestArea?: string, forestAreaNetChange?: string): NodeValueValidation => {
@@ -21,6 +21,7 @@ export const validatorForestAreaNetChange: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
+              name: ValidatorName.forestAreaNetChange,
               key: 'extentOfForest.forestAreaNetChangeDoesNotMatch',
               params: { value: Numbers.toFixed(Numbers.toBigNumber(forestArea)) },
             },
