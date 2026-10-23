@@ -6,7 +6,6 @@ import { Node } from 'meta/assessment/node'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { User } from 'meta/user/user'
 
-import { DataRedisRepository } from 'server/cache/repository/data'
 import { BaseProtocol } from 'server/db/db'
 import { NodeRepository } from 'server/db/repository/assessmentCycle/node'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -25,7 +24,6 @@ export const persistNode = async (props: Props, client: BaseProtocol): Promise<{
   const node: Node = await NodeRepository.getOneOrNone(props, client)
 
   const nodeUpdated = await (node ? NodeRepository.update(props, client) : NodeRepository.create(props, client))
-  await DataRedisRepository.updateNode(props)
 
   const activityLog: ActivityLog<Node> = {
     countryIso,
