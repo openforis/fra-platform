@@ -1,4 +1,3 @@
-import { type Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -18,25 +17,6 @@ const loginPath = Routes.Login.generatePath({ assessmentName, cycleName })
 
 const newPassword = 'newPassword123!'
 
-const _requestPasswordReset = async (page: Page, email: string): Promise<void> => {
-  await page.goto(loginPath)
-  await page.getByRole('link', { name: enTranslation.login.forgotPassword }).click()
-  await expect(page.getByRole('heading', { name: enTranslation.login.forgotPasswordTitle })).toBeVisible()
-  await page.fill('input[name="email"]', email)
-
-  const resetRequested = DOMUtils.waitForResponse(page, ApiEndPoint.Auth.resetPassword(), 'POST')
-  await page.getByRole('button', { name: enTranslation.login.resetPassword }).click()
-  await resetRequested
-
-  await expect(page.getByText(enTranslation.login.passwordResetSent)).toBeVisible()
-}
-
-const _openResetPasswordLink = async (page: Page, resetPasswordPath: string): Promise<void> => {
-  const linkChecked = DOMUtils.waitForResponse(page, ApiEndPoint.User.resetPassword(), 'GET')
-  await page.goto(resetPasswordPath)
-  await linkChecked
-}
-
 test.describe('Login: forgot password', () => {
   // The reset doesn't depend on the role or the country, so this uses an NC of BGR like the message center specs
   test.use({ userSeed: { assessmentName, countryIso: 'BGR', cycleName, role: RoleName.NATIONAL_CORRESPONDENT } })
@@ -46,12 +26,13 @@ test.describe('Login: forgot password', () => {
     const nc = user
 
     const resetPasswordPath = await test.step('NC asks for a reset and gets the email', async () => {
-      await _requestPasswordReset(page, nc.email)
+      await page.goto(loginPath)
+      await AuthUtils.requestPasswordReset(page, nc.email)
       return MailUtil.getResetPasswordLink(nc.email)
     })
 
     await test.step('NC sets a new password from the email link', async () => {
-      await _openResetPasswordLink(page, resetPasswordPath)
+      await AuthUtils.openResetPasswordLink(page, resetPasswordPath)
       const emailInput = page.locator('input[name="email"]')
       await expect(emailInput).toHaveValue(nc.email)
       await expect(emailInput).toBeDisabled()
@@ -66,7 +47,7 @@ test.describe('Login: forgot password', () => {
     })
 
     await test.step('NC opens the used link and sees it expired', async () => {
-      await _openResetPasswordLink(page, resetPasswordPath)
+      await AuthUtils.openResetPasswordLink(page, resetPasswordPath)
 
       await expect(page.getByText(enTranslation.login.expired)).toBeVisible()
     })
@@ -89,12 +70,15 @@ test.describe('Login: forgot password', () => {
     const page = publicPage
     const nc = user
 
-    await _requestPasswordReset(page, nc.email)
+    await page.goto(loginPath)
+    await AuthUtils.requestPasswordReset(page, nc.email)
     const resetPasswordPath = await MailUtil.getResetPasswordLink(nc.email)
-    // A second request within five minutes keeps the first link instead of sending a new one
-    await _requestPasswordReset(page, nc.email)
 
-    await _openResetPasswordLink(page, resetPasswordPath)
+    // A second request within five minutes keeps the first link instead of sending a new one
+    await page.goto(loginPath)
+    await AuthUtils.requestPasswordReset(page, nc.email)
+
+    await AuthUtils.openResetPasswordLink(page, resetPasswordPath)
 
     await expect(page.locator('input[name="email"]')).toHaveValue(nc.email)
   })
