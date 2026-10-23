@@ -22,9 +22,7 @@ const ButtonSort: React.FC<Props> = (props) => {
   const isCurrentlySorted = sortState?.colName === sortColName
   const sortOrder = isCurrentlySorted ? sortState.order : SortOrder.NONE
 
-  let iconName = IconName.sortAmountAsc
-  if (sortOrder === SortOrder.ASC) iconName = IconName.sortAmountAsc
-  if (sortOrder === SortOrder.DESC) iconName = IconName.sortAmountDesc
+  const iconName = sortOrder === SortOrder.DESC ? IconName.sortAmountDesc : IconName.sortAmountAsc
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.preventDefault()
