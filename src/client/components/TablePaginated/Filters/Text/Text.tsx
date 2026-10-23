@@ -9,6 +9,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedFilterValue } from 'client/store/tablePaginated/hooks/tablePaginated'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import InputText from 'client/components/Inputs/InputText'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
@@ -44,7 +45,7 @@ const Text: React.FC<Props> = (props) => {
         <Button
           className="clear-button icon"
           disabled={disabled}
-          iconName="remove"
+          iconName={IconName.remove}
           inverse
           onClick={handleClearInput}
           size={ButtonSize.m}

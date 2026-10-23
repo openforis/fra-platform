@@ -12,6 +12,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import { IconName } from 'client/components/Icon/types'
 import TextArea from 'client/components/Inputs/TextArea'
 
 import { useShowActions } from './hooks/useShowActions'
@@ -71,7 +72,7 @@ const Footer: React.FC<Props> = (props: Props) => {
           <DataCell noBorder>
             <Button
               disabled={Objects.isEmpty(message)}
-              iconName="icon-paper-plane"
+              iconName={IconName.iconPaperPlane}
               label={t('common.add')}
               onClick={postMessage}
               size={ButtonSize.s}
@@ -82,7 +83,7 @@ const Footer: React.FC<Props> = (props: Props) => {
       {canResolve && (
         <div className="topic-review">
           <Button
-            iconName="compare_arrows"
+            iconName={IconName.compareArrows}
             inverse
             label={t('review.resolve')}
             onClick={resolveTopic}

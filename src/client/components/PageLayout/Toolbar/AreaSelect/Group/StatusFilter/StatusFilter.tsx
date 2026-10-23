@@ -11,6 +11,7 @@ import { useAreaSelectorFilters } from 'client/store/ui/areaSelector/hooks/areaS
 import { useOnClose } from 'client/hooks/useOnClose'
 import ButtonClear from 'client/components/Buttons/ButtonClear'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { useHandleReset } from './hooks/useHandleReset'
 import { useHandleToggle } from './hooks/useHandleToggle'
@@ -42,7 +43,7 @@ const StatusFilter: React.FC<Props> = (props) => {
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
-        <Icon name="filter" />
+        <Icon name={IconName.filter} />
         {t('common.status')}
       </button>
 

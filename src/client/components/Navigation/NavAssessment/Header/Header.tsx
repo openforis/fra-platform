@@ -3,6 +3,7 @@ import React from 'react'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Hr from 'client/components/Hr'
+import { IconName } from 'client/components/Icon/types'
 
 import LinkLanding from './LinkLanding'
 
@@ -22,7 +23,7 @@ const Header: React.FC<Props> = (props) => {
         <Hr />
         <Button
           className="btn-toggle"
-          iconName="unfold"
+          iconName={IconName.unfold}
           inverse
           onClick={() => setShowSections(!showSections)}
           size={ButtonSize.m}

@@ -13,8 +13,9 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
-const iconName = 'hit-down'
+const iconName = IconName.hitDown
 const label = 'Label'
 const noPrint = false
 const size = ButtonSize.m
@@ -49,8 +50,8 @@ const Header: React.FC = () => {
       <div className="print-header__toolbar">
         {withDownload && (
           <a className={downloadClassName} href={downloadHref} rel="noreferrer" target="_blank">
-            <Icon name="hit-down" />
-            <Icon name="icon-files" />
+            <Icon name={IconName.hitDown} />
+            <Icon name={IconName.iconFiles} />
           </a>
         )}
       </div>

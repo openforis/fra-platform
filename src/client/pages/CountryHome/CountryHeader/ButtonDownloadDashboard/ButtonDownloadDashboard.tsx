@@ -11,6 +11,7 @@ import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const sectionName = SectionNames.Country.Home.overview
 
@@ -43,8 +44,8 @@ const ButtonDownloadDashboard: React.FC = () => {
 
   return (
     <Link className={className} target="_top" to={to}>
-      <Icon className="icon-hit-down" name="hit-down" />
-      <Icon name="icon-table2" />
+      <Icon className="icon-hit-down" name={IconName.hitDown} />
+      <Icon name={IconName.iconTable2} />
     </Link>
   )
 }

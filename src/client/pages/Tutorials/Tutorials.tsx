@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useLanguage } from 'client/hooks/language'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import GuidelinesAndSpecifications from 'client/pages/Tutorials/GuidelinesAndSpecifications'
 
 export const videoResources: Array<{
@@ -92,7 +93,7 @@ const Tutorials: React.FC = () => {
                 rel="noreferrer"
                 target="_blank"
               >
-                <Icon name="video" />
+                <Icon name={IconName.video} />
                 {t('tutorial.watch')}
               </a>
             </React.Fragment>

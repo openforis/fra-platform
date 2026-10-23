@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { useOnClick } from './hooks/useOnClick'
 
@@ -11,7 +12,13 @@ const CreateContact: React.FC = () => {
 
   return (
     <div>
-      <Button disabled={loading} iconName="small-add" label={t('common.add')} onClick={onClick} size={ButtonSize.xs} />
+      <Button
+        disabled={loading}
+        iconName={IconName.smallAdd}
+        label={t('common.add')}
+        onClick={onClick}
+        size={ButtonSize.xs}
+      />
     </div>
   )
 }

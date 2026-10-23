@@ -6,6 +6,7 @@ import { NationalClassValidation } from 'meta/assessment/odps/validateODP'
 import { ODPNationalClass } from 'meta/assessment/originalDataPoint'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   nationalClasses: Array<ODPNationalClass>
@@ -26,7 +27,7 @@ const NationalClassValidations: React.FC<Props> = (props) => {
 
   return (
     <div className="national-class-validations">
-      <Icon name="alert" />
+      <Icon name={IconName.alert} />
       {nationalClassValidations.map(
         (nationalClassValidation, index) =>
           !nationalClassValidation[variable] && (

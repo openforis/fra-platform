@@ -13,6 +13,7 @@ import { useIsFileUploadLoading } from 'client/store/fileUpload/hooks/fileUpload
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 import Form from 'client/components/Form'
+import { IconName } from 'client/components/Icon/types'
 import { Urls } from 'client/utils/urls'
 
 import { useFileMeta } from './hooks/useFileMeta'
@@ -72,7 +73,7 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
           <div data-tooltip-id="repository-item-form__delete-btn">
             <Button
               disabled={isLoading || isUsed || isNonEmptyFolder}
-              iconName="trash-simple"
+              iconName={IconName.trashSimple}
               label={t('common.delete')}
               onClick={onDelete}
               type={ButtonType.danger}

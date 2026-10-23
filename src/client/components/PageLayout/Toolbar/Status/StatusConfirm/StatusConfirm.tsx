@@ -12,6 +12,7 @@ import { useCountryIso } from 'client/hooks/country'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 import NotifyUsers from 'client/components/PageLayout/Toolbar/Status/StatusConfirm/NotifyUsers'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
@@ -67,7 +68,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
 
         {hasGuardFetchError && (
           <div className="assessment-status-confirm__notice-error">
-            <Icon className="assessment-status-confirm__notice-icon" name="alert" />
+            <Icon className="assessment-status-confirm__notice-icon" name={IconName.alert} />
             <div className="assessment-status-confirm__notice-content">
               <div className="assessment-status-confirm__notice-text">{t('linksGuard.fetchError')}</div>
             </div>
@@ -76,7 +77,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
 
         {isBlocked && (
           <div className="assessment-status-confirm__notice-error">
-            <Icon className="assessment-status-confirm__notice-icon" name="alert" />
+            <Icon className="assessment-status-confirm__notice-icon" name={IconName.alert} />
             <div className="assessment-status-confirm__notice-content">
               <div className="assessment-status-confirm__notice-text">
                 {guardResult.reason &&

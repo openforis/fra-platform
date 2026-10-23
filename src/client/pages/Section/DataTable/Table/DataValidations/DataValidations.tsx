@@ -8,6 +8,7 @@ import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/
 import { useTableHasErrors } from 'client/store/data/tableData/validations/hooks/validations'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   table: Table
@@ -31,7 +32,7 @@ const DataValidations: React.FC<Props> = (props) => {
 
   return (
     <div className="data-validations">
-      <Icon className="icon-middle" name="alert" />
+      <Icon className="icon-middle" name={IconName.alert} />
 
       {message}
     </div>
