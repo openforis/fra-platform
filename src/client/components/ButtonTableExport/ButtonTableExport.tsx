@@ -5,6 +5,7 @@ import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { useFilename } from './hooks/useFilename'
 import * as Utils from './utils'
@@ -22,7 +23,7 @@ const ButtonTableExport: React.FC<Props> = (props: Props) => {
   const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 
-  const className = useButtonClassName({ disabled: !isLocked && disabled, iconName: 'hit-down', label: 'CSV' })
+  const className = useButtonClassName({ disabled: !isLocked && disabled, iconName: IconName.hitDown, label: 'CSV' })
   const filename = useFilename(filenameProp)
 
   if (print) return null
@@ -39,7 +40,7 @@ const ButtonTableExport: React.FC<Props> = (props: Props) => {
       }}
       target="_blank"
     >
-      <Icon name="hit-down" />
+      <Icon name={IconName.hitDown} />
       CSV
     </CSVLink>
   )

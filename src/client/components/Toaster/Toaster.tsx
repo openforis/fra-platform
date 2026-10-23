@@ -7,6 +7,7 @@ import { NotificationActions } from 'client/store/ui/notification/actions'
 import { useNotification } from 'client/store/ui/notification/hooks'
 import { NotificationMessage } from 'client/store/ui/notification/state'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 type ToastProps = {
   notification: NotificationMessage
@@ -23,17 +24,17 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
     setTimeout(() => dispatch(NotificationActions.removeMessage(id)), duration)
   }
 
-  let iconName = 'round-e-info'
-  if (type === 'error') iconName = 'alert'
-  else if (type === 'warning') iconName = 'alert'
-  else if (type === 'success') iconName = 'check-circle-08'
+  let iconName = IconName.roundEInfo
+  if (type === 'error') iconName = IconName.alert
+  else if (type === 'warning') iconName = IconName.alert
+  else if (type === 'success') iconName = IconName.checkCircle08
 
   return (
     <div className={`toast ${type}`}>
       <Icon className="toast-icon" name={iconName} />
       <div className="toast-message">{t(message, params)}</div>
       <div className="toast-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
-        <Icon name="remove" />
+        <Icon name={IconName.remove} />
       </div>
     </div>
   )

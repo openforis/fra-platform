@@ -7,6 +7,7 @@ import { Routes } from 'meta/routes/routes'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const LinkLanding: React.FC = () => {
   const { t } = useTranslation()
@@ -25,7 +26,7 @@ const LinkLanding: React.FC = () => {
       to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
     >
       <div className="nav-section__order">
-        <Icon name="icon-bar-chart" />
+        <Icon name={IconName.iconBarChart} />
       </div>
 
       <div className="nav-section__label">{t('common.dashboard')}</div>

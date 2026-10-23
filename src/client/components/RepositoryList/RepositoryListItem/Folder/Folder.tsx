@@ -9,6 +9,7 @@ import { TooltipId } from 'meta/tooltip/id'
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { useRepositoryListContext } from '../../context'
 import { Props } from './props'
@@ -28,10 +29,10 @@ const Folder: React.FC<Props> = (props) => {
     <div className="repository-list-item repository-list-item--folder">
       <div className={classNames('repository-folder', { expanded: !isCollapsed })} style={{ paddingLeft: depth * 20 }}>
         <button onClick={() => onToggle(item.uuid)}>
-          <Icon name="small-down" />
+          <Icon name={IconName.smallDown} />
         </button>
         <button onClick={() => onNavigate(item.uuid)}>
-          <Icon name="icon-folder" />
+          <Icon name={IconName.iconFolder} />
           {item.folderName}
         </button>
       </div>
@@ -40,7 +41,7 @@ const Folder: React.FC<Props> = (props) => {
           dataTooltipContent={t('description.edit')}
           dataTooltipId={TooltipId.info}
           dataTooltipPlace="left"
-          iconName="pencil"
+          iconName={IconName.pencil}
           onClick={() => onOpenPanel(item)}
           size={ButtonSize.s}
           type={ButtonType.transparent}

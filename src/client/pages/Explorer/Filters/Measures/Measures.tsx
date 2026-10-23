@@ -11,6 +11,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 import Flex from 'client/components/Layout/Flex'
 import useOpenDefinition from 'client/components/Links/DefinitionLink/hooks/useOpenDefinition'
@@ -48,7 +49,7 @@ const Measures: React.FC = () => {
       <Button
         dataTooltipContent={t('definition.definitionLabel')}
         dataTooltipId={TooltipId.info}
-        iconName="round-e-info"
+        iconName={IconName.roundEInfo}
         inverse
         noBorder
         onClick={openDefinition}
