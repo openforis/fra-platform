@@ -1,3 +1,4 @@
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { Timeouts } from 'test/e2e/config/timeouts'
@@ -205,7 +206,10 @@ test.describe('Section tables: 1a - forestArea differs from FRA 2020 reported va
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')
 
+    let cellSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Table.nodes(), 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2020', '1800')
+    await cellSaved
+
     await TableDomUtils.expectCellHasValidationError(page, 'forestArea', '2020')
 
     await TooltipUtils.expectValidationTooltip(
@@ -214,7 +218,10 @@ test.describe('Section tables: 1a - forestArea differs from FRA 2020 reported va
       'differs from previously reported'
     )
 
+    cellSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Table.nodes(), 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2020', forestArea2020Value)
+    await cellSaved
+
     await TableDomUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')
   })
 })
