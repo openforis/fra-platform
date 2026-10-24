@@ -9,7 +9,9 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
+import { notifyClientUpdate } from './updateDependants/notifyClientUpdate'
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
@@ -17,15 +19,16 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
   sectionName: string
 }
 
 export const updateOriginalData = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
+  const { assessment, country, cycle, originalDataPoint, sectionName, socketId, user } = props
   const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
       { assessment, cycle, originalDataPoint },
       t
@@ -58,4 +61,22 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
 
     return updatedOriginalDataPoint
   })
+
+  await notifyClientUpdate({
+    assessment,
+    cycle,
+    countryIso,
+    sectionName,
+    originalDataPoints: [updatedNationalDataPoint],
+    socketId,
+  })
+
+  await DataValidationService.validateNDPNationalClasses({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }

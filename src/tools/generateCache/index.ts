@@ -1,12 +1,12 @@
 import '../scriptInit'
 
-import { DB } from 'server/db/db'
 import { CacheController } from 'server/cache/controller'
-import { RedisData } from 'server/cache/repository/redisData'
+import { DB } from 'server/db/db'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 import { Logger } from 'server/utils/logger'
 
 const exec = async (): Promise<void> => {
-  await RedisData.getInstance().flushall()
+  await RedisDataClient.getInstance().flushall()
 
   const assessments = await CacheController.generateAssessments()
   await CacheController.generateMetaCache({})

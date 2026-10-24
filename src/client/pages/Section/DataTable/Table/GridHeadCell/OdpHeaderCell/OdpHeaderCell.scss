@@ -9,6 +9,14 @@
   }
 }
 
+.table-grid__odp-cell.header.validation-error {
+  background-color: rgba($ui-destructive, 10%);
+
+  .table-grid__odp-link {
+    color: $ui-destructive;
+  }
+}
+
 .table-grid__odp-cell.header .table-grid__odp-link {
   display: inline-flex;
   text-decoration: underline;

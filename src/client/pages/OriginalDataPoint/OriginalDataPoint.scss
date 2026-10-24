@@ -48,11 +48,15 @@
 }
 
 .odp__tab-item {
+  align-items: center;
   border: 1px solid transparent;
   border-bottom-color: $ui-border;
   border-top-width: 2px;
   color: $text-disabled;
+  display: flex;
   font-weight: 700;
+  gap: $spacing-xxs;
+  justify-content: center;
   line-height: 16px;
   margin-left: -1px;
   outline: none;

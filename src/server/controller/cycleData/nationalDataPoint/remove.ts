@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { NDPLinkFields } from 'meta/cycleData/links/nationalDataPointLink'
 import { Topics } from 'meta/messageCenter/topics'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
@@ -15,6 +16,8 @@ import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/mes
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
+import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
@@ -24,6 +27,7 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
@@ -31,12 +35,12 @@ const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
 export const remove = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
+  const { assessment, country, cycle, originalDataPoint, socketId, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  const { countryIso } = originalDataPoint
+  const { countryIso, uuid } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const target = await client.tx(async (t) => {
     const [target] = await Promise.all([
       OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t),
       DescriptionRepository.remove(
@@ -68,11 +72,27 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
         country,
         originalDataPoint,
         user,
-        notifyClient: false,
       },
       t
     )
 
     return target
   })
+
+  const eventName = Sockets.getNationalDataPointDeleteEvent({ uuid })
+  SocketServer.emitExcept({ eventName, socketId }, { year: originalDataPoint.year })
+
+  await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
+
+  // Remove the deleted national data point's link locations.
+  // Clients are already notified through the delete event above.
+  await LinksService.enqueueNationalDataPointLinksValidation({
+    assessment,
+    countryIso,
+    cycle,
+    notifyClients: false,
+    targets: [{ ndpUuid: uuid, fields: NDPLinkFields }],
+  })
+
+  return target
 }

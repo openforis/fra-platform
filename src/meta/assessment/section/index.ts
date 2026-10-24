@@ -13,6 +13,7 @@ export enum SectionNames {
   disturbances = 'disturbances',
   extentOfForest = 'extentOfForest',
   forestCharacteristics = 'forestCharacteristics',
+  growingStock = 'growingStock',
   nationalDataPoint = 'nationalDataPoint',
   originalDataPoints = 'originalDataPoints',
 }

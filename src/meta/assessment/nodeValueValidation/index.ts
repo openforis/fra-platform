@@ -1,11 +1,10 @@
-export type NodeValueValidationMessageParam = string | number | Array<string> | Array<number>
+import { Validation, ValidationMessage } from 'meta/assessment/validation/validation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 
-export interface NodeValueValidationMessage {
-  key: string
-  params?: Record<string, NodeValueValidationMessageParam>
+export interface NodeValueValidationMessage extends ValidationMessage {
+  name: ValidatorName
 }
 
-export interface NodeValueValidation {
-  valid: boolean
+export interface NodeValueValidation extends Validation {
   messages?: Array<NodeValueValidationMessage>
 }

@@ -94,7 +94,7 @@ const _getEnums = (): string => {
     
     do $$
     begin
-        create type message_topic_type as enum ('review', 'chat', 'messageboard');
+        create type message_topic_type as enum ('review', 'chat', 'messageBoard');
     exception
         when duplicate_object then null;
     end $$;

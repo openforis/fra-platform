@@ -9,19 +9,24 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
+
+import { notifyNationalDataPointUpdate } from './updateDependants/notifyNationalDataPointUpdate'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
   originalDataPoint: OriginalDataPoint
   country: Country
+  socketId?: string
   user: User
 }
 
 export const updateNationalClasses = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
+  const { assessment, country, cycle, originalDataPoint, socketId, user } = props
+  const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateNationalClasses(
       { assessment, cycle, originalDataPoint },
       t
@@ -31,7 +36,7 @@ export const updateNationalClasses = async (props: Props, client: BaseProtocol =
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateNationalClasses,
-      countryIso: originalDataPoint.countryIso,
+      countryIso,
       user,
     }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
@@ -42,4 +47,15 @@ export const updateNationalClasses = async (props: Props, client: BaseProtocol =
 
     return updatedOriginalDataPoint
   })
+
+  notifyNationalDataPointUpdate({ nationalDataPoints: [updatedNationalDataPoint], socketId })
+
+  await DataValidationService.validateNDPNationalClasses({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }

@@ -5,18 +5,23 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { LinksService } from 'server/service/links'
+
+import { notifyNationalDataPointUpdate } from './updateDependants/notifyNationalDataPointUpdate'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
@@ -24,17 +29,17 @@ const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
 export const updateDataSources = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
-  const { countryIso, dataSources, uuid } = originalDataPoint
+  const { assessment, country, cycle, originalDataPoint: nationalDataPoint, socketId, user } = props
+  const { countryIso, dataSources, uuid } = nationalDataPoint
 
-  return client.tx(async (t) => {
+  await client.tx(async (t) => {
     await DescriptionRepository.upsert(
       { assessment, countryIso, cycle, name, sectionName, sectionUuid: uuid, value: dataSources },
       t
     )
 
     const activityLog = {
-      target: originalDataPoint,
+      target: nationalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateDataSources,
       countryIso,
@@ -46,7 +51,16 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     )
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
-
-    return originalDataPoint
   })
+
+  notifyNationalDataPointUpdate({ nationalDataPoints: [nationalDataPoint], socketId })
+
+  await LinksService.enqueueNationalDataPointLinksValidation({
+    assessment,
+    countryIso,
+    cycle,
+    targets: [{ ndpUuid: uuid, fields: [NDPLinkField.dataSourceReferences] }],
+  })
+
+  return nationalDataPoint
 }

@@ -1,29 +1,18 @@
 import { CountryIso } from 'meta/area/countryIso'
+import { DescriptionLinkLocation, DescriptionLinkLocationKey } from 'meta/cycleData/links/descriptionLink'
+import {
+  NationalDataPointLinkLocation,
+  NationalDataPointLinkLocationKey,
+} from 'meta/cycleData/links/nationalDataPointLink'
 
-type LinkLocationBase = {
-  id: number
-  url: string
-}
+export type LinkLocation = DescriptionLinkLocation | NationalDataPointLinkLocation
 
-type DescriptionsLocation = LinkLocationBase & {
-  colName: string
-  descriptionName: string
-  path: Array<string>
-  sectionName: string
-  uuid?: string
-}
-
-type OriginalDataPointLocation = LinkLocationBase & {
-  sectionName: 'originalDataPoint'
-  odpSection: string
-  year: number
-}
-
-export type LinkLocation = DescriptionsLocation | OriginalDataPointLocation
+export type LinkLocationKey = DescriptionLinkLocationKey | NationalDataPointLinkLocationKey
 
 export enum LinkValidationStatusCode {
   empty = 'empty',
   enotfound = 'enotfound',
+  invalidEmailAddress = 'invalidEmailAddress',
   success = 'success',
   urlParsingError = 'urlParsingError',
 }

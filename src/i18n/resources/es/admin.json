@@ -7,7 +7,6 @@
   "country_two": "$t(admin.country_other)",
   "country_zero": "$t(admin.country_other)",
   "disabledUsers": "Usuarios Deshabilitados",
-  "enotfound": "Error de DNS",
   "filter": "Filtrar por",
   "invitationPending": "Invitación pendiente",
   "invitationsAcceptedCount": "Nº de invitaciones aceptadas",
@@ -22,7 +21,6 @@
   "role_other": "{{count}} Roles",
   "role_two": "$t(admin.role_other)",
   "role_zero": "$t(admin.role_other)",
-  "urlParsingError": "Error de análisis de URL",
   "usersCount": "Nº de usuarios",
   "verifyLinks": "Verificar enlaces"
 }
