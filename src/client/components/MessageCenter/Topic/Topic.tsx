@@ -19,6 +19,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket/client'
@@ -136,7 +137,7 @@ const Topic: React.FC<TopicProps> = (props) => {
             dataTooltipContent={moved ? t('review.resetPosition') : undefined}
             dataTooltipId={TooltipId.info}
             disabled={!moved}
-            iconName="arrow-down-right2"
+            iconName={IconName.arrowDownRight2}
             inverse
             onClick={reset}
             size={ButtonSize.l}
@@ -144,7 +145,7 @@ const Topic: React.FC<TopicProps> = (props) => {
           />
           <Button
             className="topic-close"
-            iconName="remove"
+            iconName={IconName.remove}
             inverse
             onClick={closeTopic}
             size={ButtonSize.l}
@@ -165,7 +166,7 @@ const Topic: React.FC<TopicProps> = (props) => {
           ))}
         {!topic.loading && Objects.isEmpty(topic.messages) && (
           <div className="topic__no-comments">
-            <Icon className="icon-24" name="chat-46" />
+            <Icon className="icon-24" name={IconName.chat46} />
             <br />
             {t('review.noComments')}
           </div>

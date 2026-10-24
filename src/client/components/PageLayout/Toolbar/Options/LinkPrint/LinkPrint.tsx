@@ -8,8 +8,9 @@ import { TooltipId } from 'meta/tooltip/id'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
-const iconName = 'small-print'
+const iconName = IconName.smallPrint
 const inverse = true
 const size = ButtonSize.l
 
@@ -32,7 +33,7 @@ const LinkPrint: React.FC = () => {
         target="_blank"
         to={path}
       >
-        <Icon name="small-print" />
+        <Icon name={IconName.smallPrint} />
       </Link>
       <div className="toolbar__separator" />
       <Link
@@ -42,8 +43,8 @@ const LinkPrint: React.FC = () => {
         target="_blank"
         to={pathTables}
       >
-        <Icon name="small-print" />
-        <Icon name="icon-table2" />
+        <Icon name={IconName.smallPrint} />
+        <Icon name={IconName.iconTable2} />
       </Link>
     </>
   )

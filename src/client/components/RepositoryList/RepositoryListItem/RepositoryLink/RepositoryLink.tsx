@@ -8,6 +8,7 @@ import { Translations } from 'meta/translation/translations'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Link, { LinkColor } from 'client/components/Links/Link'
 
 type Props = {
@@ -23,7 +24,7 @@ const RepositoryLink: React.FC<Props> = (props) => {
   const label = Translations.getLabel({ translation: datum.props.translation, language })
   const url = RepositoryItems.getURL({ repositoryItem: datum, assessmentName, cycleName, countryIso })
 
-  const iconName = datum.fileUuid ? 'icon-files' : 'external-link'
+  const iconName = datum.fileUuid ? IconName.iconFiles : IconName.externalLink
 
   return (
     <div className="repository-link">
@@ -38,7 +39,7 @@ const RepositoryLink: React.FC<Props> = (props) => {
           data-tooltip-id={TooltipId.white}
           data-tooltip-place="bottom-start"
         >
-          <Icon name="round-e-info" />
+          <Icon name={IconName.roundEInfo} />
         </div>
       )}
     </div>

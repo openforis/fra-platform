@@ -4,10 +4,12 @@ import classNames from 'classnames'
 
 import { UUIDs } from 'meta/uuid/uuids'
 
+import { IconName } from 'client/components/Icon/types'
+
 const bustString = UUIDs.getUuid()
 
 type Props = {
-  name: string
+  name: IconName
   className?: string
 }
 
