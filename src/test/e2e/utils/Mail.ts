@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test'
+import { enTranslation } from 'i18n/resources/en'
 
 import { Timeouts } from 'test/e2e/config/timeouts'
 
@@ -69,8 +70,19 @@ const getEmailWithText = async (recipient: string, text: string): Promise<Email>
   return email
 }
 
+const getResetPasswordLink = async (recipient: string): Promise<string> => {
+  const email = await getEmailWithText(recipient, enTranslation.user.resetPasswordEmail.subject)
+  // The email's HTML writes the link's slashes as &#x2F;, so this finds the link in the plain text version
+  const match = email.body.match(/http\S+\/login\/reset-password\/[0-9a-f-]+/)
+
+  if (!match) throw new Error(`No reset password link found in email for ${recipient}`)
+  const url = new URL(match[0])
+  return url.pathname
+}
+
 export const MailUtil = {
   getEmailByRecipient,
   getEmailWithText,
   getInvitationLink,
+  getResetPasswordLink,
 }
