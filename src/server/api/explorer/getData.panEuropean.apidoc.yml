@@ -21,7 +21,7 @@ paths:
                 $ref: '#/components/schemas/RecordAssessmentData'
               example:
                 panEuropean:
-                  "2025":
+                  '2025':
                     ALB:
                       table_6_10a:
                         area_available_for_public_recreation_percent:
@@ -30,9 +30,9 @@ paths:
                           total_forest_and_other_wooded_land_2010:
                             raw: null
                           total_forest_and_other_wooded_land_2005:
-                            raw: "98.61"
+                            raw: '98.61'
                           total_forest_and_other_wooded_land_2000:
-                            raw: "98.58"
+                            raw: '98.58'
                           total_forest_and_other_wooded_land_1990:
                             raw: null
                         area_available_for_public_recreation_total:
@@ -41,8 +41,8 @@ paths:
                           total_forest_and_other_wooded_land_2010:
                             raw: null
                           total_forest_and_other_wooded_land_2005:
-                            raw: "1025.66"
+                            raw: '1025.66'
                           total_forest_and_other_wooded_land_2000:
-                            raw: "1009.3"
+                            raw: '1009.3'
                           total_forest_and_other_wooded_land_1990:
                             raw: null

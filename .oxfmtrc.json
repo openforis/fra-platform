@@ -6,5 +6,5 @@
   "bracketSpacing": true,
   "endOfLine": "lf",
   "quoteProps": "preserve",
-  "ignorePatterns": ["**/*.md", "**/*.json"]
+  "ignorePatterns": ["**/*.md", "**/*.geojson", "src/tools/migrations/steps/steps/data/**"]
 }
