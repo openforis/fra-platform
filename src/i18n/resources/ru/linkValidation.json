@@ -1,7 +1,7 @@
 {
   "dnsError": "Ошибка DNS",
   "empty": "Пусто",
-  "invalidEmailAddress": "Недопустимый адрес электронной почты",
+  "invalidEmailAddress": "Неверный адрес электронной почты",
   "success": "Успешно",
-  "urlParsingError": "Ошибка разбора URL"
+  "urlParsingError": "URL parsing error"
 }

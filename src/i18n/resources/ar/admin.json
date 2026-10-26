@@ -21,6 +21,7 @@
   "role_other": "{{count}} أدوار",
   "role_two": "{{count}} دوران",
   "role_zero": "{{count}} أدوار",
+  "urlParsingError": "خطأ في التوصل إلى عنوان الموقع",
   "usersCount": "عدد المستخدمين",
   "verifyLinks": "التحقق من الروابط"
 }

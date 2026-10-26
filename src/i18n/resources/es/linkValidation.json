@@ -1,7 +1,7 @@
 {
   "dnsError": "Error de DNS",
-  "empty": "Vacío",
-  "invalidEmailAddress": "Dirección de correo electrónico no válida",
+  "empty": "Vaciar",
+  "invalidEmailAddress": "Dirección de correo inválida",
   "success": "Éxito",
   "urlParsingError": "Error de análisis de URL"
 }

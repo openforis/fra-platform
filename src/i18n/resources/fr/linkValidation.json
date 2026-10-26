@@ -1,7 +1,7 @@
 {
-  "dnsError": "Erreur DNS",
+  "dnsError": "Erreur DBS",
   "empty": "Vide",
-  "invalidEmailAddress": "Adresse e-mail non valide",
+  "invalidEmailAddress": "Adresse e-mail invalide",
   "success": "Succès",
   "urlParsingError": "Erreur d'analyse de l'URL"
 }
