@@ -24,7 +24,7 @@
   },
   "dataSources": "数据来源",
   "definition": "定义",
-  "deleted": "The national data point {{year}} has been deleted",
+  "deleted": "{{year}} 年的国家数据点已删除",
   "disabled": "第1b项的禁用、启用",
   "discardChanges": "放弃修改",
   "doneEditing": "编辑完成",
