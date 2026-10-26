@@ -32,7 +32,7 @@ const Folder: React.FC<Props> = (props) => {
           <Icon name={IconName.smallDown} />
         </button>
         <button onClick={() => onNavigate(item.uuid)}>
-          <Icon name={IconName.iconFolder} />
+          <Icon name={IconName.folder} />
           {item.folderName}
         </button>
       </div>

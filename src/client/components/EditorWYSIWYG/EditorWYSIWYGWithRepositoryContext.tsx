@@ -28,7 +28,7 @@ const EditorWYSIWYGWithRepositoryContext: React.FC<EditorWYSIWYGProps> = (props)
       setRepositoryOpened(true)
     }
     const tooltip = t('landing.links.repository')
-    const icon = renderToStaticMarkup(<Icon className="icon-reference-files" name={IconName.iconFiles} />)
+    const icon = renderToStaticMarkup(<Icon className="icon-reference-files" name={IconName.files} />)
 
     return { icon, exec, tooltip }
   }, [setRepositoryOpened, t])

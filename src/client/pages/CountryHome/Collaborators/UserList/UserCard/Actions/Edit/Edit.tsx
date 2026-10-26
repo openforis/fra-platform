@@ -30,7 +30,7 @@ const Edit: React.FC<Props> = (props: Props) => {
 
   const isEdit = Authorizer.canEditUser({ cycle, countryIso, user: currentUser, target: user })
   const label = t(isEdit ? 'userManagement.edit' : 'common.view')
-  const iconName = isEdit ? IconName.pencil : IconName.iconEye
+  const iconName = isEdit ? IconName.pencil : IconName.eye
   const className = useButtonClassName({ iconName, label, size, type, className: 'home-user-action-button-edit' })
 
   if (UserCountrySummaries.isInvitation(user, countryIso)) {

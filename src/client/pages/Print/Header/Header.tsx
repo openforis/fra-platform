@@ -51,7 +51,7 @@ const Header: React.FC = () => {
         {withDownload && (
           <a className={downloadClassName} href={downloadHref} rel="noreferrer" target="_blank">
             <Icon name={IconName.hitDown} />
-            <Icon name={IconName.iconFiles} />
+            <Icon name={IconName.files} />
           </a>
         )}
       </div>

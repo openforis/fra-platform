@@ -26,7 +26,7 @@ const LinkLanding: React.FC = () => {
       to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
     >
       <div className="nav-section__order">
-        <Icon name={IconName.iconBarChart} />
+        <Icon name={IconName.barChart} />
       </div>
 
       <div className="nav-section__label">{t('common.dashboard')}</div>

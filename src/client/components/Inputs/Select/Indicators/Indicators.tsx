@@ -27,7 +27,7 @@ export const DropdownIndicator: React.FC<DropdownIndicatorProps> = (props) => {
 
   return (
     <div className={classNames('select__dropdownIndicator', { isDisabled })}>
-      <Icon name={IconName.iconSelectArrows} />
+      <Icon name={IconName.selectArrows} />
     </div>
   )
 }

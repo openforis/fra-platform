@@ -22,20 +22,20 @@ const StatKeys = [StatKey.treeCover, StatKey.protectedArea, StatKey.burnedArea]
 const Stats: Record<StatKey, { Component: React.FC<{ year: number }>; icon?: React.ReactNode; titleKey: string }> = {
   [StatKey.burnedArea]: {
     Component: BurnedAreaPanel,
-    icon: <Icon name={IconName.iconTable2} />,
+    icon: <Icon name={IconName.table} />,
     titleKey: 'geo.burnedArea',
   },
   [StatKey.protectedArea]: {
     Component: ProtectedAreaPanel,
-    icon: <Icon name={IconName.iconTable2} />,
+    icon: <Icon name={IconName.table} />,
     titleKey: 'geo.treeCoverProtectedAreas',
   },
   [StatKey.treeCover]: {
     Component: TreeCoverAreaPanel,
     icon: (
       <>
-        <Icon name={IconName.iconBarChart} />
-        <Icon name={IconName.iconTable2} />
+        <Icon name={IconName.barChart} />
+        <Icon name={IconName.table} />
       </>
     ),
     titleKey: 'geo.statistics.forestArea.extentOfForestTreeCover',
@@ -56,7 +56,7 @@ const StatisticsSidePanel: React.FC = () => {
   const expanded = useMemo<boolean>(() => Object.values(sectionsExpanded).some((value) => value), [sectionsExpanded])
 
   const makeSetExpanded = useCallback((titleKey: string) => {
-    return (expanded: boolean) => {
+    return (expanded: boolean): void => {
       setSectionsExpanded((prevState) => ({ ...prevState, [titleKey]: expanded }))
     }
   }, [])

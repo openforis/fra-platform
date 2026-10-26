@@ -24,7 +24,7 @@ const RepositoryLink: React.FC<Props> = (props) => {
   const label = Translations.getLabel({ translation: datum.props.translation, language })
   const url = RepositoryItems.getURL({ repositoryItem: datum, assessmentName, cycleName, countryIso })
 
-  const iconName = datum.fileUuid ? IconName.iconFiles : IconName.externalLink
+  const iconName = datum.fileUuid ? IconName.files : IconName.externalLink
 
   return (
     <div className="repository-link">
