@@ -21,7 +21,7 @@ export const validatorSumNotGreaterThanForest: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : _messages ?? [{ key: 'generalValidation.forestSumAreaExceedsExtentOfForest' }]
+        : (_messages ?? [{ key: 'generalValidation.forestSumAreaExceedsExtentOfForest' }])
 
       return { valid, messages }
     }

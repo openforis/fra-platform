@@ -74,14 +74,14 @@ export interface UnaryExpression extends ExpressionNode<ExpressionNodeType.Unary
 
 export interface ExpressionNodeEvaluatorConstructor<
   C extends ExpressionContext,
-  N extends ExpressionNode<ExpressionNodeType>
+  N extends ExpressionNode<ExpressionNodeType>,
 > {
   new (evaluator: ExpressionEvaluator<C>, context: C): ExpressionNodeEvaluator<C, N>
 }
 
 export abstract class ExpressionNodeEvaluator<
   C extends ExpressionContext,
-  N extends ExpressionNode<ExpressionNodeType>
+  N extends ExpressionNode<ExpressionNodeType>,
 > {
   readonly evaluator: ExpressionEvaluator<C>
   readonly context: C
