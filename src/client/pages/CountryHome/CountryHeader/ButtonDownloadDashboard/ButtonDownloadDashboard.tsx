@@ -45,7 +45,7 @@ const ButtonDownloadDashboard: React.FC = () => {
   return (
     <Link className={className} target="_top" to={to}>
       <Icon className="icon-hit-down" name={IconName.hitDown} />
-      <Icon name={IconName.iconTable2} />
+      <Icon name={IconName.table} />
     </Link>
   )
 }

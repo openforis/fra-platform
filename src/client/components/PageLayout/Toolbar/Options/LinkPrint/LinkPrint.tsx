@@ -44,7 +44,7 @@ const LinkPrint: React.FC = () => {
         to={pathTables}
       >
         <Icon name={IconName.smallPrint} />
-        <Icon name={IconName.iconTable2} />
+        <Icon name={IconName.table} />
       </Link>
     </>
   )

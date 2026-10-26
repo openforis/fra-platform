@@ -72,7 +72,7 @@ const Footer: React.FC<Props> = (props: Props) => {
           <DataCell noBorder>
             <Button
               disabled={Objects.isEmpty(message)}
-              iconName={IconName.iconPaperPlane}
+              iconName={IconName.paperPlane}
               label={t('common.add')}
               onClick={postMessage}
               size={ButtonSize.s}
