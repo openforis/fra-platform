@@ -221,7 +221,7 @@
     "uuid": "^14.0.1",
     "winston": "^3.19.0",
     "write-excel-file": "^4.1.1",
-    "zod": "^4.4.3"
+    "zod": "^4.6.6"
   },
   "resolutions": {
     "ioredis": "5.11.1"
