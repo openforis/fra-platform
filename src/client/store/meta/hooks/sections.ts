@@ -21,7 +21,7 @@ export const useSection = (sectionNameParam?: string): SubSection => {
 
   return useMemo<SubSection>(() => {
     let subSection: SubSection
-    for (let i = 0; i < sections.length; i += 1) {
+    for (let i = 0; i < sections?.length; i += 1) {
       subSection = sections[i].subSections.find((subSection) => subSection.props.name === sectionName)
       if (subSection) break
     }

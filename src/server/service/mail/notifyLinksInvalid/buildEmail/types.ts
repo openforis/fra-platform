@@ -9,7 +9,6 @@ import { Link } from 'meta/cycleData/links/link'
 export type RenderContext = {
   assessment: Assessment
   cycle: Cycle
-  isPanEuropean: boolean
   subSections: Array<SubSection>
   t: TFunction
 }

@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type PropsCache = {
   assessment: Assessment
@@ -15,7 +15,7 @@ type PropsCache = {
 export const renameCountriesData = async (props: PropsCache): Promise<void> => {
   const { assessment, countryISOs, cycleSource, cycleTarget } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
 
   await Promise.all(
     countryISOs.map(async (countryIso) => {

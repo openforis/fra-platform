@@ -1,15 +1,14 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordColumnData, RecordCountryData } from 'meta/data/recordData'
 import { TablesCondition } from 'meta/data/tableCondition'
+import { Objects } from 'utils/objects'
 
 import { cacheCountryTable } from 'server/cache/repository/data/cacheCountryTable'
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -22,7 +21,7 @@ type Props = {
 export const getCountriesData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, countryISOs, cycle, force, tables } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const data: RecordCountryData = {}
 
   await Promise.all(

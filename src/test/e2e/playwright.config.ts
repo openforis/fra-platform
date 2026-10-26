@@ -1,9 +1,12 @@
-import path from 'path'
 import type { PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
-  testDir: path.join(__dirname, 'tests'),
-  testMatch: ['**/*.spec.ts'],
+  testDir: __dirname,
+  testMatch: [
+    'specs/**/*.spec.ts',
+    /** @deprecated */
+    'tests/**/*.spec.ts',
+  ],
   timeout: 10_0000,
   retries: 2,
   expect: {
@@ -12,7 +15,7 @@ const config: PlaywrightTestConfig = {
   use: {
     baseURL: process.env.BASE_URL || 'http://web:9001',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'on-first-retry',
     trace: 'retain-on-failure',
     headless: true,
     actionTimeout: 5_000,
@@ -28,7 +31,7 @@ const config: PlaywrightTestConfig = {
     },
   ],
 
-  reporter: [['list'], ['html', { outputFolder: 'test-results', open: 'never' }]],
+  reporter: [['list'], ['html', { outputFolder: 'test-results/report', open: 'never' }]],
 }
 
 export default config

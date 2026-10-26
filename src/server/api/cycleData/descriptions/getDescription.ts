@@ -14,8 +14,10 @@ export const getDescription = async (req: Request, res: Response): Promise<void>
     const { assessment, cycle } = req.context
     const { countryIso, name, sectionName } = req.query
 
+    const names = Objects.isNil(name) ? undefined : [name]
     const sectionNames = Objects.isNil(sectionName) ? undefined : [sectionName]
-    const propsValues = { assessment, cycle, countryISOs: [countryIso], sectionNames, name }
+
+    const propsValues = { assessment, countryISOs: [countryIso], cycle, names, sectionNames }
     const values = await DescriptionController.getValues(propsValues)
 
     Requests.send(res, values)
