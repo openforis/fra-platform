@@ -30,7 +30,7 @@
   "valueCannotExceedMaximumValueReportedForLandArea": "هذة القيمة لا يمكن أن تتجاوز قيمة الحد الأقصى المبلغ عنه لمساحة الأرض (1أ) والتي تبلغ {{maxLandArea}}.",
   "valueEqualToSum": "يجب أن يكون القيمة الإجمالية مساوية لمجموع الفئات الفرعية.",
   "valueEqualToSumParent": "مجموع الفئات الفرعية {{subcategories}} لا يساوي {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>.",
-  "valueMustBeFewerThanCharacters": "يجب أن تكون القيمة أقل من أحرف {{maxLength}}",
+  "valueMustBeFewerThanCharacters": "يجب أن يكون طول القيمة أقل من {{maxLength}} حرفًا",
   "valueMustBeNumber": "يجب أن تكون القيمة رقماً صحيحاً",
   "valueMustBePositive": "يجب أن يكون القيمة أكبر من الصفر.",
   "valueMustBeYear": "يجب أن تكون القيمة عامًا صحيحًا.",

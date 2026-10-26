@@ -30,7 +30,7 @@
   "valueCannotExceedMaximumValueReportedForLandArea": "La valeur ne peut pas dépasser la valeur maximale ({{maxLandArea}}) de la superficie des terres (1a)",
   "valueEqualToSum": "La valeur totale doit être égale à la somme des valeurs des sous-catégories",
   "valueEqualToSumParent": "La somme des valeurs des sous-catégories {{subcategories}} n'est pas égale à {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>",
-  "valueMustBeFewerThanCharacters": "La valeur doit être inférieure à {{maxLength}} caractères",
+  "valueMustBeFewerThanCharacters": "La valeur doit contenir moins de {{maxLength}} caractères",
   "valueMustBeNumber": "La valeur doit être un nombre valide",
   "valueMustBePositive": "La valeur doit être supérieure à zéro",
   "valueMustBeYear": "La valeur doit être une année valide",
