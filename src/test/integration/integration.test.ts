@@ -20,7 +20,6 @@ import tableSectionRemove from 'test/integration/tableSection/removeTableSection
 import tableSectionUpdate from 'test/integration/tableSection/updateTableSection'
 import userInvite from 'test/integration/user/userInvite'
 import userRemove from 'test/integration/user/userRemove'
-import userResetPassword from 'test/integration/user/userResetPassword'
 import tableValidations from 'test/integration/validation/table/tableValidations'
 
 import userCreate from './user/userCreate'
@@ -65,7 +64,6 @@ describe('Metadata integration test', () => {
 
   // user
   userInvite()
-  userResetPassword()
 
   // remove from db
   assessmentRemove()
