@@ -9,7 +9,7 @@ export type ExportTableConfig = ExportTableProps & {
 }
 
 export const EXPORT_ASSESSMENTS_CYCLES: { [key in AssessmentNames]?: Array<CycleName> } = {
-  [AssessmentNames.fra]: ['2020', '2025' /* 'latest' */],
+  [AssessmentNames.fra]: ['2020', '2025', 'latest'],
   [AssessmentNames.panEuropean]: ['2020', '2025'],
 }
 
@@ -56,6 +56,10 @@ const _orderBy: Record<string, string> = {
   region: 'region_code',
 }
 
+// For latest we only use X01 to avoid exporting unpublished data
+const _latestCountryWhere = `country_iso = 'X01'`
+const _countryTables = ['country', 'country_region', 'original_data_point']
+
 const ASSESSMENT_CYCLE_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
   EXPORT_ASSESSMENTS_CYCLES[assessmentName].flatMap((cycleName) => {
     const allTables = [...EXPORT_ASSESSMENT_CYCLE_TABLES, ...(_assessmentCycleTables[assessmentName] || [])]
@@ -63,6 +67,7 @@ const ASSESSMENT_CYCLE_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
       schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }),
       table: tableName,
       ...(tableName in _orderBy && { orderBy: _orderBy[tableName] }),
+      ...(cycleName === 'latest' && _countryTables.includes(tableName) && { where: _latestCountryWhere }),
     }))
   })
 )
@@ -74,7 +79,13 @@ export const EXPORT_TABLES: Array<ExportTableConfig> = [
   { schema: 'public', table: 'users_role', skipExport: true },
 
   { schema: 'public', table: 'assessment' },
-  { schema: 'public', table: 'assessment_cycle', where: `props ->> 'status' = 'published'` },
+  {
+    schema: 'public',
+    table: 'assessment_cycle',
+    where: `props ->> 'status' = 'published' or (name = 'latest' and assessment_uuid = (
+      select uuid from public.assessment where props ->> 'name' = '${AssessmentNames.fra}'
+    ))`,
+  },
   { schema: 'public', table: 'country', orderBy: 'country_iso' },
   { schema: 'public', table: 'region', orderBy: 'region_code' },
 
@@ -89,7 +100,7 @@ export const EXPORT_TABLES: Array<ExportTableConfig> = [
     EXPORT_ASSESSMENTS_CYCLES[assessmentName].flatMap((cycleName) => ({
       schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }),
       table: 'node',
-      where: `country_iso like 'X%' and row_uuid in (
+      where: `${cycleName === 'latest' ? _latestCountryWhere : `country_iso like 'X%'`} and row_uuid in (
         select r.uuid from ${Schemas.getSchemaAssessment({ assessmentName })}.row r
         join ${Schemas.getSchemaAssessment({ assessmentName })}."table" t on t.uuid = r.table_uuid
         where t.props->>'name' = 'extentOfForest'
@@ -102,7 +113,7 @@ export const EXPORT_TABLES: Array<ExportTableConfig> = [
     EXPORT_ASSESSMENTS_CYCLES[assessmentName].flatMap((cycleName) => ({
       schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }),
       table: 'node_ext',
-      where: `type = 'node' and props->>'variableName' = 'totalLandArea'`,
+      where: `${cycleName === 'latest' ? `${_latestCountryWhere} and ` : ''}type = 'node' and props->>'variableName' = 'totalLandArea'`,
     }))
   ),
 ]

@@ -1,22 +1,31 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorNotGreaterThan: ExpressionFunction<Context> = {
-  name: 'validatorNotGreaterThan',
+  name: ValidatorName.notGreaterThan,
   minArity: 2,
   executor: () => {
-    return (value?: string, maxValue?: string): NodeValueValidation => {
+    return (value?: string, maxValue?: string, additionalMessageKey?: string): NodeValueValidation => {
       const valid = Objects.isEmpty(value) || !Numbers.greaterThan(value, maxValue)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.valueNotGreaterThan', params: { maxValue } }]
+        : [
+            {
+              name: ValidatorName.notGreaterThan,
+              key: 'generalValidation.valueNotGreaterThan',
+              params: { maxValue },
+            },
+          ]
+      if (!valid && !Objects.isEmpty(additionalMessageKey)) {
+        messages.push({ name: ValidatorName.notGreaterThan, key: additionalMessageKey })
+      }
 
       return { valid, messages }
     }

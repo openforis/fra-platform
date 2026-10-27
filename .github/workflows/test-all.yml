@@ -19,11 +19,13 @@ jobs:
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
-      - name: "DOCKER: Build containers"
-        run: docker compose -f src/test/e2e/docker-compose.test.yml build
-
-      - name: "DOCKER: Start database and services"
-        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d postgres redis-queue redis-data mailhog
+      - name: "DOCKER: Build containers and start services"
+        run: |
+          # Postgres, Redis and MailHog don't need the built images, so they start while the build runs
+          docker compose -f src/test/e2e/docker-compose.test.yml up -d postgres redis-queue redis-data mailhog &
+          services=$!
+          docker compose -f src/test/e2e/docker-compose.test.yml build
+          wait $services
 
       - name: "POSTGRES: Wait ready"
         run: |
@@ -50,17 +52,20 @@ jobs:
             yarn ts-node src/tools/generateCache/index.ts
 
       - name: "WEB: Start server"
-        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d web
-
-      - name: "WEB: Wait ready"
-        run: |
-          timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 2; done'
+        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d web worker
 
       - name: "Playwright: Create test results directory"
         run: mkdir -p playwright-report
 
+      # The server starts up while these run, they don't use it
       - name: "WEB: Run unit and integration tests"
+        id: unit-tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T -e NODE_ENV=test web yarn test
+
+      - name: "WEB: Wait ready"
+        if: success() || steps.unit-tests.outcome == 'failure'
+        run: |
+          timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 2; done'
 
       - name: "Playwright: Run E2E tests"
         if: always()

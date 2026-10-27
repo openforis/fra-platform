@@ -7,4 +7,4 @@ source "$(dirname "$0")/_common.sh"
 yarn ts-node src/tools/db/initSchemas.ts
 yarn ts-node src/tools/db/import.ts
 
-source "$(dirname "$0")/_finish.sh"
+source "$TERRAFORM_DIR/_finish.sh"
