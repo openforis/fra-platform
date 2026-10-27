@@ -18,10 +18,10 @@ paths:
           schema:
             type: string
             enum:
-              - "true"
-              - "false"
-            default: "true"
-            example: "true"
+              - 'true'
+              - 'false'
+            default: 'true'
+            example: 'true'
         - $ref: '#/components/parameters/fra2025tableNames'
         - $ref: '#/components/parameters/variables'
       responses:
@@ -34,21 +34,21 @@ paths:
                 $ref: '#/components/schemas/RecordAssessmentData'
               example:
                 fra:
-                  "2025":
+                  '2025':
                     FIN:
                       extentOfForest:
-                        "1990":
+                        '1990':
                           total:
                             odp: true
-                            raw: "21875.33"
+                            raw: '21875.33'
                             odpId: 231
                           otherLand:
                             odp: true
-                            raw: "7589.76999"
+                            raw: '7589.76999'
                             odpId: 231
                           forestArea:
                             odp: true
-                            raw: "21875.33"
+                            raw: '21875.33'
                             odpId: 231
         '401':
           description: Unauthorized access.
