@@ -11,6 +11,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { usePreviousSection } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 interface Props {
   disabled: boolean
@@ -36,7 +37,7 @@ export const ButtonCopy: React.FC<Props> = (props: Props) => {
     <Button
       className="data-sources__btn-copy"
       disabled={disabled || !previousSection}
-      iconName="content_copy"
+      iconName={IconName.contentCopy}
       label={t('nationalDataPoint.copyPreviousValues')}
       onClick={onClick}
       size={ButtonSize.xs}

@@ -7,8 +7,9 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsGeoRoute } from 'client/hooks/routes'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
-const iconName = 'earth'
+const iconName = IconName.earth
 const inverse = true
 const size = ButtonSize.l
 

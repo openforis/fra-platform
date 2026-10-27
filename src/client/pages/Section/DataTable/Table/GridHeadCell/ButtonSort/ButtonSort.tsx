@@ -1,10 +1,10 @@
 import './ButtonSort.scss'
 import React, { MouseEventHandler } from 'react'
-
 import classNames from 'classnames'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import { GridHeadCellProps } from 'client/pages/Section/DataTable/Table/GridHeadCell/types'
 
 import { SortOrder } from '../../hooks/useTableSorting'
@@ -22,9 +22,7 @@ const ButtonSort: React.FC<Props> = (props) => {
   const isCurrentlySorted = sortState?.colName === sortColName
   const sortOrder = isCurrentlySorted ? sortState.order : SortOrder.NONE
 
-  let iconName = 'sort-amount-asc'
-  if (sortOrder === SortOrder.ASC) iconName = 'sort-amount-asc'
-  if (sortOrder === SortOrder.DESC) iconName = 'sort-amount-desc'
+  const iconName = sortOrder === SortOrder.DESC ? IconName.sortAmountDesc : IconName.sortAmountAsc
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.preventDefault()

@@ -3,6 +3,8 @@ import { PlacesType } from 'react-tooltip'
 
 import { TooltipId } from 'meta/tooltip/id'
 
+import { IconName } from 'client/components/Icon/types'
+
 export enum ButtonSize {
   xs = 'xs',
   s = 's',
@@ -31,7 +33,7 @@ export type ButtonProps = Pick<
   dataTooltipPlace?: PlacesType
   htmlButtonType?: HtmlButtonProps['type']
   icon?: React.ReactNode
-  iconName?: string
+  iconName?: IconName
   inverse?: boolean
   label?: React.ReactNode
   noBorder?: boolean

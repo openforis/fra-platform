@@ -10,6 +10,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 
 import { useOnClick } from './hooks/useOnClick'
@@ -34,7 +35,7 @@ const RemoveRole: React.FC<Props> = (props) => {
   return (
     <Flex className="remove-role" justifyContent="end">
       <Button
-        iconName={'remove'}
+        iconName={IconName.remove}
         inverse
         label={t('editUser.removeRole')}
         onClick={onClick}

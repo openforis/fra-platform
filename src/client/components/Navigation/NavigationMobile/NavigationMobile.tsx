@@ -6,6 +6,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import NavAssessment from '../NavAssessment'
 
@@ -26,7 +27,7 @@ const NavigationMobile: React.FC = () => {
     <div className={classNames('navM', 'no-print', { open: navigationVisible })}>
       <Button
         className="navM__btnClose"
-        iconName="remove"
+        iconName={IconName.remove}
         inverse
         onClick={onClose}
         size={ButtonSize.l}
