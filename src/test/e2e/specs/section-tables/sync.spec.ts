@@ -8,6 +8,8 @@ import { TableDomUtils } from 'test/e2e/utils/table'
 
 const variableName = 'forest_expansion'
 const colName = '2020-2025'
+const value = '123'
+const displayedValue = '123.00'
 
 test.describe('Section tables: sync between clients', () => {
   test.use({ tableSeeds: [x12ForestAreaChange] })
@@ -28,12 +30,12 @@ test.describe('Section tables: sync between clients', () => {
     await DOMUtils.ensureEditingUnlocked(otherPage)
 
     const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, variableName, colName, '123')
+    await TableDomUtils.fillCell(page, variableName, colName, value)
     await cellSaved
 
-    await TableDomUtils.expectCellValue(otherPage, variableName, colName, '123')
+    await TableDomUtils.expectCellValue(otherPage, variableName, colName, displayedValue)
 
     // ==== the editing client keeps its own edits
-    await TableDomUtils.expectCellValue(page, variableName, colName, '123')
+    await TableDomUtils.expectCellValue(page, variableName, colName, displayedValue)
   })
 })
