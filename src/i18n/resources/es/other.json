@@ -471,6 +471,7 @@
     "doNotNotifyUsers": "No notificar a los usuarios",
     "hideAll": "Esconder todo",
     "notifySelf": "Enviar copia a uno mismo",
+    "submitToReviewWithErrorsWarning": "Hay errores en los datos, ¿está seguro de que desea enviar el informe para revisar?",
     "sectionHeaders": {
       "employmentEducationAndNwfp": "Empleo, educación y PFNM",
       "forestDesignationAndManagement": "Designación y gestión del bosque",

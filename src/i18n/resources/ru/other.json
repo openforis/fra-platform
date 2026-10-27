@@ -471,6 +471,7 @@
     "doNotNotifyUsers": "Не уведомлять пользователей",
     "hideAll": "Скрыть все",
     "notifySelf": "Отправить копию самому себе",
+    "submitToReviewWithErrorsWarning": "Есть ошибки в данных, вы уверены, что хотите отправить отчет на проверку?",
     "sectionHeaders": {
       "employmentEducationAndNwfp": "Занятость, образование и НДЛП",
       "forestDesignationAndManagement": "Назначение лесов и управление лесами",
