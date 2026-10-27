@@ -29,7 +29,7 @@ const differentFromTotal = (col: ColName, valueRounded: string): TableValidation
         parentCol: { key: `panEuropean.growingStock.${col}` },
         parentTable: '1.2.I',
         parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
-        subcategories: '',
+        subcategories: [{ key: 'Forest' }, { key: 'panEuropean.growingStock.other_wooded_land_only' }],
         valueRounded,
       },
     },
