@@ -16,6 +16,7 @@ import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/o
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const Lock: React.FC = () => {
@@ -59,7 +60,7 @@ const Lock: React.FC = () => {
     }
   }, [canEditCycleData, historyActivitiesActive, locked, showOdps, toggleLock])
 
-  const iconName = (locked && !over) || (!locked && over) ? 'lock-circle' : 'lock-circle-open'
+  const iconName = (locked && !over) || (!locked && over) ? IconName.lockCircle : IconName.lockCircleOpen
 
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>

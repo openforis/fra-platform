@@ -13,6 +13,7 @@ import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'c
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { useRepositoryListContext } from '../../context'
 import RepositoryLink from '../RepositoryLink'
@@ -52,7 +53,7 @@ const ItemRow: React.FC<Props> = (props) => {
         dataTooltipContent={t('description.edit')}
         dataTooltipId={TooltipId.info}
         dataTooltipPlace="left"
-        iconName="pencil"
+        iconName={IconName.pencil}
         onClick={() => onOpenPanel(item)}
         size={ButtonSize.s}
         type={ButtonType.transparent}
@@ -74,7 +75,7 @@ const ItemRow: React.FC<Props> = (props) => {
           data-tooltip-content={linkedTooltip ?? undefined}
           data-tooltip-id={linkedTooltip ? TooltipId.info : undefined}
         >
-          {!Objects.isEmpty(item.usages) && <Icon className="repository-list-item__icon" name="checkbox" />}
+          {!Objects.isEmpty(item.usages) && <Icon className="repository-list-item__icon" name={IconName.checkbox} />}
         </div>
       )}
       {showColumns && !selectable && (

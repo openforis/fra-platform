@@ -8,6 +8,7 @@ import { Objects } from 'utils/objects'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import PopoverControl from 'client/components/PopoverControl'
 import { Breakpoints } from 'client/utils/breakpoints'
 
@@ -36,7 +37,7 @@ const Status: React.FC = () => {
         <PopoverControl items={items}>
           <div className={`nav-header__status status-${status} actionable-${!Objects.isEmpty(items)}`}>
             <span>{t(`assessment.status.${status}.label`)}</span>
-            {!Objects.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
+            {!Objects.isEmpty(items) && <Icon className="icon-white icon-middle" name={IconName.smallDown} />}
           </div>
         </PopoverControl>
       </MediaQuery>

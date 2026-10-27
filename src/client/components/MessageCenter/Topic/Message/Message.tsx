@@ -9,6 +9,7 @@ import { Users } from 'meta/user/users'
 import { Dates } from 'utils/dates'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 type MessageProps = {
   message: MessageType
@@ -37,7 +38,7 @@ const Message: React.FC<MessageProps> = (props) => {
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
             <Button
               className="btn-remove-msg"
-              iconName="trash-simple"
+              iconName={IconName.trashSimple}
               inverse
               noBorder
               onClick={(): void => deleteFunc(message.id)}

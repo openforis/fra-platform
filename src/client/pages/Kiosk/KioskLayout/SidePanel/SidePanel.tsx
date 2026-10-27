@@ -8,6 +8,7 @@ import { Routes } from 'meta/routes/routes'
 
 import { useIsRoute } from 'client/hooks/routes'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const languageOptions = [
   { code: 'en', label: 'English' },
@@ -53,7 +54,7 @@ const SidePanel: React.FC = () => {
             onClick={(): void => startTransition(() => goBack())}
             type="button"
           >
-            <Icon name="arrow-back" />
+            <Icon name={IconName.arrowBack} />
           </button>
         </div>
       </div>

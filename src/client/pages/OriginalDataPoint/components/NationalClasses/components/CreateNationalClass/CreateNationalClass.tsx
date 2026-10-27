@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useIsOriginalDataPointUpdating } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { useOnClick } from './hooks/useOnClick'
 
@@ -24,7 +25,7 @@ const CreateNationalClass: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={originalDataPointUpdating}
-      iconName="small-add"
+      iconName={IconName.smallAdd}
       label={t('common.add')}
       onClick={onClick}
       size={ButtonSize.xs}
