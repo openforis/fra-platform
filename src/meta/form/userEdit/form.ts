@@ -10,12 +10,14 @@ export type UserForm = Pick<User, 'email' | 'id' | 'uuid'> & {
 }
 
 export type UserEditFormRoles = {
-  [key in
-    | RoleName.REVIEWER
-    | RoleName.NATIONAL_CORRESPONDENT
-    | RoleName.ALTERNATE_NATIONAL_CORRESPONDENT
-    | RoleName.COLLABORATOR
-    | RoleName.VIEWER]: Array<CountryIso>
+  [
+    key in
+      | RoleName.REVIEWER
+      | RoleName.NATIONAL_CORRESPONDENT
+      | RoleName.ALTERNATE_NATIONAL_CORRESPONDENT
+      | RoleName.COLLABORATOR
+      | RoleName.VIEWER
+  ]: Array<CountryIso>
 } & {
   [RoleName.ADMINISTRATOR]: boolean
 }

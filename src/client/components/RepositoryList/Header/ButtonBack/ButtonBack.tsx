@@ -6,6 +6,7 @@ import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 const ButtonBack: React.FC = () => {
@@ -22,7 +23,7 @@ const ButtonBack: React.FC = () => {
       disabled={disabled}
       onClick={() => onNavigate(folderPath.at(-2)?.uuid)}
     >
-      <Icon name="small-down" />
+      <Icon name={IconName.smallDown} />
     </button>
   )
 }

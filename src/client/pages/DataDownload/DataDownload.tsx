@@ -12,6 +12,7 @@ import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 import LinkBulkDownload from 'client/pages/DataDownload/LinkBulkDownload'
 import resources, { DataDownloadResource } from 'client/pages/DataDownload/resources'
@@ -61,7 +62,7 @@ const DataDownload: React.FC = () => {
             {[DataDownloadExt.ods, DataDownloadExt.xlsx].map((ext) => {
               return (
                 <a key={ext} className={linkClassName} href={getHref(resource, ext)}>
-                  <Icon name="hit-down" />
+                  <Icon name={IconName.hitDown} />
                   {ext}
                 </a>
               )

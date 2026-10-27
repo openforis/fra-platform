@@ -5,6 +5,7 @@ import { CountryStatus } from 'meta/area/countryStatus'
 
 import { useSummaryHasErrors } from 'client/store/data/validations/summary/hooks/summary'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
 
 type Props = {
@@ -23,7 +24,7 @@ const ValidationWarning: React.FC<Props> = (props) => {
 
   return (
     <div className="assessment-status-confirm__notice assessment-status-confirm__notice-error">
-      <Icon className="assessment-status-confirm__notice-icon" name="alert" />
+      <Icon className="assessment-status-confirm__notice-icon" name={IconName.alert} />
       <div className="assessment-status-confirm__notice-content">
         <div className="assessment-status-confirm__notice-text">{t('navigation.submitToReviewWithErrorsWarning')}</div>
       </div>
