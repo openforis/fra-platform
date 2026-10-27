@@ -9,6 +9,7 @@ import { AreaSelectorActions } from 'client/store/ui/areaSelector/actions'
 import { useAreaSelectorFilters } from 'client/store/ui/areaSelector/hooks/areaSelector'
 import { AreaSelectorSortBy, AreaSelectorSortDirection } from 'client/store/ui/areaSelector/state'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   label: string
@@ -25,7 +26,9 @@ const SortableHeader: React.FC<Props> = (props) => {
   const current = filters[roleName]?.orderBy
   const active = current?.sortBy === sortByProperty
   const iconName =
-    active && current?.sortDirection === AreaSelectorSortDirection.asc ? 'sort-amount-asc' : 'sort-amount-desc'
+    active && current?.sortDirection === AreaSelectorSortDirection.asc
+      ? IconName.sortAmountAsc
+      : IconName.sortAmountDesc
 
   const onClick = useCallback(() => {
     dispatch(AreaSelectorActions.setSortBy({ roleName, sortBy: sortByProperty }))

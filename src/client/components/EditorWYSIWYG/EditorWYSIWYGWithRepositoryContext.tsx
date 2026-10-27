@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
-
 import type { IControlType } from 'jodit/esm/types'
 import type { IJodit } from 'jodit/esm/types/jodit'
 
@@ -12,6 +11,7 @@ import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
 import EditorWYSIWYG, { EditorWYSIWYGProps } from 'client/components/EditorWYSIWYG/EditorWYSIWYG'
 import { RepositoryLinkContext, RepositoryLinkContextType } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const EditorWYSIWYGWithRepositoryContext: React.FC<EditorWYSIWYGProps> = (props) => {
   const { t } = useTranslation()
@@ -28,7 +28,7 @@ const EditorWYSIWYGWithRepositoryContext: React.FC<EditorWYSIWYGProps> = (props)
       setRepositoryOpened(true)
     }
     const tooltip = t('landing.links.repository')
-    const icon = renderToStaticMarkup(<Icon className="icon-reference-files" name="icon-files" />)
+    const icon = renderToStaticMarkup(<Icon className="icon-reference-files" name={IconName.files} />)
 
     return { icon, exec, tooltip }
   }, [setRepositoryOpened, t])
