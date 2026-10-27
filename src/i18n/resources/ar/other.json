@@ -471,6 +471,7 @@
     "doNotNotifyUsers": "عدم إرسال إشعار إلى المستخدمين",
     "hideAll": "إخفاء الكل",
     "notifySelf": "إرسال نسخة الي البريد الالكتروني الخاص بك",
+    "submitToReviewWithErrorsWarning": "هناك أخطاء في البيانات، هل أنت متأكد من أنك تريد إرسال التقرير للمراجعة؟",
     "sectionHeaders": {
       "employmentEducationAndNwfp": "التوظيف والتعليم ومنتجات حرجية غير خشبية",
       "forestDesignationAndManagement": "تسمية الغابة وإدارتها",
