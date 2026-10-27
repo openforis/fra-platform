@@ -10,10 +10,10 @@ const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
 
 const getUserInfo = (countryIso: CountryIso, role: RoleName): User =>
-  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
+  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] }) as User
 
 const getCountry = (countryIso: CountryIso, status: CountryStatus): Country =>
-  ({ countryIso, props: { status }, lastEdit: new Date().toString() } as Country)
+  ({ countryIso, props: { status }, lastEdit: new Date().toString() }) as Country
 
 const cycle = { uuid: cycleUuid, props: { status: CycleStatus.editing } } as Cycle
 
