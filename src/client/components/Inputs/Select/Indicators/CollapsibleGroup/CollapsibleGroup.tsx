@@ -4,6 +4,7 @@ import { GroupProps } from 'react-select'
 import classNames from 'classnames'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select/types'
 import Flex from 'client/components/Layout/Flex'
 
@@ -63,7 +64,7 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
               onClick={toggleExpanded}
               type="button"
             >
-              <Icon name="small-down" />
+              <Icon name={IconName.smallDown} />
             </button>
           </Flex>
         </Heading>

@@ -1,9 +1,9 @@
 import './StatisticsSidePanel.scss'
 import React, { useCallback, useMemo, useState } from 'react'
-
 import classNames from 'classnames'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import GeoSection from 'client/components/Navigation/NavGeo/GeoSection'
 import { useGeoStatisticsHandler } from 'client/pages/Geo/Map/hooks'
 import BurnedAreaPanel from 'client/pages/Geo/StatisticsSidePanel/BurnedAreaPanel'
@@ -20,18 +20,22 @@ enum StatKey {
 const StatKeys = [StatKey.treeCover, StatKey.protectedArea, StatKey.burnedArea]
 
 const Stats: Record<StatKey, { Component: React.FC<{ year: number }>; icon?: React.ReactNode; titleKey: string }> = {
-  [StatKey.burnedArea]: { Component: BurnedAreaPanel, icon: <Icon name="icon-table2" />, titleKey: 'geo.burnedArea' },
+  [StatKey.burnedArea]: {
+    Component: BurnedAreaPanel,
+    icon: <Icon name={IconName.table} />,
+    titleKey: 'geo.burnedArea',
+  },
   [StatKey.protectedArea]: {
     Component: ProtectedAreaPanel,
-    icon: <Icon name="icon-table2" />,
+    icon: <Icon name={IconName.table} />,
     titleKey: 'geo.treeCoverProtectedAreas',
   },
   [StatKey.treeCover]: {
     Component: TreeCoverAreaPanel,
     icon: (
       <>
-        <Icon name="icon-bar-chart" />
-        <Icon name="icon-table2" />
+        <Icon name={IconName.barChart} />
+        <Icon name={IconName.table} />
       </>
     ),
     titleKey: 'geo.statistics.forestArea.extentOfForestTreeCover',
@@ -52,7 +56,7 @@ const StatisticsSidePanel: React.FC = () => {
   const expanded = useMemo<boolean>(() => Object.values(sectionsExpanded).some((value) => value), [sectionsExpanded])
 
   const makeSetExpanded = useCallback((titleKey: string) => {
-    return (expanded: boolean) => {
+    return (expanded: boolean): void => {
       setSectionsExpanded((prevState) => ({ ...prevState, [titleKey]: expanded }))
     }
   }, [])

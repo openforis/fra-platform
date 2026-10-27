@@ -8,6 +8,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 const ButtonDownloadAll: React.FC = () => {
@@ -16,13 +17,13 @@ const ButtonDownloadAll: React.FC = () => {
   const { t } = useTranslation()
 
   const label = t('common.all')
-  const className = useButtonClassName({ iconName: 'hit-down', label, size: ButtonSize.xs })
+  const className = useButtonClassName({ iconName: IconName.hitDown, label, size: ButtonSize.xs })
 
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso, global: String(isGlobal) })
 
   return (
     <Link className={className} target="_blank" to={`${ApiEndPoint.CycleData.Repository.File.many()}?${queryParams}`}>
-      <Icon name="hit-down" />
+      <Icon name={IconName.hitDown} />
       {label}
     </Link>
   )

@@ -9,6 +9,7 @@ import { useCanViewHistoryLastApproved } from 'client/store/user/hooks/auth'
 import { useUserHasRoleInCountry } from 'client/store/user/hooks/roles'
 import { useUser } from 'client/store/user/hooks/user'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import ButtonHistory from 'client/components/PageLayout/Toolbar/ButtonHistory'
 import Lock from 'client/components/PageLayout/Toolbar/Lock'
 import Status from 'client/components/PageLayout/Toolbar/Status'
@@ -44,7 +45,7 @@ const EditorOptions: React.FC = () => {
             rel="noreferrer"
             target="_blank"
           >
-            <Icon name="github" />
+            <Icon name={IconName.github} />
             {t('common.issues')}
           </a>
         </>

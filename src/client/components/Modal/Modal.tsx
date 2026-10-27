@@ -3,13 +3,14 @@ import React, { PropsWithChildren } from 'react'
 import classNames from 'classnames'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 
 type PropsChildren = PropsWithChildren<{ className?: string }>
 
 export const ModalClose: React.FC<{ onClose(): void }> = ({ onClose }) => (
   <div className="modal-close" onClick={onClose} onKeyDown={onClose} role="button" tabIndex={0}>
-    <Icon name="remove" />
+    <Icon name={IconName.remove} />
   </div>
 )
 

@@ -9,6 +9,7 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const LinkHome: React.FC = () => {
   const assessment = useAssessment()
@@ -24,7 +25,7 @@ const LinkHome: React.FC = () => {
 
   return (
     <NavLink className="app-header-link-home" end to={Routes.Cycle.generatePath({ assessmentName, cycleName })}>
-      <Icon name="home" />
+      <Icon name={IconName.home} />
     </NavLink>
   )
 }

@@ -12,6 +12,7 @@ import DataSourceRow from 'client/components/DataSources/DataSourceRow'
 import HistoryCompare from 'client/components/DataSources/HistoryCompare'
 import { PropsDataSources } from 'client/components/DataSources/types'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { IconName } from 'client/components/Icon/types'
 import { DOMs } from 'client/utils/doms'
 
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
@@ -122,7 +123,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
 
           {canEdit && !displayHistory && (
             <div style={{ gridColumn: '1/-1' }}>
-              <Button iconName="small-add" label={t('common.add')} onClick={onAdd} size={ButtonSize.xs} />
+              <Button iconName={IconName.smallAdd} label={t('common.add')} onClick={onAdd} size={ButtonSize.xs} />
             </div>
           )}
 
