@@ -31,7 +31,10 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
           parentCol: { key: 'panEuropean.growingStock.total' },
           parentTable: '1.2.I',
           parentVariable: { key: parentVariable },
-          subcategories: '',
+          subcategories: [
+            { key: 'panEuropean.growingStock.coniferous' },
+            { key: 'panEuropean.growingStock.broadleaved' },
+          ],
           valueRounded,
         },
       },
