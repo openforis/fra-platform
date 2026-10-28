@@ -6,6 +6,11 @@ on:
       - '*'
   workflow_dispatch:
 
+# A new push makes the run for the previous commit outdated, so it gets cancelled
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     runs-on: ubuntu-22.04
