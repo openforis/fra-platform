@@ -19,8 +19,14 @@ jobs:
     # A failing shard cancels the others
     strategy:
       fail-fast: true
+      # Shard 1: the heaviest folders (ndp, section-tables), about half of the E2E time
+      # Shard 2: everything else, including new folders
       matrix:
-        shard: [1, 2]
+        include:
+          - shard: 1
+            grep: --grep
+          - shard: 2
+            grep: --grep-invert
     steps:
       - uses: actions/checkout@v4
 
@@ -83,7 +89,7 @@ jobs:
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
             -e PLAYWRIGHT_BLOB_OUTPUT_DIR=/app/src/test/e2e/test-results/blob-report \
-            playwright npm run test:e2e -- --shard=${{ matrix.shard }}/2 --reporter=list,blob --max-failures=1
+            playwright npm run test:e2e -- ${{ matrix.grep }} "specs/(ndp|section-tables)/" --reporter=list,blob --max-failures=1
 
       - name: 'Playwright: Upload blob report'
         if: '!cancelled() && !env.ACT'
