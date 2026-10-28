@@ -16,7 +16,7 @@ export const removeDataSource = async (req: Request, res: Response): Promise<voi
     const { assessment, country, cycle } = req.context
     const { countryIso } = country
 
-    const propsDelete = { assessment, cycle, country, sectionName, uuid, user }
+    const propsDelete = { assessment, cycle, country, sectionName, socketId: Requests.getSocketId(req), uuid, user }
     await DescriptionController.removeDataSource(propsDelete)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))

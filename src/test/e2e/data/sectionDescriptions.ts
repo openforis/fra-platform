@@ -35,6 +35,11 @@ export const x12GrowingStock: DescriptionLocation = {
   sectionName: 'growingStock',
   ...comments,
 }
+export const x12GrowingStockDataSources: DescriptionLocation = {
+  countryIso: 'X12',
+  sectionName: 'growingStock',
+  ...dataSources,
+}
 export const x12BiomassStock: DescriptionLocation = { countryIso: 'X12', sectionName: 'biomassStock', ...dataSources }
 export const x12Disturbances: DescriptionLocation = { countryIso: 'X12', sectionName: 'disturbances', ...dataSources }
 export const x12AreaAffectedByFire: DescriptionLocation = {
