@@ -62,6 +62,8 @@ services:
       - TOKEN_SECRET=1234567890
     ports:
       - '9001:9001'
+    volumes:
+      - ../../tools/db/fixtures:/app/src/tools/db/fixtures:ro
     healthcheck:
       test: ['CMD', 'wget', '--spider', 'http://localhost:9001']
       interval: 5s

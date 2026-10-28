@@ -1,0 +1,21 @@
+# CI only: caches the image layers in the GitHub Actions cache
+services:
+  web:
+    build:
+      cache_from:
+        - type=gha,scope=e2e-web
+      cache_to:
+        - type=gha,mode=max,scope=e2e-web
+
+  # Same Dockerfile as web, so it reuses the web cache
+  worker:
+    build:
+      cache_from:
+        - type=gha,scope=e2e-web
+
+  playwright:
+    build:
+      cache_from:
+        - type=gha,scope=e2e-playwright
+      cache_to:
+        - type=gha,mode=max,scope=e2e-playwright
