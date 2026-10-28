@@ -7,8 +7,8 @@ const config: PlaywrightTestConfig = {
     /** @deprecated */
     'tests/**/*.spec.ts',
   ],
-  timeout: 10_0000,
-  retries: 2,
+  timeout: 60_000,
+  retries: 1,
   expect: {
     timeout: 2000,
   },
