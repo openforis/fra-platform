@@ -24,6 +24,7 @@ type Props = {
   activityLogMessage?: ActivityLogMessage
   nodeUpdates: NodeUpdates
   sectionName: string
+  socketId?: string
   user: User
   country: Country
 }
@@ -33,7 +34,7 @@ type PersistedNodeWithTime = NodeUpdate & {
 }
 
 export const persistNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { activityLogMessage, assessment, country, cycle, nodeUpdates, sectionName, user } = props
+  const { activityLogMessage, assessment, country, cycle, nodeUpdates, sectionName, socketId, user } = props
   const { countryIso } = nodeUpdates
 
   await client.tx(async (client) => {
@@ -101,7 +102,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         { assessment, cycle, nodeUpdates: nodeUpdatesPersisted },
         client
       )
-      SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
+      SocketServer.emitExcept({ eventName: nodeUpdateEvent, socketId }, { nodeUpdates: nodeUpdatesMirrorReset })
       await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, client)
 
       // schedule dependencies update

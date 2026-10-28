@@ -19,7 +19,15 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
       return { tableName, variableName, colName, value }
     })
     const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
-    await TableDataController.persistNodeValues({ assessment, cycle, country, nodeUpdates, sectionName, user })
+    await TableDataController.persistNodeValues({
+      assessment,
+      cycle,
+      country,
+      nodeUpdates,
+      sectionName,
+      socketId: Requests.getSocketId(req),
+      user,
+    })
 
     Requests.sendOk(res)
   } catch (e) {
