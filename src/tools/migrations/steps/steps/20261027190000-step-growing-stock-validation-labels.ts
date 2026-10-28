@@ -2,7 +2,6 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
-import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -99,6 +98,4 @@ export default async (client: BaseProtocol): Promise<void> => {
       })
     )
   )
-
-  await CacheController.generateMetadata({ assessment }, client)
 }
