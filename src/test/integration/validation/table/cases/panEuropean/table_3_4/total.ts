@@ -34,17 +34,28 @@ const data = (raws: Array<string>): Array<NodeUpdate> => [
   datum('remaining_total', raws[10]),
 ]
 
-// The metadata passes no labels to the formula, so the message carries the validator defaults
 const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.marketedServices2015.service_provision_value_1000_national_currency' },
+        parentTable: '3.4',
+        parentVariable: { key: 'panEuropean.marketedServices2015.total' },
+        subcategories: [
+          { key: 'panEuropean.marketedServices2015._10th' },
+          { key: 'panEuropean.marketedServices2015._09th' },
+          { key: 'panEuropean.marketedServices2015._08th' },
+          { key: 'panEuropean.marketedServices2015._07th' },
+          { key: 'panEuropean.marketedServices2015._06th' },
+          { key: 'panEuropean.marketedServices2015._05th' },
+          { key: 'panEuropean.marketedServices2015._04th' },
+          { key: 'panEuropean.marketedServices2015._03rd' },
+          { key: 'panEuropean.marketedServices2015._02nd' },
+          { key: 'panEuropean.marketedServices2015._01st' },
+          { key: 'panEuropean.marketedServices2015.remaining_total' },
+        ],
         valueRounded,
       },
     },

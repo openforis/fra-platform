@@ -21,17 +21,16 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
 const data = (col: ColName, raws: Array<string>): Array<NodeUpdate> =>
   categories.map((category, index) => datum(category, raws[index], col))
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (valueRounded: string, col: ColName = 'total'): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: `panEuropean.introducedTreeSpecies.${col}` },
+        parentTable: '4.4.I',
+        parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
+        subcategories: [{ key: 'Forest' }, { key: 'panEuropean.growingStock.other_wooded_land_only' }],
         valueRounded,
       },
     },
@@ -129,7 +128,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: '_of_which_invasive' },
     data: [datum(variableName, '0', '_of_which_invasive')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', '_of_which_invasive'),
     name: `${ValidatorName.equalToSum}: total invasive of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -141,7 +140,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: '_of_which_invasive' },
     data: [datum(variableName, '1000', '_of_which_invasive'), ...data('_of_which_invasive', ['602', '400'])],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', '_of_which_invasive'),
     name: `${ValidatorName.equalToSum}: invasive sum over the total invasive is invalid`,
   },
 ]

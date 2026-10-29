@@ -24,17 +24,19 @@ const data = (pool: ColName, raws: Array<string>): Array<NodeUpdate> =>
 
 const total = (pool: ColName, raw: string): NodeUpdate => datum('total_forest_and_other_wooded_land_1990', pool, raw)
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (
+  valueRounded: string,
+  col: ColName = 'above_ground'
+): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: `panEuropean.carbonStock.${col}` },
+        parentTable: '1.4.I',
+        parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
+        subcategories: [{ key: 'panEuropean.growingStock.other_wooded_land_only' }, { key: 'Forest' }],
         valueRounded,
       },
     },
@@ -135,7 +137,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'below_ground' },
       data: [total('below_ground', '1000'), ...data('below_ground', ['402', '600'])],
-      expected: differentFromTotal('1000.00'),
+      expected: differentFromTotal('1000.00', 'below_ground'),
       name: `${equalToSum}: below ground sum over the total is invalid`,
     },
     {
@@ -147,7 +149,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'deadwood' },
       data: [total('deadwood', '1000'), ...data('deadwood', ['402', '600'])],
-      expected: differentFromTotal('1000.00'),
+      expected: differentFromTotal('1000.00', 'deadwood'),
       name: `${equalToSum}: deadwood sum over the total is invalid`,
     },
     {
@@ -159,7 +161,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'litter' },
       data: [total('litter', '1000'), ...data('litter', ['402', '600'])],
-      expected: differentFromTotal('1000.00'),
+      expected: differentFromTotal('1000.00', 'litter'),
       name: `${equalToSum}: litter sum over the total is invalid`,
     },
     {
@@ -171,7 +173,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'soil_carbon' },
       data: [total('soil_carbon', '1000'), ...data('soil_carbon', ['402', '600'])],
-      expected: differentFromTotal('1000.00'),
+      expected: differentFromTotal('1000.00', 'soil_carbon'),
       name: `${equalToSum}: soil carbon sum over the total is invalid`,
     },
   ]

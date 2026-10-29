@@ -38,7 +38,11 @@ const differentFromWoodSupply = (phase: ColName, valueRounded: string): TableVal
         parentCol: { key: `panEuropean.ageClassDistributionAreaOfEvenAgedStands.${phase}` },
         parentTable: '1.3a.I',
         parentVariable: { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.available_for_wood_supply' },
-        subcategories: '',
+        subcategories: [
+          { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.predominantly_coniferous_FAWS' },
+          { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.mixed' },
+          { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.predominantly_broadleaved_FAWS' },
+        ],
         valueRounded,
       },
     },

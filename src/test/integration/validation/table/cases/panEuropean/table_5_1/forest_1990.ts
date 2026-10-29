@@ -18,17 +18,23 @@ const datum = (raw: string, col = colName): NodeUpdate => ({ ...cell, colName: c
 
 const data = (raws: Array<string>): Array<NodeUpdate> => functions.map((fn, index) => datum(raws[index], fn))
 
-// The metadata passes no labels to the formula, so the message carries the validator defaults
 const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.total' },
+        parentTable: '5.1',
+        parentVariable: { key: 'Forest' },
+        subcategories: [
+          {
+            key: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.infrastructure_and_managed_natural_resources',
+          },
+          {
+            key: 'panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.soil_water_and_other_forest_ecosystem_functions',
+          },
+        ],
         valueRounded,
       },
     },

@@ -24,17 +24,25 @@ const datum = (raw: string, col = colName): NodeUpdate => ({ ...cell, colName: c
 
 const data = (raws: Array<string>): Array<NodeUpdate> => causes.map((cause, index) => datum(raws[index], cause))
 
-// The metadata passes no labels to the formula, so the message carries the validator defaults
 const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.forestAreaWithDamage.total_area_with_damage' },
+        parentTable: '2.4',
+        parentVariable: { key: 'panEuropean.forestAreaWithDamage.forest_only' },
+        subcategories: [
+          { key: 'panEuropean.forestAreaWithDamage.insects' },
+          { key: 'panEuropean.forestAreaWithDamage.disease' },
+          { key: 'panEuropean.forestAreaWithDamage.wildlife_and_grazing' },
+          { key: 'panEuropean.forestAreaWithDamage.forest_operations' },
+          { key: 'panEuropean.forestAreaWithDamage.other' },
+          { key: 'panEuropean.forestAreaWithDamage.primarily_damaged_by_abiotic_agents' },
+          { key: 'panEuropean.forestAreaWithDamage.primarily_damaged_by_fire_total' },
+          { key: 'panEuropean.forestAreaWithDamage.unspecifiedMixedDamage' },
+        ],
         valueRounded,
       },
     },

@@ -21,17 +21,19 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
 const data = (col: ColName, raws: Array<string>): Array<NodeUpdate> =>
   categories.map((category, index) => datum(category, raws[index], col))
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (
+  valueRounded: string,
+  col: ColName = 'mcpfe_class_1_1'
+): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: `panEuropean.protectedForests.${col}` },
+        parentTable: '4.9',
+        parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
+        subcategories: [{ key: 'Forest' }, { key: 'panEuropean.growingStock.other_wooded_land_only' }],
         valueRounded,
       },
     },
@@ -129,7 +131,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'mcpfe_class_1_2' },
     data: [datum(variableName, '0', 'mcpfe_class_1_2')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'mcpfe_class_1_2'),
     name: `${ValidatorName.equalToSum}: total class 1.2 of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -141,7 +143,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'mcpfe_class_1_2' },
     data: [datum(variableName, '1000', 'mcpfe_class_1_2'), ...data('mcpfe_class_1_2', ['602', '400'])],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'mcpfe_class_1_2'),
     name: `${ValidatorName.equalToSum}: class 1.2 sum over the total is invalid`,
   },
   {
@@ -153,7 +155,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'mcpfe_class_1_3' },
     data: [datum(variableName, '0', 'mcpfe_class_1_3')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'mcpfe_class_1_3'),
     name: `${ValidatorName.equalToSum}: total class 1.3 of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -165,7 +167,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'mcpfe_class_1_3' },
     data: [datum(variableName, '1000', 'mcpfe_class_1_3'), ...data('mcpfe_class_1_3', ['602', '400'])],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'mcpfe_class_1_3'),
     name: `${ValidatorName.equalToSum}: class 1.3 sum over the total is invalid`,
   },
   {
@@ -177,7 +179,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'mcpfe_class_2' },
     data: [datum(variableName, '0', 'mcpfe_class_2')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'mcpfe_class_2'),
     name: `${ValidatorName.equalToSum}: total class 2 of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -189,7 +191,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'mcpfe_class_2' },
     data: [datum(variableName, '1000', 'mcpfe_class_2'), ...data('mcpfe_class_2', ['602', '400'])],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'mcpfe_class_2'),
     name: `${ValidatorName.equalToSum}: class 2 sum over the total is invalid`,
   },
 ]
