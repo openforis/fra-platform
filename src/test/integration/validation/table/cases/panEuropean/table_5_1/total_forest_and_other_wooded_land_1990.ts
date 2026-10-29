@@ -21,17 +21,16 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
 const data = (col: ColName, raws: Array<string>): Array<NodeUpdate> =>
   categories.map((category, index) => datum(category, raws[index], col))
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (valueRounded: string, col: ColName = 'total'): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: `panEuropean.protectiveForestsSoilWaterAndOtherEcosystemFunctions.${col}` },
+        parentTable: '5.1',
+        parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
+        subcategories: [{ key: 'Forest' }, { key: 'panEuropean.growingStock.other_wooded_land_only' }],
         valueRounded,
       },
     },
@@ -129,7 +128,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'infrastructure_and_managed_natural_resources' },
     data: [datum(variableName, '0', 'infrastructure_and_managed_natural_resources')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'infrastructure_and_managed_natural_resources'),
     name: `${ValidatorName.equalToSum}: total infrastructure of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -147,7 +146,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum(variableName, '1000', 'infrastructure_and_managed_natural_resources'),
       ...data('infrastructure_and_managed_natural_resources', ['602', '400']),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'infrastructure_and_managed_natural_resources'),
     name: `${ValidatorName.equalToSum}: infrastructure sum over the total infrastructure is invalid`,
   },
   {
@@ -159,7 +158,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'soil_water_and_other_forest_ecosystem_functions' },
     data: [datum(variableName, '0', 'soil_water_and_other_forest_ecosystem_functions')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'soil_water_and_other_forest_ecosystem_functions'),
     name: `${ValidatorName.equalToSum}: total soil and water of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -177,7 +176,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum(variableName, '1000', 'soil_water_and_other_forest_ecosystem_functions'),
       ...data('soil_water_and_other_forest_ecosystem_functions', ['602', '400']),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'soil_water_and_other_forest_ecosystem_functions'),
     name: `${ValidatorName.equalToSum}: soil and water sum over the total soil and water is invalid`,
   },
 ]

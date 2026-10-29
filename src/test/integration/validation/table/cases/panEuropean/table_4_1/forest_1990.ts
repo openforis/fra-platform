@@ -36,7 +36,12 @@ const differentFromForestArea = (valueRounded: string): TableValidationTestCase[
         parentCol: { key: 'panEuropean.forestArea.area1000Ha' },
         parentTable: '1.1.I',
         parentVariable: { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest' },
-        subcategories: '',
+        subcategories: [
+          { key: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_1' },
+          { key: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_2_3' },
+          { key: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_4_5' },
+          { key: 'panEuropean.treeSpeciesComposition.area_with_number_of_tree_species_occurring_6_pl' },
+        ],
         valueRounded,
       },
     },

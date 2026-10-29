@@ -21,17 +21,19 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
 const data = (col: ColName, raws: Array<string>): Array<NodeUpdate> =>
   categories.map((category, index) => datum(category, raws[index], col))
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (
+  valueRounded: string,
+  col: ColName = 'area_with_number_of_tree_species_occurring_1'
+): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: `panEuropean.treeSpeciesComposition.${col}` },
+        parentTable: '4.1',
+        parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
+        subcategories: [{ key: 'Forest' }, { key: 'panEuropean.growingStock.other_wooded_land_only' }],
         valueRounded,
       },
     },
@@ -129,7 +131,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'area_with_number_of_tree_species_occurring_2_3' },
     data: [datum(variableName, '0', 'area_with_number_of_tree_species_occurring_2_3')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'area_with_number_of_tree_species_occurring_2_3'),
     name: `${ValidatorName.equalToSum}: total area with two or three species of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -147,7 +149,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum(variableName, '1000', 'area_with_number_of_tree_species_occurring_2_3'),
       ...data('area_with_number_of_tree_species_occurring_2_3', ['602', '400']),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'area_with_number_of_tree_species_occurring_2_3'),
     name: `${ValidatorName.equalToSum}: two or three species sum over the total area is invalid`,
   },
   {
@@ -159,7 +161,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'area_with_number_of_tree_species_occurring_4_5' },
     data: [datum(variableName, '0', 'area_with_number_of_tree_species_occurring_4_5')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'area_with_number_of_tree_species_occurring_4_5'),
     name: `${ValidatorName.equalToSum}: total area with four or five species of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -177,7 +179,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum(variableName, '1000', 'area_with_number_of_tree_species_occurring_4_5'),
       ...data('area_with_number_of_tree_species_occurring_4_5', ['602', '400']),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'area_with_number_of_tree_species_occurring_4_5'),
     name: `${ValidatorName.equalToSum}: four or five species sum over the total area is invalid`,
   },
   {
@@ -189,7 +191,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'area_with_number_of_tree_species_occurring_6_pl' },
     data: [datum(variableName, '0', 'area_with_number_of_tree_species_occurring_6_pl')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'area_with_number_of_tree_species_occurring_6_pl'),
     name: `${ValidatorName.equalToSum}: total area with six or more species of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -207,7 +209,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum(variableName, '1000', 'area_with_number_of_tree_species_occurring_6_pl'),
       ...data('area_with_number_of_tree_species_occurring_6_pl', ['602', '400']),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'area_with_number_of_tree_species_occurring_6_pl'),
     name: `${ValidatorName.equalToSum}: six or more species sum over the total area is invalid`,
   },
 ]

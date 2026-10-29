@@ -35,7 +35,20 @@ export const buildTotalVolumeCases = (props: Props): Array<TableValidationTestCa
           },
           parentTable: '1.3a2',
           parentVariable: { key: parentVariable },
-          subcategories: '',
+          subcategories: [
+            {
+              key: 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.intermediate_phase',
+            },
+            {
+              key: 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.mature_phase',
+            },
+            {
+              key: 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.regeneration_phase',
+            },
+            {
+              key: 'panEuropean.ageClassDistributionVolumeOfEvenAgedStandsInForestAvailableForWoodSupply.unspecified',
+            },
+          ],
           valueRounded,
         },
       },

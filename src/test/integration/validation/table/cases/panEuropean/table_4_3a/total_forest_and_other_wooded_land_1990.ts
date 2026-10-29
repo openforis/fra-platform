@@ -21,17 +21,19 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
 const data = (col: ColName, raws: Array<string>): Array<NodeUpdate> =>
   categories.map((category, index) => datum(category, raws[index], col))
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (
+  valueRounded: string,
+  col: ColName = 'undisturbed_by_man'
+): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: `panEuropean.naturalness.${col}` },
+        parentTable: '4.3.I',
+        parentVariable: { key: 'panEuropean.growingStock.total_forest_and_other_wooded_land_only' },
+        subcategories: [{ key: 'Forest' }, { key: 'panEuropean.growingStock.other_wooded_land_only' }],
         valueRounded,
       },
     },
@@ -129,7 +131,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'semi_natural' },
     data: [datum(variableName, '0', 'semi_natural')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'semi_natural'),
     name: `${ValidatorName.equalToSum}: total semi natural of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -141,7 +143,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'semi_natural' },
     data: [datum(variableName, '1000', 'semi_natural'), ...data('semi_natural', ['602', '400'])],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'semi_natural'),
     name: `${ValidatorName.equalToSum}: semi natural sum over the total is invalid`,
   },
   {
@@ -153,7 +155,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'plantations' },
     data: [datum(variableName, '0', 'plantations')],
-    expected: differentFromTotal('0.00'),
+    expected: differentFromTotal('0.00', 'plantations'),
     name: `${ValidatorName.equalToSum}: total plantations of 0 without forest and other wooded land is invalid`,
   },
   {
@@ -165,7 +167,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
   {
     cell: { ...cell, colName: 'plantations' },
     data: [datum(variableName, '1000', 'plantations'), ...data('plantations', ['602', '400'])],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'plantations'),
     name: `${ValidatorName.equalToSum}: plantations sum over the total is invalid`,
   },
 ]

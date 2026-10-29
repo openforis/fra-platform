@@ -21,17 +21,23 @@ const datum = (raw: string, col = colName): NodeUpdate => ({ ...cell, colName: c
 
 const data = (raws: Array<string>): Array<NodeUpdate> => agents.map((agent, index) => datum(raws[index], agent))
 
-// The metadata passes no labels to the formula, so the message carries the validator defaults
 const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.areaWithForestLandDegradation.totalAreaOfDegradedLand2025' },
+        parentTable: '2.5',
+        parentVariable: { key: 'Forest' },
+        subcategories: [
+          { key: 'panEuropean.areaWithForestLandDegradation.agentOneLabel' },
+          { key: 'panEuropean.areaWithForestLandDegradation.agentTwoLabel' },
+          { key: 'panEuropean.areaWithForestLandDegradation.agentThreeLabel' },
+          { key: 'panEuropean.areaWithForestLandDegradation.agentFourLabel' },
+          { key: 'panEuropean.areaWithForestLandDegradation.agentFiveLabel' },
+          { key: 'panEuropean.areaWithForestLandDegradation.unknownMixedDegradation2025' },
+        ],
         valueRounded,
       },
     },

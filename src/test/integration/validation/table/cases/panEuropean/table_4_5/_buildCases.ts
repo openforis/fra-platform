@@ -6,6 +6,8 @@ import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { TableValidationTestCase } from '../../../types'
 
 type Props = {
+  // The metadata passes a different parentVariable to each row
+  parentVariable: string
   variableName: VariableName
 }
 
@@ -14,32 +16,31 @@ const tableName = 'table_4_5'
 const colName = 'total'
 const categories: Array<ColName> = ['standing', 'lying']
 
-// The metadata passes no labels to the formula, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
-  messages: [
-    {
-      key: 'generalValidation.valueEqualToSumParent',
-      name: ValidatorName.equalToSum,
-      params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
-        valueRounded,
-      },
-    },
-  ],
-  valid: false,
-})
-
 // All rows carry the same formulas, so the cases only differ by the cell under test
 export const buildCases = (props: Props): Array<TableValidationTestCase> => {
-  const { variableName } = props
+  const { parentVariable, variableName } = props
   const cell = { colName, tableName, variableName }
   const equalToSum = `${ValidatorName.equalToSum} (${variableName})`
   const datum = (raw: string, col = colName): NodeUpdate => ({ ...cell, colName: col, value: { raw } })
   const data = (raws: Array<string>): Array<NodeUpdate> =>
     categories.map((category, index) => datum(raws[index], category))
+
+  const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+    messages: [
+      {
+        key: 'generalValidation.valueEqualToSumParent',
+        name: ValidatorName.equalToSum,
+        params: {
+          parentCol: { key: 'panEuropean.deadwood.total' },
+          parentTable: '4.5',
+          parentVariable: { key: parentVariable },
+          subcategories: [{ key: 'panEuropean.deadwood.standing' }, { key: 'panEuropean.deadwood.lying' }],
+          valueRounded,
+        },
+      },
+    ],
+    valid: false,
+  })
 
   return [
     // Nothing reported yet is valid

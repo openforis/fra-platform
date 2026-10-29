@@ -33,7 +33,12 @@ export const buildTotalAreaCases = (props: Props): Array<TableValidationTestCase
           parentCol: { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.total_area' },
           parentTable: '1.3a.I',
           parentVariable: { key: parentVariable },
-          subcategories: '',
+          subcategories: [
+            { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.intermediate_phase' },
+            { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.mature_phase' },
+            { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.regeneration_phase' },
+            { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.unspecified' },
+          ],
           valueRounded,
         },
       },

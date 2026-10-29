@@ -35,17 +35,29 @@ const data = (raws: Array<string>): Array<NodeUpdate> => [
   datum('all_other_animal_products', raws[11]),
 ]
 
-// The metadata passes no labels to the formula, so the message carries the validator defaults
 const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.nonWoodGoods2015.market_value_1000_national_currency' },
+        parentTable: '3.3',
+        parentVariable: { key: 'panEuropean.nonWoodGoods2015.total' },
+        subcategories: [
+          { key: 'panEuropean.nonWoodGoods2015._10th' },
+          { key: 'panEuropean.nonWoodGoods2015._09th' },
+          { key: 'panEuropean.nonWoodGoods2015._08th' },
+          { key: 'panEuropean.nonWoodGoods2015._07th' },
+          { key: 'panEuropean.nonWoodGoods2015._06th' },
+          { key: 'panEuropean.nonWoodGoods2015._05th' },
+          { key: 'panEuropean.nonWoodGoods2015._04th' },
+          { key: 'panEuropean.nonWoodGoods2015._03rd' },
+          { key: 'panEuropean.nonWoodGoods2015._02nd' },
+          { key: 'panEuropean.nonWoodGoods2015._01st' },
+          { key: 'panEuropean.nonWoodGoods2015.all_other_plant_products' },
+          { key: 'panEuropean.nonWoodGoods2015.all_other_animal_products' },
+        ],
         valueRounded,
       },
     },

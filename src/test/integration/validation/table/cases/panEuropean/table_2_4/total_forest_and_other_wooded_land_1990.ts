@@ -1,3 +1,4 @@
+import { ColName } from 'meta/assessment/col'
 import { VariableName } from 'meta/assessment/variable'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
@@ -16,32 +17,21 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
   variableName: name,
 })
 
-// The metadata passes no labels to the formulas, so the message carries the validator defaults
-const differentFromTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
+const differentFromTotal = (
+  valueRounded: string,
+  col: ColName = 'total_area_with_damage'
+): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
-        valueRounded,
-      },
-    },
-  ],
-  valid: false,
-})
-
-// Only the disease column passes labels
-const differentFromTotalDisease = (valueRounded: string): TableValidationTestCase['expected'] => ({
-  messages: [
-    {
-      key: 'generalValidation.valueEqualToSumParent',
-      name: ValidatorName.equalToSum,
-      params: {
-        parentCol: { key: 'panEuropean.forestAreaWithDamage.disease' },
+        parentCol: {
+          key:
+            col === 'unspecified_mixed_damage_2025'
+              ? 'panEuropean.forestAreaWithDamage.unspecifiedMixedDamage'
+              : `panEuropean.forestAreaWithDamage.${col}`,
+        },
         parentTable: '2.4',
         parentVariable: { key: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land_only' },
         subcategories: [
@@ -147,7 +137,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'insects'),
       datum('other_wooded_land_1990', '400', 'insects'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'insects'),
     name: `${ValidatorName.equalToSum}: insects sum over the insects total is invalid`,
   },
   {
@@ -167,7 +157,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'disease'),
       datum('other_wooded_land_1990', '400', 'disease'),
     ],
-    expected: differentFromTotalDisease('1000.00'),
+    expected: differentFromTotal('1000.00', 'disease'),
     name: `${ValidatorName.equalToSum}: disease sum over the disease total is invalid`,
   },
   {
@@ -187,7 +177,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'wildlife_and_grazing'),
       datum('other_wooded_land_1990', '400', 'wildlife_and_grazing'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'wildlife_and_grazing'),
     name: `${ValidatorName.equalToSum}: wildlife and grazing sum over the wildlife and grazing total is invalid`,
   },
   {
@@ -207,7 +197,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'forest_operations'),
       datum('other_wooded_land_1990', '400', 'forest_operations'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'forest_operations'),
     name: `${ValidatorName.equalToSum}: forest operations sum over the forest operations total is invalid`,
   },
   {
@@ -227,7 +217,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'other'),
       datum('other_wooded_land_1990', '400', 'other'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'other'),
     name: `${ValidatorName.equalToSum}: other sum over the other total is invalid`,
   },
   {
@@ -247,7 +237,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'primarily_damaged_by_abiotic_agents'),
       datum('other_wooded_land_1990', '400', 'primarily_damaged_by_abiotic_agents'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'primarily_damaged_by_abiotic_agents'),
     name: `${ValidatorName.equalToSum}: abiotic agents sum over the abiotic agents total is invalid`,
   },
   {
@@ -267,7 +257,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'unspecified_mixed_damage_2025'),
       datum('other_wooded_land_1990', '400', 'unspecified_mixed_damage_2025'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'unspecified_mixed_damage_2025'),
     name: `${ValidatorName.equalToSum}: unspecified mixed damage 2025 sum over the unspecified mixed damage 2025 total is invalid`,
   },
   {
@@ -287,7 +277,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'primarily_damaged_by_fire_total'),
       datum('other_wooded_land_1990', '400', 'primarily_damaged_by_fire_total'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'primarily_damaged_by_fire_total'),
     name: `${ValidatorName.equalToSum}: fire sum over the fire total is invalid`,
   },
   {
@@ -307,7 +297,7 @@ export const totalForestAndOtherWoodedLand1990: Array<TableValidationTestCase> =
       datum('forest_1990', '602', 'of_which_human_induced'),
       datum('other_wooded_land_1990', '400', 'of_which_human_induced'),
     ],
-    expected: differentFromTotal('1000.00'),
+    expected: differentFromTotal('1000.00', 'of_which_human_induced'),
     name: `${ValidatorName.equalToSum}: human induced sum over the human induced total is invalid`,
   },
 ]

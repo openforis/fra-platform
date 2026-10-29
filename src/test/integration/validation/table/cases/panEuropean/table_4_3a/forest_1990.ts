@@ -32,7 +32,11 @@ const differentFromForestArea = (valueRounded: string): TableValidationTestCase[
         parentCol: { key: 'panEuropean.forestArea.area1000Ha' },
         parentTable: '1.1a',
         parentVariable: { key: 'panEuropean.introducedTreeSpecies.forest_only' },
-        subcategories: '',
+        subcategories: [
+          { key: 'panEuropean.naturalness.undisturbed_by_man' },
+          { key: 'panEuropean.naturalness.semi_natural' },
+          { key: 'panEuropean.naturalness.plantations' },
+        ],
         valueRounded,
       },
     },

@@ -57,17 +57,22 @@ const differentFromForestArea = (valueRounded: string): TableValidationTestCase[
   valid: false,
 })
 
-// The metadata passes no labels to the volume formula, so the message carries the validator defaults
 const differentFromTotalVolume = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'parent' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.total_volume' },
+        parentTable: '1.3.III',
+        parentVariable: { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_uneven_aged' },
+        subcategories: [
+          { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.less_or_equal_20_cm' },
+          { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._21_40_cm' },
+          { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands._41_60_cm' },
+          { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.greater_60_cm' },
+          { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.unspecified' },
+        ],
         valueRounded,
       },
     },
