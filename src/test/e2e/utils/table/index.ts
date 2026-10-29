@@ -75,6 +75,28 @@ const fillCell = async (page: Page, variableName: string, colName: string, value
   await cellInput.blur()
 }
 
+const _toTableHtml = (rows: Array<Array<string>>): string => {
+  const rowsHtml = rows.map<string>((cells) => `<tr>${cells.map<string>((cell) => `<td>${cell}</td>`).join('')}</tr>`)
+  return `<table>${rowsHtml.join('')}</table>`
+}
+
+// Pastes the rows into the table starting at the given cell, going right and down
+const pasteCells = async (
+  page: Page,
+  variableName: string,
+  colName: string,
+  rows: Array<Array<string>>
+): Promise<void> => {
+  const cellInput = cellLocator(page, variableName, colName).locator('input')
+  await cellInput.click()
+
+  await cellInput.evaluate((el, html) => {
+    const dataTransfer = new DataTransfer()
+    dataTransfer.setData('text/html', html)
+    el.dispatchEvent(new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: dataTransfer }))
+  }, _toTableHtml(rows))
+}
+
 const tableValidationErrors = (page: Page, tableName: string): Locator =>
   tableContainer(page, tableName).locator('.data-validations')
 
@@ -139,6 +161,7 @@ export const TableDomUtils = {
   fillCell,
   getCellValue,
   getRowReviewButton,
+  pasteCells,
   tableContainer,
   tableValidationErrors,
 }
