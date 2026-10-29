@@ -6,20 +6,37 @@ on:
       - '*'
   workflow_dispatch:
 
+# A new push makes the run for the previous commit outdated, so it gets cancelled
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  tests-all:
+  tests:
     runs-on: ubuntu-22.04
     if: always()
+    # Each shard runs a part of the E2E tests on its own runner, with its own server
+    # A failing shard cancels the others
+    strategy:
+      fail-fast: true
+      # Shard 1: the heaviest folders (invite, ndp, section-tables), about half of the E2E time
+      # Shard 2: everything else, including new folders
+      matrix:
+        include:
+          - shard: 1
+            grep: --grep
+          - shard: 2
+            grep: --grep-invert
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Fixtures: Decrypt and extract"
+      - name: 'Fixtures: Decrypt and extract'
         run: |
           echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/db/fixtures.tar.gz.gpg | tar -xz -C src/tools/db
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
-      - name: "DOCKER: Build containers and start services"
+      - name: 'DOCKER: Build containers and start services'
         run: |
           # Postgres, Redis and MailHog don't need the built images, so they start while the build runs
           docker compose -f src/test/e2e/docker-compose.test.yml up -d postgres redis-queue redis-data mailhog &
@@ -27,66 +44,102 @@ jobs:
           docker compose -f src/test/e2e/docker-compose.test.yml build
           wait $services
 
-      - name: "POSTGRES: Wait ready"
+      - name: 'POSTGRES: Wait ready'
         run: |
           timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps postgres | grep -q "healthy"; do sleep 2; done'
 
-      - name: "POSTGRES: Log failure"
+      - name: 'POSTGRES: Log failure'
         if: failure()
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml logs postgres
 
-      - name: "WEB: Init schemas"
+      - name: 'WEB: Init schemas'
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
             yarn ts-node src/tools/db/initSchemas.ts
 
-      - name: "WEB: Import fixture data"
+      - name: 'WEB: Import fixture data'
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
             yarn ts-node src/tools/db/import.ts
 
-      - name: "WEB: Generate cache"
+      - name: 'WEB: Generate cache'
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
             yarn ts-node src/tools/generateCache/index.ts
 
-      - name: "WEB: Start server"
+      - name: 'WEB: Start server'
         run: docker compose -f src/test/e2e/docker-compose.test.yml up -d web worker
 
-      - name: "Playwright: Create test results directory"
+      - name: 'Playwright: Create test results directory'
         run: mkdir -p playwright-report
 
-      # The server starts up while these run, they don't use it
-      - name: "WEB: Run unit and integration tests"
-        id: unit-tests
+      # The server starts up while these run, they don't use it. Only one shard needs to run them
+      - name: 'WEB: Run unit and integration tests'
+        if: matrix.shard == 1
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T -e NODE_ENV=test web yarn test
 
-      - name: "WEB: Wait ready"
-        if: success() || steps.unit-tests.outcome == 'failure'
+      - name: 'WEB: Wait ready'
         run: |
           timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 2; done'
 
-      - name: "Playwright: Run E2E tests"
-        if: always()
+      # Stops at the first test that still fails after its retries
+      # The blob report is merged with the other shards in the report job
+      - name: 'Playwright: Run E2E tests'
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
-            playwright npm run test:e2e
+            -e PLAYWRIGHT_BLOB_OUTPUT_DIR=/app/src/test/e2e/test-results/blob-report \
+            playwright npm run test:e2e -- ${{ matrix.grep }} "specs/(invite|ndp|section-tables)/" --reporter=list,blob --max-failures=1
 
-      - name: "Playwright: Zip test results"
-        if: always()
-        run: |
-          cd src/test/e2e
-          zip -r ../../../playwright-results.zip test-results/
-
-      - name: "Playwright: Upload test results"
-        if: always() && !env.ACT
+      - name: 'Playwright: Upload blob report'
+        if: '!cancelled() && !env.ACT'
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-results
-          path: playwright-results.zip
-          retention-days: 30
+          name: blob-report-${{ matrix.shard }}
+          path: src/test/e2e/test-results/blob-report
+          if-no-files-found: ignore
+          retention-days: 1
 
-      - name: "Docker: Stop containers"
+      - name: 'Docker: Stop containers'
         if: always()
         run: docker compose -f src/test/e2e/docker-compose.test.yml down -v
+
+  # passes only when every shard passed
+  tests-all:
+    runs-on: ubuntu-22.04
+    needs: tests
+    if: always()
+    steps:
+      - name: 'Check shards'
+        run: test "${{ needs.tests.result }}" = "success"
+
+  # Merges the shard reports into one HTML report
+  report:
+    runs-on: ubuntu-22.04
+    needs: tests
+    if: '!cancelled()'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: blob-report-*
+          merge-multiple: true
+          path: all-blob-reports
+
+      # merge-reports needs the same Playwright version that wrote the blobs
+      - name: 'Playwright: Merge reports'
+        # check reports not empty
+        if: hashFiles('all-blob-reports/*') != ''
+        run: |
+          version=$(grep -A1 '^"@playwright/test@' yarn.lock | grep -oP 'version "\K[^"]+')
+          npx --yes playwright@$version merge-reports --reporter html ./all-blob-reports
+
+      - name: 'Playwright: Upload report'
+        # check reports not empty and not local act
+        if: hashFiles('playwright-report/*') != '' && !env.ACT
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 30
