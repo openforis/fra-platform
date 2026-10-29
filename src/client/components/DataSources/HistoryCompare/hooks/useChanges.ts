@@ -4,7 +4,11 @@ import * as Diff from 'diff'
 import { ChangeObject } from 'diff'
 
 import { DataSourceDescription } from 'meta/assessment/description'
-import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
+import {
+  DataSource,
+  DataSourceHistoryCompare,
+  DataSourceNotApplicable,
+} from 'meta/assessment/descriptionValue/dataSource'
 import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 
 import { PropsDataSources } from 'client/components/DataSources/types'
@@ -55,6 +59,9 @@ export const useChanges = (props: Props): Returned => {
       })
     }
 
+    const _getYears = (years?: Array<string>): Array<string> =>
+      years?.map((year) => (year === DataSourceNotApplicable ? t('dataSource.notApplicable') : year))
+
     // comments
     const commentsData = dataItem?.comments ?? ''
     const commentsHistory = historyItem?.comments ?? ''
@@ -80,8 +87,8 @@ export const useChanges = (props: Props): Returned => {
       : Diff.diffChars((variablesHistory as string) ?? '', (variablesData as string) ?? '')
 
     // year
-    const yearData = dataItem?.year
-    const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year : [historyItem?.year]
+    const yearData = _getYears(dataItem?.year)
+    const yearHistory = _getYears(Array.isArray(historyItem?.year) ? historyItem.year : [historyItem?.year])
     const year = Diff.diffArrays(yearHistory ?? [], yearData ?? [])
 
     return { comments, reference, type, variables, year }

@@ -2,6 +2,8 @@ import { DataSourceDescription } from 'meta/assessment/description'
 import { UUID } from 'meta/uuid/uuid'
 
 // data
+export const DataSourceNotApplicable = 'notApplicable'
+
 export type DataSource = {
   comments: string
   reference: string
