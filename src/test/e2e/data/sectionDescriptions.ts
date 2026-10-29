@@ -67,6 +67,11 @@ export const x13HolderOfManagementRightsComments: DescriptionLocation = {
 }
 export const x13CarbonStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'carbonStock', ...dataSources }
 export const x13Disturbances: DescriptionLocation = { countryIso: 'X13', sectionName: 'disturbances', ...dataSources }
+export const x13AreaAffectedByFire: DescriptionLocation = {
+  countryIso: 'X13',
+  sectionName: 'areaAffectedByFire',
+  ...dataSources,
+}
 
 // Every X country is already used on 1a and 1b, and BEL has no NDPs
 export const belExtentOfForest: DescriptionLocation = {
@@ -93,5 +98,6 @@ export const x13HolderOfManagementRightsPath = SectionUtils.path(x13HolderOfMana
 export const x13PrintPath = SectionUtils.printPath('X13')
 export const x13CarbonStockPath = SectionUtils.path(x13CarbonStock)
 export const x13DisturbancesPath = SectionUtils.path(x13Disturbances)
+export const x13AreaAffectedByFirePath = SectionUtils.path(x13AreaAffectedByFire)
 export const belExtentOfForestPath = SectionUtils.path(belExtentOfForest)
 export const belForestCharacteristicsPath = SectionUtils.path(belForestCharacteristics)
