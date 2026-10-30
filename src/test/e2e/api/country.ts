@@ -62,8 +62,18 @@ const setUseNationalDataPoints = async (
   expect(response.ok(), `PATCH ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
 }
 
+// Refresh recent activity via API endpoint
+// View is auto refreshed hourly
+const refreshRecentActivity = async (page: Page, location: CountryLocation): Promise<void> => {
+  const url = `${ApiEndPoint.CycleData.activitiesRefresh()}?${_getQueryParams(location)}`
+  const response = await page.request.post(url)
+
+  expect(response.ok(), `POST ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()
+}
+
 export const CountryApi = {
   get,
+  refreshRecentActivity,
   setStatus,
   setUseNationalDataPoints,
 }
