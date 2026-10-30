@@ -133,7 +133,7 @@ test.describe('National data point: propagation', () => {
     const year = String(seededYear)
     await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
 
-    await TableDomUtils.clickOdpLink(page, {
+    await TableDomUtils.clickNdpLink(page, {
       countryIso,
       sectionName: SectionNames.extentOfForest,
       year: seededYear,
