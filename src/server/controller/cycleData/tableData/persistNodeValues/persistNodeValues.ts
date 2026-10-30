@@ -75,14 +75,10 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
       }))
 
       // update the cache once for all nodes, otherwise nodes of the same table overwrite each other
-      const nodesByTable: Record<TableName, Array<NodeUpdate>> = {}
-      persistedNodes.forEach((persistedNode) => {
+      const nodesByTable = persistedNodes.reduce<Record<TableName, Array<NodeUpdate>>>((acc, persistedNode) => {
         const { tableName } = persistedNode
-        if (!nodesByTable[tableName]) {
-          nodesByTable[tableName] = []
-        }
-        nodesByTable[tableName].push(persistedNode)
-      })
+        return { ...acc, [tableName]: [...(acc[tableName] ?? []), persistedNode] }
+      }, {})
       if (!Objects.isEmpty(nodesByTable)) {
         await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes: nodesByTable })
       }
