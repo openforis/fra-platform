@@ -65,6 +65,7 @@ export interface ActivityLog<Target> {
   countryIso?: string
   id?: number
   message: ActivityLogMessage
+  nationalDataPointYear?: number | null
   section: string
   target: Target
   time?: string
