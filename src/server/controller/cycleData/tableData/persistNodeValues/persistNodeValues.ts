@@ -6,7 +6,6 @@ import { TableName } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
-import { Objects } from 'utils/objects'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { persistNode } from 'server/controller/cycleData/tableData/persistNodeValues/persistNode'
@@ -79,9 +78,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         const { tableName } = persistedNode
         return { ...acc, [tableName]: [...(acc[tableName] ?? []), persistedNode] }
       }, {})
-      if (!Objects.isEmpty(nodesByTable)) {
-        await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes: nodesByTable })
-      }
+      await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes: nodesByTable })
 
       const lastUpdateTimestamp = persistedNodesWithTimes.reduce<string>(
         (max: string, { time }: { time: string }) => (time > max ? time : max),
