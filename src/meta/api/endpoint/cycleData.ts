@@ -4,6 +4,7 @@ import { Print } from 'meta/api/endpoint/print'
 export const CycleData = {
   activities: (): string => apiPath('cycle-data', 'activities'),
   activitiesCount: (): string => apiPath('cycle-data', 'activities', 'count'),
+  activitiesRefresh: (): string => apiPath('cycle-data', 'activities', 'refresh'),
 
   Dashboard: {
     one: (): string => apiPath('cycle-data', 'dashboard'),
