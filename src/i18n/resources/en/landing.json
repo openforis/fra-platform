@@ -60,6 +60,7 @@
       "commented": "commented on",
       "deleted": "deleted",
       "edited": "edited",
+      "linkNationalDataPoint": "National data point {{year}}",
       "linkOriginalDataPointComments": "National data point {{year}}: {{section}} comments",
       "removeInvitation": "removed invitation of {{user}} as {{role}}",
       "removeRole": "removed {{user}} as {{role}}",
