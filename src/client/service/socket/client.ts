@@ -27,6 +27,11 @@ export const close = (): void => {
   socket = null
 }
 
+// Listeners registered on the socket stay through the reconnect
+const reconnect = (): void => {
+  socket?.disconnect().connect()
+}
+
 const on = (eventName: string, eventHandler: EventHandler): Socket => {
   return socket?.on(eventName, eventHandler)
 }
@@ -40,4 +45,5 @@ export const SocketClient = {
   close,
   on,
   off,
+  reconnect,
 }
