@@ -16,9 +16,9 @@ jobs:
     runs-on: ubuntu-22.04
     if: always()
     # Each shard runs a part of the E2E tests on its own runner, with its own server
-    # A failing shard cancels the others
+    # A failing shard doesn't cancel the others, so every run reports all failures
     strategy:
-      fail-fast: true
+      fail-fast: false
       # Shard 1: the heaviest folders (invite, ndp, section-tables), about half of the E2E time
       # Shard 2: everything else, including new folders
       matrix:
@@ -77,19 +77,24 @@ jobs:
       # The server starts up while these run, they don't use it. Only one shard needs to run them
       - name: 'WEB: Run unit and integration tests'
         if: matrix.shard == 1
+        id: unit-tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T -e NODE_ENV=test web yarn test
 
+      # Runs even when the unit or integration tests failed
       - name: 'WEB: Wait ready'
+        id: web-ready
+        if: success() || steps.unit-tests.outcome == 'failure'
         run: |
           timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 2; done'
 
-      # Stops at the first test that still fails after its retries
+      # Runs even when the unit or integration tests failed, but only against a running server
       # The blob report is merged with the other shards in the report job
       - name: 'Playwright: Run E2E tests'
+        if: "!cancelled() && steps.web-ready.outcome == 'success'"
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
             -e PLAYWRIGHT_BLOB_OUTPUT_DIR=/app/src/test/e2e/test-results/blob-report \
-            playwright npm run test:e2e -- ${{ matrix.grep }} "specs/(invite|ndp|section-tables)/" --reporter=list,blob --max-failures=1
+            playwright npm run test:e2e -- ${{ matrix.grep }} "specs/(invite|ndp|section-tables)/" --reporter=list,blob
 
       - name: 'Playwright: Upload blob report'
         if: '!cancelled() && !env.ACT'
