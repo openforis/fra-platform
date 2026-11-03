@@ -51,7 +51,7 @@ export const useExtraActions = (): Array<React.ReactElement> => {
         iconName={IconName.refresh}
         label={t('landing.recentActivity.refresh')}
         onClick={onRefresh}
-        size={ButtonSize.m}
+        size={ButtonSize.s}
       />,
     ]
   }, [isRefreshing, onRefresh, t, user])
