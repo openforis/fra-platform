@@ -35,6 +35,7 @@ services:
       - '8025:8025'
 
   web:
+    image: fra-e2e-web
     build:
       context: ../../..
       dockerfile: src/test/e2e/Dockerfile.test
@@ -62,6 +63,8 @@ services:
       - TOKEN_SECRET=1234567890
     ports:
       - '9001:9001'
+    volumes:
+      - ../../tools/db/fixtures:/app/src/tools/db/fixtures:ro
     healthcheck:
       test: ['CMD', 'wget', '--spider', 'http://localhost:9001']
       interval: 5s
@@ -69,10 +72,10 @@ services:
       retries: 3
       start_period: 30s
 
+  # Runs the web image, so it isn't built twice
   worker:
-    build:
-      context: ../../..
-      dockerfile: src/test/e2e/Dockerfile.test
+    image: fra-e2e-web
+    pull_policy: never
     command: ['node', 'dist/server/worker/tasks/verifyLinks.js']
     depends_on:
       postgres:

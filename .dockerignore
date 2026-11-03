@@ -1,0 +1,8 @@
+.env
+.git
+dist
+node_modules
+playwright-report
+src/test/e2e/test-results
+# Decrypted in CI, mounted into the web container instead so it never ends up in an image layer or the build cache
+src/tools/db/fixtures
