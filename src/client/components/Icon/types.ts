@@ -33,6 +33,7 @@ export enum IconName {
   plusDashed = 'plus-dashed',
   radar = 'radar',
   remove = 'remove',
+  refresh = 'refresh',
   rotate = 'rotate',
   roundEInfo = 'round-e-info',
   selectArrows = 'select-arrows',
