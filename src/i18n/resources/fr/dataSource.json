@@ -2,6 +2,7 @@
   "comments": "Commentaires",
   "fraVariable": "Variable FRA ",
   "nationalForestInventory": "Inventaire forestier national (IFN)",
+  "notApplicable": "Non applicable",
   "other": "$t(common.otherSpecifyInComments)",
   "referenceToTataSource": "Référence de la source de données",
   "registersAndStatistics": "Registres et questionnaires",

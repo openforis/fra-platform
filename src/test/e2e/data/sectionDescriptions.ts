@@ -30,6 +30,16 @@ export const x12ForestOwnership: DescriptionLocation = {
   sectionName: 'forestOwnership',
   ...comments,
 }
+export const x12GrowingStock: DescriptionLocation = {
+  countryIso: 'X12',
+  sectionName: 'growingStock',
+  ...comments,
+}
+export const x12GrowingStockDataSources: DescriptionLocation = {
+  countryIso: 'X12',
+  sectionName: 'growingStock',
+  ...dataSources,
+}
 export const x12BiomassStock: DescriptionLocation = { countryIso: 'X12', sectionName: 'biomassStock', ...dataSources }
 export const x12Disturbances: DescriptionLocation = { countryIso: 'X12', sectionName: 'disturbances', ...dataSources }
 export const x12AreaAffectedByFire: DescriptionLocation = {
@@ -57,6 +67,11 @@ export const x13HolderOfManagementRightsComments: DescriptionLocation = {
 }
 export const x13CarbonStock: DescriptionLocation = { countryIso: 'X13', sectionName: 'carbonStock', ...dataSources }
 export const x13Disturbances: DescriptionLocation = { countryIso: 'X13', sectionName: 'disturbances', ...dataSources }
+export const x13AreaAffectedByFire: DescriptionLocation = {
+  countryIso: 'X13',
+  sectionName: 'areaAffectedByFire',
+  ...dataSources,
+}
 
 // Every X country is already used on 1a and 1b, and BEL has no NDPs
 export const belExtentOfForest: DescriptionLocation = {
@@ -73,6 +88,7 @@ export const belForestCharacteristics: DescriptionLocation = {
 export const x12CarbonStockPath = SectionUtils.path(x12CarbonStockEstimation)
 export const x12SpecificForestCategoriesPath = SectionUtils.path(x12SpecificForestCategories)
 export const x12ForestOwnershipPath = SectionUtils.path(x12ForestOwnership)
+export const x12GrowingStockPath = SectionUtils.path(x12GrowingStock)
 export const x12BiomassStockPath = SectionUtils.path(x12BiomassStock)
 export const x12AreaAffectedByFirePath = SectionUtils.path(x12AreaAffectedByFire)
 export const x13SpecificForestCategoriesPath = SectionUtils.path(x13SpecificForestCategories)
@@ -82,5 +98,6 @@ export const x13HolderOfManagementRightsPath = SectionUtils.path(x13HolderOfMana
 export const x13PrintPath = SectionUtils.printPath('X13')
 export const x13CarbonStockPath = SectionUtils.path(x13CarbonStock)
 export const x13DisturbancesPath = SectionUtils.path(x13Disturbances)
+export const x13AreaAffectedByFirePath = SectionUtils.path(x13AreaAffectedByFire)
 export const belExtentOfForestPath = SectionUtils.path(belExtentOfForest)
 export const belForestCharacteristicsPath = SectionUtils.path(belForestCharacteristics)

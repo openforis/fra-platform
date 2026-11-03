@@ -2,10 +2,12 @@ import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { TableName } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
 import { persistNode } from 'server/controller/cycleData/tableData/persistNodeValues/persistNode'
 import { resetMirrorNodes } from 'server/controller/cycleData/tableData/resetMirrorNodes'
 import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
@@ -21,6 +23,7 @@ type Props = {
   activityLogMessage?: ActivityLogMessage
   nodeUpdates: NodeUpdates
   sectionName: string
+  socketId?: string
   user: User
   country: Country
 }
@@ -30,7 +33,7 @@ type PersistedNodeWithTime = NodeUpdate & {
 }
 
 export const persistNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { activityLogMessage, assessment, country, cycle, nodeUpdates, sectionName, user } = props
+  const { activityLogMessage, assessment, country, cycle, nodeUpdates, sectionName, socketId, user } = props
   const { countryIso } = nodeUpdates
 
   await client.tx(async (client) => {
@@ -70,6 +73,13 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         value,
       }))
 
+      // update the cache once for all nodes, otherwise nodes of the same table overwrite each other
+      const nodesByTable = persistedNodes.reduce<Record<TableName, Array<NodeUpdate>>>((acc, persistedNode) => {
+        const { tableName } = persistedNode
+        return { ...acc, [tableName]: [...(acc[tableName] ?? []), persistedNode] }
+      }, {})
+      await DataRedisRepository.updateNodes({ assessment, cycle, countryIso, nodes: nodesByTable })
+
       const lastUpdateTimestamp = persistedNodesWithTimes.reduce<string>(
         (max: string, { time }: { time: string }) => (time > max ? time : max),
         ''
@@ -85,7 +95,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         { assessment, cycle, nodeUpdates: nodeUpdatesPersisted },
         client
       )
-      SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
+      SocketServer.emitExcept({ eventName: nodeUpdateEvent, socketId }, { nodeUpdates: nodeUpdatesMirrorReset })
       await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, client)
 
       // schedule dependencies update

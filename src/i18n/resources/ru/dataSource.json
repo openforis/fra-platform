@@ -2,6 +2,7 @@
   "comments": "Комментарии",
   "fraVariable": "Переменная ОЛР",
   "nationalForestInventory": "Национальная инвентаризация лесов (НИЛ)",
+  "notApplicable": "Не применимо",
   "other": "$t(common.otherSpecifyInComments)",
   "referenceToTataSource": "Ссылка на источник данных",
   "registersAndStatistics": "Реестры и статистика",

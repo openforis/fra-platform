@@ -14,8 +14,9 @@ export const useDisplayName = (): string => {
 
   const isLastCreatedCycle = Assessments.getLastCreatedCycle(assessment).name === cycleName
 
-  if (cycleName === CycleNames.latest2) return t('common.inProgress')
-  if (cycleName === CycleNames.latest || isLastCreatedCycle) return ''
+  if (cycleName === CycleNames.latest2) return `${CycleNames._2025} ${t('common.inProgress')}`
+  if (cycleName === CycleNames.latest) return `${CycleNames._2025} ${t('common.latest')}`
+  if (isLastCreatedCycle) return ''
 
   return cycleName
 }

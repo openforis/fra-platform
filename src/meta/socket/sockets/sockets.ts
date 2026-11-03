@@ -6,6 +6,7 @@ import {
   getTopicStatusEvent,
 } from 'meta/socket/sockets/messageTopic'
 import {
+  getDescriptionUpdateEvent,
   getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
@@ -21,6 +22,7 @@ import {
 import { getRequestReviewStatusEvent, getRequestReviewSummaryEvent } from 'meta/socket/sockets/review'
 
 export const Sockets = {
+  getDescriptionUpdateEvent,
   getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,

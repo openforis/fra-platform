@@ -18,6 +18,11 @@ export const getDescriptionValidationsUpdateEvent = (props: Props): string => {
   return `${countryIso}-${assessmentName}-${cycleName}-descriptionLinksValidationUpdate`
 }
 
+export const getDescriptionUpdateEvent = (props: Props): string => {
+  const { assessmentName, countryIso, cycleName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-descriptionUpdate`
+}
+
 export const getNodeValuesUpdateEvent = (props: Props): string => {
   const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-nodeUpdates`

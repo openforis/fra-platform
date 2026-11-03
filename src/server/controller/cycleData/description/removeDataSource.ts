@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter/topics'
+import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
 import { saveDescription } from 'server/controller/cycleData/description/saveDescription'
@@ -10,12 +11,14 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
 import { DataValidationService } from 'server/service/dataValidation'
+import { SocketServer } from 'server/service/socket'
 
 type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
   sectionName: string
+  socketId?: string
   user: User
   uuid: string
 }
@@ -23,7 +26,7 @@ type Props = {
 const name = CommentableDescriptionName.dataSources
 
 export const removeDataSource = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, country, cycle, sectionName, user, uuid } = props
+  const { assessment, country, cycle, sectionName, socketId, user, uuid } = props
   const { countryIso } = country
 
   const description = await client.tx(async (t) => {
@@ -48,6 +51,13 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
 
     return description
   })
+
+  const eventName = Sockets.getDescriptionUpdateEvent({
+    assessmentName: assessment.props.name,
+    countryIso,
+    cycleName: cycle.name,
+  })
+  SocketServer.emitExcept({ eventName, socketId }, { name, sectionName, value: description.value })
 
   await DataValidationService.validateDescriptions({ assessment, country, cycle, descriptions: [description] })
 }
