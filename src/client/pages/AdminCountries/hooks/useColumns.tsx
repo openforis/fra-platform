@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { CountrySummary } from 'meta/area/countrySummary'
 import { Dates } from 'utils/dates'
 
+import { useRefreshActivities } from 'client/hooks/useRefreshActivities'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import CountryLink from 'client/components/Links/CountryLink'
 import { Column } from 'client/components/TablePaginated'
+import RefreshActivitiesButton from 'client/pages/AdminCountries/RefreshActivitiesButton'
 
 const DateCell: React.FC<{ date: string }> = (props) => {
   const { date } = props
@@ -19,6 +21,7 @@ type Returned = Array<Column<CountrySummary>>
 
 export const useColumns = (): Returned => {
   const { t } = useTranslation()
+  const { isRefreshing, refreshActivities } = useRefreshActivities()
 
   return useMemo<Returned>(
     () => [
@@ -76,7 +79,17 @@ export const useColumns = (): Returned => {
         key: 'invitationsAcceptedCount',
         orderByProperty: 'invitations_accepted_count',
       },
+      {
+        component: ({ datum }) => (
+          <RefreshActivitiesButton
+            disabled={isRefreshing}
+            onClick={() => refreshActivities({ countryIso: datum.countryIso })}
+          />
+        ),
+        header: '',
+        key: 'refreshActivities',
+      },
     ],
-    [t]
+    [isRefreshing, refreshActivities, t]
   )
 }
