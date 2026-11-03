@@ -75,11 +75,6 @@ const _getOdpCommentSection = (activity: ActivityLog<unknown> | undefined): Sect
   return odpCommentMessageToSection[activity?.message as ActivityLogMessage]
 }
 
-const _getOdpCommentYear = (activity: ActivityLog<unknown>): number | undefined => {
-  const target = activity?.target as { year?: number } | undefined
-  return target?.year
-}
-
 const nationalDataPointMessages: Array<ActivityLogMessage> = [
   ActivityLogMessage.originalDataPointCreate,
   ActivityLogMessage.originalDataPointRemove,
@@ -152,13 +147,17 @@ const getLabelSection = (props: {
 }): string => {
   const { activity, cycle, section, t } = props
 
-  const odpCommentSection = _getOdpCommentSection(activity)
-  if (!Objects.isNil(odpCommentSection)) {
+  const { nationalDataPointYear: year } = activity
+  if (_isNationalDataPointActivity(activity) && !Objects.isNil(year)) {
+    const odpCommentSection = _getOdpCommentSection(activity)
+    if (Objects.isNil(odpCommentSection)) {
+      return t('landing.recentActivity.actions.linkNationalDataPoint', { year })
+    }
+
     const sectionLabel =
       odpCommentSection === SectionNames.forestCharacteristics
         ? t('nationalDataPoint.forestCharacteristics')
         : t('extentOfForest.extentOfForest')
-    const year = activity.nationalDataPointYear ?? _getOdpCommentYear(activity) ?? ''
     const translationKey = 'landing.recentActivity.actions.linkOriginalDataPointComments'
     return t(translationKey, { year, section: sectionLabel })
   }
