@@ -3,7 +3,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Sockets } from 'meta/socket/sockets'
 
-import { SocketServer } from '../../socketServer/socketServer'
+import { SocketServer } from '../../socketServer'
 
 type props = {
   assessmentName: AssessmentName
