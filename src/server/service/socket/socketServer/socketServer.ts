@@ -4,7 +4,12 @@ import cookieParser from 'cookie-parser'
 import { RequestHandler } from 'express'
 import { Server } from 'socket.io'
 
+import { CountryIso } from 'meta/area/countryIso'
+import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
+
 import { RedisQueueClient } from 'server/service/redis/queueClient'
+import { SocketRooms } from 'server/service/socket/socketRooms'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
@@ -58,8 +63,32 @@ const emitExcept = (props: { eventName: string; socketId?: string }, ...args: Ar
   target.emit(eventName, args)
 }
 
+// Emit to the clients in the rooms but the one that made the change (all of them when socketId is missing)
+const emitToRooms = (
+  props: { eventName: string; rooms: Array<string>; socketId?: string },
+  ...args: Array<unknown>
+): void => {
+  const { eventName, rooms, socketId } = props
+  // socket.io sends to every client when the room list is empty
+  if (Objects.isEmpty(rooms)) return
+
+  const target = socketId ? io.to(rooms).except(socketId) : io.to(rooms)
+  target.emit(eventName, args)
+}
+
+// Emit to the country's users and the admins but the one that made the change (all of them when socketId is missing)
+const emitToCountryRooms = (
+  props: { countryIso: CountryIso; cycle: Cycle; eventName: string; socketId?: string },
+  ...args: Array<unknown>
+): void => {
+  const { countryIso, cycle, eventName, socketId } = props
+  const rooms = SocketRooms.getCountryRooms({ countryIso, cycle })
+  emitToRooms({ eventName, rooms, socketId }, ...args)
+}
+
 export const SocketServer = {
   init,
   emit,
   emitExcept,
+  emitToCountryRooms,
 }
