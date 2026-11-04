@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { Socket } from 'socket.io'
 
-import { SocketRooms } from 'server/service/socket/socketRooms/socketRooms'
+import { SocketRooms } from 'server/service/socket/socketRooms'
 import { Requests } from 'server/utils'
 
 export const joinUserRooms = (socket: Socket, next: (err?: Error) => void): void => {
