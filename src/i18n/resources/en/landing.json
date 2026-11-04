@@ -78,6 +78,7 @@
     "linkFraProcess": "Read more about the FRA process",
     "noRecentActivityBody": "Changes done in the platform will appear here, so that you can get up to speed on what's been happening while you were away.",
     "noRecentActivityTitle": "Looks like there's no recent activity",
+    "recentActivities": "Recent activities",
     "refresh": "Refresh",
     "refreshTooltip": "Refresh recent activity",
     "refreshed": "Recent activity refreshed"

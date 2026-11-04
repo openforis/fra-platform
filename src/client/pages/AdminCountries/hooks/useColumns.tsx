@@ -86,7 +86,7 @@ export const useColumns = (): Returned => {
             onClick={() => refreshActivities({ countryIso: datum.countryIso })}
           />
         ),
-        header: '',
+        header: t('landing.recentActivity.recentActivities'),
         key: 'refreshActivities',
       },
     ],

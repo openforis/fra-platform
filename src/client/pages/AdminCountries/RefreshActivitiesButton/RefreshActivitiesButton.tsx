@@ -21,8 +21,7 @@ const RefreshActivitiesButton: React.FC<Props> = (props) => {
       dataTooltipId={TooltipId.info}
       disabled={disabled}
       iconName={IconName.refresh}
-      inverse
-      noBorder
+      label={t('landing.recentActivity.refresh')}
       onClick={onClick}
       size={ButtonSize.xs}
     />
