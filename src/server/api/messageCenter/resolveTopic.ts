@@ -27,7 +27,8 @@ export const resolveTopic = async (req: CycleDataRequest<{ key: string }>, res: 
       status: MessageTopicStatus.resolved,
     })
 
-    SocketServer.emit(Sockets.getTopicStatusEvent({ assessment, cycle, topic }), MessageTopicStatus.resolved)
+    const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
+    SocketServer.emitToMessageTopicRooms({ cycle, eventName: statusEvent, topic }, MessageTopicStatus.resolved)
 
     const { message } = await MessageCenterController.addMessage({
       message: 'Marked as resolved',
@@ -40,7 +41,8 @@ export const resolveTopic = async (req: CycleDataRequest<{ key: string }>, res: 
       type: topic.type,
     })
 
-    SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), message)
+    const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
+    SocketServer.emitToMessageTopicRooms({ cycle, eventName: messageAddEvent, topic }, message)
 
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
