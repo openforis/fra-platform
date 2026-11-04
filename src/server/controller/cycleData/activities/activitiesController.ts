@@ -3,4 +3,5 @@ import { CountryActivityLogRepository } from 'server/db/repository/assessmentCyc
 export const ActivitiesController = {
   getActivities: CountryActivityLogRepository.getMany,
   getActivitiesCount: CountryActivityLogRepository.getCount,
+  refreshActivities: CountryActivityLogRepository.refreshMaterializedView,
 }
