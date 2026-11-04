@@ -7,8 +7,8 @@ const config: PlaywrightTestConfig = {
     /** @deprecated */
     'tests/**/*.spec.ts',
   ],
-  timeout: 10_0000,
-  retries: 2,
+  timeout: 60_000,
+  retries: 1,
   expect: {
     timeout: 2000,
   },
@@ -16,7 +16,7 @@ const config: PlaywrightTestConfig = {
     baseURL: process.env.BASE_URL || 'http://web:9001',
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
-    trace: 'retain-on-failure',
+    trace: 'on-first-retry',
     headless: true,
     actionTimeout: 5_000,
     navigationTimeout: 5_000,
