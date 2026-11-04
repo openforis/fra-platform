@@ -28,7 +28,7 @@ test.describe('National data point: remove', () => {
 
       await page.goto(extentOfForestPath)
       await DOMUtils.ensureEditingUnlocked(page)
-      await TableDomUtils.clickOdpLink(page, {
+      await TableDomUtils.clickNdpLink(page, {
         countryIso,
         sectionName: SectionNames.extentOfForest,
         year: seededYear,
