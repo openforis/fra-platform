@@ -33,6 +33,7 @@ import PaperPlane from 'client/components/Icon/icons/paper-plane.svg?react'
 import Pencil from 'client/components/Icon/icons/pencil.svg?react'
 import PlusDashed from 'client/components/Icon/icons/plus-dashed.svg?react'
 import Radar from 'client/components/Icon/icons/radar.svg?react'
+import Refresh from 'client/components/Icon/icons/refresh.svg?react'
 import Remove from 'client/components/Icon/icons/remove.svg?react'
 import Rotate from 'client/components/Icon/icons/rotate.svg?react'
 import RoundEInfo from 'client/components/Icon/icons/round-e-info.svg?react'
@@ -84,6 +85,7 @@ export const iconComponents: Record<IconName, React.FC<React.ComponentProps<'svg
   [IconName.plusDashed]: PlusDashed,
   [IconName.radar]: Radar,
   [IconName.remove]: Remove,
+  [IconName.refresh]: Refresh,
   [IconName.rotate]: Rotate,
   [IconName.roundEInfo]: RoundEInfo,
   [IconName.selectArrows]: SelectArrows,
