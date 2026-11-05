@@ -14,7 +14,7 @@ type Request = CycleDataRequest<{ key: string; type: MessageTopicType }, { messa
 
 export const addMessage = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, key, sectionName, type } = req.query
+    const { countryIso, key, sectionName, type } = req.query
     const user = Requests.getUser(req)
     const { message } = req.body
 
@@ -52,7 +52,7 @@ export const addMessage = async (req: Request, res: Response): Promise<void> => 
       )
     }
 
-    sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, sectionName, topic })
+    sendRequestReviewUpdateEvents({ assessment, cycle, sectionName, topic })
 
     Requests.sendOk(res)
   } catch (e) {
