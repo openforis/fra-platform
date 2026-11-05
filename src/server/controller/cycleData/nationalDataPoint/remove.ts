@@ -34,14 +34,17 @@ type Props = {
 const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
-export const remove = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
+export const remove = async (
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<Pick<OriginalDataPoint, 'uuid' | 'year'>> => {
   const { assessment, country, cycle, originalDataPoint, socketId, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { countryIso, uuid } = originalDataPoint
 
-  const target = await client.tx(async (t) => {
-    const [target] = await Promise.all([
+  const deletedNationalDataPoint = await client.tx(async (t) => {
+    const [deletedNationalDataPoint] = await Promise.all([
       OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t),
       DescriptionRepository.remove(
         { assessment, countryIso, cycle, name, sectionName, sectionUuid: originalDataPoint.uuid },
@@ -53,7 +56,13 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
 
     const message = ActivityLogMessage.originalDataPointRemove
-    const activityLog: ActivityLog<OriginalDataPoint> = { target, section: 'odp', message, countryIso, user }
+    const activityLog: ActivityLog<Pick<OriginalDataPoint, 'uuid' | 'year'>> = {
+      target: deletedNationalDataPoint,
+      section: 'odp',
+      message,
+      countryIso,
+      user,
+    }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { assessment, cycle, activityLog },
       t
@@ -76,7 +85,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
       t
     )
 
-    return target
+    return deletedNationalDataPoint
   })
 
   const eventName = Sockets.getNationalDataPointDeleteEvent({ uuid })
@@ -94,5 +103,5 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     targets: [{ ndpUuid: uuid, fields: NDPLinkFields }],
   })
 
-  return target
+  return deletedNationalDataPoint
 }

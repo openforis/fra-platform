@@ -1,3 +1,4 @@
+import './RefreshActivitiesButton.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,6 +18,7 @@ const RefreshActivitiesButton: React.FC<Props> = (props) => {
 
   return (
     <Button
+      className="refresh-activities-button"
       dataTooltipContent={t('landing.recentActivity.refreshTooltip')}
       dataTooltipId={TooltipId.info}
       disabled={disabled}

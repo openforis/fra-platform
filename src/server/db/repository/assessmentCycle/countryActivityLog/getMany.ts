@@ -1,5 +1,6 @@
 import { AreaCode } from 'meta/area/areaCode'
 import { CountrySummary } from 'meta/area/countrySummary'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Objects } from 'utils/objects'
@@ -28,8 +29,12 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     assessment.props.name as AssessmentNames
   )
 
-  // Null when the national data point has been deleted
-  const nationalDataPointYear = hasNationalDataPoints ? `ndp.year` : `null`
+  const nationalDataPointYear = hasNationalDataPoints
+    ? `case
+         when a.message = '${ActivityLogMessage.originalDataPointRemove}' then (a.target ->> 'year')::int
+         else ndp.year
+       end`
+    : `null`
   const nationalDataPointJoin = hasNationalDataPoints
     ? `left join ${schemaCycle}.original_data_point ndp
          on a.message in (${activitiesLastEditOdpData})
