@@ -1,16 +1,12 @@
 import http from 'http'
-import { createAdapter } from '@socket.io/redis-streams-adapter'
 import cookieParser from 'cookie-parser'
 import { RequestHandler } from 'express'
-import { Server } from 'socket.io'
 
-import { RedisQueueClient } from 'server/service/redis/queueClient'
-import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
-import { setIo } from './_io'
 import { joinUserRooms } from './joinUserRooms'
 import { onlyHandshake } from './onlyHandshake'
+import { SocketIoServer } from './socketIoServer'
 
 type InitOptions = {
   // Sets req.user from the auth cookie, passed by the app server only
@@ -20,16 +16,7 @@ type InitOptions = {
 export const init = async (server: http.Server, options: InitOptions = {}): Promise<void> => {
   const { authenticate } = options
 
-  const io = new Server(server, {
-    adapter: createAdapter(RedisQueueClient.getInstance()),
-    cors: {
-      origin: ProcessEnv.appUri,
-      methods: ['GET', 'POST'],
-      credentials: true,
-    },
-    // transports: ['websocket', 'polling'],
-  })
-  setIo(io)
+  const io = SocketIoServer.newInstance(server)
 
   // io.on('connection', (socket: any) => {
   //   console.log('==== NEW CONNECTION', socket)
