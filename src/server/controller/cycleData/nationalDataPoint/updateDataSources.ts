@@ -53,7 +53,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
   })
 
-  notifyNationalDataPointUpdate({ nationalDataPoints: [nationalDataPoint], socketId })
+  notifyNationalDataPointUpdate({ cycle, nationalDataPoints: [nationalDataPoint], socketId })
 
   await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
