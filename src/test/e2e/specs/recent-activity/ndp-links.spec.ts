@@ -84,5 +84,14 @@ test.describe('Recent activity: national data point links', () => {
 
     const link = await goToCreatedActivityLink(page)
     await expect(link).toHaveClass(/disabled/)
+
+    // ==== on delete:
+    // show year
+    // no link
+    const deletedLink = page
+      .locator('.landing__activity-item', { hasText: 'deleted' })
+      .getByRole('link', { name: `National data point ${seededYear}` })
+      .first()
+    await expect(deletedLink).toHaveClass(/disabled/)
   })
 })
