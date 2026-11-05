@@ -75,10 +75,26 @@ const _getOdpCommentSection = (activity: ActivityLog<unknown> | undefined): Sect
   return odpCommentMessageToSection[activity?.message as ActivityLogMessage]
 }
 
-const _getOdpCommentYear = (activity: ActivityLog<unknown>): number | undefined => {
-  const target = activity?.target as { year?: number } | undefined
-  return target?.year
-}
+const nationalDataPointMessages: Array<ActivityLogMessage> = [
+  ActivityLogMessage.originalDataPointCreate,
+  ActivityLogMessage.originalDataPointRemove,
+  ActivityLogMessage.originalDataPointUpdate,
+  ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
+  ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
+  ActivityLogMessage.originalDataPointUpdateDataSources,
+  ActivityLogMessage.originalDataPointUpdateNationalClasses,
+  ActivityLogMessage.originalDataPointUpdateOriginalData,
+  ActivityLogMessage.originalDataPointUpdateYear,
+]
+
+const _isNationalDataPointActivity = (activity: ActivityLog<unknown>): boolean =>
+  nationalDataPointMessages.includes(activity.message)
+
+// Deleted NDP get no link
+const _isNationalDataPointLink = (activity: ActivityLog<unknown>): boolean =>
+  _isNationalDataPointActivity(activity) &&
+  activity.message !== ActivityLogMessage.originalDataPointRemove &&
+  !Objects.isNil(activity.nationalDataPointYear)
 
 const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction }): string => {
   const { activity, t } = props
@@ -115,17 +131,13 @@ const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
 }
 
 const hasSectionLink = (activity: ActivityLog<unknown>): boolean => {
-  if (!Objects.isNil(_getOdpCommentSection(activity))) {
-    return !Objects.isNil(_getOdpCommentYear(activity))
-  }
-
   const { section } = activity
   return !['users', 'assessment'].includes(section)
 }
 
 const isSectionLinkDisabled = (activity: ActivityLog<unknown>): boolean => {
-  if (!Objects.isNil(_getOdpCommentSection(activity))) {
-    return Objects.isNil(_getOdpCommentYear(activity))
+  if (_isNationalDataPointActivity(activity)) {
+    return !_isNationalDataPointLink(activity)
   }
 
   const { section } = activity
@@ -141,13 +153,17 @@ const getLabelSection = (props: {
 }): string => {
   const { activity, cycle, section, t } = props
 
-  const odpCommentSection = _getOdpCommentSection(activity)
-  if (!Objects.isNil(odpCommentSection)) {
+  const { nationalDataPointYear: year } = activity
+  if (_isNationalDataPointActivity(activity) && !Objects.isNil(year)) {
+    const odpCommentSection = _getOdpCommentSection(activity)
+    if (Objects.isNil(odpCommentSection)) {
+      return t('landing.recentActivity.actions.linkNationalDataPoint', { year })
+    }
+
     const sectionLabel =
       odpCommentSection === SectionNames.forestCharacteristics
         ? t('nationalDataPoint.forestCharacteristics')
         : t('extentOfForest.extentOfForest')
-    const year = _getOdpCommentYear(activity) ?? ''
     const translationKey = 'landing.recentActivity.actions.linkOriginalDataPointComments'
     return t(translationKey, { year, section: sectionLabel })
   }
@@ -168,15 +184,14 @@ type GetSectionLinkProp = {
 const getSectionLink = (props: GetSectionLinkProp): string => {
   const { activity, assessmentName, countryIso, cycleName, sectionName: sectionNameProp } = props
 
-  const odpSection = _getOdpCommentSection(activity)
-  const year = _getOdpCommentYear(activity)
-  if (!Objects.isNil(odpSection) && !Objects.isNil(year)) {
+  const { nationalDataPointYear } = activity
+  if (_isNationalDataPointLink(activity)) {
     return Routes.OriginalDataPoint.generatePath({
       assessmentName,
       countryIso: countryIso as CountryIso,
       cycleName,
-      sectionName: odpSection,
-      year: String(year),
+      sectionName: _getOdpCommentSection(activity) ?? SectionNames.extentOfForest,
+      year: String(nationalDataPointYear),
     })
   }
 
