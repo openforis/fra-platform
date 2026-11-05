@@ -1,6 +1,7 @@
 import { emit } from './emit'
 import { emitExcept } from './emitExcept'
 import { emitToCountryRooms } from './emitToCountryRooms'
+import { emitToMessageTopicRooms } from './emitToMessageTopicRooms'
 import { init } from './init'
 
 export const SocketServer = {
@@ -8,4 +9,5 @@ export const SocketServer = {
   emit,
   emitExcept,
   emitToCountryRooms,
+  emitToMessageTopicRooms,
 }

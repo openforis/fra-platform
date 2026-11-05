@@ -38,10 +38,8 @@ export const markMessageDeleted = async (
       includeMessages: false,
       key: topicKey,
     })
-    SocketServer.emit(Sockets.getTopicMessageDeleteEvent({ assessment, cycle, topic }), {
-      topicKey,
-      messageId,
-    })
+    const messageDeleteEvent = Sockets.getTopicMessageDeleteEvent({ assessment, cycle, topic })
+    SocketServer.emitToMessageTopicRooms({ cycle, eventName: messageDeleteEvent, topic }, { topicKey, messageId })
 
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
