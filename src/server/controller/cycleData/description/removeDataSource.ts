@@ -57,7 +57,10 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     countryIso,
     cycleName: cycle.name,
   })
-  SocketServer.emitExcept({ eventName, socketId }, { name, sectionName, value: description.value })
+  SocketServer.emitToCountryRooms(
+    { countryIso, cycle, eventName, socketId },
+    { name, sectionName, value: description.value }
+  )
 
   await DataValidationService.validateDescriptions({ assessment, country, cycle, descriptions: [description] })
 }
