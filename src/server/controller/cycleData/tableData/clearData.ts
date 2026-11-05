@@ -39,7 +39,10 @@ export const clearData = async (props: Props, client: BaseProtocol = DB): Promis
     // notify client
     const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
-    SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
+    SocketServer.emitToCountryRooms(
+      { countryIso, cycle, eventName: nodeUpdateEvent },
+      { nodeUpdates: nodeUpdatesMirrorReset }
+    )
 
     // schedule dependencies update
     await updateDependents({ assessment, cycle, country, isODP: true, nodeUpdates, user }, t)
