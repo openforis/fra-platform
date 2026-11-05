@@ -9,7 +9,6 @@ import { onlyHandshake } from './onlyHandshake'
 import { SocketIoServer } from './socketIoServer'
 
 type InitOptions = {
-  // Sets req.user from the auth cookie, passed by the app server only
   authenticate?: RequestHandler
 }
 
@@ -23,7 +22,6 @@ export const init = async (server: http.Server, options: InitOptions = {}): Prom
   // })
 
   if (authenticate) {
-    // Reads the user from the auth cookie at the handshake and puts the socket in that user's rooms
     io.engine.use(onlyHandshake(cookieParser()))
     io.engine.use(onlyHandshake(authenticate))
     io.use(joinUserRooms)

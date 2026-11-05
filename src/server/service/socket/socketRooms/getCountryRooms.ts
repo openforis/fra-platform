@@ -8,7 +8,6 @@ type Props = {
   cycle: Cycle
 }
 
-// Users with a role in the country and cycle, and the admins
 export const getCountryRooms = (props: Props): Array<string> => {
   const { countryIso, cycle } = props
   return [getCountryRoom({ countryIso, cycleUuid: cycle.uuid }), adminRoom]

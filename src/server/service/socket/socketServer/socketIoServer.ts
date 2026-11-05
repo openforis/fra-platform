@@ -5,7 +5,6 @@ import { Server } from 'socket.io'
 import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { ProcessEnv } from 'server/utils'
 
-// The socket.io server, created once by init
 export class SocketIoServer {
   static #instance: Server
 

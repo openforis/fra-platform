@@ -5,7 +5,6 @@ import { Objects } from 'utils/objects'
 
 const getChatKeyPrefix = (): string => `${getMessageBoardCountryKey()}_chat_`
 
-// <user id>_<user id>, positive integers without leading zeros, how getMessageBoardChatKey writes them
 const chatUserIdsRegExp = /^([1-9]\d*)_([1-9]\d*)$/
 
 export const getChatRecipientId = (topic: MessageTopic, sender: User): number | undefined => {
@@ -18,7 +17,6 @@ export const getChatRecipientId = (topic: MessageTopic, sender: User): number | 
 
 export const isChatKey = (key: string): boolean => key.startsWith(getChatKeyPrefix())
 
-// The two user ids in a chat key, none when the key isn't a valid chat key
 export const getChatUserIds = (key: string): Array<number> => {
   if (!isChatKey(key)) return []
 

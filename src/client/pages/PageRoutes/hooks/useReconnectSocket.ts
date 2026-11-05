@@ -5,7 +5,7 @@ import { User } from 'meta/user/user'
 import { useUser } from 'client/store/user/hooks/user'
 import { SocketClient } from 'client/service/socket/client'
 
-// Built from the same user id and roles the server uses for the socket rooms
+// Same user fields the server's SocketRooms.getUserRooms reads
 const getRoomsKey = (user: User | undefined): string => {
   if (!user) return ''
 

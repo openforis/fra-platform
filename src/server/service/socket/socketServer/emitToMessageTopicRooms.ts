@@ -5,8 +5,6 @@ import { SocketRooms } from 'server/service/socket/socketRooms'
 
 import { emitToRooms } from './emitToRooms'
 
-// Emit to the two users of a chat, or for any other topic to the users with a role in its country and cycle,
-// and the admins
 export const emitToMessageTopicRooms = (
   props: { cycle: Cycle; eventName: string; topic: MessageTopic },
   ...args: Array<unknown>
