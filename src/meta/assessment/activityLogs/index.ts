@@ -90,6 +90,12 @@ const nationalDataPointMessages: Array<ActivityLogMessage> = [
 const _isNationalDataPointActivity = (activity: ActivityLog<unknown>): boolean =>
   nationalDataPointMessages.includes(activity.message)
 
+// Deleted NDP get no link
+const _isNationalDataPointLink = (activity: ActivityLog<unknown>): boolean =>
+  _isNationalDataPointActivity(activity) &&
+  activity.message !== ActivityLogMessage.originalDataPointRemove &&
+  !Objects.isNil(activity.nationalDataPointYear)
+
 const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction }): string => {
   const { activity, t } = props
   const labelActionKey = _getLabelActionKey(activity)
@@ -131,7 +137,7 @@ const hasSectionLink = (activity: ActivityLog<unknown>): boolean => {
 
 const isSectionLinkDisabled = (activity: ActivityLog<unknown>): boolean => {
   if (_isNationalDataPointActivity(activity)) {
-    return Objects.isNil(activity.nationalDataPointYear)
+    return !_isNationalDataPointLink(activity)
   }
 
   const { section } = activity
@@ -179,7 +185,7 @@ const getSectionLink = (props: GetSectionLinkProp): string => {
   const { activity, assessmentName, countryIso, cycleName, sectionName: sectionNameProp } = props
 
   const { nationalDataPointYear } = activity
-  if (_isNationalDataPointActivity(activity) && !Objects.isNil(nationalDataPointYear)) {
+  if (_isNationalDataPointLink(activity)) {
     return Routes.OriginalDataPoint.generatePath({
       assessmentName,
       countryIso: countryIso as CountryIso,
