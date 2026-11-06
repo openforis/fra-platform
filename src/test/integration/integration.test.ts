@@ -4,6 +4,7 @@ import { DB } from 'server/db/db'
 import { RedisDataClient } from 'server/service/redis/dataClient'
 import { RedisQueueClient } from 'server/service/redis/queueClient'
 
+import activityLog from 'test/integration/activityLog/activityLog'
 import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
@@ -64,6 +65,9 @@ describe('Metadata integration test', () => {
 
   // user
   userInvite()
+
+  // activityLog
+  activityLog()
 
   // remove from db
   assessmentRemove()
