@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { DB } from 'server/db/db'
 
-export type ActivityLogRow<Target> = {
+type ActivityLogRow<Target> = {
   assessmentUuid: UUID
   countryIso: AreaCode
   cycleUuid: UUID

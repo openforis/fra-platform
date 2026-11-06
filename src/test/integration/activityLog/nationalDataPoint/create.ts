@@ -5,7 +5,6 @@ import { SectionNames } from 'meta/assessment/section'
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
-import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 import { nationalDataPointParams } from 'test/integration/mock/nationalDataPoint'
 import { testContext } from 'test/integration/testContext'
 
@@ -22,16 +21,12 @@ export default (): void => {
       user,
     })
 
-    const message = ActivityLogMessage.originalDataPointCreate
-    const activityLog = await getLastActivityLog<OriginalDataPoint>({
-      assessment,
-      countryIso: country.countryIso,
-      cycle,
-      message,
+    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+      ...testContext.activityLog,
+      message: ActivityLogMessage.originalDataPointCreate,
+      section: 'odp',
+      target: { ...nationalDataPoint, year: nationalDataPointParams.year },
     })
-
-    ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, { ...nationalDataPoint, year: nationalDataPointParams.year })
 
     // created NDP used in future tests
     testContext.nationalDataPoint = nationalDataPoint

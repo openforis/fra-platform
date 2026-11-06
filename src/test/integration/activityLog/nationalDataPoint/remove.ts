@@ -4,7 +4,6 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
-import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 import { testContext } from 'test/integration/testContext'
 
 export default (): void => {
@@ -20,18 +19,14 @@ export default (): void => {
       user,
     })
 
-    const message = ActivityLogMessage.originalDataPointRemove
-    const activityLog = await getLastActivityLog<Pick<OriginalDataPoint, 'uuid' | 'year'>>({
-      assessment,
-      countryIso: country.countryIso,
-      cycle,
-      message,
-    })
-
-    ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, {
-      uuid: nationalDataPoint.uuid,
-      year: nationalDataPoint.year,
+    await ActivityLogAssertions.expectLastActivityLog<Pick<OriginalDataPoint, 'uuid' | 'year'>>({
+      ...testContext.activityLog,
+      message: ActivityLogMessage.originalDataPointRemove,
+      section: 'odp',
+      target: {
+        uuid: nationalDataPoint.uuid,
+        year: nationalDataPoint.year,
+      },
     })
   })
 }
