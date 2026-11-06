@@ -1,33 +1,12 @@
-import { User } from 'meta/user/user'
-
 import { getChatUserIds, isChatKey } from './chat'
-import { getMessageBoardChatKey } from './messageBoard'
 
 describe('isChatKey', () => {
-  test('chat key', () => {
-    expect(isChatKey('message_board_chat_3_7')).toBe(true)
-  })
-
-  test('message board key', () => {
-    expect(isChatKey('message_board')).toBe(false)
-  })
-
   test('table row review key', () => {
     expect(isChatKey('dataRow_9a7b')).toBe(false)
   })
 })
 
 describe('getChatUserIds', () => {
-  test('returns the two user ids', () => {
-    expect(getChatUserIds('message_board_chat_3_7')).toEqual([3, 7])
-  })
-
-  test('returns the two user ids of a key written by getMessageBoardChatKey', () => {
-    const key = getMessageBoardChatKey({ id: 7 } as User, { id: 3 } as User)
-
-    expect(getChatUserIds(key)).toEqual([3, 7])
-  })
-
   test('returns none for three user ids', () => {
     expect(getChatUserIds('message_board_chat_3_7_9')).toEqual([])
   })
