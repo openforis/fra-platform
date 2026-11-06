@@ -33,7 +33,7 @@ export const notifyClientUpdate = async (props: Props): Promise<void> => {
 
   try {
     // send updated national data points to clients viewing them, before computing table values
-    notifyNationalDataPointUpdate({ nationalDataPoints: originalDataPoints, socketId })
+    notifyNationalDataPointUpdate({ cycle, nationalDataPoints: originalDataPoints, socketId })
 
     const countryISOs = [countryIso]
     const tableNames = [TableNames.extentOfForest, TableNames.forestCharacteristics]
@@ -62,7 +62,10 @@ export const notifyClientUpdate = async (props: Props): Promise<void> => {
 
     const nodeUpdatesUpdated: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: nodesUpdated }
 
-    SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesUpdated })
+    SocketServer.emitToCountryRooms(
+      { countryIso, cycle, eventName: nodeUpdateEvent },
+      { nodeUpdates: nodeUpdatesUpdated }
+    )
   } catch (error) {
     const originalDataPointDetails = originalDataPoints
       .map(({ uuid, year }) => `uuid: ${uuid}, year: ${year}`)

@@ -59,7 +59,7 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
     return updated
   })
 
-  notifyNationalDataPointUpdate({ nationalDataPoints: [updatedNationalDataPoint], socketId })
+  notifyNationalDataPointUpdate({ cycle, nationalDataPoints: [updatedNationalDataPoint], socketId })
 
   const commentLinkField = NDPCommentLinkFields.find(({ commentKey }) => commentKey === field)
   await LinksService.enqueueNationalDataPointLinksValidation({
