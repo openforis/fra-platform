@@ -28,7 +28,7 @@ const expectActivityLog = (activityLog: ActivityLogRow<unknown>, props: ExpectAc
   })
 }
 
-const expectTarget = <Target>(target: Target, expected: Partial<Target>): void => {
+const expectTarget = <Target extends object>(target: Target, expected: Target): void => {
   expect(target).not.toBeNull()
   expect(target).toMatchObject(expected)
 }

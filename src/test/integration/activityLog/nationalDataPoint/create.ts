@@ -31,7 +31,7 @@ export default (): void => {
     })
 
     ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, nationalDataPoint)
+    ActivityLogAssertions.expectTarget(activityLog.target, { ...nationalDataPoint, year: nationalDataPointParams.year })
 
     // created NDP used in future tests
     testContext.nationalDataPoint = nationalDataPoint
