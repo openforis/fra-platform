@@ -10,6 +10,8 @@ import { DataRedisRepository } from 'server/cache/repository/data'
 import { getVariables } from 'server/controller/cycleData/nationalDataPoint/getVariables'
 import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
 import { BaseProtocol } from 'server/db/db'
+import { ProcessEnv } from 'server/utils'
+import { NodeEnv } from 'server/utils/processEnv'
 
 type Props = {
   assessment: Assessment
@@ -31,6 +33,10 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props, clien
       throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
     }
   })
+
+  // Disabled in Integration test:
+  // Test assessment (fra_test) has no tables to calculate dependents from
+  if (ProcessEnv.nodeEnv === NodeEnv.test) return
 
   // 1. update cache
   const tableName = TableNames.originalDataPointValue

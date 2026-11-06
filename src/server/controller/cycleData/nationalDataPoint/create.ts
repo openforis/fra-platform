@@ -52,19 +52,17 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
       t
     )
 
-    if (ProcessEnv.nodeEnv !== NodeEnv.test) {
-      await updateOriginalDataPointDependentNodes(
-        {
-          assessment,
-          cycle,
-          country,
-          sectionName,
-          originalDataPoint: createdOriginalDataPoint,
-          user,
-        },
-        t
-      )
-    }
+    await updateOriginalDataPointDependentNodes(
+      {
+        assessment,
+        cycle,
+        country,
+        sectionName,
+        originalDataPoint: createdOriginalDataPoint,
+        user,
+      },
+      t
+    )
 
     return createdOriginalDataPoint
   })

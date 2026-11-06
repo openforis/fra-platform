@@ -19,8 +19,6 @@ import { CountryService } from 'server/service/country'
 import { DataValidationService } from 'server/service/dataValidation'
 import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
-import { ProcessEnv } from 'server/utils'
-import { NodeEnv } from 'server/utils/processEnv'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -76,18 +74,16 @@ export const remove = async (
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
-    if (ProcessEnv.nodeEnv !== NodeEnv.test) {
-      await updateOriginalDataPointDependentNodes(
-        {
-          assessment,
-          cycle,
-          country,
-          originalDataPoint,
-          user,
-        },
-        t
-      )
-    }
+    await updateOriginalDataPointDependentNodes(
+      {
+        assessment,
+        cycle,
+        country,
+        originalDataPoint,
+        user,
+      },
+      t
+    )
 
     return deletedNationalDataPoint
   })
