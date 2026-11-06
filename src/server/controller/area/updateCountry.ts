@@ -99,8 +99,8 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     }
 
     SocketService.Country.notifyUpdate({
-      assessmentName: assessment.props.name,
-      cycleName: cycle.name,
+      assessment,
+      cycle,
       country: updatedCountry,
       notifyClient,
     })
