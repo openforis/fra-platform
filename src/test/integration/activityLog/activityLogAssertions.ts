@@ -4,36 +4,38 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
 
-import { ActivityLogRow } from 'test/integration/activityLog/getLastActivityLog'
+import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 
-type ExpectActivityLogProps = {
+type ExpectLastActivityLogProps<Target> = {
   assessment: Assessment
   country: Country
   cycle: Cycle
   message: ActivityLogMessage
   section: string
+  target: NoInfer<Target> // NoInfer: No partials allowed - this is the core of the activity log test
   user: User
 }
 
-const expectActivityLog = (activityLog: ActivityLogRow<unknown>, props: ExpectActivityLogProps): void => {
-  const { assessment, country, cycle, message, section, user } = props
+const expectLastActivityLog = async <Target extends object = never>(
+  props: ExpectLastActivityLogProps<Target>
+): Promise<void> => {
+  const { assessment, country, cycle, message, section, target, user } = props
+  const { countryIso } = country
+
+  const activityLog = await getLastActivityLog<Target>({ assessment, countryIso, cycle, message })
 
   expect(activityLog).toMatchObject({
     assessmentUuid: assessment.uuid,
-    countryIso: country.countryIso,
+    countryIso,
     cycleUuid: cycle.uuid,
     message,
     section,
     userId: user.id,
   })
-}
-
-const expectTarget = <Target extends object>(target: Target, expected: Target): void => {
-  expect(target).not.toBeNull()
-  expect(target).toMatchObject(expected)
+  expect(activityLog.target).not.toBeNull()
+  expect(activityLog.target).toMatchObject(target)
 }
 
 export const ActivityLogAssertions = {
-  expectActivityLog,
-  expectTarget,
+  expectLastActivityLog,
 }

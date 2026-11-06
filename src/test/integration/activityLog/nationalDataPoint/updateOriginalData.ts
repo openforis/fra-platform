@@ -5,7 +5,6 @@ import { SectionNames } from 'meta/assessment/section'
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
-import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 import { testContext } from 'test/integration/testContext'
 
 export default (): void => {
@@ -23,16 +22,12 @@ export default (): void => {
       user,
     })
 
-    const message = ActivityLogMessage.originalDataPointUpdateOriginalData
-    const activityLog = await getLastActivityLog<OriginalDataPoint>({
-      assessment,
-      countryIso: country.countryIso,
-      cycle,
-      message,
+    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+      ...testContext.activityLog,
+      message: ActivityLogMessage.originalDataPointUpdateOriginalData,
+      section: 'odp',
+      target: { ...updatedNationalDataPoint, values },
     })
-
-    ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, { ...updatedNationalDataPoint, values })
 
     testContext.nationalDataPoint = updatedNationalDataPoint
   })

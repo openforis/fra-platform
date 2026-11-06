@@ -5,7 +5,6 @@ import { TableNames } from 'meta/assessment/table'
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
-import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 import { testContext } from 'test/integration/testContext'
 
 const cases: Array<{ field: OriginalDataPointCommentKey; message: ActivityLogMessage }> = [
@@ -31,15 +30,12 @@ export default (): void => {
       user,
     })
 
-    const activityLog = await getLastActivityLog<OriginalDataPoint>({
-      assessment,
-      countryIso: country.countryIso,
-      cycle,
+    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+      ...testContext.activityLog,
       message,
+      section: 'odp',
+      target: { ...updatedNationalDataPoint, comments },
     })
-
-    ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, { ...updatedNationalDataPoint, comments })
 
     testContext.nationalDataPoint = updatedNationalDataPoint
   })

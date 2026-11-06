@@ -5,7 +5,6 @@ import { UUIDs } from 'meta/uuid/uuids'
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
-import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 import { testContext } from 'test/integration/testContext'
 
 export default (): void => {
@@ -22,15 +21,11 @@ export default (): void => {
       user,
     })
 
-    const message = ActivityLogMessage.originalDataPointUpdateDataSources
-    const activityLog = await getLastActivityLog<OriginalDataPoint>({
-      assessment,
-      countryIso: country.countryIso,
-      cycle,
-      message,
+    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+      ...testContext.activityLog,
+      message: ActivityLogMessage.originalDataPointUpdateDataSources,
+      section: 'odp',
+      target: { ...nationalDataPoint, dataSources },
     })
-
-    ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, { ...nationalDataPoint, dataSources })
   })
 }

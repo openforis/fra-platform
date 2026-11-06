@@ -5,7 +5,6 @@ import { NationalDataPointController } from 'server/controller/cycleData/nationa
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
-import { getLastActivityLog } from 'test/integration/activityLog/getLastActivityLog'
 import { testContext } from 'test/integration/testContext'
 
 export default (): void => {
@@ -34,16 +33,12 @@ export default (): void => {
       year: String(nationalDataPoint.year),
     })
 
-    const message = ActivityLogMessage.originalDataPointUpdateNationalClasses
-    const activityLog = await getLastActivityLog<OriginalDataPoint>({
-      assessment,
-      countryIso: country.countryIso,
-      cycle,
-      message,
+    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+      ...testContext.activityLog,
+      message: ActivityLogMessage.originalDataPointUpdateNationalClasses,
+      section: 'odp',
+      target: updatedNationalDataPoint,
     })
-
-    ActivityLogAssertions.expectActivityLog(activityLog, { assessment, country, cycle, message, section: 'odp', user })
-    ActivityLogAssertions.expectTarget(activityLog.target, updatedNationalDataPoint)
     // Copied national classes get new uuids, compare names only
     expect(updatedNationalDataPoint.nationalClasses.map(({ name }) => name)).toEqual(
       sourceNationalClasses.map(({ name }) => name)
