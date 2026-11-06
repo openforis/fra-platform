@@ -1,11 +1,11 @@
-import { emit } from './emit'
+import { emitToAdminRooms } from './emitToAdminRooms'
 import { emitToCountryRooms } from './emitToCountryRooms'
 import { emitToMessageTopicRooms } from './emitToMessageTopicRooms'
 import { init } from './init'
 
 export const SocketServer = {
   init,
-  emit,
+  emitToAdminRooms,
   emitToCountryRooms,
   emitToMessageTopicRooms,
 }
