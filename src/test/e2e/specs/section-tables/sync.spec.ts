@@ -1,4 +1,5 @@
 import { mergeTests } from '@playwright/test'
+import { enTranslation } from 'i18n/resources/en'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentNames } from 'meta/assessment/assessment'
@@ -8,13 +9,16 @@ import { Routes } from 'meta/routes/routes'
 import { Sockets } from 'meta/socket/sockets'
 import { RoleName } from 'meta/user/role/name'
 
+import { InviteApi } from 'test/e2e/api/invite'
 import { Timeouts } from 'test/e2e/config/timeouts'
 import { x12ForestAreaChange, x12ForestAreaChangePath } from 'test/e2e/data/sectionTables'
 import { test as tableTest } from 'test/e2e/fixtures/table'
 import { expect, test as userTest } from 'test/e2e/fixtures/user'
+import { AuthUtils } from 'test/e2e/utils/Auth'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { SocketUtils } from 'test/e2e/utils/socket'
 import { TableDomUtils } from 'test/e2e/utils/table'
+import { UserUtils } from 'test/e2e/utils/User'
 
 const test = mergeTests(tableTest, userTest)
 
@@ -23,12 +27,15 @@ const cycleName = CycleNames._2025
 const { countryIso } = x12ForestAreaChange
 const otherCountryIso = 'X13'
 const otherCountryHomePath = Routes.CountryHome.generatePath({ assessmentName, countryIso: otherCountryIso, cycleName })
+const loginPath = Routes.Login.generatePath({ assessmentName, cycleName })
 const nodeUpdatesEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, countryIso, cycleName })
 
 const variableName = 'forest_expansion'
 const colName = '2020-2025'
 const value = '123'
 const displayedValue = '123.00'
+const otherValue = '456'
+const otherDisplayedValue = '456.00'
 
 test.describe('Section tables: sync between clients', () => {
   test.use({
@@ -84,5 +91,93 @@ test.describe('Section tables: sync between clients', () => {
 
     // ==== the editing client keeps its own edits
     await TableDomUtils.expectCellValue(page, variableName, colName, displayedValue)
+  })
+
+  test('Logged out user logs in as the NC and gets the next edit without reloading, then logs out and gets no more edits', async ({
+    authenticatedPage: page,
+    publicPage: loginPage,
+    user: nc,
+  }) => {
+    const ncPackets = SocketUtils.recordPackets(nc.page)
+    const loggedOutPackets = SocketUtils.recordPackets(loginPage)
+
+    await page.goto(x12ForestAreaChangePath)
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
+    await DOMUtils.ensureEditingUnlocked(page)
+    await nc.page.goto(x12ForestAreaChangePath)
+    await expect(TableDomUtils.tableContainer(nc.page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
+    await SocketUtils.waitForConnect(ncPackets)
+    await loginPage.goto(loginPath)
+    await SocketUtils.waitForConnect(loggedOutPackets)
+
+    await test.step('Logged out user logs in as the NC and gets the next edit without reloading', async () => {
+      // A new recorder, so waitForConnect waits for the reconnect after the login
+      const loggedInPackets = SocketUtils.recordPackets(loginPage)
+      await loginPage.fill('input[name="email"]', nc.email)
+      await AuthUtils.fillLoginForm(loginPage, nc.password)
+      await SocketUtils.waitForConnect(loggedInPackets)
+
+      const cellSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Table.nodes(), 'PATCH')
+      await TableDomUtils.fillCell(page, variableName, colName, value)
+      await cellSaved
+
+      await expect.poll(() => loggedInPackets.eventNames).toContain(nodeUpdatesEvent)
+    })
+
+    await test.step('NC logs out and gets no more edits', async () => {
+      const loggedOutAgainPackets = SocketUtils.recordPackets(loginPage)
+      await loginPage.locator('.app-header__menu-item', { hasText: nc.fullName }).click()
+      await loginPage.getByRole('button', { name: enTranslation.header.logout, exact: true }).click()
+      await SocketUtils.waitForConnect(loggedOutAgainPackets)
+
+      const cellSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Table.nodes(), 'PATCH')
+      await TableDomUtils.fillCell(page, variableName, colName, otherValue)
+      await cellSaved
+
+      await TableDomUtils.expectCellValue(nc.page, variableName, colName, otherDisplayedValue)
+      // The NC's other page already has the edit, so this page would have it by now if it were sent to it
+      expect(loggedOutAgainPackets.eventNames).not.toContain(nodeUpdatesEvent)
+    })
+  })
+
+  test('Logged out user registers from an invitation, accepts it and gets the next edit without reloading', async ({
+    authenticatedPage: page,
+    publicPage: invitedPage,
+  }) => {
+    const testUser = UserUtils.createTestUser(enTranslation.user.roles[RoleName.VIEWER])
+    const invitationPath = await InviteApi.create(page, {
+      assessmentName,
+      countryIso,
+      cycleName,
+      role: RoleName.VIEWER,
+      testUser,
+    })
+    const loggedOutPackets = SocketUtils.recordPackets(invitedPage)
+
+    await page.goto(x12ForestAreaChangePath)
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
+    await DOMUtils.ensureEditingUnlocked(page)
+    await invitedPage.goto(invitationPath)
+    await SocketUtils.waitForConnect(loggedOutPackets)
+
+    const registeredPackets = SocketUtils.recordPackets(invitedPage)
+    await AuthUtils.fillRegisterForm(invitedPage, testUser.password)
+    await SocketUtils.waitForConnect(registeredPackets)
+
+    const acceptedPackets = SocketUtils.recordPackets(invitedPage)
+    await invitedPage.getByRole('button', { name: enTranslation.login.acceptInvitation, exact: true }).click()
+    await SocketUtils.waitForConnect(acceptedPackets)
+
+    const cellSaved = DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Table.nodes(), 'PATCH')
+    await TableDomUtils.fillCell(page, variableName, colName, value)
+    await cellSaved
+
+    await expect.poll(() => acceptedPackets.eventNames).toContain(nodeUpdatesEvent)
   })
 })
