@@ -1,5 +1,5 @@
-import { getIo } from './_io'
+import { SocketIoServer } from './socketIoServer'
 
 export const emit = (event: string, ...args: Array<any>): void => {
-  getIo().emit(event, args)
+  SocketIoServer.getInstance().emit(event, args)
 }

@@ -27,7 +27,6 @@ export const close = (): void => {
   socket = null
 }
 
-// Listeners registered on the socket stay through the reconnect
 const reconnect = (): void => {
   socket?.disconnect().connect()
 }

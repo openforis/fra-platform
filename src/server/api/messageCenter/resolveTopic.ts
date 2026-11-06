@@ -44,10 +44,7 @@ export const resolveTopic = async (req: CycleDataRequest<{ key: string }>, res: 
     const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
     SocketServer.emitToMessageTopicRooms({ cycle, eventName: messageAddEvent, topic }, message)
 
-    const assessmentName = assessment.props.name
-    const cycleName = cycle.name
-
-    sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName })
+    sendRequestReviewUpdateEvents({ assessment, cycle, sectionName, topic })
 
     Requests.sendOk(res)
   } catch (e) {

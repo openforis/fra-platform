@@ -22,9 +22,7 @@ export const getTopic = async (req: CycleDataRequest<{ key: string }>, res: Resp
     })
 
     if (topic) {
-      const assessmentName = assessment.props.name
-      const cycleName = cycle.name
-      sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName })
+      sendRequestReviewUpdateEvents({ assessment, cycle, sectionName, topic })
     }
 
     Requests.sendOk(res, topic)

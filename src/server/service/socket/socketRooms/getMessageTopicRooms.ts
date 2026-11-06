@@ -10,12 +10,10 @@ type Props = {
   topic: MessageTopic
 }
 
-// A chat goes to its two users, any other topic to the users with a role in its country and cycle, and the admins
 export const getMessageTopicRooms = (props: Props): Array<string> => {
   const { cycle, topic } = props
   const { countryIso, key } = topic
 
-  // Decided by the key: topic.type comes from the request that created the topic
   if (Topics.isChatKey(key)) {
     return Topics.getChatUserIds(key).map<string>((userId) => getUserRoom(userId))
   }
