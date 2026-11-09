@@ -15,6 +15,7 @@ type TestContext = {
   }
   activityLogSection?: Section
   activityLogSubSection?: SubSection
+  activityLogTableSection?: TableSection
   nationalDataPoint?: OriginalDataPoint
   section?: Section
   tableSection?: TableSection

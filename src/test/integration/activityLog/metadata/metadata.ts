@@ -3,9 +3,12 @@ import { UserController } from 'server/controller/user'
 
 import createSection from 'test/integration/activityLog/metadata/createSection'
 import createSubSection from 'test/integration/activityLog/metadata/createSubSection'
+import createTableSection from 'test/integration/activityLog/metadata/createTableSection'
 import removeSection from 'test/integration/activityLog/metadata/removeSection'
+import removeTableSection from 'test/integration/activityLog/metadata/removeTableSection'
 import updateSection from 'test/integration/activityLog/metadata/updateSection'
 import updateSubSection from 'test/integration/activityLog/metadata/updateSubSection'
+import updateTableSection from 'test/integration/activityLog/metadata/updateTableSection'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { userMockTest } from 'test/integration/mock/user'
 import { testContext } from 'test/integration/testContext'
@@ -27,6 +30,10 @@ export default (): void => {
     createSubSection()
     updateSection()
     updateSubSection()
+    createTableSection()
+    updateTableSection()
+
+    removeTableSection()
     removeSection()
   })
 }
