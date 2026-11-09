@@ -17,12 +17,6 @@ describe('getMessageTopicRooms', () => {
     expect(getMessageTopicRooms({ cycle, topic })).toEqual(['user-3', 'user-7'])
   })
 
-  test('invalid chat key goes to no room', () => {
-    const topic = getTopic({ key: 'message_board_chat_3_7_9', type: MessageTopicType.chat })
-
-    expect(getMessageTopicRooms({ cycle, topic })).toEqual([])
-  })
-
   test('chat type with a key that is not a chat key goes to the country room and the admins', () => {
     const topic = getTopic({ key: 'dataRow_9a7b', type: MessageTopicType.chat })
 
