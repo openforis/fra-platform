@@ -19,8 +19,8 @@ type ActivityLogRow<Target> = {
 
 type Props = {
   assessment: Assessment
-  countryIso: AreaCode
-  cycle: Cycle
+  countryIso?: AreaCode
+  cycle?: Cycle
   message: ActivityLogMessage
 }
 
@@ -32,13 +32,13 @@ export const getLastActivityLog = async <Target>(props: Props): Promise<Activity
       select al.*
       from public.activity_log al
       where al.assessment_uuid = $(assessmentUuid)
-        and al.cycle_uuid = $(cycleUuid)
-        and al.country_iso = $(countryIso)
+        and al.cycle_uuid is not distinct from $(cycleUuid)
+        and al.country_iso is not distinct from $(countryIso)
         and al.message = $(message)
       order by al.id desc
       limit 1
     `,
-    { assessmentUuid: assessment.uuid, countryIso, cycleUuid: cycle.uuid, message },
-    Objects.camelize
+    { assessmentUuid: assessment.uuid, countryIso: countryIso ?? null, cycleUuid: cycle?.uuid ?? null, message },
+    (row) => Objects.camelize(row, { skip: ['target'] })
   )
 }
