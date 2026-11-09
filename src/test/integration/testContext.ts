@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Section, SubSection } from 'meta/assessment/section'
+import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 import { User } from 'meta/user/user'
 
@@ -15,6 +16,7 @@ type TestContext = {
   }
   activityLogSection?: Section
   activityLogSubSection?: SubSection
+  activityLogTable?: Table
   activityLogTableSection?: TableSection
   nationalDataPoint?: OriginalDataPoint
   section?: Section
