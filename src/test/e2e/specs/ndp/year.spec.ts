@@ -1,13 +1,25 @@
+import { mergeTests } from '@playwright/test'
+
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { CycleNames } from 'meta/assessment/cycle/names'
 import { SectionNames } from 'meta/assessment/section'
+import { Sockets } from 'meta/socket/sockets'
+import { RoleName } from 'meta/user/role/name'
 
 import { NdpApi, type NdpSeed } from 'test/e2e/api/ndp'
 import { Timeouts } from 'test/e2e/config/timeouts'
-import { expect, test } from 'test/e2e/fixtures/ndp'
+import { test as ndpTest } from 'test/e2e/fixtures/ndp'
+import { expect, test as userTest } from 'test/e2e/fixtures/user'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
+import { SocketUtils } from 'test/e2e/utils/socket'
 
+const test = mergeTests(ndpTest, userTest)
+
+const assessmentName = AssessmentNames.fra
+const cycleName = CycleNames._2025
 const countryIso = 'X02'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
 
@@ -19,9 +31,20 @@ const className = 'Forest land'
 
 const areaCell = 'td.fra-table__cell.fra-table__divider.validation-error'
 
+const odpDeleteEvent = Sockets.getODPDeleteEvent({ assessmentName, countryIso, cycleName })
+const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent({ assessmentName, countryIso, cycleName })
+const ndpValidationsUpdateEvent = Sockets.getNationalDataPointValidationsUpdateEvent({
+  assessmentName,
+  countryIso,
+  cycleName,
+})
+
 test.describe('National data point: year', () => {
   test.describe('year change', () => {
-    test.use({ ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }] })
+    test.use({
+      ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }],
+      userSeed: { assessmentName, countryIso, cycleName, role: RoleName.NATIONAL_CORRESPONDENT },
+    })
 
     // The point moves to the other year, so the fixture teardown of the seeded year doesn't reach it
     const movedSeed: NdpSeed = { countryIso, nationalClasses: [], year: otherYear }
@@ -63,22 +86,32 @@ test.describe('National data point: year', () => {
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
     })
 
-    test('another client viewing the point follows the year change', async ({
+    test('another client viewing the NDP follows the year change, and the NC gets it', async ({
       authenticatedPage,
       ndp,
       otherAuthenticatedPage: otherPage,
+      user: nc,
     }) => {
       expect(ndp.id).toBeTruthy()
+      const ndpUpdateEvent = Sockets.getNationalDataPointUpdateEvent({ uuid: ndp.uuid })
+      const ncPackets = SocketUtils.recordPackets(nc.page)
 
       await authenticatedPage.goto(ndpPath(seededYear))
       await DOMUtils.ensureEditingUnlocked(authenticatedPage)
       await otherPage.goto(ndpPath(seededYear))
       await DOMUtils.ensureEditingUnlocked(otherPage)
+      await nc.page.goto(ndpPath(seededYear))
+      await SocketUtils.waitForConnect(ncPackets)
 
       await NDPDomUtils.changeYear(authenticatedPage, String(otherYear))
 
       await expect(otherPage).toHaveURL(new RegExp(`${ndpPath(otherYear)}$`), { timeout: Timeouts.medium })
       await expect(otherPage.locator('.odp__year-selection')).toHaveText(String(otherYear))
+
+      await expect.poll(() => ncPackets.eventNames).toContain(odpDeleteEvent)
+      await expect.poll(() => ncPackets.eventNames).toContain(odpReservedYearsEvent)
+      await expect.poll(() => ncPackets.eventNames).toContain(ndpUpdateEvent)
+      await expect.poll(() => ncPackets.eventNames).toContain(ndpValidationsUpdateEvent)
     })
   })
 
