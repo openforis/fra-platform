@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
@@ -25,7 +26,11 @@ type Props = {
   user: User
 }
 
-const activities: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
+const activities: Record<
+  OriginalDataPointCommentKey,
+  | ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest
+  | ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics
+> = {
   [TableNames.extentOfForest]: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
   [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
 }
@@ -42,7 +47,7 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
 
     const message = activities[field]
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPUpdate = {
       target: updated,
       section: 'odp',
       message,

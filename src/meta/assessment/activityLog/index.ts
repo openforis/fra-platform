@@ -61,10 +61,10 @@ export enum ActivityLogMessage {
   usersMerge = 'usersMerge',
 }
 
-export interface ActivityLog<Target> {
+export interface ActivityLog<Target, Message extends ActivityLogMessage = ActivityLogMessage> {
   countryIso?: string
   id?: number
-  message: ActivityLogMessage
+  message: Message
   nationalDataPointYear?: number | null
   section: string
   target: Target
