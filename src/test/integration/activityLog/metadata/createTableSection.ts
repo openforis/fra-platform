@@ -1,5 +1,4 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { TableSection } from 'meta/assessment/tableSection'
 
 import { MetadataController } from 'server/controller/metadata'
 
@@ -18,7 +17,7 @@ export default (): void => {
       user,
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<TableSection>({
+    await ActivityLogAssertions.expectLastActivityLog({
       assessment,
       message: ActivityLogMessage.tableSectionCreate,
       section: 'tableSection',
