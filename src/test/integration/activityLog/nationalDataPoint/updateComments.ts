@@ -1,5 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
@@ -7,7 +7,11 @@ import { NationalDataPointController } from 'server/controller/cycleData/nationa
 import { ActivityLogAssertions } from 'test/integration/activityLog/activityLogAssertions'
 import { testContext } from 'test/integration/testContext'
 
-const cases: Array<{ field: OriginalDataPointCommentKey; message: ActivityLogMessage }> = [
+type CommentMessage =
+  | ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest
+  | ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics
+
+const cases: Array<{ field: OriginalDataPointCommentKey; message: CommentMessage }> = [
   { field: TableNames.extentOfForest, message: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest },
   {
     field: TableNames.forestCharacteristics,
@@ -30,7 +34,7 @@ export default (): void => {
       user,
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+    await ActivityLogAssertions.expectLastActivityLog({
       ...testContext.activityLog,
       message,
       section: 'odp',

@@ -1,5 +1,4 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
@@ -24,7 +23,7 @@ export default (): void => {
       year: String(nationalDataPoint.year),
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+    await ActivityLogAssertions.expectLastActivityLog({
       ...testContext.activityLog,
       message: ActivityLogMessage.originalDataPointUpdateYear,
       section: 'odp',

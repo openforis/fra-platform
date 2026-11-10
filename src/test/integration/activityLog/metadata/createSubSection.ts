@@ -1,5 +1,4 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { SubSection } from 'meta/assessment/section'
 
 import { MetadataController } from 'server/controller/metadata'
 
@@ -19,7 +18,7 @@ export default (): void => {
       user,
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<SubSection>({
+    await ActivityLogAssertions.expectLastActivityLog({
       assessment,
       message: ActivityLogMessage.sectionCreate,
       section: 'section',
