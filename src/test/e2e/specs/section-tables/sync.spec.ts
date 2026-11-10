@@ -29,6 +29,8 @@ const otherCountryIso = 'X13'
 const otherCountryHomePath = Routes.CountryHome.generatePath({ assessmentName, countryIso: otherCountryIso, cycleName })
 const loginPath = Routes.Login.generatePath({ assessmentName, cycleName })
 const nodeUpdatesEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, countryIso, cycleName })
+const tableValidationsUpdateEvent = Sockets.getTableValidationsUpdateEvent({ assessmentName, countryIso, cycleName })
+const countryUpdateEvent = Sockets.getCountryUpdateEvent({ assessmentName, countryIso, cycleName })
 
 const variableName = 'forest_expansion'
 const colName = '2020-2025'
@@ -84,10 +86,16 @@ test.describe('Section tables: sync between clients', () => {
     await TableDomUtils.expectCellValue(otherPage, variableName, colName, displayedValue)
     await TableDomUtils.expectCellValue(nc.page, variableName, colName, displayedValue)
     await expect.poll(() => ncPackets.eventNames).toContain(nodeUpdatesEvent)
+    await expect.poll(() => ncPackets.eventNames).toContain(tableValidationsUpdateEvent)
+    await expect.poll(() => ncPackets.eventNames).toContain(countryUpdateEvent)
 
     // The NC already has the update, so the others would have it by now if it were sent to them
     expect(otherCountryNcPackets.eventNames).not.toContain(nodeUpdatesEvent)
+    expect(otherCountryNcPackets.eventNames).not.toContain(tableValidationsUpdateEvent)
+    expect(otherCountryNcPackets.eventNames).not.toContain(countryUpdateEvent)
     expect(loggedOutPackets.eventNames).not.toContain(nodeUpdatesEvent)
+    expect(loggedOutPackets.eventNames).not.toContain(tableValidationsUpdateEvent)
+    expect(loggedOutPackets.eventNames).not.toContain(countryUpdateEvent)
 
     // ==== the editing client keeps its own edits
     await TableDomUtils.expectCellValue(page, variableName, colName, displayedValue)
