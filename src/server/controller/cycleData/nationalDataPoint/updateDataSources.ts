@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
@@ -38,7 +39,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
       t
     )
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPUpdate = {
       target: nationalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateDataSources,
