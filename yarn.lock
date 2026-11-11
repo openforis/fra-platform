@@ -1573,13 +1573,6 @@
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.16.10.tgz#b61cf2b4a1b6ed77017b0dab131e6d51e814ec4e"
   integrity sha512-c2erv2k7P2ilYzMmtYcMgAR21AULosQuUHJbStnrvRk2dG93k5cqptDrh9A8p+ZNlyhiqEOgHW7N9PAizdUM7Q==
 
-"@googlemaps/js-api-loader@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-2.1.1.tgz#49c2fa6cc2ad4eb49727d9f3572bae8ff519dbdf"
-  integrity sha512-yUpAwksbHrlZIWD49JmveNSfBG4oAK0AwMknfSaPMnP5N7UT8oFRVCqwjGb1XQovi//7KLbPQKZpbofiLGzpDw==
-  dependencies:
-    "@types/google.maps" "^3.53.1"
-
 "@googlemaps/react-wrapper@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@googlemaps/react-wrapper/-/react-wrapper-1.2.0.tgz#4fa99899ba24c34dbadb111c8340333356753a87"
@@ -2986,7 +2979,7 @@
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.16.tgz#8ebe53d69efada7044454e3305c19017d97ced2a"
   integrity sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==
 
-"@types/google.maps@^3.53.1", "@types/google.maps@^3.65.2":
+"@types/google.maps@^3.65.2":
   version "3.65.2"
   resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.65.2.tgz#49444106055b0b759ea85f09dab121ee151374ad"
   integrity sha512-e52bmOhGCQSNabFpL48iQlwJybq6rfns8NUVJ20MR7CdPlHQ2RmSCnPbJfrUYJfogrE4OiHQTZ4LXpop+eer1w==

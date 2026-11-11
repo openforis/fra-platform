@@ -128,12 +128,15 @@ jobs:
         if: always()
         run: docker compose -f src/test/e2e/docker-compose.test.yml down -v
 
-  # passes only when every shard passed
+  # passes only when the dependencies check and every shard passed
   tests-all:
     runs-on: ubuntu-22.04
-    needs: tests
+    needs: [dependencies, tests]
     if: always()
     steps:
+      - name: 'Check dependencies'
+        run: test "${{ needs.dependencies.result }}" = "success"
+
       - name: 'Check shards'
         run: test "${{ needs.tests.result }}" = "success"
 
