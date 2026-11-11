@@ -6,12 +6,12 @@ import { TableSection } from 'meta/assessment/tableSection'
 
 export type MetadataTargets = {
   [ActivityLogMessage.sectionCreate]: Section | SubSection
-  [ActivityLogMessage.sectionDelete]: { deletedSection: Section }
+  [ActivityLogMessage.sectionDelete]: Section
   [ActivityLogMessage.sectionUpdate]: Section | SubSection
   [ActivityLogMessage.tableCreate]: Table
-  [ActivityLogMessage.tableDelete]: { deletedTable: Table }
+  [ActivityLogMessage.tableDelete]: Table
   [ActivityLogMessage.tableSectionCreate]: TableSection
-  [ActivityLogMessage.tableSectionDelete]: { deletedTableSection: TableSection }
+  [ActivityLogMessage.tableSectionDelete]: TableSection
   [ActivityLogMessage.tableSectionUpdate]: TableSection
   [ActivityLogMessage.tableUpdate]: Table
 }
