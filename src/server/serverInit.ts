@@ -1,3 +1,8 @@
+// ------ TEST ------------
+// INTENTIONAL BREAK (will be reverted!!)
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'vitest'
+
 import path from 'path'
 import compression from 'compression'
 import wwwhisper from 'connect-wwwhisper'
