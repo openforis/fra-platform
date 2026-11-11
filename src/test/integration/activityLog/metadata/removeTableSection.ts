@@ -12,12 +12,11 @@ export default (): void => {
 
     await MetadataController.removeTableSection({ assessment, tableSection: activityLogTableSection, user })
 
-    // NB: The target is wrapped: { deletedTableSection }
     await ActivityLogAssertions.expectLastActivityLog({
       assessment,
       message: ActivityLogMessage.tableSectionDelete,
       section: 'tableSection',
-      target: { deletedTableSection: activityLogTableSection },
+      target: activityLogTableSection,
       user,
     })
   })
