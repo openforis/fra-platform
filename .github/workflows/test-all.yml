@@ -12,6 +12,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Fail if production code imports a missing dep (e.g. devDep)
+  dependencies:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: yarn
+
+      - name: 'Dependencies: Install'
+        run: yarn install --frozen-lockfile
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
+
+      - name: 'Dependencies: Check'
+        run: yarn lint:deps
+
   tests:
     runs-on: ubuntu-22.04
     if: always()
@@ -109,12 +128,15 @@ jobs:
         if: always()
         run: docker compose -f src/test/e2e/docker-compose.test.yml down -v
 
-  # passes only when every shard passed
+  # passes only when the dependencies check and every shard passed
   tests-all:
     runs-on: ubuntu-22.04
-    needs: tests
+    needs: [dependencies, tests]
     if: always()
     steps:
+      - name: 'Check dependencies'
+        run: test "${{ needs.dependencies.result }}" = "success"
+
       - name: 'Check shards'
         run: test "${{ needs.tests.result }}" = "success"
 
