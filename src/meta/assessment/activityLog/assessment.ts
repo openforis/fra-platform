@@ -1,3 +1,4 @@
+import { CountryStatus } from 'meta/area/countryStatus'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { ActivityLogTarget } from 'meta/assessment/activityLog/target'
 import { Assessment, AssessmentBase } from 'meta/assessment/assessment'
@@ -8,6 +9,7 @@ export type AssessmentTargets = {
   [ActivityLogMessage.assessmentCycleCreate]: Assessment
   [ActivityLogMessage.assessmentCycleDelete]: Cycle
   [ActivityLogMessage.assessmentCycleRename]: Cycle
+  [ActivityLogMessage.assessmentStatusUpdate]: { status: CountryStatus }
 }
 
 export type ActivityLogAssessmentCreate = ActivityLog<
@@ -28,4 +30,9 @@ export type ActivityLogCycleDelete = ActivityLog<
 export type ActivityLogCycleRename = ActivityLog<
   ActivityLogTarget<ActivityLogMessage.assessmentCycleRename>,
   ActivityLogMessage.assessmentCycleRename
+>
+
+export type ActivityLogAssessmentStatusUpdate = ActivityLog<
+  ActivityLogTarget<ActivityLogMessage.assessmentStatusUpdate>,
+  ActivityLogMessage.assessmentStatusUpdate
 >

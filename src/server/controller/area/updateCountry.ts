@@ -2,6 +2,7 @@ import { Country } from 'meta/area/country'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { checkLinksVerificationGuard } from 'meta/area/countryStatuses/linksVerificationGuard'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogAssessmentStatusUpdate } from 'meta/assessment/activityLog/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -94,7 +95,13 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     if (statusUpdate) {
       const target = { status: country.props.status }
       const message = ActivityLogMessage.assessmentStatusUpdate
-      const activityLog = { target, section: 'assessment', message, countryIso, user }
+      const activityLog: ActivityLogAssessmentStatusUpdate = {
+        target,
+        section: 'assessment',
+        message,
+        countryIso,
+        user,
+      }
       await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
     }
 
