@@ -36,8 +36,9 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
 
     const propsRename = { assessment, cycleSource, cycleTarget }
 
-    // update cache
-    await CacheController.generateMetaCache({}, t)
+    // update caches
+    const assessments = await AssessmentRedisRepository.getAssessmentsList({ force: true }, t)
+    await CacheController.generateMetaCache({ assessments }, t)
     await renameMetadataCache(propsRename, t)
     await renameDataCache(propsRename, t)
     await renameValidations(propsRename, t)
