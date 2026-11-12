@@ -2,6 +2,7 @@ import { vi } from 'vitest'
 
 import { SocketServer } from 'server/service/socket'
 
+import assessment from 'test/integration/activityLog/assessment/assessment'
 import metadata from 'test/integration/activityLog/metadata/metadata'
 import nationalDataPoint from 'test/integration/activityLog/nationalDataPoint/nationalDataPoint'
 
@@ -19,5 +20,6 @@ export default (): void => {
 
     nationalDataPoint()
     metadata()
+    assessment()
   })
 }

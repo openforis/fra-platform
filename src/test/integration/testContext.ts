@@ -1,5 +1,5 @@
 import { Country } from 'meta/area/country'
-import { Assessment } from 'meta/assessment/assessment'
+import { Assessment, AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Section, SubSection } from 'meta/assessment/section'
@@ -14,6 +14,8 @@ type TestContext = {
     cycle: Cycle
     user: User
   }
+  activityLogCycle?: Cycle
+  assessmentCreated?: AssessmentBase
   activityLogSection?: Section
   activityLogSubSection?: SubSection
   activityLogTable?: Table

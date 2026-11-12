@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogAssessmentCreate } from 'meta/assessment/activityLog/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 
@@ -17,7 +18,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<A
     const assessmentBase = await AssessmentRepository.createAssessment({ assessment }, t)
 
     const message = ActivityLogMessage.assessmentCreate
-    const activityLog = { target: assessmentBase, section: 'assessment', message, user }
+    const activityLog: ActivityLogAssessmentCreate = { target: assessmentBase, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment: assessmentBase }, t)
 
     const { name: assessmentName } = assessmentBase.props
