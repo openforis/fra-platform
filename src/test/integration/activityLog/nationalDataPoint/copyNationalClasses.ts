@@ -1,5 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { ODPNationalClassFactory, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
@@ -33,7 +33,7 @@ export default (): void => {
       year: String(nationalDataPoint.year),
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+    await ActivityLogAssertions.expectLastActivityLog({
       ...testContext.activityLog,
       message: ActivityLogMessage.originalDataPointUpdateNationalClasses,
       section: 'odp',

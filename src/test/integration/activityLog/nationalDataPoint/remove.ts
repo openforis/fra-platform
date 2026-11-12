@@ -1,5 +1,4 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 
@@ -19,7 +18,7 @@ export default (): void => {
       user,
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<Pick<OriginalDataPoint, 'uuid' | 'year'>>({
+    await ActivityLogAssertions.expectLastActivityLog({
       ...testContext.activityLog,
       message: ActivityLogMessage.originalDataPointRemove,
       section: 'odp',

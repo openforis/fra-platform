@@ -1,5 +1,4 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { UUIDs } from 'meta/uuid/uuids'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
@@ -21,7 +20,7 @@ export default (): void => {
       user,
     })
 
-    await ActivityLogAssertions.expectLastActivityLog<OriginalDataPoint>({
+    await ActivityLogAssertions.expectLastActivityLog({
       ...testContext.activityLog,
       message: ActivityLogMessage.originalDataPointUpdateDataSources,
       section: 'odp',

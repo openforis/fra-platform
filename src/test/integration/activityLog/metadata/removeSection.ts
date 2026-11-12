@@ -1,5 +1,4 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { Section } from 'meta/assessment/section'
 
 import { MetadataController } from 'server/controller/metadata'
 
@@ -13,7 +12,7 @@ export default (): void => {
 
     await MetadataController.removeSection({ assessment, section: activityLogSection, user })
 
-    await ActivityLogAssertions.expectLastActivityLog<Section>({
+    await ActivityLogAssertions.expectLastActivityLog({
       assessment,
       message: ActivityLogMessage.sectionDelete,
       section: 'section',
