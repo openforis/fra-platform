@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogCycleRename } from 'meta/assessment/activityLog/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -44,7 +45,7 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
     await StaticFiles.renameCycle(propsRename)
     // insert activity log
     const message = ActivityLogMessage.assessmentCycleRename
-    const activityLog = { target: cycleTarget, section: 'assessment', message, user }
+    const activityLog: ActivityLogCycleRename = { target: cycleTarget, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
     return AssessmentRedisRepository.getOneWithCycle({ assessmentName, cycleUuid, force: true }, t)
