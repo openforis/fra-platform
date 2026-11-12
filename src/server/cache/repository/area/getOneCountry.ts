@@ -34,7 +34,10 @@ export const getOneCountry = async (props: Props, client: BaseProtocol = DB): Pr
   const cachedData = await redis.hget(key, countryIso)
 
   if (Objects.isEmpty(cachedData) || force) {
-    const countries = await _cacheCountries({ assessment, cycle, countryIso }, client)
+    const length = await redis.hlen(key)
+    // cache every country when the hash is empty, otherwise refresh only the requested country
+    const countryIsoCache = length === 0 ? undefined : countryIso
+    const countries = await _cacheCountries({ assessment, cycle, countryIso: countryIsoCache }, client)
     return countries[countryIso]
   }
   return JSON.parse(cachedData)
