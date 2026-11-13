@@ -7,6 +7,7 @@ import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { Message } from 'meta/messageCenter/message'
 import { User } from 'meta/user/user'
 
 type TestContext = {
@@ -18,6 +19,7 @@ type TestContext = {
   }
   activityLogContact?: Contact
   activityLogCycle?: Cycle
+  activityLogMessage?: Message
   activityLogRepositoryItem?: RepositoryItem
   assessmentCreated?: AssessmentBase
   activityLogSection?: Section
