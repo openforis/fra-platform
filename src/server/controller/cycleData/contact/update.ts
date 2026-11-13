@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogContactUpdate } from 'meta/assessment/activityLog/contact'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
@@ -26,10 +27,10 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<v
   nodeExt.value.raw = raw
 
   await client.tx(async (t) => {
-    const target = await NodeExtRepository.upsert({ assessment, cycle, countryIso, nodeExt }, t)
+    const target = await NodeExtRepository.upsert<ContactNode>({ assessment, cycle, countryIso, nodeExt }, t)
     const message = ActivityLogMessage.contactUpdate
     const section = SectionNames.contacts
-    const activityLog = { target, section, message, countryIso, user }
+    const activityLog: ActivityLogContactUpdate = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
   })
 }
