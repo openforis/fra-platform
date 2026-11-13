@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import { Links } from 'meta/cycleData/links/links'
+import { Validations } from 'meta/assessment/validation/validations/validations'
 
 import { useDescriptionValidation } from 'client/store/data/validations/descriptions/hooks/descriptions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
@@ -25,6 +25,6 @@ export const useInvalidLinks = (props: Props): Returned => {
   return useMemo<Returned>(() => {
     if (!canEditCycleData || print) return []
 
-    return Links.getInvalidLinks(descriptionValidation)
+    return Validations.getInvalidLinks(descriptionValidation)
   }, [canEditCycleData, descriptionValidation, print])
 }
