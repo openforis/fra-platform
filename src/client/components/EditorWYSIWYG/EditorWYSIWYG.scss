@@ -62,6 +62,10 @@ div.editorWYSIWYG {
     }
   }
 
+  &.invalid-links-only {
+    background-color: unset !important;
+  }
+
   &.disabled {
     .jodit-toolbar__box {
       display: none;
