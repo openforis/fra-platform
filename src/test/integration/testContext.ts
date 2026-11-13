@@ -6,6 +6,7 @@ import { Section, SubSection } from 'meta/assessment/section'
 import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 import { Contact } from 'meta/cycleData/contact/contact'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { User } from 'meta/user/user'
 
 type TestContext = {
@@ -17,6 +18,7 @@ type TestContext = {
   }
   activityLogContact?: Contact
   activityLogCycle?: Cycle
+  activityLogRepositoryItem?: RepositoryItem
   assessmentCreated?: AssessmentBase
   activityLogSection?: Section
   activityLogSubSection?: SubSection

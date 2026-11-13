@@ -1,5 +1,6 @@
 import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogRepositoryItemUpdate } from 'meta/assessment/activityLog/repository'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
@@ -28,7 +29,7 @@ export const update = async (props: Props): Promise<RepositoryItem> => {
 
     const message = ActivityLogMessage.repositoryItemUpdate
     const section = SectionNames.Country.Home.repository
-    const activityLog = { target, section, message, countryIso, user }
+    const activityLog: ActivityLogRepositoryItemUpdate = { target, section, message, countryIso, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
 
