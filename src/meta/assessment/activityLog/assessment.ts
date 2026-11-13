@@ -10,6 +10,7 @@ export type AssessmentTargets = {
   [ActivityLogMessage.assessmentCycleDelete]: Cycle
   [ActivityLogMessage.assessmentCycleRename]: Cycle
   [ActivityLogMessage.assessmentStatusUpdate]: { status: CountryStatus }
+  [ActivityLogMessage.cyclePublish]: Cycle
 }
 
 export type ActivityLogAssessmentCreate = ActivityLog<
@@ -35,4 +36,9 @@ export type ActivityLogCycleRename = ActivityLog<
 export type ActivityLogAssessmentStatusUpdate = ActivityLog<
   ActivityLogTarget<ActivityLogMessage.assessmentStatusUpdate>,
   ActivityLogMessage.assessmentStatusUpdate
+>
+
+export type ActivityLogCyclePublish = ActivityLog<
+  ActivityLogTarget<ActivityLogMessage.cyclePublish>,
+  ActivityLogMessage.cyclePublish
 >
