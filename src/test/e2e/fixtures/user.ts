@@ -23,12 +23,13 @@ type TestUser = TestUserData & {
 
 type UserOptions = {
   userSeed: UserSeed | undefined
+  otherUserSeed: UserSeed | undefined
 }
 
 type UserFixtures = {
   // A new user with the role given in userSeed, logged in on a page of their own
   user: TestUser
-  // A second user invited with the same userSeed
+  // A second user invited with otherUserSeed, or with the same userSeed when it isn't set
   otherUser: TestUser
   userPage: Page
 }
@@ -59,12 +60,13 @@ const _withNewUser = async (props: NewUserProps, provide: (user: TestUser) => Pr
 
 export const test = base.extend<UserOptions & UserFixtures>({
   userSeed: [undefined, { option: true }],
+  otherUserSeed: [undefined, { option: true }],
 
   user: async ({ authenticatedPage, baseURL, browser, userSeed }, use): Promise<void> =>
     _withNewUser({ authenticatedPage, baseURL, browser, userSeed }, use),
 
-  otherUser: async ({ authenticatedPage, baseURL, browser, userSeed }, use): Promise<void> =>
-    _withNewUser({ authenticatedPage, baseURL, browser, userSeed }, use),
+  otherUser: async ({ authenticatedPage, baseURL, browser, otherUserSeed, userSeed }, use): Promise<void> =>
+    _withNewUser({ authenticatedPage, baseURL, browser, userSeed: otherUserSeed ?? userSeed }, use),
 
   userPage: async ({ user }, use): Promise<void> => {
     await use(user.page)

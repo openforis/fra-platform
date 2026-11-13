@@ -45,7 +45,10 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
 
     if (notifyClients && workerResult.nodeUpdates.nodes.length > 0) {
       const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
-      SocketServer.emit(nodeUpdateEvent, { nodeUpdates: workerResult.nodeUpdates })
+      SocketServer.emitToCountryRooms(
+        { countryIso, cycle, eventName: nodeUpdateEvent },
+        { nodeUpdates: workerResult.nodeUpdates }
+      )
     }
 
     Logger.debug(

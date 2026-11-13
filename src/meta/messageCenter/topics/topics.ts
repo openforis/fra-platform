@@ -1,4 +1,4 @@
-import { getChatRecipientId } from 'meta/messageCenter/topics/chat'
+import { getChatRecipientId, getChatUserIds, isChatKey } from 'meta/messageCenter/topics/chat'
 import { getContactKey } from 'meta/messageCenter/topics/contact'
 import { getDataSourceReviewTopicKey } from 'meta/messageCenter/topics/dataSource'
 import { getCommentableDescriptionKey } from 'meta/messageCenter/topics/descriptions'
@@ -12,6 +12,7 @@ import { getDataReviewTopicKey } from 'meta/messageCenter/topics/tableData'
 
 export const Topics = {
   getChatRecipientId,
+  getChatUserIds,
   getCommentableDescriptionKey,
   getContactKey,
   getDataReviewTopicKey,
@@ -21,4 +22,5 @@ export const Topics = {
   getOdpClassReviewTopicKey,
   getOdpReviewTopicKey,
   getOdpReviewTopicKeyPrefix,
+  isChatKey,
 }

@@ -69,8 +69,11 @@ export const remove = async (
     )
 
     const socketProps = { assessmentName, cycleName, countryIso }
-    SocketServer.emit(Sockets.getODPDeleteEvent(socketProps), { countryIso, year: originalDataPoint.year })
-    SocketServer.emit(Sockets.getRequestReviewSummaryEvent(socketProps))
+    SocketServer.emitToCountryRooms(
+      { countryIso, cycle, eventName: Sockets.getODPDeleteEvent(socketProps) },
+      { countryIso, year: originalDataPoint.year }
+    )
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName: Sockets.getRequestReviewSummaryEvent(socketProps) })
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
@@ -89,7 +92,7 @@ export const remove = async (
   })
 
   const eventName = Sockets.getNationalDataPointDeleteEvent({ uuid })
-  SocketServer.emitExcept({ eventName, socketId }, { year: originalDataPoint.year })
+  SocketServer.emitToCountryRooms({ countryIso, cycle, eventName, socketId }, { year: originalDataPoint.year })
 
   await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
 

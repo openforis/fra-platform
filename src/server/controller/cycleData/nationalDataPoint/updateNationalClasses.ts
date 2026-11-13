@@ -48,7 +48,7 @@ export const updateNationalClasses = async (props: Props, client: BaseProtocol =
     return updatedOriginalDataPoint
   })
 
-  notifyNationalDataPointUpdate({ nationalDataPoints: [updatedNationalDataPoint], socketId })
+  notifyNationalDataPointUpdate({ cycle, nationalDataPoints: [updatedNationalDataPoint], socketId })
 
   await DataValidationService.validateNDPNationalClasses({
     assessment,

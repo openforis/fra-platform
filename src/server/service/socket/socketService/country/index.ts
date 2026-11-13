@@ -1,24 +1,26 @@
 import { Country as CountryType } from 'meta/area/country'
-import { AssessmentName } from 'meta/assessment/assessment'
-import { CycleName } from 'meta/assessment/cycle'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Sockets } from 'meta/socket/sockets'
 
-import { SocketServer } from '../../socketServer/socketServer'
+import { SocketServer } from '../../socketServer'
 
 type props = {
-  assessmentName: AssessmentName
-  cycleName: CycleName
+  assessment: Assessment
+  cycle: Cycle
   country: CountryType
   notifyClient?: boolean
 }
 
 const notifyUpdate = (props: props): void => {
-  const { assessmentName, country, cycleName, notifyClient = true } = props
+  const { assessment, country, cycle, notifyClient = true } = props
   const { countryIso } = country
 
   if (notifyClient) {
+    const assessmentName = assessment.props.name
+    const cycleName = cycle.name
     const eventName = Sockets.getCountryUpdateEvent({ assessmentName, cycleName, countryIso })
-    SocketServer.emit(eventName, { country })
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName }, { country })
   }
 }
 
