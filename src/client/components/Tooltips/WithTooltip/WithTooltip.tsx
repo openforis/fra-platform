@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, PropsWithChildren, useRef } from 'react'
+import React, { forwardRef, HTMLAttributes, PropsWithChildren, useRef } from 'react'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import classNames from 'classnames'
 
@@ -14,14 +14,21 @@ type Props = PropsWithChildren<
   }
 >
 
-const WithTooltip: React.FC<Props> = (props) => {
+const WithTooltip = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
   const { children, className, dataTestId, id, style, tooltip = {} } = props
   const { content, type = TooltipType.info } = tooltip
 
   const tooltipId = useRef<string>(UUIDs.getUuid())
 
   return (
-    <div className={className} data-testid={dataTestId} data-tooltip-id={tooltipId.current} id={id} style={style}>
+    <div
+      ref={outerRef}
+      className={className}
+      data-testid={dataTestId}
+      data-tooltip-id={tooltipId.current}
+      id={id}
+      style={style}
+    >
       {children}
 
       {!Objects.isEmpty(content) && (
@@ -38,6 +45,6 @@ const WithTooltip: React.FC<Props> = (props) => {
       )}
     </div>
   )
-}
+})
 
 export default WithTooltip

@@ -21,6 +21,11 @@ div.editorWYSIWYG {
     @extend .link;
     @extend .color-blue;
     display: inline;
+
+    &::highlight(editor-invalid-link),
+    *::highlight(editor-invalid-link) {
+      color: $ui-destructive;
+    }
   }
 
   div.jodit-react-container,
