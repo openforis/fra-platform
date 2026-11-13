@@ -8,6 +8,7 @@ import contact from 'test/integration/activityLog/contact/contact'
 import country from 'test/integration/activityLog/country/country'
 import metadata from 'test/integration/activityLog/metadata/metadata'
 import nationalDataPoint from 'test/integration/activityLog/nationalDataPoint/nationalDataPoint'
+import repository from 'test/integration/activityLog/repository/repository'
 
 export default (): void => {
   describe('Activity log', () => {
@@ -28,6 +29,7 @@ export default (): void => {
     metadata()
     assessment()
     contact()
+    repository()
     country()
   })
 }
