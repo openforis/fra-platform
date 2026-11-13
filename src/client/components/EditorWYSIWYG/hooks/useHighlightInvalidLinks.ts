@@ -7,20 +7,19 @@ import { HighlightName } from 'client/components/EditorWYSIWYG/highlights/highli
 
 type Props = {
   containerRef: RefObject<HTMLDivElement>
-  highlightName: HighlightName
-  links?: Array<string>
+  invalidLinks?: Array<string>
 }
 
-export const useHighlightLinks = (props: Props): void => {
-  const { containerRef, highlightName, links } = props
+export const useHighlightInvalidLinks = (props: Props): void => {
+  const { containerRef, invalidLinks } = props
 
   useEffect(() => {
     const container = containerRef.current
-    const highlight = getHighlight(highlightName)
-    const canHighlight = !Objects.isNil(container) && !Objects.isNil(highlight) && !Objects.isEmpty(links)
+    const highlight = getHighlight(HighlightName.invalidLink)
+    const canHighlight = !Objects.isNil(container) && !Objects.isNil(highlight) && !Objects.isEmpty(invalidLinks)
     if (!canHighlight) return (): void => undefined
 
-    const hrefs = new Set<string>(links)
+    const hrefs = new Set<string>(invalidLinks)
     const ranges = new Set<Range>()
 
     const removeRanges = (): void => {
@@ -53,5 +52,5 @@ export const useHighlightLinks = (props: Props): void => {
       observer.disconnect()
       removeRanges()
     }
-  }, [containerRef, highlightName, links])
+  }, [containerRef, invalidLinks])
 }

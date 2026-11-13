@@ -3,12 +3,11 @@ import classNames from 'classnames'
 import JoditEditor from 'jodit-react'
 
 import AddFromRepository from 'client/components/EditorWYSIWYG/AddFromRepository'
-import { HighlightName } from 'client/components/EditorWYSIWYG/highlights/highlightName'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 import WithTooltip from 'client/components/Tooltips/WithTooltip'
 
 import { useConfigs } from './hooks/useConfigs'
-import { useHighlightLinks } from './hooks/useHighlightLinks'
+import { useHighlightInvalidLinks } from './hooks/useHighlightInvalidLinks'
 import { useOnBlur } from './hooks/useOnBlur'
 import { useValidationTooltip } from './hooks/useValidationTooltip'
 
@@ -43,7 +42,8 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
   const { configs } = useConfigs({ onlyLinks, options, repository })
   const onBlur = useOnBlur({ onChange, value })
   const { hasValidationErrors, tooltip } = useValidationTooltip({ validationErrors })
-  useHighlightLinks({ containerRef, highlightName: HighlightName.invalidLink, links: invalidLinks })
+  useHighlightInvalidLinks({ containerRef, invalidLinks })
+  const invalidLinksOnly = hasValidationErrors && validationErrors.length === invalidLinks?.length
 
   return (
     <>
@@ -52,7 +52,7 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
         className={classNames(
           'editorWYSIWYG',
           { disabled, [className]: className },
-          { 'validation-error': hasValidationErrors }
+          { 'invalid-links-only': invalidLinksOnly, 'validation-error': hasValidationErrors }
         )}
         id={id}
         tooltip={tooltip}
