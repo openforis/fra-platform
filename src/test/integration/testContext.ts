@@ -5,6 +5,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Section, SubSection } from 'meta/assessment/section'
 import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
+import { Contact } from 'meta/cycleData/contact/contact'
 import { User } from 'meta/user/user'
 
 type TestContext = {
@@ -14,6 +15,7 @@ type TestContext = {
     cycle: Cycle
     user: User
   }
+  activityLogContact?: Contact
   activityLogCycle?: Cycle
   assessmentCreated?: AssessmentBase
   activityLogSection?: Section

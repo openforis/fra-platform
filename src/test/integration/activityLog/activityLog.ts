@@ -4,6 +4,7 @@ import { FileStorage } from 'server/service/fileStorage/fileStorage'
 import { SocketServer } from 'server/service/socket'
 
 import assessment from 'test/integration/activityLog/assessment/assessment'
+import contact from 'test/integration/activityLog/contact/contact'
 import country from 'test/integration/activityLog/country/country'
 import metadata from 'test/integration/activityLog/metadata/metadata'
 import nationalDataPoint from 'test/integration/activityLog/nationalDataPoint/nationalDataPoint'
@@ -26,6 +27,7 @@ export default (): void => {
     nationalDataPoint()
     metadata()
     assessment()
+    contact()
     country()
   })
 }

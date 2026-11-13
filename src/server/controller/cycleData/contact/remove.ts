@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogContactDelete } from 'meta/assessment/activityLog/contact'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/assessment/section'
@@ -28,7 +29,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<v
 
     const message = ActivityLogMessage.contactDelete
     const section = SectionNames.contacts
-    const activityLog = { target, section, message, countryIso, user }
+    const activityLog: ActivityLogContactDelete = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
   })
 }
