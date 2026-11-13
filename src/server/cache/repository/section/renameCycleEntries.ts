@@ -23,20 +23,8 @@ export const renameCycleEntries = async (props: Props): Promise<void> => {
   const sectionsMetadataKey = getKeyCycle({ assessment, cycle: cycleSource, key: Keys.Section.sectionsMetadata })
   const sectionsMetadataKeyNew = getKeyCycle({ assessment, cycle: cycleTarget, key: Keys.Section.sectionsMetadata })
 
-  const keys: Array<[string, string]> = [
-    [sectionsKey, sectionsKeyNew],
-    [sectionIndexKey, sectionIndexKeyNew],
-    [subSectionIndexKey, subSectionIndexKeyNew],
-    [sectionsMetadataKey, sectionsMetadataKeyNew],
-  ]
-
-  await Promise.all(
-    keys.map(async ([key, keyNew]) => {
-      // rename only if exists
-      const exists = await redis.exists(key)
-      if (exists === 0) return
-
-      await redis.rename(key, keyNew)
-    })
-  )
+  await redis.rename(sectionsKey, sectionsKeyNew)
+  await redis.rename(sectionIndexKey, sectionIndexKeyNew)
+  await redis.rename(subSectionIndexKey, subSectionIndexKeyNew)
+  await redis.rename(sectionsMetadataKey, sectionsMetadataKeyNew)
 }

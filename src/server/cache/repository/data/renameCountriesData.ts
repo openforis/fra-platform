@@ -20,10 +20,6 @@ export const renameCountriesData = async (props: PropsCache): Promise<void> => {
   await Promise.all(
     countryISOs.map(async (countryIso) => {
       const key = getKeyCountry({ assessment, cycle: cycleSource, countryIso, key: Keys.Data.data })
-
-      const exists = await redis.exists(key)
-      if (exists === 0) return
-
       const keyNew = getKeyCountry({ assessment, cycle: cycleTarget, countryIso, key: Keys.Data.data })
       await redis.rename(key, keyNew)
     })
