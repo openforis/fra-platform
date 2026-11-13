@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogTopicStatusChange } from 'meta/assessment/activityLog/messageCenter'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter/messageTopic'
@@ -29,7 +30,7 @@ export const updateTopicStatus = async (props: Props, client: BaseProtocol = DB)
     )
 
     const message = ActivityLogMessage.topicStatusChange
-    const activityLog = { target, section: sectionName, message, countryIso, user }
+    const activityLog: ActivityLogTopicStatusChange = { target, section: sectionName, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     return target

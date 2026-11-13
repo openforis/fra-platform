@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessageMarkDeleted } from 'meta/assessment/activityLog/messageCenter'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -25,7 +26,7 @@ export const markMessageDeleted = async (props: Props, client: BaseProtocol = DB
 
     const message = ActivityLogMessage.messageMarkDeleted
     const target = { id, topicUuid }
-    const activityLog = { target, section: sectionName, message, countryIso, user }
+    const activityLog: ActivityLogMessageMarkDeleted = { target, section: sectionName, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
   })
 }
