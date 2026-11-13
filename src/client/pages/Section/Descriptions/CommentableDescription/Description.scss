@@ -10,7 +10,8 @@
 }
 
 .description__editor-container:not(.editable) {
-  div.editorWYSIWYG:not(.validation-error) {
+  div.editorWYSIWYG:not(.validation-error),
+  div.editorWYSIWYG.invalid-links-only {
     div.jodit-wysiwyg {
       padding: unset;
     }
