@@ -4,6 +4,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Promises } from 'utils/promises'
 
 import { DOMUtils } from '../dom'
+import { getHighlightedInvalidLinks } from './getHighlightedInvalidLinks'
 
 const getDescriptionBlock = (page: Page, title: string): Locator =>
   page
@@ -78,6 +79,7 @@ export const DescriptionUtils = {
   getDescriptionEditor,
   getDescriptionToggleEditButton,
   getDescriptionValidationError,
+  getHighlightedInvalidLinks,
   pasteIntoEditorWysiwyg,
   pasteIntoEditorWysiwygLinksOnly,
   save,
