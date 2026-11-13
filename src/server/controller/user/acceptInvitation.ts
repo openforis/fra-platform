@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogInvitationAccept } from 'meta/assessment/activityLog/user'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { UserInvitation } from 'meta/user/invitation'
@@ -61,7 +62,13 @@ export const acceptInvitation = async (props: Props, client: BaseProtocol = DB):
     user.status = UserStatus.active
 
     const target = { userUuid, user: user.props.name, role }
-    const activityLog = { target, section: 'users', message: ActivityLogMessage.invitationAccept, countryIso, user }
+    const activityLog: ActivityLogInvitationAccept = {
+      target,
+      section: 'users',
+      message: ActivityLogMessage.invitationAccept,
+      countryIso,
+      user,
+    }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     if (!Objects.isEmpty(userInvitation.invitedByUserUuid)) {

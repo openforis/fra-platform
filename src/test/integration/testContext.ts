@@ -8,6 +8,7 @@ import { TableSection } from 'meta/assessment/tableSection'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { Message } from 'meta/messageCenter/message'
+import { UserInvitation } from 'meta/user/invitation'
 import { User } from 'meta/user/user'
 
 type TestContext = {
@@ -19,6 +20,7 @@ type TestContext = {
   }
   activityLogContact?: Contact
   activityLogCycle?: Cycle
+  activityLogInvitedUser?: User
   activityLogMessage?: Message
   activityLogRepositoryItem?: RepositoryItem
   assessmentCreated?: AssessmentBase
@@ -26,6 +28,7 @@ type TestContext = {
   activityLogSubSection?: SubSection
   activityLogTable?: Table
   activityLogTableSection?: TableSection
+  activityLogUserInvitation?: UserInvitation
   nationalDataPoint?: OriginalDataPoint
   section?: Section
   tableSection?: TableSection
