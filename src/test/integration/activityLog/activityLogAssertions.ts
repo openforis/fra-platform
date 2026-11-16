@@ -10,7 +10,7 @@ import { getLastActivityLog } from 'test/integration/activityLog/getLastActivity
 type TestedMessage = keyof ActivityLogTargets
 
 type ExpectLastActivityLogProps<Message extends TestedMessage> = {
-  assessment: Assessment
+  assessment?: Assessment
   country?: Country
   cycle?: Cycle
   message: Message
@@ -25,10 +25,16 @@ const expectLastActivityLog = async <Message extends TestedMessage>(
   const { assessment, country, cycle, message, section, target, user } = props
   const countryIso = country?.countryIso ?? null
 
-  const activityLog = await getLastActivityLog<ActivityLogTargets[Message]>({ assessment, countryIso, cycle, message })
+  const activityLog = await getLastActivityLog<ActivityLogTargets[Message]>({
+    assessment,
+    countryIso,
+    cycle,
+    message,
+    userId: user.id,
+  })
 
   expect(activityLog).toMatchObject({
-    assessmentUuid: assessment.uuid,
+    assessmentUuid: assessment?.uuid ?? null,
     countryIso,
     cycleUuid: cycle?.uuid ?? null,
     message,
