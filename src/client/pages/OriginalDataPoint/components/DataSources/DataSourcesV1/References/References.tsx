@@ -10,6 +10,7 @@ import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/O
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
 import { useActions } from './hooks/useActions'
+import { useInvalidLinks } from './hooks/useInvalidLinks'
 import { useOnChange } from './hooks/useOnChange'
 import { useValidationErrors } from './hooks/useValidationErrors'
 
@@ -26,6 +27,7 @@ const References: React.FC<Props> = (props: Props) => {
   const disabled = useIsDisabled()
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors({ originalDataPoint })
+  const invalidLinks = useInvalidLinks({ originalDataPoint })
   const onChange = useOnChange({ originalDataPoint })
   const actions = useActions({ originalDataPoint })
 
@@ -42,6 +44,7 @@ const References: React.FC<Props> = (props: Props) => {
         ) : (
           <EditorWYSIWYGLinks
             disabled={disabled}
+            invalidLinks={invalidLinks}
             onChange={onChange}
             repository
             validationErrors={validationErrors}
