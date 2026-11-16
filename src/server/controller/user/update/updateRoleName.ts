@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUserRoleUpdateRole } from 'meta/assessment/activityLog/user'
 import { Authorizer } from 'meta/auth/authorizer'
 import { RoleName } from 'meta/user/role/name'
 import { UserRoleExtended } from 'meta/user/role/role'
@@ -32,7 +33,7 @@ export const updateRoleName = async (props: UpdateRoleProps, client: BaseProtoco
   // activity log
   const target = { roles: [updatedRole], userUuid: targetUser.uuid }
   const message = ActivityLogMessage.userRoleUpdateRole
-  const activityLog = { target, section: 'users', message, user }
+  const activityLog: ActivityLogUserRoleUpdateRole = { target, section: 'users', message, user }
 
   await ActivityLogRepository.insertActivityLog({ assessment, cycle, activityLog }, client)
 
