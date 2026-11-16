@@ -1,6 +1,8 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentTargets } from 'meta/assessment/activityLog/assessment'
 import { ContactTargets } from 'meta/assessment/activityLog/contact'
+import { FileTargets } from 'meta/assessment/activityLog/file'
+import { LinksTargets } from 'meta/assessment/activityLog/links'
 import { MessageCenterTargets } from 'meta/assessment/activityLog/messageCenter'
 import { MetadataTargets } from 'meta/assessment/activityLog/metadata'
 import { NationalDataPointTargets } from 'meta/assessment/activityLog/nationalDataPoint'
@@ -14,7 +16,9 @@ export type ActivityLogTargets = NationalDataPointTargets &
   ContactTargets &
   RepositoryTargets &
   MessageCenterTargets &
-  UserTargets
+  UserTargets &
+  FileTargets &
+  LinksTargets
 
 // Messages not mapped yet have an unknown target
 export type ActivityLogTarget<Message extends ActivityLogMessage> = Message extends keyof ActivityLogTargets
