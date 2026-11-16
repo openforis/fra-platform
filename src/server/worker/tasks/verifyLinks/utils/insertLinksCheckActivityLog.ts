@@ -29,7 +29,8 @@ export const insertLinksCheckActivityLog = async (props: Props, client: BaseProt
 
   const message = messageByStatus[status]
   const section = SectionNames.Admin.links
-  const target = { error, jobStatus: status }
+  // Error serializes to {} in jsonb, log it as text
+  const target = { error: error ? String(error) : undefined, jobStatus: status }
   const activityLog: ActivityLogLinksCheck = { countryIso, message, section, target, user }
   await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, client)
 }

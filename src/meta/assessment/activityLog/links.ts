@@ -2,7 +2,7 @@ import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 
 export type LinksCheckStatus = 'started' | 'completed' | 'failed'
 
-type LinksCheckTarget = { error?: unknown; jobStatus: LinksCheckStatus }
+type LinksCheckTarget = { error?: string; jobStatus: LinksCheckStatus }
 
 export type LinksTargets = {
   [ActivityLogMessage.linksCheckComplete]: LinksCheckTarget

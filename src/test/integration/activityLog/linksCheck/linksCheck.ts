@@ -3,6 +3,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 
 import linksCheckComplete from 'test/integration/activityLog/linksCheck/linksCheckComplete'
+import linksCheckFail from 'test/integration/activityLog/linksCheck/linksCheckFail'
 import linksCheckStart from 'test/integration/activityLog/linksCheck/linksCheckStart'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { nationalDataPointCountryIso } from 'test/integration/mock/nationalDataPoint'
@@ -24,5 +25,6 @@ export default (): void => {
 
     linksCheckStart()
     linksCheckComplete()
+    linksCheckFail()
   })
 }
