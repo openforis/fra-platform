@@ -2,6 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { ActivityLogTarget } from 'meta/assessment/activityLog/target'
 import { UserInvitation } from 'meta/user/invitation'
+import { UserResetPassword } from 'meta/user/resetPassword'
 import { RoleName } from 'meta/user/role/name'
 import { UserRole, UserRoleExtended } from 'meta/user/role/role'
 import { User, UserProps } from 'meta/user/user'
@@ -27,6 +28,9 @@ export type UserTargets = {
     user: string
     userUuid: User['uuid']
   }
+  [ActivityLogMessage.userPasswordChange]: { email: User['email']; usersResetPasswordUuid: UserResetPassword['uuid'] }
+  [ActivityLogMessage.userRemove]: { user: Omit<User, 'roles'> }
+  [ActivityLogMessage.usersMerge]: { userKept: User; userRemoved: Omit<User, 'roles'> }
 }
 
 export type ActivityLogInvitationAccept = ActivityLog<
@@ -72,4 +76,19 @@ export type ActivityLogUserRoleUpdateProps = ActivityLog<
 export type ActivityLogUserRoleUpdateRole = ActivityLog<
   ActivityLogTarget<ActivityLogMessage.userRoleUpdateRole>,
   ActivityLogMessage.userRoleUpdateRole
+>
+
+export type ActivityLogUserPasswordChange = ActivityLog<
+  ActivityLogTarget<ActivityLogMessage.userPasswordChange>,
+  ActivityLogMessage.userPasswordChange
+>
+
+export type ActivityLogUserRemove = ActivityLog<
+  ActivityLogTarget<ActivityLogMessage.userRemove>,
+  ActivityLogMessage.userRemove
+>
+
+export type ActivityLogUsersMerge = ActivityLog<
+  ActivityLogTarget<ActivityLogMessage.usersMerge>,
+  ActivityLogMessage.usersMerge
 >

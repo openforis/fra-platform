@@ -11,6 +11,7 @@ import metadata from 'test/integration/activityLog/metadata/metadata'
 import nationalDataPoint from 'test/integration/activityLog/nationalDataPoint/nationalDataPoint'
 import repository from 'test/integration/activityLog/repository/repository'
 import user from 'test/integration/activityLog/user/user'
+import userAccount from 'test/integration/activityLog/userAccount/userAccount'
 import userRole from 'test/integration/activityLog/userRole/userRole'
 
 export default (): void => {
@@ -36,6 +37,7 @@ export default (): void => {
     messageCenter()
     user()
     userRole()
+    userAccount()
     country()
   })
 }
