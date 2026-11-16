@@ -4,6 +4,7 @@ import { TableNames } from 'meta/assessment/table'
 import { NdpApi } from 'test/e2e/api/ndp'
 import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
+import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
@@ -42,12 +43,16 @@ test.describe('National data point: metadata - fix links', () => {
     await DOMUtils.ensureEditingUnlocked(page)
 
     // ==== 1a comments: the links worker flags the invalid links, then clears them once replaced
-    await NDPDomUtils.fillComments(page, extentOfForestInvalidLinks.html)
+    await NDPDomUtils.fillComments(page, `${extentOfForestInvalidLinks.html}<br>${extentOfForestValidLink.html}`)
     const extentOfForestValidationError = NDPDomUtils.getCommentsValidationError(page)
     await expect(extentOfForestValidationError).toBeVisible({ timeout: Timeouts.extraLong })
+    await expect
+      .poll(() => DescriptionUtils.getHighlightedInvalidLinks(page))
+      .toEqual([extentOfForestInvalidLinks.emptyLinkText, extentOfForestInvalidLinks.brokenLinkText])
 
     await NDPDomUtils.fillComments(page, extentOfForestValidLink.html)
     await expect(extentOfForestValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
+    await expect.poll(() => DescriptionUtils.getHighlightedInvalidLinks(page)).toEqual([])
 
     // ==== 1b comments: same clearing on the forestCharacteristics link field
     await NDPDomUtils.switchSection(page, {
@@ -86,12 +91,16 @@ test.describe('National data point: metadata - fix links', () => {
     await page.goto(ndp1aPath)
     await DOMUtils.ensureEditingUnlocked(page)
 
-    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
+    await NDPDomUtils.fillDataSourcesV1Reference(page, `${referenceInvalidLinks.html}<br>${referenceValidLink.html}`)
     const referenceValidationError = NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)
     await expect(referenceValidationError).toBeVisible({ timeout: Timeouts.extraLong })
+    await expect
+      .poll(() => DescriptionUtils.getHighlightedInvalidLinks(page))
+      .toEqual([referenceInvalidLinks.emptyLinkText, referenceInvalidLinks.brokenLinkText])
 
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
     await expect(referenceValidationError).not.toBeVisible({ timeout: Timeouts.extraLong })
+    await expect.poll(() => DescriptionUtils.getHighlightedInvalidLinks(page)).toEqual([])
 
     // ==== valid links aren't stored, so after a reload the fixed reference is missing from the stored validations
     const storedValidations = NdpApi.waitForValidations(page)
