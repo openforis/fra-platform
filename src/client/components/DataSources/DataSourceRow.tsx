@@ -30,13 +30,25 @@ const Components: Record<DataSourceEditableField, React.FC<PropsDataSourceCompon
 
 type Props = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange' | 'onDelete' | 'options'> & {
   dataSource: DataSource
+  invalidLinks?: Array<string>
   lastRow: boolean
   readOnly?: boolean
   validationErrors?: DataSourceValidationErrors
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { columns, dataSource, lastRow, meta, onChange, onDelete, options, readOnly, validationErrors = {} } = props
+  const {
+    columns,
+    dataSource,
+    invalidLinks,
+    lastRow,
+    meta,
+    onChange,
+    onDelete,
+    options,
+    readOnly,
+    validationErrors = {},
+  } = props
   const { canEdit } = options
   const disabled = !canEdit || readOnly
 
@@ -49,8 +61,10 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       {componentsOrder.map((componentKey) => {
         const Component = Components[componentKey]
         const tooltip = getErrorTooltip(componentKey)
-        // The Reference component renders an editor WYSIWYG, which receives validation errors.
-        const referenceValidationErrors = componentKey === 'reference' ? validationErrors.reference : undefined
+        // The Reference component renders an editor WYSIWYG, which receives validation errors and invalid links.
+        const isReference = componentKey === 'reference'
+        const referenceInvalidLinks = isReference ? invalidLinks : undefined
+        const referenceValidationErrors = isReference ? validationErrors.reference : undefined
 
         return (
           <DataCell
@@ -66,6 +80,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
               columns={columns}
               dataSource={dataSource}
               disabled={disabled}
+              invalidLinks={referenceInvalidLinks}
               meta={meta}
               onChange={onChange}
               validationErrors={referenceValidationErrors}
