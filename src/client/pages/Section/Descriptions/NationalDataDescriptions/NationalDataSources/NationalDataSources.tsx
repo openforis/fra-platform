@@ -18,6 +18,7 @@ import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
+import { useInvalidLinks } from './hooks/useInvalidLinks'
 import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -43,6 +44,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
   const onChange = useOnChange({ sectionName })
   const onDelete = useOnDelete({ sectionName })
   const validationErrors = useValidationErrors({ sectionName })
+  const invalidLinks = useInvalidLinks({ sectionName })
 
   const { dataSources } = data
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
@@ -77,6 +79,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
         data={data}
         dataSourcesLinked={dataSourcesLinked}
         historyCompares={historyCompares}
+        invalidLinks={invalidLinks}
         meta={meta}
         onAdd={onAdd}
         onChange={onChange}

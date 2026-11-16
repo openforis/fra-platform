@@ -82,7 +82,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   <DataSourceRow
                     columns={columns}
                     dataSource={dataSource.data}
-                    invalidLinks={invalidLinks?.dataSources?.[dataSource.data.uuid]}
+                    invalidLinks={invalidLinks?.[dataSource.data.uuid]}
                     lastRow={i === dataSourcesLinked.length - 1}
                     meta={dataSource.meta}
                     onChange={onChange}
@@ -113,7 +113,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
                   columns={columns}
                   dataSource={dataSourceValue}
-                  invalidLinks={invalidLinks?.dataSources?.[dataSourceValue.uuid]}
+                  invalidLinks={invalidLinks?.[dataSourceValue.uuid]}
                   lastRow={i === dataSources.length - 1}
                   meta={meta}
                   onChange={onChange}
@@ -134,7 +134,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
             <div className="data-sources__readOnlyText">
               <h5>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</h5>
               <div className="description__editor-container">
-                <EditorWYSIWYG disabled invalidLinks={invalidLinks?.text} onChange={(): object => ({})} value={text} />
+                <EditorWYSIWYG disabled onChange={(): object => ({})} value={text} />
               </div>
             </div>
           )}

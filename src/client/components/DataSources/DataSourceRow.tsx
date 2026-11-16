@@ -61,7 +61,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
       {componentsOrder.map((componentKey) => {
         const Component = Components[componentKey]
         const tooltip = getErrorTooltip(componentKey)
-        // The Reference component renders an editor WYSIWYG, which receives validation errors and invalid links.
+        // The Reference component renders an editor WYSIWYG, which receives validation errors.
         const isReference = componentKey === 'reference'
         const referenceInvalidLinks = isReference ? invalidLinks : undefined
         const referenceValidationErrors = isReference ? validationErrors.reference : undefined

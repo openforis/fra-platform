@@ -20,10 +20,7 @@ export type DataSourceOnChange = (
 
 export type DataSourceOnDelete = (dataSource: DataSource) => void
 
-export type DataSourcesInvalidLinks = {
-  dataSources?: Record<UUID, Array<string>>
-  text?: Array<string>
-}
+export type DataSourcesInvalidLinks = Record<UUID, Array<string>>
 
 export type PropsDataSources = {
   columns: {
