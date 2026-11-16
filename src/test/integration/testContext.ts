@@ -7,6 +7,7 @@ import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { FileSummary } from 'meta/file/file'
 import { Message } from 'meta/messageCenter/message'
 import { UserInvitation } from 'meta/user/invitation'
 import { User } from 'meta/user/user'
@@ -20,6 +21,7 @@ type TestContext = {
   }
   activityLogContact?: Contact
   activityLogCycle?: Cycle
+  activityLogFile?: FileSummary
   activityLogInvitedUser?: User
   activityLogMessage?: Message
   activityLogRepositoryItem?: RepositoryItem

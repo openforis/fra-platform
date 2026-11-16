@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogFileCreate } from 'meta/assessment/activityLog/file'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { FileSummary } from 'meta/file/file'
@@ -31,7 +32,7 @@ export const createMany = async (props: Props, client: BaseProtocol = DB): Promi
 
         const target = { fileName, uuid }
         const message = ActivityLogMessage.fileCreate
-        const activityLog = { target, section: 'assessment', message, user }
+        const activityLog: ActivityLogFileCreate = { target, section: 'assessment', message, user }
         const activityLogParams = { activityLog, assessment, cycle }
         await ActivityLogRepository.insertActivityLog(activityLogParams, t)
 

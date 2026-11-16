@@ -6,6 +6,8 @@ import { SocketServer } from 'server/service/socket'
 import assessment from 'test/integration/activityLog/assessment/assessment'
 import contact from 'test/integration/activityLog/contact/contact'
 import country from 'test/integration/activityLog/country/country'
+import file from 'test/integration/activityLog/file/file'
+import linksCheck from 'test/integration/activityLog/linksCheck/linksCheck'
 import messageCenter from 'test/integration/activityLog/messageCenter/messageCenter'
 import metadata from 'test/integration/activityLog/metadata/metadata'
 import nationalDataPoint from 'test/integration/activityLog/nationalDataPoint/nationalDataPoint'
@@ -23,6 +25,7 @@ export default (): void => {
       // Mock file storage (S3)
       vi.spyOn(FileStorage.Directory, 'copy').mockResolvedValue(undefined)
       vi.spyOn(FileStorage.Directory, 'remove').mockResolvedValue(undefined)
+      vi.spyOn(FileStorage.File, 'upload').mockResolvedValue(undefined)
     })
 
     afterAll(() => {
@@ -38,6 +41,8 @@ export default (): void => {
     user()
     userRole()
     userAccount()
+    file()
+    linksCheck()
     country()
   })
 }
