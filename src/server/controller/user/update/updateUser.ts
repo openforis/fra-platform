@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUserUpdate } from 'meta/assessment/activityLog/user'
 import { Authorizer } from 'meta/auth/authorizer'
 import { UserEditCountryForm, UserForm } from 'meta/form/userEdit/form'
 import { User, UserStatus } from 'meta/user/user'
@@ -64,8 +65,8 @@ export const updateUser = async (props: Props, client: BaseProtocol): Promise<Us
 
   const target = { user: userNoRoles }
   const message = ActivityLogMessage.userUpdate
-  const params = { activityLog: { target, section: 'users', message, user } }
-  await ActivityLogRepository.insertActivityLog(params, client)
+  const activityLog: ActivityLogUserUpdate = { target, section: 'users', message, user }
+  await ActivityLogRepository.insertActivityLog({ activityLog }, client)
 
   return updatedUser
 }

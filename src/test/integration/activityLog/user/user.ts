@@ -5,6 +5,7 @@ import { UserController } from 'server/controller/user'
 import acceptInvitation from 'test/integration/activityLog/user/acceptInvitation'
 import invite from 'test/integration/activityLog/user/invite'
 import removeInvitation from 'test/integration/activityLog/user/removeInvitation'
+import updateUser from 'test/integration/activityLog/user/updateUser'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { nationalDataPointCountryIso } from 'test/integration/mock/nationalDataPoint'
 import { userMockTest, userMockUnknown } from 'test/integration/mock/user'
@@ -32,5 +33,6 @@ export default (): void => {
     removeInvitation()
     invite()
     acceptInvitation()
+    updateUser()
   })
 }
