@@ -9,5 +9,8 @@ import { isNil } from 'utils/objects/isNil'
 export const isEmpty = <T>(value: T): boolean =>
   isNil(value) ||
   Number.isNaN(value) ||
-  (typeof value === 'object' && Object.keys(value).length === 0) ||
+  // a Date has no own keys: it is empty only when invalid
+  (value instanceof Date
+    ? Number.isNaN(value.getTime())
+    : typeof value === 'object' && Object.keys(value).length === 0) ||
   (typeof value === 'string' && value.trim().length === 0)

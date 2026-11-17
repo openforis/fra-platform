@@ -18,6 +18,8 @@ const tests: Array<{ empty: boolean; value: any }> = [
   { empty: false, value: [undefined] },
   { empty: false, value: [null] },
   { empty: false, value: [undefined, null] },
+  { empty: false, value: new Date('2023-08-17 09:44:56.06838+00') },
+  { empty: true, value: new Date('x') },
 ]
 
 describe('isEmpty', () => {

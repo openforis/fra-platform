@@ -24,7 +24,7 @@ export const getInfo = async (
   const lastAccepted = country.lastInAccepted as unknown as Date // server side is a Date object
   const prevCycle = cycle.cycleUuidSource ? Cycles.getPreviousCycle({ assessment, cycle }) : undefined
 
-  if (!Objects.isNil(lastAccepted) || !Objects.isEmpty(prevCycle)) {
+  if (!Objects.isEmpty(lastAccepted) || !Objects.isEmpty(prevCycle)) {
     return { lastAccepted, prevCycle }
   }
 
