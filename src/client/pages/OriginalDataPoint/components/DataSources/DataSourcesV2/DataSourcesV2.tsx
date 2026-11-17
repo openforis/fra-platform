@@ -8,6 +8,7 @@ import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
+import { useInvalidLinks } from './hooks/useInvalidLinks'
 import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -30,12 +31,14 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const historyCompares = useDataSourcesHistoryLastApproved({ dataSources })
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors()
+  const invalidLinks = useInvalidLinks()
 
   return (
     <DataSources
       columns={{ type: { isMulti: true, options } }}
       data={{ dataSources }}
       historyCompares={historyCompares}
+      invalidLinks={invalidLinks}
       onAdd={onAdd}
       onChange={onChange}
       onDelete={onDelete}
