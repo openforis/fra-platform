@@ -1,4 +1,3 @@
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { User } from 'meta/user/user'
 
 export enum ActivityLogMessage {
@@ -71,8 +70,3 @@ export interface ActivityLog<Target, Message extends ActivityLogMessage = Activi
   time?: string
   user: User
 }
-
-export type ActivityLogDescription = ActivityLog<{
-  name: CommentableDescriptionName
-  description: { value: CommentableDescriptionValue }
-}>

@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogDescriptionUpdate } from 'meta/assessment/activityLog/description'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import {
@@ -35,9 +36,9 @@ export const saveDescription = async (props: Props, client: BaseProtocol = DB): 
       t
     )
 
-    const target = { name, description: description.value }
+    const target = { name, description: { value: description.value } }
     const message = ActivityLogMessage.descriptionUpdate
-    const activityLog = { target, section: sectionName, message, countryIso, user }
+    const activityLog: ActivityLogDescriptionUpdate = { target, section: sectionName, message, countryIso, user }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { assessment, cycle, activityLog },
       t
