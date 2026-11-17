@@ -1,13 +1,23 @@
-import { SectionNames } from 'meta/assessment/section'
+import { mergeTests } from '@playwright/test'
 
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { CycleNames } from 'meta/assessment/cycle/names'
+import { SectionNames } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
+import { RoleName } from 'meta/user/role/name'
+
+import { NdpApi } from 'test/e2e/api/ndp'
 import { Timeouts } from 'test/e2e/config/timeouts'
-import { expect, test } from 'test/e2e/fixtures/ndp'
+import { expect, test as ndpTest } from 'test/e2e/fixtures/ndp'
+import { test as userTest } from 'test/e2e/fixtures/user'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
 import { TooltipUtils } from 'test/e2e/utils/tooltip'
+
+const test = mergeTests(ndpTest, userTest)
 
 const countryIso = 'X20'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
@@ -123,5 +133,41 @@ test.describe('National data point: metadata - failure', () => {
     await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1b')).toBeVisible()
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
     await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
+  })
+})
+
+test.describe('National data point: metadata - failure for a collaborator', () => {
+  test.use({
+    ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }],
+    userSeed: {
+      assessmentName: AssessmentNames.fra,
+      countryIso,
+      cycleName: CycleNames._2025,
+      permissions: { descriptions: ['all'], tableData: ['none'] },
+      role: RoleName.COLLABORATOR,
+    },
+  })
+
+  test('Collaborator who can only edit descriptions opens an NDP and sees the comments error', async ({
+    authenticatedPage,
+    ndp,
+    userPage,
+  }) => {
+    const adminPage = authenticatedPage
+    const collaboratorPage = userPage
+
+    await adminPage.goto(ndp1aPath)
+    await DOMUtils.ensureEditingUnlocked(adminPage)
+    await NDPDomUtils.fillComments(adminPage, extentOfForestInvalidLinks.html)
+    // The error shows for the admin once the links worker has stored it
+    await expect(NDPDomUtils.getCommentsValidationError(adminPage)).toBeVisible({ timeout: Timeouts.extraLong })
+
+    const validationsResponse = NdpApi.waitForValidations(collaboratorPage)
+    await collaboratorPage.goto(ndp1aPath)
+    const validations = await validationsResponse
+
+    expect(validations[ndp.uuid]?.comments?.[TableNames.extentOfForest]?.valid).toBe(false)
+    await expect(NDPDomUtils.getCommentsValidationError(collaboratorPage)).toBeVisible()
+    await expect(collaboratorPage.locator('.toast.error')).toHaveCount(0)
   })
 })
