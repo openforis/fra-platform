@@ -11,6 +11,7 @@ import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
+import { useFocusedLink } from 'client/hooks/useFocusedLink'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useSectionContext } from 'client/pages/Section/context'
@@ -45,6 +46,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const onChange = useOnChange({ sectionName, name })
   const validationErrors = useValidationErrors({ name, sectionName })
   const invalidLinks = useInvalidLinks({ name, sectionName })
+  const focusedLink = useFocusedLink({ descriptionName: name })
 
   return (
     <DataGrid className="description" withActions={canEdit}>
@@ -64,6 +66,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
           ) : (
             <EditorWYSIWYG
               disabled={!editable}
+              focusedLink={focusedLink}
               invalidLinks={invalidLinks}
               onChange={(content) => onChange({ ...value, text: content })}
               repository={repository}
