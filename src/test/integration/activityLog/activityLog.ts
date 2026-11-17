@@ -8,6 +8,7 @@ import contact from 'test/integration/activityLog/contact/contact'
 import country from 'test/integration/activityLog/country/country'
 import description from 'test/integration/activityLog/description/description'
 import file from 'test/integration/activityLog/file/file'
+import link from 'test/integration/activityLog/link/link'
 import linksCheck from 'test/integration/activityLog/linksCheck/linksCheck'
 import messageCenter from 'test/integration/activityLog/messageCenter/messageCenter'
 import metadata from 'test/integration/activityLog/metadata/metadata'
@@ -44,6 +45,7 @@ export default (): void => {
     userAccount()
     file()
     linksCheck()
+    link()
     description()
     country()
   })
