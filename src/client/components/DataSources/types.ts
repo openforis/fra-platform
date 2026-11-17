@@ -8,6 +8,7 @@ import {
   DataSourceValidationErrors,
   DataSourceValidationErrorsRecord,
 } from 'meta/assessment/descriptionValue/dataSource'
+import { UUID } from 'meta/uuid/uuid'
 
 import { Option } from 'client/components/Inputs/Select'
 
@@ -19,6 +20,8 @@ export type DataSourceOnChange = (
 
 export type DataSourceOnDelete = (dataSource: DataSource) => void
 
+export type DataSourcesInvalidLinks = Record<UUID, Array<string>>
+
 export type PropsDataSources = {
   columns: {
     type: {
@@ -29,6 +32,7 @@ export type PropsDataSources = {
   data: DataSourcesData
   dataSourcesLinked?: Array<DataSourceLinked>
   historyCompares?: Array<DataSourceHistoryCompare>
+  invalidLinks?: DataSourcesInvalidLinks
   meta?: DataSourceDescription
   onAdd: () => void
   onChange: DataSourceOnChange
@@ -46,5 +50,6 @@ export type PropsDataSources = {
 export type PropsDataSourceComponent = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange'> & {
   dataSource: DataSource
   disabled: boolean
+  invalidLinks?: Array<string>
   validationErrors?: DataSourceValidationErrors['reference']
 }

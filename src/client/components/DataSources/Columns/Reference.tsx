@@ -4,7 +4,7 @@ import { PropsDataSourceComponent } from 'client/components/DataSources/types'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 
 const Reference: React.FC<PropsDataSourceComponent> = (props) => {
-  const { dataSource, disabled, onChange, validationErrors } = props
+  const { dataSource, disabled, invalidLinks, onChange, validationErrors } = props
 
   const _onChange = useCallback(
     (value: string) => {
@@ -16,6 +16,7 @@ const Reference: React.FC<PropsDataSourceComponent> = (props) => {
   return (
     <EditorWYSIWYGLinks
       disabled={disabled}
+      invalidLinks={invalidLinks}
       onChange={_onChange}
       repository
       validationErrors={validationErrors}
