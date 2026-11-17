@@ -6,6 +6,7 @@ import { SocketServer } from 'server/service/socket'
 import assessment from 'test/integration/activityLog/assessment/assessment'
 import contact from 'test/integration/activityLog/contact/contact'
 import country from 'test/integration/activityLog/country/country'
+import description from 'test/integration/activityLog/description/description'
 import file from 'test/integration/activityLog/file/file'
 import linksCheck from 'test/integration/activityLog/linksCheck/linksCheck'
 import messageCenter from 'test/integration/activityLog/messageCenter/messageCenter'
@@ -43,6 +44,7 @@ export default (): void => {
     userAccount()
     file()
     linksCheck()
+    description()
     country()
   })
 }
