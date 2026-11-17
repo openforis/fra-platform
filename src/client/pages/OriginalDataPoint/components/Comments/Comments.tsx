@@ -13,6 +13,7 @@ import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/
 import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
 import { useIsEditODPDescriptionEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
+import { useInvalidLinks } from './hooks/useInvalidLinks'
 import { useUpdateComment } from './hooks/useUpdateDescription'
 import { useValidationErrors } from './hooks/useValidationErrors'
 import { useCommentsActions } from './useCommentsActions'
@@ -33,6 +34,7 @@ const Comments: React.FC<Props> = (props) => {
   const [open, setOpen] = useState<boolean>(false)
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors({ field })
+  const invalidLinks = useInvalidLinks({ field })
 
   useEffect(() => {
     if (open && isDataLocked) {
@@ -66,6 +68,7 @@ const Comments: React.FC<Props> = (props) => {
           <div className={classNames('description__editor-container', { editable: open })}>
             <EditorWYSIWYG
               disabled={!open}
+              invalidLinks={invalidLinks}
               onChange={updateComment}
               repository
               validationErrors={validationErrors}
