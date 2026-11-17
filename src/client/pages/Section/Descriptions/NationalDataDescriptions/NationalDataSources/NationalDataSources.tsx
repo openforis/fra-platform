@@ -7,6 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
+import { useDataSourcesFocusedLink } from 'client/hooks/useDataSourcesFocusedLink'
 import DataGrid from 'client/components/DataGrid/DataGrid'
 import DataSources from 'client/components/DataSources'
 import { PropsDataSources } from 'client/components/DataSources/types'
@@ -45,6 +46,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
   const onDelete = useOnDelete({ sectionName })
   const validationErrors = useValidationErrors({ sectionName })
   const invalidLinks = useInvalidLinks({ sectionName })
+  const focusedLink = useDataSourcesFocusedLink({ descriptionName: name })
 
   const { dataSources } = data
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
@@ -78,6 +80,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
         columns={columns}
         data={data}
         dataSourcesLinked={dataSourcesLinked}
+        focusedLink={focusedLink}
         historyCompares={historyCompares}
         invalidLinks={invalidLinks}
         meta={meta}

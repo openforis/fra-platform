@@ -14,7 +14,7 @@ import Reference from 'client/components/DataSources/Columns/Reference'
 import TypeOfDataSource from 'client/components/DataSources/Columns/TypeOfDataSource'
 import Variables from 'client/components/DataSources/Columns/Variables'
 import YearForDataSource from 'client/components/DataSources/Columns/YearForDataSource'
-import { PropsDataSourceComponent, PropsDataSources } from 'client/components/DataSources/types'
+import { DataSourcesFocusedLink, PropsDataSourceComponent, PropsDataSources } from 'client/components/DataSources/types'
 
 import { useComponentsOrder } from './hooks/useComponentsOrder'
 import { useDataSourceActions } from './hooks/useDataSourceActions'
@@ -30,6 +30,7 @@ const Components: Record<DataSourceEditableField, React.FC<PropsDataSourceCompon
 
 type Props = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange' | 'onDelete' | 'options'> & {
   dataSource: DataSource
+  focusedLink?: DataSourcesFocusedLink
   invalidLinks?: Array<string>
   lastRow: boolean
   readOnly?: boolean
@@ -40,6 +41,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const {
     columns,
     dataSource,
+    focusedLink,
     invalidLinks,
     lastRow,
     meta,
@@ -63,6 +65,8 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         const tooltip = getErrorTooltip(componentKey)
         // The Reference component renders an editor WYSIWYG, which receives validation errors.
         const isReference = componentKey === 'reference'
+        const isFocused = isReference && !Objects.isNil(focusedLink) && focusedLink.dataSourceUuid === dataSource.uuid
+        const referenceFocusedLink = isFocused ? focusedLink.link : undefined
         const referenceInvalidLinks = isReference ? invalidLinks : undefined
         const referenceValidationErrors = isReference ? validationErrors.reference : undefined
 
@@ -80,6 +84,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
               columns={columns}
               dataSource={dataSource}
               disabled={disabled}
+              focusedLink={referenceFocusedLink}
               invalidLinks={referenceInvalidLinks}
               meta={meta}
               onChange={onChange}

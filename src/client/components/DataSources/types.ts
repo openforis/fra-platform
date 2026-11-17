@@ -20,6 +20,11 @@ export type DataSourceOnChange = (
 
 export type DataSourceOnDelete = (dataSource: DataSource) => void
 
+export type DataSourcesFocusedLink = {
+  dataSourceUuid: UUID
+  link: string
+}
+
 export type DataSourcesInvalidLinks = Record<UUID, Array<string>>
 
 export type PropsDataSources = {
@@ -31,6 +36,7 @@ export type PropsDataSources = {
   }
   data: DataSourcesData
   dataSourcesLinked?: Array<DataSourceLinked>
+  focusedLink?: DataSourcesFocusedLink
   historyCompares?: Array<DataSourceHistoryCompare>
   invalidLinks?: DataSourcesInvalidLinks
   meta?: DataSourceDescription
@@ -50,6 +56,7 @@ export type PropsDataSources = {
 export type PropsDataSourceComponent = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange'> & {
   dataSource: DataSource
   disabled: boolean
+  focusedLink?: string
   invalidLinks?: Array<string>
   validationErrors?: DataSourceValidationErrors['reference']
 }

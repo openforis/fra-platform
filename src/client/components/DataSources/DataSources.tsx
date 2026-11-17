@@ -32,6 +32,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
     columns,
     data,
     dataSourcesLinked,
+    focusedLink,
     historyCompares,
     invalidLinks,
     meta,
@@ -113,6 +114,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
                   columns={columns}
                   dataSource={dataSourceValue}
+                  focusedLink={focusedLink}
                   invalidLinks={invalidLinks?.[dataSourceValue.uuid]}
                   lastRow={i === dataSources.length - 1}
                   meta={meta}
