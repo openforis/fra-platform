@@ -9,6 +9,7 @@ import WithTooltip from 'client/components/Tooltips/WithTooltip'
 import { useConfigs } from './hooks/useConfigs'
 import { useHighlightFocusedLink } from './hooks/useHighlightFocusedLink'
 import { useHighlightInvalidLinks } from './hooks/useHighlightInvalidLinks'
+import { useLinkFormGuard } from './hooks/useLinkFormGuard'
 import { useOnBlur } from './hooks/useOnBlur'
 import { useValidationTooltip } from './hooks/useValidationTooltip'
 
@@ -43,7 +44,8 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { configs } = useConfigs({ onlyLinks, options, repository })
-  const onBlur = useOnBlur({ onChange, value })
+  const onSave = useLinkFormGuard({ onChange, value })
+  const onBlur = useOnBlur({ onChange: onSave, value })
   const { hasValidationErrors, tooltip } = useValidationTooltip({ validationErrors })
   useHighlightInvalidLinks({ containerRef, invalidLinks })
   useHighlightFocusedLink({ containerRef, focusedLink })
