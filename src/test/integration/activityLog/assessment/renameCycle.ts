@@ -15,7 +15,7 @@ export default (): void => {
       assessmentName: testContext.activityLog.assessment.props.name,
     })
 
-    await initialiseCycle({ assessment, cycle: activityLogCycle, user })
+    testContext.activityLogCycleSection = await initialiseCycle({ assessment, cycle: activityLogCycle, user })
 
     const { cycle } = await AssessmentController.renameCycle({
       assessment,

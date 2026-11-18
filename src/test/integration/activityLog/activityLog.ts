@@ -14,6 +14,7 @@ import messageCenter from 'test/integration/activityLog/messageCenter/messageCen
 import metadata from 'test/integration/activityLog/metadata/metadata'
 import nationalDataPoint from 'test/integration/activityLog/nationalDataPoint/nationalDataPoint'
 import repository from 'test/integration/activityLog/repository/repository'
+import tableData from 'test/integration/activityLog/tableData/tableData'
 import user from 'test/integration/activityLog/user/user'
 import userAccount from 'test/integration/activityLog/userAccount/userAccount'
 import userRole from 'test/integration/activityLog/userRole/userRole'
@@ -47,6 +48,7 @@ export default (): void => {
     linksCheck()
     link()
     description()
+    tableData()
     country()
   })
 }

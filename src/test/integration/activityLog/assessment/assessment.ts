@@ -1,4 +1,5 @@
 import { AssessmentController } from 'server/controller/assessment'
+import { MetadataController } from 'server/controller/metadata'
 import { UserController } from 'server/controller/user'
 
 import create from 'test/integration/activityLog/assessment/create'
@@ -17,6 +18,12 @@ export default (): void => {
 
       // Assessment activity logs use no country, and only cycle create has a cycle
       testContext.activityLog = { assessment, country: undefined, cycle: undefined, user }
+    })
+
+    afterAll(async () => {
+      // remove traces
+      const { assessment, user } = testContext.activityLog
+      await MetadataController.removeSection({ assessment, section: testContext.activityLogCycleSection, user })
     })
 
     create()
