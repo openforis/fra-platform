@@ -27,6 +27,11 @@ div.editorWYSIWYG {
       background-color: rgba($ui-destructive, 0.1);
       color: $ui-destructive;
     }
+
+    &::highlight(editor-focused-link),
+    *::highlight(editor-focused-link) {
+      background-color: $ui-mark;
+    }
   }
 
   div.jodit-react-container,

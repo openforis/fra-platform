@@ -8,6 +8,7 @@ import EditorWYSIWYGWithRepositoryContext from '../EditorWYSIWYGWithRepositoryCo
 
 type Props = {
   disabled?: boolean
+  focusedLink?: string
   id?: string
   invalidLinks?: Array<string>
   onChange: (value?: string) => void
@@ -16,7 +17,7 @@ type Props = {
   value: string
 }
 const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
-  const { disabled, id, invalidLinks, onChange, repository, validationErrors, value } = props
+  const { disabled, focusedLink, id, invalidLinks, onChange, repository, validationErrors, value } = props
   const { print } = useIsPrintRoute()
 
   if (print) {
@@ -27,6 +28,7 @@ const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
     <EditorWYSIWYGWithRepositoryContext
       className="editor-wysiwyg-links"
       disabled={disabled}
+      focusedLink={focusedLink}
       id={id}
       invalidLinks={invalidLinks}
       onChange={onChange}

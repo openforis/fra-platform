@@ -7,6 +7,7 @@ import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 import WithTooltip from 'client/components/Tooltips/WithTooltip'
 
 import { useConfigs } from './hooks/useConfigs'
+import { useHighlightFocusedLink } from './hooks/useHighlightFocusedLink'
 import { useHighlightInvalidLinks } from './hooks/useHighlightInvalidLinks'
 import { useOnBlur } from './hooks/useOnBlur'
 import { useValidationTooltip } from './hooks/useValidationTooltip'
@@ -14,6 +15,7 @@ import { useValidationTooltip } from './hooks/useValidationTooltip'
 export type EditorWYSIWYGProps = {
   className?: string
   disabled?: boolean
+  focusedLink?: string
   id?: string
   invalidLinks?: Array<string>
   onChange: (value?: string) => void
@@ -28,6 +30,7 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
   const {
     className,
     disabled,
+    focusedLink,
     id,
     invalidLinks,
     onChange,
@@ -43,6 +46,7 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
   const onBlur = useOnBlur({ onChange, value })
   const { hasValidationErrors, tooltip } = useValidationTooltip({ validationErrors })
   useHighlightInvalidLinks({ containerRef, invalidLinks })
+  useHighlightFocusedLink({ containerRef, focusedLink })
   const invalidLinksOnly = hasValidationErrors && validationErrors.length === invalidLinks?.length
 
   return (
