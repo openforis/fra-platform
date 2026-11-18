@@ -12,7 +12,7 @@ import { colParams, rowParams, tableParams } from 'test/integration/mock/table'
 import { testContext } from 'test/integration/testContext'
 
 export default (): void => {
-  test('Expect estimate nodes to write activity log', async () => {
+  test('Expect estimate nodes to write activity logs', async () => {
     const { assessment, country, cycle, user } = testContext.activityLog
     const { countryIso } = country
     const { colName } = colParams
@@ -41,12 +41,19 @@ export default (): void => {
     })
 
     const node = await NodeRepository.getOneOrNone({ assessment, colName, countryIso, cycle, tableName, variableName })
+    const estimations = await TableDataController.getNodeValuesEstimations({ assessment, countryIso, cycle, tableName })
 
     await ActivityLogAssertions.expectLastActivityLog({
       ...testContext.activityLog,
       message: ActivityLogMessage.nodeValueEstimate,
       section: sectionName,
       target: node,
+    })
+    await ActivityLogAssertions.expectLastActivityLog({
+      ...testContext.activityLog,
+      message: ActivityLogMessage.nodeValuesEstimationCreate,
+      section: sectionName,
+      target: estimations[estimation.uuid],
     })
   })
 }
