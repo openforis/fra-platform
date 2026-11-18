@@ -23,8 +23,9 @@ export default (): void => {
   describe('Activity log', () => {
     beforeAll(() => {
       // Mock sockets
-      vi.spyOn(SocketServer, 'emit').mockImplementation((): void => undefined)
-      vi.spyOn(SocketServer, 'emitExcept').mockImplementation((): void => undefined)
+      vi.spyOn(SocketServer, 'emitToAdminRooms').mockImplementation((): void => undefined)
+      vi.spyOn(SocketServer, 'emitToCountryRooms').mockImplementation((): void => undefined)
+      vi.spyOn(SocketServer, 'emitToMessageTopicRooms').mockImplementation((): void => undefined)
       // Mock file storage (S3)
       vi.spyOn(FileStorage.Directory, 'copy').mockResolvedValue(undefined)
       vi.spyOn(FileStorage.Directory, 'remove').mockResolvedValue(undefined)
