@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { TooltipType } from 'client/components/Tooltips/type'
 
-import { useGetErrors } from './hooks/useGetErrors'
+import { useGetError } from './hooks/useGetError'
 
 type Props = {
   editorClassName: string
@@ -19,19 +19,10 @@ type Render = (props: { activeAnchor: Element | null }) => ReactNode
 const InvalidLinksTooltip: React.FC<Props> = (props: Props) => {
   const { editorClassName, invalidLinks } = props
 
-  const getErrors = useGetErrors({ invalidLinks })
+  const getError = useGetError({ invalidLinks })
 
-  const disableTooltip = useCallback<DisableTooltip>((anchor) => Objects.isEmpty(getErrors(anchor)), [getErrors])
-
-  const render = useCallback<Render>(
-    ({ activeAnchor }) => {
-      const errors = getErrors(activeAnchor)
-      if (Objects.isEmpty(errors)) return null
-
-      return errors.map<ReactNode>((error, index) => <div key={`${error}-${index}`}>{error}</div>)
-    },
-    [getErrors]
-  )
+  const disableTooltip = useCallback<DisableTooltip>((anchor) => Objects.isNil(getError(anchor)), [getError])
+  const render = useCallback<Render>(({ activeAnchor }) => getError(activeAnchor) ?? null, [getError])
 
   return (
     <div className="tooltip-container">
