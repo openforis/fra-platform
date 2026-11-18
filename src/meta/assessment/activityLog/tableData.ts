@@ -6,6 +6,7 @@ import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 export type TableDataTargets = {
   [ActivityLogMessage.nodeValueCalculatedUpdate]: Node
   [ActivityLogMessage.nodeValueEstimate]: Node
+  [ActivityLogMessage.nodeValueImport]: Node
   [ActivityLogMessage.nodeValuesEstimationCreate]: NodeValuesEstimation
   [ActivityLogMessage.nodeValueUpdate]: Node
 }
