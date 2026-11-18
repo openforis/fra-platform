@@ -1,5 +1,6 @@
 import { RefObject, useEffect } from 'react'
 
+import { InvalidLink } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
 import { getHighlight } from 'client/components/EditorWYSIWYG/highlights/getHighlight'
@@ -9,7 +10,7 @@ import { highlightLinks } from './_highlightLinks'
 
 type Props = {
   containerRef: RefObject<HTMLDivElement>
-  invalidLinks?: Array<string>
+  invalidLinks?: Array<InvalidLink>
 }
 
 export const useHighlightInvalidLinks = (props: Props): void => {
@@ -21,6 +22,8 @@ export const useHighlightInvalidLinks = (props: Props): void => {
     const canHighlight = !Objects.isNil(container) && !Objects.isNil(highlight) && !Objects.isEmpty(invalidLinks)
     if (!canHighlight) return (): void => undefined
 
-    return highlightLinks({ container, highlight, links: invalidLinks })
+    const links = invalidLinks.map<string>(({ link }) => link)
+
+    return highlightLinks({ container, highlight, links })
   }, [containerRef, invalidLinks])
 }

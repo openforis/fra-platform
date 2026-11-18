@@ -8,6 +8,7 @@ import {
   DataSourceValidationErrors,
   DataSourceValidationErrorsRecord,
 } from 'meta/assessment/descriptionValue/dataSource'
+import { InvalidLink } from 'meta/assessment/validation/validation'
 import { UUID } from 'meta/uuid/uuid'
 
 import { Option } from 'client/components/Inputs/Select'
@@ -25,7 +26,7 @@ export type DataSourcesFocusedLink = {
   link: string
 }
 
-export type DataSourcesInvalidLinks = Record<UUID, Array<string>>
+export type DataSourcesInvalidLinks = Record<UUID, Array<InvalidLink>>
 
 export type PropsDataSources = {
   columns: {
@@ -57,6 +58,6 @@ export type PropsDataSourceComponent = Pick<PropsDataSources, 'columns' | 'meta'
   dataSource: DataSource
   disabled: boolean
   focusedLink?: string
-  invalidLinks?: Array<string>
+  invalidLinks?: Array<InvalidLink>
   validationErrors?: DataSourceValidationErrors['reference']
 }
