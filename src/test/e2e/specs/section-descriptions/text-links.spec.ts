@@ -28,9 +28,14 @@ const pasteLinks = async (page: Page, title: string, html: string): Promise<void
   })
 }
 
-const expectLinkErrors = async (page: Page, error: Locator, emptyLinkText: string): Promise<void> => {
+type InvalidLinks = ReturnType<typeof LinkBuilder.buildInvalidLinksHtml>
+
+const expectLinkErrors = async (page: Page, error: Locator, invalidLinks: InvalidLinks): Promise<void> => {
   await expect(error).toBeVisible({ timeout: Timeouts.extraLong })
-  await TooltipUtils.expectValidationTooltip(page, error, `Invalid link: "${emptyLinkText}" (Empty)`)
+  const emptyLink = error.locator('a', { hasText: invalidLinks.emptyLinkText })
+  await TooltipUtils.expectValidationTooltip(page, emptyLink, invalidLinks.emptyLinkError)
+  // The link sits inside the editor, so an editor tooltip would show up here too
+  await TooltipUtils.expectNoValidationTooltip(page, invalidLinks.brokenLinkError)
 }
 
 test.describe('Section descriptions: text links - fix and remove', () => {
@@ -68,8 +73,8 @@ test.describe('Section descriptions: text links - fix and remove', () => {
 
       const estimationError = DescriptionUtils.getDescriptionValidationError(page, estimationTitle)
       const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
-      await expectLinkErrors(page, estimationError, estimationInvalidLinks.emptyLinkText)
-      await expectLinkErrors(page, classificationError, classificationInvalidLinks.emptyLinkText)
+      await expectLinkErrors(page, estimationError, estimationInvalidLinks)
+      await expectLinkErrors(page, classificationError, classificationInvalidLinks)
       const invalidLinkTexts = [
         estimationInvalidLinks.emptyLinkText,
         estimationInvalidLinks.brokenLinkText,

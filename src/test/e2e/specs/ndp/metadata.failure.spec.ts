@@ -58,13 +58,15 @@ test.describe('National data point: metadata - failure', () => {
     await expect(extentOfForestValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
-      extentOfForestValidationError,
-      `Invalid link: "${extentOfForestInvalidLinks.emptyLinkText}" (Empty)`
+      extentOfForestValidationError.locator('a', { hasText: extentOfForestInvalidLinks.emptyLinkText }),
+      extentOfForestInvalidLinks.emptyLinkError
     )
+    // The link sits inside the editor, so an editor tooltip would show up here too
+    await TooltipUtils.expectNoValidationTooltip(page, extentOfForestInvalidLinks.brokenLinkError)
     await TooltipUtils.expectValidationTooltip(
       page,
-      extentOfForestValidationError,
-      `Invalid link: "${extentOfForestInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+      extentOfForestValidationError.locator('a', { hasText: extentOfForestInvalidLinks.brokenLinkText }),
+      extentOfForestInvalidLinks.brokenLinkError
     )
 
     // A comment link error only flags its own section
@@ -87,13 +89,15 @@ test.describe('National data point: metadata - failure', () => {
     await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
-      forestCharacteristicsValidationError,
-      `Invalid link: "${forestCharacteristicsInvalidLinks.emptyLinkText}" (Empty)`
+      forestCharacteristicsValidationError.locator('a', { hasText: forestCharacteristicsInvalidLinks.emptyLinkText }),
+      forestCharacteristicsInvalidLinks.emptyLinkError
     )
+    // The link sits inside the editor, so an editor tooltip would show up here too
+    await TooltipUtils.expectNoValidationTooltip(page, forestCharacteristicsInvalidLinks.brokenLinkError)
     await TooltipUtils.expectValidationTooltip(
       page,
-      forestCharacteristicsValidationError,
-      `Invalid link: "${forestCharacteristicsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+      forestCharacteristicsValidationError.locator('a', { hasText: forestCharacteristicsInvalidLinks.brokenLinkText }),
+      forestCharacteristicsInvalidLinks.brokenLinkError
     )
 
     // A comment link error only flags its own section
@@ -119,13 +123,15 @@ test.describe('National data point: metadata - failure', () => {
     await expect(referenceValidationError).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
-      referenceValidationError,
-      `Invalid link: "${referenceInvalidLinks.emptyLinkText}" (Empty)`
+      referenceValidationError.locator('a', { hasText: referenceInvalidLinks.emptyLinkText }),
+      referenceInvalidLinks.emptyLinkError
     )
+    // The link sits inside the editor, so an editor tooltip would show up here too
+    await TooltipUtils.expectNoValidationTooltip(page, referenceInvalidLinks.brokenLinkError)
     await TooltipUtils.expectValidationTooltip(
       page,
-      referenceValidationError,
-      `Invalid link: "${referenceInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+      referenceValidationError.locator('a', { hasText: referenceInvalidLinks.brokenLinkText }),
+      referenceInvalidLinks.brokenLinkError
     )
 
     // The data source is shared by both sections, so a reference link error flags 1a and 1b

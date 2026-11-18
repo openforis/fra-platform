@@ -44,13 +44,15 @@ test.describe.serial('Section descriptions: comments - failure', () => {
     await expect(commentsValidationError(page)).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
-      commentsValidationError(page),
-      `Invalid link: "${commentsInvalidLinks.emptyLinkText}" (Empty)`
+      commentsValidationError(page).locator('a', { hasText: commentsInvalidLinks.emptyLinkText }),
+      commentsInvalidLinks.emptyLinkError
     )
+    // The link sits inside the editor, so an editor tooltip would show up here too
+    await TooltipUtils.expectNoValidationTooltip(page, commentsInvalidLinks.brokenLinkError)
     await TooltipUtils.expectValidationTooltip(
       page,
-      commentsValidationError(page),
-      `Invalid link: "${commentsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+      commentsValidationError(page).locator('a', { hasText: commentsInvalidLinks.brokenLinkText }),
+      commentsInvalidLinks.brokenLinkError
     )
 
     await NavigationUtils.subSectionHasError(page, x12ForestOwnershipPath, true)
