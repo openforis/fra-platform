@@ -25,5 +25,5 @@ export const notifyDescriptionValidationUpdate = (props: Props): void => {
     cycleName: cycle.name,
   })
 
-  SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+  SocketServer.emitToCountryRooms({ countryIso, cycle, eventName }, { descriptionValidations, sectionNames })
 }

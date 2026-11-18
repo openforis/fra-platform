@@ -14,7 +14,7 @@ type Request = CycleDataRequest<{ key: string; type: MessageTopicType }, { messa
 
 export const addMessage = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, key, sectionName, type } = req.query
+    const { countryIso, key, sectionName, type } = req.query
     const user = Requests.getUser(req)
     const { message } = req.body
 
@@ -31,7 +31,8 @@ export const addMessage = async (req: Request, res: Response): Promise<void> => 
       type,
     })
 
-    SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), messageCreated)
+    const messageAddEvent = Sockets.getTopicMessageAddEvent({ assessment, cycle, topic })
+    SocketServer.emitToMessageTopicRooms({ cycle, eventName: messageAddEvent, topic }, messageCreated)
 
     if (topic.status === MessageTopicStatus.resolved) {
       const topicUpdated = await MessageCenterController.updateTopicStatus({
@@ -44,13 +45,14 @@ export const addMessage = async (req: Request, res: Response): Promise<void> => 
         status: MessageTopicStatus.opened,
       })
 
-      SocketServer.emit(
-        Sockets.getTopicStatusEvent({ assessment, cycle, topic: topicUpdated }),
+      const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic: topicUpdated })
+      SocketServer.emitToMessageTopicRooms(
+        { cycle, eventName: statusEvent, topic: topicUpdated },
         MessageTopicStatus.opened
       )
     }
 
-    sendRequestReviewUpdateEvents({ countryIso, assessmentName, cycleName, sectionName, topic })
+    sendRequestReviewUpdateEvents({ assessment, cycle, sectionName, topic })
 
     Requests.sendOk(res)
   } catch (e) {

@@ -12,13 +12,6 @@ queue_rules:
     update_method: rebase
 
 pull_request_rules:
-  - name: Automatic branch update
-    conditions:
-      - -conflict # skip PRs with conflicts
-      - -draft # filter-out GH draft PRs
-      - head!=production
-    actions:
-      update: {}
   - name: Automatic merge using squash
     conditions:
       - "#approved-reviews-by>=1"

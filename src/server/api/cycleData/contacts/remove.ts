@@ -20,7 +20,8 @@ export const removeContact = async (req: CycleDataRequest<never, Body>, res: Res
     const props = { assessment, cycle, countryIso, sectionName, user, uuid }
     await ContactController.remove(props)
 
-    SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
+    const eventName = Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso })
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName })
 
     Requests.sendOk(res)
   } catch (e) {

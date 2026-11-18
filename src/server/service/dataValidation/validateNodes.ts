@@ -43,6 +43,6 @@ export const validateNodes = async (props: Props, client: BaseProtocol = DB): Pr
       return acc
     }, {})
 
-    SocketServer.emit(eventName, { tableValidations: updatedTableValidations })
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName }, { tableValidations: updatedTableValidations })
   }
 }

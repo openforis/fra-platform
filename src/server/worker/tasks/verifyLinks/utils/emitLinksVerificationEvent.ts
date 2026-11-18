@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { LinksVerificationEvent } from 'meta/socket/event/links'
 import { Sockets } from 'meta/socket/sockets'
+import { Objects } from 'utils/objects'
 
 import { SocketServer } from 'server/service/socket'
 
@@ -16,10 +17,16 @@ type Props = {
 export const emitLinksVerificationEvent = (props: Props): void => {
   const { assessment, countryIso, cycle, event } = props
 
-  const linksVerificationEvent = Sockets.getLinksVerificationEvent({
+  const eventName = Sockets.getLinksVerificationEvent({
     assessmentName: assessment.props.name,
     countryIso,
     cycleName: cycle.name,
   })
-  SocketServer.emit(linksVerificationEvent, { event })
+
+  if (Objects.isEmpty(countryIso)) {
+    SocketServer.emitToAdminRooms({ eventName }, { event })
+    return
+  }
+
+  SocketServer.emitToCountryRooms({ countryIso, cycle, eventName }, { event })
 }

@@ -95,7 +95,10 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         { assessment, cycle, nodeUpdates: nodeUpdatesPersisted },
         client
       )
-      SocketServer.emitExcept({ eventName: nodeUpdateEvent, socketId }, { nodeUpdates: nodeUpdatesMirrorReset })
+      SocketServer.emitToCountryRooms(
+        { countryIso, cycle, eventName: nodeUpdateEvent, socketId },
+        { nodeUpdates: nodeUpdatesMirrorReset }
+      )
       await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, client)
 
       // schedule dependencies update
