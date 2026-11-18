@@ -3,6 +3,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 
 import { initialiseCycle } from 'test/integration/activityLog/initialiseCycle'
+import clearTable from 'test/integration/activityLog/tableData/clearTable'
 import estimateNodes from 'test/integration/activityLog/tableData/estimateNodes'
 import importNodes from 'test/integration/activityLog/tableData/importNodes'
 import updateCalculatedNode from 'test/integration/activityLog/tableData/updateCalculatedNode'
@@ -34,5 +35,6 @@ export default (): void => {
     updateCalculatedNode()
     estimateNodes()
     importNodes()
+    clearTable()
   })
 }
