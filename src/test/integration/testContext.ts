@@ -21,6 +21,7 @@ type TestContext = {
   }
   activityLogContact?: Contact
   activityLogCycle?: Cycle
+  activityLogCycleSection?: Section
   activityLogFile?: FileSummary
   activityLogInvitedUser?: User
   activityLogMessage?: Message
