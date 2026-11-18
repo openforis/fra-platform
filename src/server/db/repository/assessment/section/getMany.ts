@@ -35,7 +35,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
                      and ss.sub_sections is not null
                      and ($2 = true or (coalesce(s.props -> 'hidden' ->> '${cycle.uuid}', 'false', 'false')::boolean = false and $2 = false))
                    order by (s.props ->> 'index')::numeric)
-        select jsonb_agg(s.*) as data
+        select coalesce(jsonb_agg(s.*), '[]'::jsonb) as data
         from s
         ;
     `,

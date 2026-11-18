@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPCreate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -35,7 +36,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
       t
     )
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPCreate = {
       target: createdOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointCreate,
@@ -52,19 +53,17 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
       t
     )
 
-    if (ProcessEnv.nodeEnv !== NodeEnv.test) {
-      await updateOriginalDataPointDependentNodes(
-        {
-          assessment,
-          cycle,
-          country,
-          sectionName,
-          originalDataPoint: createdOriginalDataPoint,
-          user,
-        },
-        t
-      )
-    }
+    await updateOriginalDataPointDependentNodes(
+      {
+        assessment,
+        cycle,
+        country,
+        sectionName,
+        originalDataPoint: createdOriginalDataPoint,
+        user,
+      },
+      t
+    )
 
     return createdOriginalDataPoint
   })

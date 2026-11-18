@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogCycleCreate } from 'meta/assessment/activityLog/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -29,7 +30,12 @@ export const createCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const updatedAssessment = await CacheController.generateAssessment({ assessmentName }, t)
 
     const message = ActivityLogMessage.assessmentCycleCreate
-    const activityLog = { target: updatedAssessment, section: 'assessment', message, user }
+    const activityLog: ActivityLogCycleCreate = {
+      target: updatedAssessment,
+      section: 'assessment',
+      message,
+      user,
+    }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment: updatedAssessment, cycle }, t)
 
     return AssessmentRedisRepository.getOneWithCycle({ assessmentName, cycleName, force: true }, t)

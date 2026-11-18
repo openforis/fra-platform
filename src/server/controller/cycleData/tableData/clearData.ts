@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogTableValuesClear } from 'meta/assessment/activityLog/tableData'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
@@ -48,7 +49,7 @@ export const clearData = async (props: Props, client: BaseProtocol = DB): Promis
     await updateDependents({ assessment, cycle, country, isODP: true, nodeUpdates, user }, t)
 
     // persist activity log
-    const activityLog = {
+    const activityLog: ActivityLogTableValuesClear = {
       countryIso,
       target: { tableName, nodes },
       section: sectionName,

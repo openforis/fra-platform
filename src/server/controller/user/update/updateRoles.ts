@@ -1,4 +1,5 @@
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUserRolesUpdate } from 'meta/assessment/activityLog/user'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
@@ -23,7 +24,7 @@ export const updateRoles = async (props: UpdateRoleProps, client: BaseProtocol):
   const rolesActivity = rolesUpdated.map((r) => ({ role: r.role, countryIso: r.countryIso }))
   const target = { roles: rolesActivity, userUuid: targetUser.uuid }
   const message = ActivityLogMessage.userRolesUpdate
-  const activityLog: ActivityLog<typeof target> = { target, section: 'users', message, user }
+  const activityLog: ActivityLogUserRolesUpdate = { target, section: 'users', message, user }
 
   await ActivityLogRepository.insertActivityLog({ assessment, cycle, activityLog }, client)
 }

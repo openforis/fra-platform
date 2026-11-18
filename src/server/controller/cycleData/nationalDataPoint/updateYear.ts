@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -43,7 +44,13 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
     // --- 2. Update activity log
     const message = ActivityLogMessage.originalDataPointUpdateYear
-    const activityLog = { target: updatedOriginalDataPoint, section: 'odp', message, countryIso, user }
+    const activityLog: ActivityLogNDPUpdate = {
+      target: updatedOriginalDataPoint,
+      section: 'odp',
+      message,
+      countryIso,
+      user,
+    }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { activityLog, assessment, cycle },
       t

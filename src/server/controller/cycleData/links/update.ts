@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogLinkUpdate } from 'meta/assessment/activityLog/links'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionKey } from 'meta/assessment/descriptionValue'
@@ -33,7 +34,7 @@ export const update = async (props: Props): Promise<Link> => {
 
     const message = ActivityLogMessage.linkUpdate
     const section = SectionNames.Admin.links
-    const activityLog = { target, section, message, user }
+    const activityLog: ActivityLogLinkUpdate = { target, section, message, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
 

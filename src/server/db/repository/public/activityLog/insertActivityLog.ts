@@ -1,19 +1,21 @@
-import { Objects } from 'utils/objects'
-
-import { ActivityLog } from 'meta/assessment/activityLog'
+import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogTarget } from 'meta/assessment/activityLog/target'
 import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
-export const insertActivityLog = async (
-  params: {
-    activityLog: ActivityLog<any>
-    assessment?: AssessmentBase
-    cycle?: Cycle
-  },
+type Props<Message extends ActivityLogMessage> = {
+  activityLog: ActivityLog<ActivityLogTarget<Message>, Message>
+  assessment?: AssessmentBase
+  cycle?: Cycle
+}
+
+export const insertActivityLog = async <Message extends ActivityLogMessage>(
+  params: Props<Message>,
   client: BaseProtocol = DB
-): Promise<ActivityLog<any>> => {
+): Promise<ActivityLog<ActivityLogTarget<Message>>> => {
   const {
     activityLog: { countryIso, message, section, target, user },
     assessment,
@@ -24,7 +26,7 @@ export const insertActivityLog = async (
     insert into public.activity_log(user_id, country_iso, section, message, target, assessment_uuid, cycle_uuid) values ($1, $2, $3, $4, $5::JSONB, $6, $7) returning *;
   `
 
-  return client.one<ActivityLog<any>>(
+  return client.one<ActivityLog<ActivityLogTarget<Message>>>(
     query,
     [
       user.id,

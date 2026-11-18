@@ -1,5 +1,7 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogCyclePublish } from 'meta/assessment/activityLog/assessment'
+import { ActivityLogTarget } from 'meta/assessment/activityLog/target'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle, CycleStatus } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -44,11 +46,18 @@ export const publishCycle = async (props: Props, client: BaseProtocol = DB): Pro
     )
 
     // Activity log cycle
-    const activityLog = { target: cycle, section: 'cycle', message: ActivityLogMessage.cyclePublish, user }
+    const activityLog: ActivityLogCyclePublish = {
+      target: cycle,
+      section: 'cycle',
+      message: ActivityLogMessage.cyclePublish,
+      user,
+    }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     // Activity log for all published countries
-    const activityLogs = publishedCountries.map<ActivityLogDb<{ status: string }>>((country: Country) => {
+    const activityLogs = publishedCountries.map<
+      ActivityLogDb<ActivityLogTarget<ActivityLogMessage.assessmentStatusUpdate>>
+    >((country: Country) => {
       const message = ActivityLogMessage.assessmentStatusUpdate
       const target = { status: country.props.status }
       return {

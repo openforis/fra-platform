@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPRemove } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
@@ -56,7 +57,7 @@ export const remove = async (
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
 
     const message = ActivityLogMessage.originalDataPointRemove
-    const activityLog: ActivityLog<Pick<OriginalDataPoint, 'uuid' | 'year'>> = {
+    const activityLog: ActivityLogNDPRemove = {
       target: deletedNationalDataPoint,
       section: 'odp',
       message,

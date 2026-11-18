@@ -20,7 +20,7 @@ export const removeTable = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { deletedTable },
+          target: deletedTable,
           section: 'table',
           message: ActivityLogMessage.tableDelete,
           user,

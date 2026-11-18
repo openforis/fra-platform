@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUserRemove } from 'meta/assessment/activityLog/user'
 import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -17,17 +18,13 @@ export const remove = async (
   return client.tx(async (t) => {
     const removedUser = await UserRepository.remove({ user: userToRemove }, t)
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: { user: removedUser },
-          section: 'users',
-          message: ActivityLogMessage.userRemove,
-          user,
-        },
-      },
-      t
-    )
+    const activityLog: ActivityLogUserRemove = {
+      target: { user: removedUser },
+      section: 'users',
+      message: ActivityLogMessage.userRemove,
+      user,
+    }
+    await ActivityLogRepository.insertActivityLog({ activityLog }, t)
 
     return removedUser
   })

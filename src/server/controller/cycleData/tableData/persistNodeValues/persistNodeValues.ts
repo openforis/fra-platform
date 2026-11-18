@@ -1,5 +1,5 @@
 import { Country } from 'meta/area/country'
-import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNodeValue } from 'meta/assessment/activityLog/tableData'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
@@ -20,7 +20,7 @@ import { Logger } from 'server/utils/logger'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  activityLogMessage?: ActivityLogMessage
+  activityLogMessage?: ActivityLogNodeValue['message']
   nodeUpdates: NodeUpdates
   sectionName: string
   socketId?: string

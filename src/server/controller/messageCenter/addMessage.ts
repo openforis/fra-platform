@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessageCreate } from 'meta/assessment/activityLog/messageCenter'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Message } from 'meta/messageCenter/message'
@@ -57,7 +58,7 @@ export const addMessage = async (
       await updateTopicReadTime({ assessment, cycle, topic, user }, t)
     }
 
-    const activityLog = {
+    const activityLog: ActivityLogMessageCreate = {
       target: { id: message.id, topicUuid: topic.uuid },
       section: sectionName,
       message: ActivityLogMessage.messageCreate,

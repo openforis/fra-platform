@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogCycleDelete } from 'meta/assessment/activityLog/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -34,7 +35,7 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
     await StaticFiles.removeCycle({ assessment, cycle })
     // insert activity log
     const message = ActivityLogMessage.assessmentCycleDelete
-    const activityLog = { target: cycle, section: 'assessment', message, user }
+    const activityLog: ActivityLogCycleDelete = { target: cycle, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
     // update cache

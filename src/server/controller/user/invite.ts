@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogInvitationAdd } from 'meta/assessment/activityLog/user'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { UserInvitationForm } from 'meta/form/userInvitation/form'
@@ -77,7 +78,7 @@ export const invite = async (props: Props, client: BaseProtocol = DB): Promise<R
     const target = { userUuid, user: userToInvite.props.name, role }
     const message = ActivityLogMessage.invitationAdd
     const section = 'users'
-    const activityLog = { target, section, message, countryIso, user }
+    const activityLog: ActivityLogInvitationAdd = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     const assessmentName = assessment.props.name

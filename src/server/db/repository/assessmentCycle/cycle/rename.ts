@@ -1,7 +1,6 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -18,7 +17,7 @@ export const rename = async (props: Props, client: BaseProtocol = DB): Promise<C
   const schemaCycleSource = Schemas.getNameCycle(assessment, cycle)
   const schemaCycleTarget = Schemas.getNameCycle(assessment, { ...cycle, name })
 
-  await DB.query<void>(`alter schema ${schemaCycleSource} rename to ${schemaCycleTarget};`)
+  await client.query<void>(`alter schema ${schemaCycleSource} rename to ${schemaCycleTarget};`)
 
   return client.one<Cycle>(
     `
