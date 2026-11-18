@@ -4,6 +4,7 @@ import { enTranslation } from 'i18n/resources/en'
 import { type CountryIso } from 'meta/area/countryIso'
 import { type AssessmentName } from 'meta/assessment/assessment'
 import { type CycleName } from 'meta/assessment/cycle'
+import { type CollaboratorPermissions } from 'meta/user/role/collaborator'
 import { type RoleName } from 'meta/user/role/name'
 
 import { InviteApi } from 'test/e2e/api/invite'
@@ -14,6 +15,7 @@ export type UserSeed = {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: CycleName
+  permissions?: CollaboratorPermissions
   role: RoleName
 }
 

@@ -5,6 +5,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
 import { RoleName } from 'meta/user/role/name'
 import { UserContactPreferenceMethod } from 'meta/user/role/props'
 
@@ -15,6 +16,7 @@ export type InviteSeed = {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: CycleName
+  permissions?: CollaboratorPermissions
   role: RoleName
   testUser: TestUserData
 }
@@ -47,15 +49,25 @@ const _getQueryParams = (props: Pick<InviteSeed, 'assessmentName' | 'countryIso'
   return new URLSearchParams({ assessmentName, countryIso, cycleName }).toString()
 }
 
+const _getPermissionFields = (permissions?: CollaboratorPermissions): Record<string, string> => {
+  const fields: Record<string, string> = {}
+  Object.entries(permissions ?? {}).forEach(([permissionType, values]) => {
+    values.forEach((value, index) => {
+      fields[`permissions.${permissionType}.${index}`] = value
+    })
+  })
+  return fields
+}
+
 const create = async (page: Page, seed: InviteSeed): Promise<string> => {
-  const { assessmentName, countryIso, cycleName, role, testUser } = seed
+  const { assessmentName, countryIso, cycleName, permissions, role, testUser } = seed
   const { email, name, surname } = testUser
 
   const query = _getQueryParams({ assessmentName, countryIso, cycleName })
   const url = `${ApiEndPoint.User.invite()}?${query}`
 
   const response = await page.request.post(url, {
-    multipart: { email, language: Lang.en, name, role, surname },
+    multipart: { email, language: Lang.en, name, role, surname, ..._getPermissionFields(permissions) },
   })
 
   expect(response.ok(), `POST ${url} failed: ${response.status()} ${await response.text()}`).toBeTruthy()

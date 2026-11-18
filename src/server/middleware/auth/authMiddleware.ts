@@ -4,7 +4,11 @@ import { _next } from 'server/middleware/auth/_next'
 import { _tryCatch } from 'server/middleware/auth/_tryCatch'
 import { requireAdmin } from 'server/middleware/auth/admin/admin'
 import { requireEditCountryProps } from 'server/middleware/auth/country/edit'
-import { requireEditDescriptions, requireEditTableData } from 'server/middleware/auth/data/edit'
+import {
+  requireEditDescriptions,
+  requireEditTableData,
+  requireEditTableDataOrDescriptions,
+} from 'server/middleware/auth/data/edit'
 import { requireVerifyLinks } from 'server/middleware/auth/data/verifyLinks'
 import { requireView } from 'server/middleware/auth/data/view'
 import { requireViewHistory } from 'server/middleware/auth/history/view'
@@ -40,6 +44,7 @@ export const AuthMiddleware = {
   requireEditDescriptions: _tryCatch(requireEditDescriptions),
   requireEditMessageTopic: _tryCatch(requireEditMessageTopic),
   requireEditTableData: _tryCatch(requireEditTableData),
+  requireEditTableDataOrDescriptions: _tryCatch(requireEditTableDataOrDescriptions),
   requireEditUser: _tryCatch(requireEditUser),
   requireExportUsers: _tryCatch(requireExportUsers),
   requireInviteUser: _tryCatch(requireInviteUser),
