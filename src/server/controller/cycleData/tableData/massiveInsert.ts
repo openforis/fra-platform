@@ -1,6 +1,7 @@
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogTarget } from 'meta/assessment/activityLog/target'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Node } from 'meta/assessment/node'
@@ -55,19 +56,21 @@ export const massiveInsert = async (props: Props): Promise<void> => {
       const nodesInsert = await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, client)
 
       // 3. Insert activity logs into DB
-      const activityLogs = nodesInsert.map<ActivityLogDb<Node>>((target: Node) => {
-        const section = rowsByRowUuid[target.rowUuid]?.sectionName
-        const message = ActivityLogMessage.nodeValueImport
-        return {
-          assessment_uuid: assessmentUuid,
-          cycle_uuid: cycleUuid,
-          country_iso: countryIso,
-          section,
-          message,
-          target,
-          user_id: user.id,
+      const activityLogs = nodesInsert.map<ActivityLogDb<ActivityLogTarget<ActivityLogMessage.nodeValueImport>>>(
+        (target: Node) => {
+          const section = rowsByRowUuid[target.rowUuid]?.sectionName
+          const message = ActivityLogMessage.nodeValueImport
+          return {
+            assessment_uuid: assessmentUuid,
+            cycle_uuid: cycleUuid,
+            country_iso: countryIso,
+            section,
+            message,
+            target,
+            user_id: user.id,
+          }
         }
-      })
+      )
       await ActivityLogRepository.massiveInsert({ activityLogs }, client)
 
       // 4. Update Redis cache for each affected table

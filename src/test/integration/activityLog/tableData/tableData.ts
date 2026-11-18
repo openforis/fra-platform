@@ -4,6 +4,7 @@ import { UserController } from 'server/controller/user'
 
 import { initialiseCycle } from 'test/integration/activityLog/initialiseCycle'
 import estimateNodes from 'test/integration/activityLog/tableData/estimateNodes'
+import importNodes from 'test/integration/activityLog/tableData/importNodes'
 import updateCalculatedNode from 'test/integration/activityLog/tableData/updateCalculatedNode'
 import updateNode from 'test/integration/activityLog/tableData/updateNode'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
@@ -32,5 +33,6 @@ export default (): void => {
     updateNode()
     updateCalculatedNode()
     estimateNodes()
+    importNodes()
   })
 }
