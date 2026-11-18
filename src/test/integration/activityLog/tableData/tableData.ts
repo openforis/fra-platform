@@ -3,6 +3,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 
 import { initialiseCycle } from 'test/integration/activityLog/initialiseCycle'
+import updateCalculatedNode from 'test/integration/activityLog/tableData/updateCalculatedNode'
 import updateNode from 'test/integration/activityLog/tableData/updateNode'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { nationalDataPointCountryIso } from 'test/integration/mock/nationalDataPoint'
@@ -28,5 +29,6 @@ export default (): void => {
     })
 
     updateNode()
+    updateCalculatedNode()
   })
 }

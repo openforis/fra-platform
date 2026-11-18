@@ -23,3 +23,10 @@ export const colParams: ColProps = {
   colType: ColType.decimal,
   index: 0,
 }
+
+export const calculatedRowParams = (cycleUuid: string): RowProps => ({
+  calculateFn: { [cycleUuid]: `${tableParams.props.name}.${rowParams.variableName} * 2` },
+  index: 1,
+  type: RowType.calculated,
+  variableName: 'testCalculated',
+})

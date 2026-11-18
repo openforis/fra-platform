@@ -29,8 +29,8 @@ export default (): void =>
       cycleName: cycle.name,
     })
     await DB.query(`
-      insert into ${schemaCycle}.country (country_iso)
-      select country_iso
+      insert into ${schemaCycle}.country (country_iso, props)
+      select country_iso, '{"forestCharacteristics": {"useOriginalDataPoint": false}}'::jsonb
       from country
   `)
 
