@@ -26,6 +26,7 @@ export default (): void => {
 
     await ActivityLogAssertions.expectLastActivityLog({
       assessment,
+      country,
       cycle,
       message: ActivityLogMessage.linkUpdate,
       section: SectionNames.Admin.links,

@@ -41,10 +41,30 @@ const backfillEstimationTarget = async (assessments: Array<Assessment>, client: 
   )
 }
 
+const backfillLinkCountryIso = async (assessments: Array<Assessment>, client: BaseProtocol): Promise<void> => {
+  await Promises.each(assessments, (assessment) =>
+    Promises.each(assessment.cycles, (cycle) =>
+      client.query(
+        `
+          update public.activity_log al
+          set country_iso = l.country_iso
+          from ${Schemas.getNameCycle(assessment, cycle)}.link l
+          where al.message = 'linkUpdate'
+            and al.cycle_uuid = $(cycleUuid)
+            and al.target ->> 'uuid' = l.uuid::text
+            and al.country_iso is null
+        `,
+        { cycleUuid: cycle.uuid }
+      )
+    )
+  )
+}
+
 export default async (client: BaseProtocol): Promise<void> => {
   const assessments = await AssessmentController.getAll({}, client)
 
   await wrapDescriptionTarget(client)
   await backfillEstimationTarget(assessments, client)
+  await backfillLinkCountryIso(assessments, client)
   await recreateCountryActivityLogViews(client)
 }
