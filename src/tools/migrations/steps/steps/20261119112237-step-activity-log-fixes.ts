@@ -5,7 +5,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-import { recreateCountryActivityLogViews } from './utils/recreateCountryActivityLogViews'
+import { dropCountryActivityLogViews, recreateCountryActivityLogViews } from './utils/recreateCountryActivityLogViews'
 
 const wrapDescriptionTarget = async (client: BaseProtocol): Promise<void> => {
   await client.query(`
@@ -60,11 +60,35 @@ const backfillLinkCountryIso = async (assessments: Array<Assessment>, client: Ba
   )
 }
 
+const convertTimestampColumns = async (client: BaseProtocol): Promise<void> => {
+  // Re-run guard
+  const { dataType } = await client.one<{ dataType: string }>(`
+      select data_type as "dataType"
+      from information_schema.columns
+      where table_schema = 'public' and table_name = 'activity_log' and column_name = 'time'
+  `)
+  if (dataType === 'timestamp with time zone') return
+
+  await dropCountryActivityLogViews(client)
+
+  await client.query(`
+      alter table public.activity_log
+        alter column time type timestamptz using time at time zone 'UTC',
+        alter column time set default now();
+
+      alter table public.file
+        alter column created_at type timestamptz using created_at at time zone 'UTC';
+  `)
+}
+
 export default async (client: BaseProtocol): Promise<void> => {
   const assessments = await AssessmentController.getAll({}, client)
 
   await wrapDescriptionTarget(client)
   await backfillEstimationTarget(assessments, client)
   await backfillLinkCountryIso(assessments, client)
+  await convertTimestampColumns(client)
+
+  // -- Finally: rebuild country activity lgo views
   await recreateCountryActivityLogViews(client)
 }
