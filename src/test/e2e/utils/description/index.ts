@@ -18,7 +18,7 @@ const getDescriptionEditor = (page: Page, title: string): Locator =>
 const getDescriptionValidationError = (page: Page, title: string): Locator =>
   getDescriptionBlock(page, title).locator('.validation-error')
 
-const getDescriptionToggleEditButton = (page: Page, title: string, name: 'Done' | 'Edit'): Locator =>
+const getDescriptionToggleEditButton = (page: Page, title: string, name: string): Locator =>
   getDescriptionBlock(page, title).locator('button:visible', { hasText: name })
 
 const fillEditorWysiwyg = async (page: Page, editor: Locator, lines: Array<string>): Promise<void> => {
