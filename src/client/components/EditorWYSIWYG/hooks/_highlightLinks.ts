@@ -1,5 +1,7 @@
 import { Objects } from 'utils/objects'
 
+import { getLinkHref } from './_getLinkHref'
+
 type Props = {
   container: HTMLDivElement
   highlight?: Highlight
@@ -25,9 +27,7 @@ export const highlightLinks = (props: Props): Returned => {
 
     const anchors: Array<HTMLAnchorElement> = []
     container.querySelectorAll<HTMLAnchorElement>('.jodit-wysiwyg a').forEach((anchor) => {
-      const hrefAttribute = anchor.getAttribute('href')
-      const href = Objects.isEmpty(hrefAttribute) ? '' : hrefAttribute
-      if (!hrefs.has(href)) return
+      if (!hrefs.has(getLinkHref(anchor))) return
 
       anchors.push(anchor)
       if (Objects.isNil(highlight)) return

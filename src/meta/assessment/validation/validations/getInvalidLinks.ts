@@ -1,4 +1,4 @@
-import { Validation, ValidationMessageParam } from 'meta/assessment/validation/validation'
+import { InvalidLink, Validation, ValidationMessageParam } from 'meta/assessment/validation/validation'
 import { getI18nValidationStatusLabelKey } from 'meta/cycleData/links/getI18nValidationStatusLabelKey'
 import { invalidLinkMessageKey } from 'meta/cycleData/links/invalidLinkMessageKey'
 import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
@@ -11,20 +11,20 @@ const _isEmptyLink = (reason: ValidationMessageParam | undefined): boolean => {
   return isKeyParam && reason.key === emptyLinkReasonKey
 }
 
-export const getInvalidLinks = (validation: Validation | undefined): Array<string> => {
+export const getInvalidLinks = (validation: Validation | undefined): Array<InvalidLink> => {
   const messages = validation?.messages ?? []
 
-  return messages.reduce<Array<string>>((acc, message) => {
+  return messages.reduce<Array<InvalidLink>>((acc, message) => {
     if (message.key !== invalidLinkMessageKey) return acc
 
     const { link, reason } = message.params ?? {}
 
     if (_isEmptyLink(reason)) {
-      acc.push('')
+      acc.push({ link: '', message })
       return acc
     }
 
-    if (typeof link === 'string') acc.push(link)
+    if (typeof link === 'string') acc.push({ link, message })
 
     return acc
   }, [])

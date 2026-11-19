@@ -1,6 +1,8 @@
 import './EditorWYSIWYGLinks.scss'
 import React from 'react'
 
+import { InvalidLink } from 'meta/assessment/validation/validation'
+
 import { useIsPrintRoute } from 'client/hooks/routes'
 import EditorWYSIWYGReadOnly from 'client/components/EditorWYSIWYG/EditorWYSIWYGReadOnly'
 
@@ -10,7 +12,7 @@ type Props = {
   disabled?: boolean
   focusedLink?: string
   id?: string
-  invalidLinks?: Array<string>
+  invalidLinks?: Array<InvalidLink>
   onChange: (value?: string) => void
   repository?: boolean
   validationErrors?: Array<string>

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { InvalidLink } from 'meta/assessment/validation/validation'
 import { Validations } from 'meta/assessment/validation/validations/validations'
 
 import { useNationalDataPointValidation } from 'client/store/data/validations/nationalDataPoints/hooks/nationalDataPoints'
@@ -10,7 +11,7 @@ type Props = {
   originalDataPoint: OriginalDataPoint
 }
 
-type Returned = Array<string>
+type Returned = Array<InvalidLink>
 
 export const useInvalidLinks = (props: Props): Returned => {
   const { originalDataPoint } = props

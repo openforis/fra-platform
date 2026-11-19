@@ -6,6 +6,7 @@ import {
   DataSourceEditableField,
   DataSourceValidationErrors,
 } from 'meta/assessment/descriptionValue/dataSource'
+import { InvalidLink } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
@@ -31,7 +32,7 @@ const Components: Record<DataSourceEditableField, React.FC<PropsDataSourceCompon
 type Props = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange' | 'onDelete' | 'options'> & {
   dataSource: DataSource
   focusedLink?: DataSourcesFocusedLink
-  invalidLinks?: Array<string>
+  invalidLinks?: Array<InvalidLink>
   lastRow: boolean
   readOnly?: boolean
   validationErrors?: DataSourceValidationErrors

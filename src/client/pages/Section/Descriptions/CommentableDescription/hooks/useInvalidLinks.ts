@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
+import { InvalidLink } from 'meta/assessment/validation/validation'
 import { Validations } from 'meta/assessment/validation/validations/validations'
 
 import { useDescriptionValidation } from 'client/store/data/validations/descriptions/hooks/descriptions'
@@ -13,7 +14,7 @@ type Props = {
   sectionName: SectionName
 }
 
-type Returned = Array<string>
+type Returned = Array<InvalidLink>
 
 export const useInvalidLinks = (props: Props): Returned => {
   const { name, sectionName } = props
