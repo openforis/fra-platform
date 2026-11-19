@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 
+import { useDataSourcesFocusedLink } from 'client/hooks/useDataSourcesFocusedLink'
 import DataSources from 'client/components/DataSources'
 import { useOptionsMethodsUsed } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useOptionsMethodsUsed'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
@@ -32,11 +34,13 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors()
   const invalidLinks = useInvalidLinks()
+  const focusedLink = useDataSourcesFocusedLink({ ndpSection: NDPLinkField.dataSourceReferences })
 
   return (
     <DataSources
       columns={{ type: { isMulti: true, options } }}
       data={{ dataSources }}
+      focusedLink={focusedLink}
       historyCompares={historyCompares}
       invalidLinks={invalidLinks}
       onAdd={onAdd}

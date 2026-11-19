@@ -2,7 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 
+import { useFocusedLink } from 'client/hooks/useFocusedLink'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
@@ -28,6 +30,7 @@ const References: React.FC<Props> = (props: Props) => {
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors({ originalDataPoint })
   const invalidLinks = useInvalidLinks({ originalDataPoint })
+  const focusedLink = useFocusedLink({ ndpSection: NDPLinkField.dataSourceReferences })
   const onChange = useOnChange({ originalDataPoint })
   const actions = useActions({ originalDataPoint })
 
@@ -44,6 +47,7 @@ const References: React.FC<Props> = (props: Props) => {
         ) : (
           <EditorWYSIWYGLinks
             disabled={disabled}
+            focusedLink={focusedLink}
             invalidLinks={invalidLinks}
             onChange={onChange}
             repository

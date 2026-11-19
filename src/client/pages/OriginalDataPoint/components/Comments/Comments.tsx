@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { NDPCommentLinkFields } from 'meta/cycleData/links/nationalDataPointLink'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
+import { useFocusedLink } from 'client/hooks/useFocusedLink'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
@@ -35,6 +37,8 @@ const Comments: React.FC<Props> = (props) => {
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors({ field })
   const invalidLinks = useInvalidLinks({ field })
+  const commentLinkField = NDPCommentLinkFields.find(({ commentKey }) => commentKey === field)
+  const focusedLink = useFocusedLink({ ndpSection: commentLinkField?.linkField })
 
   useEffect(() => {
     if (open && isDataLocked) {
@@ -68,6 +72,7 @@ const Comments: React.FC<Props> = (props) => {
           <div className={classNames('description__editor-container', { editable: open })}>
             <EditorWYSIWYG
               disabled={!open}
+              focusedLink={focusedLink}
               invalidLinks={invalidLinks}
               onChange={updateComment}
               repository
