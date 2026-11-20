@@ -78,6 +78,17 @@ export const x13AreaAffectedByFire: DescriptionLocation = {
   ...dataSources,
 }
 
+export const x06ForestOwnership: DescriptionLocation = {
+  countryIso: 'X06',
+  sectionName: 'forestOwnership',
+  ...comments,
+}
+export const x06Disturbances: DescriptionLocation = {
+  countryIso: 'X06',
+  sectionName: SectionNames.disturbances,
+  ...dataSources,
+}
+
 // Every X country is already used on 1a and 1b, and BEL has no NDPs
 export const belExtentOfForest: DescriptionLocation = {
   countryIso: 'BEL',
@@ -90,6 +101,8 @@ export const belForestCharacteristics: DescriptionLocation = {
   ...dataSources,
 }
 
+export const x06ForestOwnershipPath = SectionUtils.path(x06ForestOwnership)
+export const x06DisturbancesPath = SectionUtils.path(x06Disturbances)
 export const x12CarbonStockPath = SectionUtils.path(x12CarbonStockEstimation)
 export const x12SpecificForestCategoriesPath = SectionUtils.path(x12SpecificForestCategories)
 export const x12ForestOwnershipPath = SectionUtils.path(x12ForestOwnership)
