@@ -39,7 +39,8 @@ export class ContextFactory extends BaseContextBuilder {
     if (!isODP) return true
     if (!isODPVariable(cycle, variable)) return true
     if (tableName === TableNames.extentOfForest) return false
-    if (tableName === TableNames.forestCharacteristics) return !country.props.forestCharacteristics.useOriginalDataPoint
+    if (tableName === TableNames.forestCharacteristics)
+      return !country.props?.forestCharacteristics?.useOriginalDataPoint
 
     return true
   }
