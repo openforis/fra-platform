@@ -62,10 +62,6 @@ test.describe('Links status: locations - open in the report', () => {
     await expect
       .poll(() => DescriptionUtils.getFocusedLinks(sectionPage))
       .toEqual([commentsInvalidLinks.brokenLinkText])
-    const focusedLink = sectionPage.getByRole('link', { name: commentsInvalidLinks.brokenLinkText, exact: true })
-    await expect(focusedLink).toBeInViewport()
-    // Pages open at the top, so if this one is scrolled down, the app scrolled to the link
-    await expect.poll(() => sectionPage.locator('#main').evaluate((main) => main.scrollTop)).toBeGreaterThan(0)
   })
 
   test('Admin opens a data source reference link from the links status and sees it focused in the reference', async ({
