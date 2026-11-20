@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -52,7 +53,7 @@ export const copyNationalClasses = async (props: Props, client: BaseProtocol = D
 
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateNationalClasses(updateNCProps, t)
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPUpdate = {
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateNationalClasses,

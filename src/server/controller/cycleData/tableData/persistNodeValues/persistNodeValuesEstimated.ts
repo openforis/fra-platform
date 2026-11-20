@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNodeValuesEstimationCreate } from 'meta/assessment/activityLog/tableData'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
@@ -22,8 +23,8 @@ type Props = {
   user: User
 }
 
-const getActivityLog = (props: Props): ActivityLog<NodeValuesEstimation> => {
-  const { country, estimation: target, sectionName: section, user } = props
+const getActivityLog = (props: Props, target: NodeValuesEstimation): ActivityLogNodeValuesEstimationCreate => {
+  const { country, sectionName: section, user } = props
   const { countryIso } = country
 
   return { countryIso, message: ActivityLogMessage.nodeValuesEstimationCreate, section, target, user }
@@ -45,9 +46,12 @@ export const persistNodeValuesEstimated = async (props: Props): Promise<void> =>
 
   await DB.tx(async (client) => {
     await persistNodeValues(getPersistNodeValuesProps(props), client)
-    await NodeValueEstimationRepository.create({ assessment, countryIso, cycle, estimation }, client)
+    const estimationCreated = await NodeValueEstimationRepository.create(
+      { assessment, countryIso, cycle, estimation },
+      client
+    )
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
-      { activityLog: getActivityLog(props), assessment, cycle },
+      { activityLog: getActivityLog(props, estimationCreated), assessment, cycle },
       client
     )
     await CountryService.updateLastEdit(

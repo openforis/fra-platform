@@ -35,7 +35,10 @@ export const upsertDescription = async (
     countryIso,
     cycleName: cycle.name,
   })
-  SocketServer.emitExcept({ eventName, socketId }, { name, sectionName, value: description.value })
+  SocketServer.emitToCountryRooms(
+    { countryIso, cycle, eventName, socketId },
+    { name, sectionName, value: description.value }
+  )
 
   await DataValidationService.validateDescriptions({
     assessment,

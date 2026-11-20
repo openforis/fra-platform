@@ -1,9 +1,11 @@
+import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket/sockets'
 
 import { SocketServer } from 'server/service/socket'
 
 type Props = {
+  cycle: Cycle
   nationalDataPoints: Array<OriginalDataPoint>
   // client that made the change, it already has the update
   socketId?: string
@@ -11,11 +13,11 @@ type Props = {
 
 // notifyNationalDataPointUpdate should be called after db tx
 export const notifyNationalDataPointUpdate = (props: Props): void => {
-  const { nationalDataPoints, socketId } = props
+  const { cycle, nationalDataPoints, socketId } = props
 
   nationalDataPoints.forEach((nationalDataPoint) => {
-    const { uuid } = nationalDataPoint
+    const { countryIso, uuid } = nationalDataPoint
     const eventName = Sockets.getNationalDataPointUpdateEvent({ uuid })
-    SocketServer.emitExcept({ eventName, socketId }, { nationalDataPoint })
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName, socketId }, { nationalDataPoint })
   })
 }

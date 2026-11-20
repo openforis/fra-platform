@@ -1,5 +1,5 @@
 import { Country } from 'meta/area/country'
-import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNodeValue } from 'meta/assessment/activityLog/tableData'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
@@ -20,7 +20,7 @@ import { Logger } from 'server/utils/logger'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  activityLogMessage?: ActivityLogMessage
+  activityLogMessage?: ActivityLogNodeValue['message']
   nodeUpdates: NodeUpdates
   sectionName: string
   socketId?: string
@@ -95,7 +95,10 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         { assessment, cycle, nodeUpdates: nodeUpdatesPersisted },
         client
       )
-      SocketServer.emitExcept({ eventName: nodeUpdateEvent, socketId }, { nodeUpdates: nodeUpdatesMirrorReset })
+      SocketServer.emitToCountryRooms(
+        { countryIso, cycle, eventName: nodeUpdateEvent, socketId },
+        { nodeUpdates: nodeUpdatesMirrorReset }
+      )
       await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, client)
 
       // schedule dependencies update

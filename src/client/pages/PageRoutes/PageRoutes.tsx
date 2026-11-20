@@ -8,7 +8,14 @@ import Tooltips from 'client/components/Tooltips'
 
 import { useInitApp } from './hooks/useInitApp'
 import { useOpenSocket } from './hooks/useOpenSocket'
+import { useReconnectSocket } from './hooks/useReconnectSocket'
 import { useRoutes } from './hooks/useRoutes'
+
+// AppInitialized builds a new router on every render, so useUser stays out of it
+const ReconnectSocket: React.FC = () => {
+  useReconnectSocket()
+  return null
+}
 
 const AppInitialized: React.FC = () => {
   const routes = useRoutes()
@@ -18,6 +25,7 @@ const AppInitialized: React.FC = () => {
       <Toaster />
       <RouterProvider router={createBrowserRouter(routes)} />
       <Tooltips />
+      <ReconnectSocket />
     </>
   )
 }

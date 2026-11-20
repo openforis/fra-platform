@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUserRoleDeleteRole } from 'meta/assessment/activityLog/user'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
@@ -24,7 +25,7 @@ export const removeRole = async (props: Props, client: BaseProtocol = DB): Promi
     const role = Users.getRole(target, countryIso, cycle)
     await UserRoleRepository.remove({ uuid: role.uuid }, t)
 
-    const activityLog = {
+    const activityLog: ActivityLogUserRoleDeleteRole = {
       target: { userUuid: target.uuid, user: Users.getFullName(target), countryIso, role: role.role },
       section: 'users',
       message: ActivityLogMessage.userRoleDeleteRole,

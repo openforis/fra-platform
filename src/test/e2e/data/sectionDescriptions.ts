@@ -88,6 +88,11 @@ export const x06Disturbances: DescriptionLocation = {
   sectionName: SectionNames.disturbances,
   ...dataSources,
 }
+export const autSpecificForestCategories: DescriptionLocation = {
+  countryIso: 'AUT',
+  sectionName: 'specificForestCategories',
+  ...comments,
+}
 
 // Every X country is already used on 1a and 1b, and BEL has no NDPs
 export const belExtentOfForest: DescriptionLocation = {
@@ -120,3 +125,4 @@ export const x13DisturbancesPath = SectionUtils.path(x13Disturbances)
 export const x13AreaAffectedByFirePath = SectionUtils.path(x13AreaAffectedByFire)
 export const belExtentOfForestPath = SectionUtils.path(belExtentOfForest)
 export const belForestCharacteristicsPath = SectionUtils.path(belForestCharacteristics)
+export const autSpecificForestCategoriesPath = SectionUtils.path(autSpecificForestCategories)

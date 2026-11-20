@@ -19,7 +19,7 @@ export const removeSection = async (
     await ActivityLogRepository.insertActivityLog(
       {
         activityLog: {
-          target: { deletedSection },
+          target: deletedSection,
           section: 'section',
           message: ActivityLogMessage.sectionDelete,
           user,

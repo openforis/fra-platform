@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNodeValue } from 'meta/assessment/activityLog/tableData'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Node } from 'meta/assessment/node'
@@ -16,7 +17,7 @@ type Props = {
   countryIso: CountryIso
   sectionName?: string
   user: User
-  activityLogMessage?: ActivityLogMessage
+  activityLogMessage?: ActivityLogNodeValue['message']
 } & NodeUpdate
 
 export const persistNode = async (props: Props, client: BaseProtocol): Promise<{ node: Node; time: string }> => {
@@ -25,7 +26,7 @@ export const persistNode = async (props: Props, client: BaseProtocol): Promise<{
 
   const nodeUpdated = await (node ? NodeRepository.update(props, client) : NodeRepository.create(props, client))
 
-  const activityLog: ActivityLog<Node> = {
+  const activityLog: ActivityLogNodeValue = {
     countryIso,
     message: activityLogMessage ?? ActivityLogMessage.nodeValueUpdate,
     section: sectionName,

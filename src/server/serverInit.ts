@@ -9,6 +9,7 @@ import qs from 'qs'
 import { Objects } from 'utils/objects'
 
 import { Api } from 'server/api'
+import { AuthConfig } from 'server/api/auth/config'
 import { Proxy } from 'server/proxy/proxy'
 import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
@@ -80,5 +81,5 @@ export const serverInit = (): void => {
     Logger.info(`FRA Platform server listening on port ${process.env.PORT}  with pid: ${process.pid}`)
   })
 
-  SocketServer.init(server)
+  SocketServer.init(server, { authenticate: AuthConfig.authenticateJwt })
 }

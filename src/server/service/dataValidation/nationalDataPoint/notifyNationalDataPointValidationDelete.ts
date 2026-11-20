@@ -22,5 +22,5 @@ export const notifyNationalDataPointValidationDelete = (props: Props): void => {
     cycleName: cycle.name,
   })
 
-  SocketServer.emit(eventName, { uuid })
+  SocketServer.emitToCountryRooms({ countryIso, cycle, eventName }, { uuid })
 }

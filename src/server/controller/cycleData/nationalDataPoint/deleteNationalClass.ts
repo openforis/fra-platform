@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPs } from 'meta/assessment/odps'
@@ -38,7 +39,7 @@ export const deleteNationalClass = async (props: Props, client: BaseProtocol = D
     const message = ActivityLogMessage.originalDataPointUpdateNationalClasses
     const { countryIso } = updatedOriginalDataPoint
     const section = 'odp'
-    const activityLog = { target: updatedOriginalDataPoint, section, message, countryIso, user }
+    const activityLog: ActivityLogNDPUpdate = { target: updatedOriginalDataPoint, section, message, countryIso, user }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { activityLog, assessment, cycle },
       t

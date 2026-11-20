@@ -1,5 +1,6 @@
 import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogRepositoryItemDelete } from 'meta/assessment/activityLog/repository'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/routes/sectionNames'
@@ -35,7 +36,7 @@ export const remove = async (props: Props): Promise<void> => {
 
     const message = ActivityLogMessage.repositoryItemDelete
     const section = SectionNames.Country.Home.repository
-    const activityLog = { target, section, message, countryIso, user }
+    const activityLog: ActivityLogRepositoryItemDelete = { target, section, message, countryIso, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
   })

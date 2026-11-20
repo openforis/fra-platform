@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogLinksCheck, LinksCheckStatus } from 'meta/assessment/activityLog/links'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/routes/sectionNames'
@@ -8,9 +9,7 @@ import { User } from 'meta/user/user'
 import { BaseProtocol, DB } from 'server/db/db'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
-type LinksCheckStatus = 'started' | 'completed' | 'failed'
-
-const messageByStatus: Record<LinksCheckStatus, ActivityLogMessage> = {
+const messageByStatus: Record<LinksCheckStatus, ActivityLogLinksCheck['message']> = {
   started: ActivityLogMessage.linksCheckStart,
   completed: ActivityLogMessage.linksCheckComplete,
   failed: ActivityLogMessage.linksCheckFail,
@@ -30,7 +29,8 @@ export const insertLinksCheckActivityLog = async (props: Props, client: BaseProt
 
   const message = messageByStatus[status]
   const section = SectionNames.Admin.links
-  const target = { error, jobStatus: status }
-  const activityLog = { countryIso, message, section, target, user }
+  // Error serializes to {} in jsonb, log it as text
+  const target = { error: error ? String(error) : undefined, jobStatus: status }
+  const activityLog: ActivityLogLinksCheck = { countryIso, message, section, target, user }
   await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, client)
 }

@@ -4,15 +4,19 @@ import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { DB } from 'server/db/db'
+import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { Schemas } from 'server/db/schemas'
 
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { userMockTest } from 'test/integration/mock/user'
+import { testContext } from 'test/integration/testContext'
 
 export default (): void =>
   test('Expect assessment to be created', async () => {
     const user = await UserController.getOne({ email: userMockTest.email })
     const assessment = await AssessmentController.create({ assessment: assessmentParams, user })
+    // Note: Persist created assessment (before cycle create) to check its activity log
+    testContext.assessmentCreated = await AssessmentRepository.getOne({ id: assessment.id })
 
     const { assessment: assessmentCycle, cycle } = await AssessmentController.createCycle({
       assessment,
@@ -25,8 +29,8 @@ export default (): void =>
       cycleName: cycle.name,
     })
     await DB.query(`
-      insert into ${schemaCycle}.country (country_iso)
-      select country_iso
+      insert into ${schemaCycle}.country (country_iso, props)
+      select country_iso, '{"forestCharacteristics": {"useOriginalDataPoint": false}}'::jsonb
       from country
   `)
 
