@@ -1,4 +1,5 @@
 import { ValidationMessage } from 'meta/assessment/validation/validation'
+import { invalidLinkMessageKey } from 'meta/cycleData/links/invalidLinkMessageKey'
 import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { Objects } from 'utils/objects'
@@ -24,7 +25,7 @@ export const getLinkValidationMessage = (props: Props): ValidationMessage | unde
   const invalidLinkLabel = !Objects.isEmpty(link) ? link : name
 
   return {
-    key: 'generalValidation.invalidLinkWithReason',
+    key: invalidLinkMessageKey,
     params: {
       link: invalidLinkLabel,
       reason: { key: Links.getI18nValidationStatusLabelKey(validationCode) },

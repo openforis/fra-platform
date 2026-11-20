@@ -14,6 +14,11 @@ export interface ValidationMessage {
   params?: Record<string, ValidationMessageParam>
 }
 
+export type InvalidLink = {
+  link: string
+  message: ValidationMessage
+}
+
 export interface Validation {
   valid: boolean
   messages?: Array<ValidationMessage>

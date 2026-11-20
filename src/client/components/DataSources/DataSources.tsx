@@ -32,7 +32,9 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
     columns,
     data,
     dataSourcesLinked,
+    focusedLink,
     historyCompares,
+    invalidLinks,
     meta,
     onAdd,
     onChange,
@@ -81,6 +83,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   <DataSourceRow
                     columns={columns}
                     dataSource={dataSource.data}
+                    invalidLinks={invalidLinks?.[dataSource.data.uuid]}
                     lastRow={i === dataSourcesLinked.length - 1}
                     meta={dataSource.meta}
                     onChange={onChange}
@@ -111,6 +114,8 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
                   columns={columns}
                   dataSource={dataSourceValue}
+                  focusedLink={focusedLink}
+                  invalidLinks={invalidLinks?.[dataSourceValue.uuid]}
                   lastRow={i === dataSources.length - 1}
                   meta={meta}
                   onChange={onChange}

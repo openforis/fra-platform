@@ -33,3 +33,20 @@ export const requireEditTableData = async (req: Request, _res: Response, next: N
 
   return _requireEditData(_req, next)
 }
+
+export const requireEditTableDataOrDescriptions = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const { sectionName } = _getRequestParams<CycleDataParams>(req)
+  const user = Requests.getUser(req)
+  const { assessment, country, cycle } = req.context
+  const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
+
+  const { descriptions, tableData } = CollaboratorEditPropertyType
+  const canEditTableData = Authorizer.canEditSectionData({ country, cycle, permission: tableData, section, user })
+  const canEditDescriptions = Authorizer.canEditSectionData({ country, cycle, permission: descriptions, section, user })
+
+  _next(canEditTableData || canEditDescriptions, next)
+}

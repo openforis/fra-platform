@@ -6,6 +6,7 @@ import {
   DataSourceEditableField,
   DataSourceValidationErrors,
 } from 'meta/assessment/descriptionValue/dataSource'
+import { InvalidLink } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
@@ -14,7 +15,7 @@ import Reference from 'client/components/DataSources/Columns/Reference'
 import TypeOfDataSource from 'client/components/DataSources/Columns/TypeOfDataSource'
 import Variables from 'client/components/DataSources/Columns/Variables'
 import YearForDataSource from 'client/components/DataSources/Columns/YearForDataSource'
-import { PropsDataSourceComponent, PropsDataSources } from 'client/components/DataSources/types'
+import { DataSourcesFocusedLink, PropsDataSourceComponent, PropsDataSources } from 'client/components/DataSources/types'
 
 import { useComponentsOrder } from './hooks/useComponentsOrder'
 import { useDataSourceActions } from './hooks/useDataSourceActions'
@@ -30,13 +31,27 @@ const Components: Record<DataSourceEditableField, React.FC<PropsDataSourceCompon
 
 type Props = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange' | 'onDelete' | 'options'> & {
   dataSource: DataSource
+  focusedLink?: DataSourcesFocusedLink
+  invalidLinks?: Array<InvalidLink>
   lastRow: boolean
   readOnly?: boolean
   validationErrors?: DataSourceValidationErrors
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { columns, dataSource, lastRow, meta, onChange, onDelete, options, readOnly, validationErrors = {} } = props
+  const {
+    columns,
+    dataSource,
+    focusedLink,
+    invalidLinks,
+    lastRow,
+    meta,
+    onChange,
+    onDelete,
+    options,
+    readOnly,
+    validationErrors = {},
+  } = props
   const { canEdit } = options
   const disabled = !canEdit || readOnly
 
@@ -50,7 +65,11 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         const Component = Components[componentKey]
         const tooltip = getErrorTooltip(componentKey)
         // The Reference component renders an editor WYSIWYG, which receives validation errors.
-        const referenceValidationErrors = componentKey === 'reference' ? validationErrors.reference : undefined
+        const isReference = componentKey === 'reference'
+        const isFocused = isReference && !Objects.isNil(focusedLink) && focusedLink.dataSourceUuid === dataSource.uuid
+        const referenceFocusedLink = isFocused ? focusedLink.link : undefined
+        const referenceInvalidLinks = isReference ? invalidLinks : undefined
+        const referenceValidationErrors = isReference ? validationErrors.reference : undefined
 
         return (
           <DataCell
@@ -66,6 +85,8 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
               columns={columns}
               dataSource={dataSource}
               disabled={disabled}
+              focusedLink={referenceFocusedLink}
+              invalidLinks={referenceInvalidLinks}
               meta={meta}
               onChange={onChange}
               validationErrors={referenceValidationErrors}

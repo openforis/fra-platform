@@ -2,11 +2,13 @@ import './Locations.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Link as LinkType } from 'meta/cycleData/links/link'
+import { Link as LinkType, LinkLocation } from 'meta/cycleData/links/link'
+import { Links } from 'meta/cycleData/links/links'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import Link, { LinkColor } from 'client/components/Links/Link'
 import { useGetLocationLabel } from 'client/components/LinksTable/Locations/hooks/useGetLocationLabel'
+import { Urls } from 'client/utils/urls'
 
 type Props = {
   includeCountryIso?: boolean
@@ -25,6 +27,14 @@ const Locations: React.FC<Props> = (props) => {
     setShowLocations((currentValue) => !currentValue)
   }, [])
 
+  const getUrl = useCallback<(location: LinkLocation) => string>(
+    (location) => {
+      const queryParams = Links.getFocusedLinkQueryParams({ link: link.link, location })
+      return Urls.withSearchParams(String(location.url), queryParams)
+    },
+    [link.link]
+  )
+
   return (
     <>
       <div className="locations-count">
@@ -42,7 +52,7 @@ const Locations: React.FC<Props> = (props) => {
         <ol className="locations">
           {locations?.map((location, idx) => (
             <li key={`${String(idx)}-${location.url}`}>
-              <Link color={LinkColor.body} rel="noreferrer" target="_blank" to={String(location.url)}>
+              <Link color={LinkColor.body} rel="noreferrer" target="_blank" to={getUrl(location)}>
                 {getLabel({ countryIso: link.countryIso, location })}
               </Link>
             </li>
