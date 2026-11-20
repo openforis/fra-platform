@@ -10,8 +10,10 @@ import { NdpApi } from 'test/e2e/api/ndp'
 import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test as ndpTest } from 'test/e2e/fixtures/ndp'
 import { test as userTest } from 'test/e2e/fixtures/user'
+import { DescriptionUtils } from 'test/e2e/utils/description'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
+import { LinksStatusUtils } from 'test/e2e/utils/linksStatus'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
@@ -40,6 +42,7 @@ const forestCharacteristicsInvalidLinks = LinkBuilder.buildInvalidLinksHtml(
   `ndp-forest-characteristics-${randomString}`
 )
 const referenceInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`ndp-reference-${randomString}`)
+const linksStatusInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`ndp-links-status-${randomString}`)
 
 test.describe('National data point: metadata - failure', () => {
   test.use({ ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }] })
@@ -139,6 +142,29 @@ test.describe('National data point: metadata - failure', () => {
     await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1b')).toBeVisible()
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
     await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
+  })
+
+  test('Admin opens a 1a comments link from the links status and sees it focused in the comments', async ({
+    authenticatedPage,
+    ndp,
+  }) => {
+    const page = authenticatedPage
+    expect(ndp.id).toBeTruthy()
+
+    await page.goto(ndp1aPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+
+    await NDPDomUtils.fillComments(page, linksStatusInvalidLinks.html)
+    await expect(NDPDomUtils.getCommentsValidationError(page)).toBeVisible({ timeout: Timeouts.extraLong })
+
+    await page.goto(LinksStatusUtils.path(countryIso))
+    const ndpPage = await LinksStatusUtils.openLocation(page, linksStatusInvalidLinks.brokenLinkDisplayUrl)
+
+    await expect.poll(() => DescriptionUtils.getFocusedLinks(ndpPage)).toEqual([linksStatusInvalidLinks.brokenLinkText])
+    const focusedLink = ndpPage.getByRole('link', { name: linksStatusInvalidLinks.brokenLinkText, exact: true })
+    await expect(focusedLink).toBeInViewport()
+    // Pages open at the top, so if this one is scrolled down, the app scrolled to the link
+    await expect.poll(() => ndpPage.locator('#main').evaluate((main) => main.scrollTop)).toBeGreaterThan(0)
   })
 })
 
