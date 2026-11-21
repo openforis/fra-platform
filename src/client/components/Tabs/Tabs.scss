@@ -1,0 +1,25 @@
+@use 'src/client/style/partials' as *;
+
+.tabs {
+  align-items: start;
+  display: flex;
+  overflow-x: auto;
+}
+
+a.tabs__item.button {
+  border-bottom: 2px solid $ui-border;
+  color: $text-body;
+  font-size: $font-l;
+  font-weight: normal;
+  margin: 0;
+  text-transform: unset;
+
+  &:hover {
+    color: $ui-accent;
+  }
+
+  &.active {
+    border-bottom-color: $ui-accent;
+    color: $ui-accent;
+  }
+}
