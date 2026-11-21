@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test'
 import { type CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
+import { DataTestId } from 'meta/dataTestId/id'
 import { Routes } from 'meta/routes/routes'
 
 const countryIso: CountryIso = 'X03'
@@ -26,7 +27,7 @@ test.describe('Public view: private features are not available', () => {
     await expect(page.locator('.btn-lock')).toHaveCount(0)
 
     // dont show country home tabs
-    await expect(page.locator('.country-header__tabs')).toHaveCount(0)
+    await expect(page.getByTestId(DataTestId.countryHomeTabs)).toHaveCount(0)
 
     await expect(page.locator('.toast.error')).toHaveCount(0)
   })

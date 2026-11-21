@@ -21,35 +21,11 @@
 }
 
 .admin__page-menu {
-  align-items: start;
   background-color: white;
-  display: flex;
-  overflow-x: auto;
   padding-top: $spacing-xxs;
   position: sticky;
   top: 0;
   z-index: 1;
-
-  .admin__page-menu-button {
-    border-bottom: 2px solid $ui-border;
-    color: $text-body;
-    font-size: $font-l;
-    font-weight: normal;
-    margin: 0;
-    text-transform: unset;
-
-    &:hover {
-      color: $ui-accent;
-    }
-
-    &.disabled,
-    &:disabled {
-      border-bottom-color: $ui-accent;
-      color: $ui-accent;
-      opacity: 1;
-      pointer-events: none;
-    }
-  }
 }
 
 .admin__page-content {
