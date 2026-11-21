@@ -1,5 +1,5 @@
 import './Admin.scss'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Outlet } from 'react-router'
 
@@ -43,6 +43,11 @@ const Admin: React.FC = () => {
   const countries = useCountries()
   const user = useUser()
 
+  const tabItems = useMemo<Array<TabItem>>(
+    () => sections.map<TabItem>(({ labelKey, name }) => ({ href: name, label: t(labelKey) })),
+    [t]
+  )
+
   if (!Users.isAdministrator(user)) return <Navigate replace to={Routes.Root.path.absolute} />
 
   if (Objects.isEmpty(countries)) return null
@@ -54,7 +59,7 @@ const Admin: React.FC = () => {
       </div>
 
       <div className="admin__page-menu">
-        <Tabs items={sections.map<TabItem>(({ labelKey, name }) => ({ label: t(labelKey), to: name }))} />
+        <Tabs items={tabItems} />
       </div>
 
       <div className="admin__page-content">

@@ -40,6 +40,15 @@ const CountryHeader: React.FC<Props> = (props) => {
     [countryIso, sections]
   )
 
+  const tabItems = useMemo<Array<TabItem>>(
+    () =>
+      sections.map<TabItem>(({ route }) => ({
+        href: route.generatePath({ assessmentName, countryIso, cycleName }),
+        label: t(`landing.sections.${route.path.relative}`),
+      })),
+    [assessmentName, countryIso, cycleName, sections, t]
+  )
+
   return (
     <div className="country-header">
       {withLabel && (
@@ -64,15 +73,7 @@ const CountryHeader: React.FC<Props> = (props) => {
         </div>
       )}
 
-      {withTabs && (
-        <Tabs
-          dataTestId={DataTestId.countryHomeTabs}
-          items={sections.map<TabItem>(({ route }) => ({
-            label: t(`landing.sections.${route.path.relative}`),
-            to: route.generatePath({ assessmentName, countryIso, cycleName }),
-          }))}
-        />
-      )}
+      {withTabs && <Tabs dataTestId={DataTestId.countryHomeTabs} items={tabItems} />}
     </div>
   )
 }

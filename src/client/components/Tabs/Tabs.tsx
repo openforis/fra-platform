@@ -17,8 +17,8 @@ const Tabs: React.FC<Props> = (props) => {
 
   return (
     <div className="tabs" data-testid={dataTestId}>
-      {items.map(({ label, to }) => (
-        <NavLink key={to} className={className} to={to}>
+      {items.map(({ href, label }) => (
+        <NavLink key={href} className={className} to={href}>
           {label}
         </NavLink>
       ))}

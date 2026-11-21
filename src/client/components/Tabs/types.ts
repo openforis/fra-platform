@@ -1,4 +1,4 @@
 export type TabItem = {
+  href: string
   label: string
-  to: string
 }
