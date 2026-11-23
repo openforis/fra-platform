@@ -5,7 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { DataSourceLinkedVariable } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSourceLinkedVariable } from 'meta/assessment/description/dataSourceDescription'
 import { DataSourceLinked } from 'meta/assessment/descriptionValue/dataSource'
 
 type Params = {

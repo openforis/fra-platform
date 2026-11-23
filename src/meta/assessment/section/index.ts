@@ -1,6 +1,6 @@
 import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
-import { Descriptions } from 'meta/assessment/description/description'
+import { Descriptions } from 'meta/assessment/descriptions/types'
 import { Label } from 'meta/assessment/label'
 import { UUID } from 'meta/uuid/uuid'
 

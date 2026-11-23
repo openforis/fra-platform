@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSourceDescription } from 'meta/assessment/description/dataSourceDescription'
 import { DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 
 import { DataRow } from 'client/components/DataGrid'

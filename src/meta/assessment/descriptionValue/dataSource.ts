@@ -1,4 +1,4 @@
-import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSourceDescription } from 'meta/assessment/description/dataSourceDescription'
 import { UUID } from 'meta/uuid/uuid'
 
 // data

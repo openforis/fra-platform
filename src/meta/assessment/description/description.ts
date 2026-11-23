@@ -1,5 +1,3 @@
-import { CycleUuid } from 'meta/assessment/cycle'
-
 import { AnalysisAndProcessingDescription } from './analysisAndProcessingDescription'
 import { NationalDataDescription } from './nationalDataDescription'
 
@@ -9,5 +7,3 @@ export interface Description {
   introductoryText?: boolean
   nationalData?: NationalDataDescription
 }
-
-export type Descriptions = Record<CycleUuid, Description>

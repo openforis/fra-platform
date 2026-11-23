@@ -1,4 +1,4 @@
-import { DataSourceDescription } from './nationalDataDataSourceDescription'
+import { DataSourceDescription } from './dataSourceDescription'
 
 export interface NationalDataDescription {
   dataSources?: DataSourceDescription
