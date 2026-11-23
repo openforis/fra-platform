@@ -15,7 +15,6 @@ export enum SectionNames {
   forestCharacteristics = 'forestCharacteristics',
   growingStock = 'growingStock',
   nationalDataPoint = 'nationalDataPoint',
-  originalDataPoints = 'originalDataPoints',
 }
 
 export interface SectionProps {
