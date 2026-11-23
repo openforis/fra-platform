@@ -1,0 +1,94 @@
+import { Assessment } from 'meta/assessment/assessment'
+import { Promises } from 'utils/promises'
+
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
+
+import { dropCountryActivityLogViews, recreateCountryActivityLogViews } from './utils/recreateCountryActivityLogViews'
+
+const wrapDescriptionTarget = async (client: BaseProtocol): Promise<void> => {
+  await client.query(`
+      update public.activity_log
+      set target = jsonb_set(target, '{description}', jsonb_build_object('value', target -> 'description'))
+      where message = 'descriptionUpdate'
+        and jsonb_typeof(target -> 'description') = 'object'
+        and not (target -> 'description' ? 'value')
+  `)
+}
+
+const backfillEstimationTarget = async (assessments: Array<Assessment>, client: BaseProtocol): Promise<void> => {
+  // createdAt in JS Date.toISOString() format (e.g. 2024-10-03T13:06:00.225Z)
+  // same format as the new logs save in .../persistNodeValues/persistNodeValuesEstimated.ts
+  await Promises.each(assessments, (assessment) =>
+    Promises.each(assessment.cycles, (cycle) =>
+      client.query(
+        `
+          update public.activity_log al
+          set target = al.target || jsonb_build_object(
+            'countryIso', e.country_iso,
+            'createdAt', to_char(e.created_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
+            'id', e.id)
+          from ${Schemas.getNameCycle(assessment, cycle)}.node_values_estimation e
+          where al.message = 'nodeValuesEstimationCreate'
+            and al.cycle_uuid = $(cycleUuid)
+            and al.target ->> 'uuid' = e.uuid::text
+            and not (al.target ? 'countryIso')
+        `,
+        { cycleUuid: cycle.uuid }
+      )
+    )
+  )
+}
+
+const backfillLinkCountryIso = async (assessments: Array<Assessment>, client: BaseProtocol): Promise<void> => {
+  await Promises.each(assessments, (assessment) =>
+    Promises.each(assessment.cycles, (cycle) =>
+      client.query(
+        `
+          update public.activity_log al
+          set country_iso = l.country_iso
+          from ${Schemas.getNameCycle(assessment, cycle)}.link l
+          where al.message = 'linkUpdate'
+            and al.cycle_uuid = $(cycleUuid)
+            and al.target ->> 'uuid' = l.uuid::text
+            and al.country_iso is null
+        `,
+        { cycleUuid: cycle.uuid }
+      )
+    )
+  )
+}
+
+const convertTimestampColumns = async (client: BaseProtocol): Promise<void> => {
+  // Re-run guard
+  const { dataType } = await client.one<{ dataType: string }>(`
+      select data_type as "dataType"
+      from information_schema.columns
+      where table_schema = 'public' and table_name = 'activity_log' and column_name = 'time'
+  `)
+  if (dataType === 'timestamp with time zone') return
+
+  await dropCountryActivityLogViews(client)
+
+  await client.query(`
+      alter table public.activity_log
+        alter column time type timestamptz using time at time zone 'UTC',
+        alter column time set default now();
+
+      alter table public.file
+        alter column created_at type timestamptz using created_at at time zone 'UTC';
+  `)
+}
+
+export default async (client: BaseProtocol): Promise<void> => {
+  const assessments = await AssessmentController.getAll({}, client)
+
+  await wrapDescriptionTarget(client)
+  await backfillEstimationTarget(assessments, client)
+  await backfillLinkCountryIso(assessments, client)
+  await convertTimestampColumns(client)
+
+  // -- Finally: rebuild country activity lgo views
+  await recreateCountryActivityLogViews(client)
+}

@@ -29,12 +29,12 @@ export const update = async (props: Props): Promise<Link> => {
 
   const updatedLink = await DB.tx(async (t: BaseProtocol) => {
     const updatedLink = await LinkRepository.update(props, t)
-    const { id, link, props: _props, uuid } = updatedLink
+    const { countryIso, id, link, props: _props, uuid } = updatedLink
     const target = { id, link, props: _props, uuid }
 
     const message = ActivityLogMessage.linkUpdate
     const section = SectionNames.Admin.links
-    const activityLog: ActivityLogLinkUpdate = { target, section, message, user }
+    const activityLog: ActivityLogLinkUpdate = { countryIso, target, section, message, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams, t)
 
