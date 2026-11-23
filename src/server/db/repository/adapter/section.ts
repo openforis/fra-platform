@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 interface SectionDB {
   id: number
   uuid: string
-  parent_uuid?: null
+  parent_uuid: null
   props: SectionProps & { cycles: Array<string> }
   sub_sections?: Array<SubSection>
 }
@@ -39,12 +39,10 @@ export const SubSectionAdapter = (subSection: SubSectionDB): SubSection => {
 
 export const SectionAdapter = (section: SectionDB): Section => {
   // eslint-disable-next-line camelcase
-  const { parent_uuid, props, sub_sections, ...restSection } = section
+  const { props, sub_sections, ...restSection } = section
 
   return {
-    ...restSection,
-    // eslint-disable-next-line camelcase
-    parentUuid: parent_uuid,
+    ...Objects.camelize(restSection),
     props,
     // eslint-disable-next-line camelcase
     subSections: sub_sections?.map(SubSectionAdapter),
