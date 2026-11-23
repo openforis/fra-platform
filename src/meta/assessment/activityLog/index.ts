@@ -28,7 +28,6 @@ export enum ActivityLogMessage {
   nodeValueUpdate = 'nodeValueUpdate',
   originalDataPointCreate = 'originalDataPointCreate',
   originalDataPointRemove = 'originalDataPointRemove',
-  originalDataPointUpdate = 'originalDataPointUpdate',
   originalDataPointUpdateDataSources = 'originalDataPointUpdateDataSources',
   originalDataPointUpdateCommentExtentOfForest = 'originalDataPointUpdateCommentExtentOfForest',
   originalDataPointUpdateCommentForestCharacteristics = 'originalDataPointUpdateCommentForestCharacteristics',
@@ -58,6 +57,9 @@ export enum ActivityLogMessage {
   userRolesUpdate = 'userRolesUpdate',
   userUpdate = 'userUpdate',
   usersMerge = 'usersMerge',
+
+  /** @deprecated No longer written, replaced by the originalDataPointUpdate* messages. Kept to read old logs. */
+  originalDataPointUpdate = 'originalDataPointUpdate',
 }
 
 export interface ActivityLog<Target, Message extends ActivityLogMessage = ActivityLogMessage> {
