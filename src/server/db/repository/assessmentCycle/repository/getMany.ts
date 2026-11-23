@@ -28,7 +28,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     ? `
             union all
             select jsonb_build_object(
-              'sectionName', '${SectionNames.originalDataPoints}',
+              'sectionName', '${SectionNames.nationalDataPoint}',
               'suffix', odp.year::text,
               'locations', jsonb_build_array(jsonb_build_object('key', 'nationalDataPoint.references'))
             ) as u
@@ -39,7 +39,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
               and exists
                   (select 1
                    from jsonb_array_elements(d.value) elem
-                   where elem ->> 'type' ilike '%' || tree.uuid::text || '%')
+                   where elem ->> 'reference' ilike '%' || tree.uuid::text || '%')
             `
     : ''
 
@@ -73,6 +73,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
             from ${schemaCycle}.descriptions d
             where d.country_iso = tree.country_iso
               and d.value::text ilike '%' || tree.uuid::text || '%'
+              and d.section_name <> '${SectionNames.nationalDataPoint}'
             ${odpUsageClause}
           ) sub
         ) end as usages,

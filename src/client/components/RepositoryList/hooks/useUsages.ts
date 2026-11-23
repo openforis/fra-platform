@@ -34,7 +34,7 @@ export const useUsages = (usages: Array<FileUsage> | undefined): Returned => {
           t(location.key, { assessmentName: assessment.props.name, cycleName: cycle.name })
         ) ?? []
 
-      if (usage.sectionName === SectionNames.originalDataPoints) {
+      if (usage.sectionName === SectionNames.nationalDataPoint) {
         acc.push({
           anchor: `ODP ${usage.suffix}`,
           locations,
