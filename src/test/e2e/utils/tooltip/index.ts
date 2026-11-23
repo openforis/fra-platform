@@ -2,6 +2,8 @@ import { expect, Locator, Page } from '@playwright/test'
 
 import { Timeouts } from 'test/e2e/config/timeouts'
 
+import { expectNoValidationTooltip } from './expectNoValidationTooltip'
+
 const expectValidationTooltip = async (page: Page, locator: Locator, text: string): Promise<void> => {
   // When one or more tooltips are visible at the same time, choose the one that's not closing
   // __closing = we are not hovering it anymore
@@ -17,5 +19,6 @@ const expectValidationTooltip = async (page: Page, locator: Locator, text: strin
 }
 
 export const TooltipUtils = {
+  expectNoValidationTooltip,
   expectValidationTooltip,
 }

@@ -1,5 +1,11 @@
+import { enTranslation } from 'i18n/resources/en'
+
+import { getInvalidLinkMessage } from './_getInvalidLinkMessage'
+
 type InvalidLinksFixture = {
+  emptyLinkError: string
   emptyLinkText: string
+  brokenLinkError: string
   brokenLinkText: string
   brokenLinkDisplayUrl: string
   html: string
@@ -20,7 +26,11 @@ const buildInvalidLinksHtml = (label: string): InvalidLinksFixture => {
   const brokenLinkDisplayUrl = `https://${brokenLinkDomain}`
   const html = `<a href="">${emptyLinkText}</a><br><a href="${brokenLinkDisplayUrl}">${brokenLinkText}</a>`
 
-  return { brokenLinkDisplayUrl, brokenLinkText, emptyLinkText, html }
+  const { dnsError, empty } = enTranslation.linkValidation
+  const brokenLinkError = getInvalidLinkMessage({ link: brokenLinkDisplayUrl, reason: dnsError })
+  const emptyLinkError = getInvalidLinkMessage({ link: emptyLinkText, reason: empty })
+
+  return { brokenLinkDisplayUrl, brokenLinkError, brokenLinkText, emptyLinkError, emptyLinkText, html }
 }
 
 const buildValidLinkHtml = (label: string): ValidLinkFixture => {

@@ -28,15 +28,21 @@ const pasteLinks = async (page: Page, title: string, html: string): Promise<void
   })
 }
 
-const expectLinkErrors = async (page: Page, error: Locator, emptyLinkText: string): Promise<void> => {
+type InvalidLinks = ReturnType<typeof LinkBuilder.buildInvalidLinksHtml>
+
+const expectLinkErrors = async (page: Page, error: Locator, invalidLinks: InvalidLinks): Promise<void> => {
   await expect(error).toBeVisible({ timeout: Timeouts.extraLong })
-  await TooltipUtils.expectValidationTooltip(page, error, `Invalid link: "${emptyLinkText}" (Empty)`)
+  const emptyLink = error.locator('a', { hasText: invalidLinks.emptyLinkText })
+  await TooltipUtils.expectValidationTooltip(page, emptyLink, invalidLinks.emptyLinkError)
+  // The link sits inside the editor, so an editor tooltip would show up here too
+  await TooltipUtils.expectNoValidationTooltip(page, invalidLinks.brokenLinkError)
 }
 
 test.describe('Section descriptions: text links - fix and remove', () => {
   const estimationInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`estimation-${randomString}`)
   const estimationValidLink = LinkBuilder.buildValidLinkHtml(`estimation-${randomString}`)
   const classificationInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`classification-${randomString}`)
+  const classificationValidLink = LinkBuilder.buildValidLinkHtml(`classification-${randomString}`)
   const classificationPlainText = `classification without links ${randomString}`
 
   test.afterAll(async ({ browser }) => {
@@ -59,13 +65,25 @@ test.describe('Section descriptions: text links - fix and remove', () => {
       await DOMUtils.ensureEditingUnlocked(page)
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
 
-      await pasteLinks(page, estimationTitle, estimationInvalidLinks.html)
-      await pasteLinks(page, classificationTitle, classificationInvalidLinks.html)
+      // The valid link should stay without highlight
+      const estimationHtml = `${estimationInvalidLinks.html}<br>${estimationValidLink.html}`
+      const classificationHtml = `${classificationInvalidLinks.html}<br>${classificationValidLink.html}`
+      await pasteLinks(page, estimationTitle, estimationHtml)
+      await pasteLinks(page, classificationTitle, classificationHtml)
 
       const estimationError = DescriptionUtils.getDescriptionValidationError(page, estimationTitle)
       const classificationError = DescriptionUtils.getDescriptionValidationError(page, classificationTitle)
-      await expectLinkErrors(page, estimationError, estimationInvalidLinks.emptyLinkText)
-      await expectLinkErrors(page, classificationError, classificationInvalidLinks.emptyLinkText)
+      await expectLinkErrors(page, estimationError, estimationInvalidLinks)
+      await expectLinkErrors(page, classificationError, classificationInvalidLinks)
+      const invalidLinkTexts = [
+        estimationInvalidLinks.emptyLinkText,
+        estimationInvalidLinks.brokenLinkText,
+        classificationInvalidLinks.emptyLinkText,
+        classificationInvalidLinks.brokenLinkText,
+      ]
+      await expect
+        .poll(async () => (await DescriptionUtils.getHighlightedInvalidLinks(page)).toSorted())
+        .toEqual(invalidLinkTexts.toSorted())
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
 
       await page.close()
@@ -88,6 +106,9 @@ test.describe('Section descriptions: text links - fix and remove', () => {
 
       // Only the edited description gets its links checked again, so the other one still has its error
       await expect(classificationError).toBeVisible()
+      await expect
+        .poll(() => DescriptionUtils.getHighlightedInvalidLinks(page))
+        .toEqual([classificationInvalidLinks.emptyLinkText, classificationInvalidLinks.brokenLinkText])
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, true)
 
       await page.close()
@@ -124,6 +145,7 @@ test.describe('Section descriptions: text links - fix and remove', () => {
         await DescriptionUtils.getDescriptionToggleEditButton(page, classificationTitle, 'Done').click()
       })
       await expect(classificationError).not.toBeVisible({ timeout: Timeouts.extraLong })
+      await expect.poll(() => DescriptionUtils.getHighlightedInvalidLinks(page)).toEqual([])
       await NavigationUtils.subSectionHasError(page, x12CarbonStockPath, false)
 
       await page.close()

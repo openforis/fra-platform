@@ -1,13 +1,16 @@
 import React from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 
+import { useDataSourcesFocusedLink } from 'client/hooks/useDataSourcesFocusedLink'
 import DataSources from 'client/components/DataSources'
 import { useOptionsMethodsUsed } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useOptionsMethodsUsed'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
+import { useInvalidLinks } from './hooks/useInvalidLinks'
 import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -30,12 +33,16 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const historyCompares = useDataSourcesHistoryLastApproved({ dataSources })
   const displayHistory = useODPDisplayHistory()
   const validationErrors = useValidationErrors()
+  const invalidLinks = useInvalidLinks()
+  const focusedLink = useDataSourcesFocusedLink({ ndpSection: NDPLinkField.dataSourceReferences })
 
   return (
     <DataSources
       columns={{ type: { isMulti: true, options } }}
       data={{ dataSources }}
+      focusedLink={focusedLink}
       historyCompares={historyCompares}
+      invalidLinks={invalidLinks}
       onAdd={onAdd}
       onChange={onChange}
       onDelete={onDelete}

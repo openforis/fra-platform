@@ -52,13 +52,15 @@ test.describe('Section descriptions: data sources - failure', () => {
       await expect(validationError).toBeVisible({ timeout: Timeouts.extraLong })
       await TooltipUtils.expectValidationTooltip(
         page,
-        validationError,
-        `Invalid link: "${invalidLinks.emptyLinkText}" (Empty)`
+        validationError.locator('a', { hasText: invalidLinks.emptyLinkText }),
+        invalidLinks.emptyLinkError
       )
+      // The link sits inside the editor, so an editor tooltip would show up here too
+      await TooltipUtils.expectNoValidationTooltip(page, invalidLinks.brokenLinkError)
       await TooltipUtils.expectValidationTooltip(
         page,
-        validationError,
-        `Invalid link: "${invalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+        validationError.locator('a', { hasText: invalidLinks.brokenLinkText }),
+        invalidLinks.brokenLinkError
       )
 
       // Check that empty cells are showing validation error

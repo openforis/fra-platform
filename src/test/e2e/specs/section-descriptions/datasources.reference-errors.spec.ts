@@ -48,9 +48,11 @@ test.describe('Section descriptions: data sources - reference and required field
       await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, false)
 
       await DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, 'Edit').click()
+      // The valid link should stay without highlight
+      const referenceHtml = `${invalidLinks.html}<br>${validReference.html}`
       await DescriptionUtils.save(page, async () => {
         const referenceEditor = await DataSourceUtils.addRow(page)
-        await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, invalidLinks.html)
+        await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, referenceHtml)
       })
 
       const referenceCell = await DataSourceUtils.getReferenceCell(page, invalidLinks.emptyLinkText)
@@ -60,6 +62,10 @@ test.describe('Section descriptions: data sources - reference and required field
       const yearCell = await DataSourceUtils.getYearCell(page, invalidLinks.emptyLinkText)
 
       await expect(referenceField).toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
+      // The error can already be there from the empty row's save, while the pasted links are still being checked
+      await expect
+        .poll(() => DescriptionUtils.getHighlightedInvalidLinks(page), { timeout: Timeouts.extraLong })
+        .toEqual([invalidLinks.emptyLinkText, invalidLinks.brokenLinkText])
       await DataSourceUtils.expectCellError(page, typeCell)
       await DataSourceUtils.expectCellError(page, variablesCell)
       await DataSourceUtils.expectCellError(page, yearCell)
@@ -73,6 +79,7 @@ test.describe('Section descriptions: data sources - reference and required field
         )
       )
       await expect(referenceField).not.toHaveClass(/validation-error/, { timeout: Timeouts.extraLong })
+      await expect.poll(() => DescriptionUtils.getHighlightedInvalidLinks(page)).toEqual([])
 
       // The links worker only updates the reference, so the required field errors are still there
       await DataSourceUtils.expectCellError(page, typeCell)
@@ -129,6 +136,9 @@ test.describe('Section descriptions: data sources - reference and required field
 
       // Saving the required fields keeps the stored reference result, so its error is still there
       await expect(referenceField).toHaveClass(/validation-error/)
+      await expect
+        .poll(() => DescriptionUtils.getHighlightedInvalidLinks(page))
+        .toEqual([invalidLinks.emptyLinkText, invalidLinks.brokenLinkText])
       await NavigationUtils.subSectionHasError(page, x13DisturbancesPath, true)
 
       await page.close()

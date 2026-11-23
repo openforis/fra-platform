@@ -4,6 +4,8 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Promises } from 'utils/promises'
 
 import { DOMUtils } from '../dom'
+import { getFocusedLinks } from './getFocusedLinks'
+import { getHighlightedInvalidLinks } from './getHighlightedInvalidLinks'
 
 const getDescriptionBlock = (page: Page, title: string): Locator =>
   page
@@ -17,7 +19,7 @@ const getDescriptionEditor = (page: Page, title: string): Locator =>
 const getDescriptionValidationError = (page: Page, title: string): Locator =>
   getDescriptionBlock(page, title).locator('.validation-error')
 
-const getDescriptionToggleEditButton = (page: Page, title: string, name: 'Done' | 'Edit'): Locator =>
+const getDescriptionToggleEditButton = (page: Page, title: string, name: string): Locator =>
   getDescriptionBlock(page, title).locator('button:visible', { hasText: name })
 
 const fillEditorWysiwyg = async (page: Page, editor: Locator, lines: Array<string>): Promise<void> => {
@@ -78,6 +80,8 @@ export const DescriptionUtils = {
   getDescriptionEditor,
   getDescriptionToggleEditButton,
   getDescriptionValidationError,
+  getFocusedLinks,
+  getHighlightedInvalidLinks,
   pasteIntoEditorWysiwyg,
   pasteIntoEditorWysiwygLinksOnly,
   save,
