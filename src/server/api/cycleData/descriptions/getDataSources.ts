@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
-import { DataSourceLinkedVariable } from 'meta/assessment/description'
+import { DataSourceLinkedVariable } from 'meta/assessment/description/nationalDataDataSourceDescription'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { DescriptionController } from 'server/controller/cycleData/description'

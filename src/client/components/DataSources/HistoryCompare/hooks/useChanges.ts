@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
 import { ChangeObject } from 'diff'
 
-import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 import {
   DataSource,
   DataSourceHistoryCompare,

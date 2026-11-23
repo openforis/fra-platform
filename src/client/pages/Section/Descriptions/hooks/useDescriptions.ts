@@ -1,4 +1,4 @@
-import { Description } from 'meta/assessment/description'
+import { Description } from 'meta/assessment/description/description'
 import { Descriptions } from 'meta/assessment/descriptions'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'

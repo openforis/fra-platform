@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Cycles } from 'meta/assessment/cycles'
-import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
+import { AnalysisAndProcessingDescription } from 'meta/assessment/description/analysisAndProcessingDescription'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'

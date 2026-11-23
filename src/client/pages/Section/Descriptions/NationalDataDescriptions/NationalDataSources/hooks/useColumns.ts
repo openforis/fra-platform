@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSourceType } from 'meta/assessment/description'
+import { DataSourceType } from 'meta/assessment/description/dataSourceType'
 
 import { useNotApplicableOption } from 'client/components/DataSources/hooks/useNotApplicableOption'
 import { PropsDataSources } from 'client/components/DataSources/types'

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
 import { DataSourceLinked } from 'meta/assessment/descriptionValue/dataSource'
 
 import { LinkedDataSourcesActions } from 'client/store/data/linkedDataSources/actions'
