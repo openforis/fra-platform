@@ -1,8 +1,7 @@
 import './Admin.scss'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, NavLink, Outlet } from 'react-router'
-import classNames from 'classnames'
+import { Navigate, Outlet } from 'react-router'
 
 import { Routes } from 'meta/routes/routes'
 import { SectionNames } from 'meta/routes/sectionNames'
@@ -11,7 +10,8 @@ import { Objects } from 'utils/objects'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useUser } from 'client/store/user/hooks/user'
-import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
+import Tabs from 'client/components/Tabs'
+import { TabItem } from 'client/components/Tabs/types'
 
 type Section = {
   labelKey: string
@@ -42,7 +42,11 @@ const Admin: React.FC = () => {
   const { t } = useTranslation()
   const countries = useCountries()
   const user = useUser()
-  const linkClassName = useButtonClassName({ inverse: true, noBorder: true, size: ButtonSize.m })
+
+  const tabItems = useMemo<Array<TabItem>>(
+    () => sections.map<TabItem>(({ labelKey, name }) => ({ href: name, label: t(labelKey) })),
+    [t]
+  )
 
   if (!Users.isAdministrator(user)) return <Navigate replace to={Routes.Root.path.absolute} />
 
@@ -55,19 +59,7 @@ const Admin: React.FC = () => {
       </div>
 
       <div className="admin__page-menu">
-        {sections.map(({ labelKey, name }) => (
-          <NavLink
-            key={name}
-            className={(navData): string =>
-              classNames(linkClassName, 'admin__page-menu-button', {
-                disabled: navData.isActive,
-              })
-            }
-            to={name}
-          >
-            {t(labelKey)}
-          </NavLink>
-        ))}
+        <Tabs items={tabItems} />
       </div>
 
       <div className="admin__page-content">

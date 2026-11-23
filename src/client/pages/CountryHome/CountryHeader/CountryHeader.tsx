@@ -1,14 +1,16 @@
 import './CountryHeader.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
+import { DataTestId } from 'meta/dataTestId/id'
 import { MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Topics } from 'meta/messageCenter/topics'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
+import { ButtonSize } from 'client/components/Buttons/Button'
+import Tabs from 'client/components/Tabs'
+import { TabItem } from 'client/components/Tabs/types'
 import MessageButton from 'client/pages/CountryHome/MessageButton'
 import { CountryHomeSection } from 'client/pages/CountryHome/types'
 
@@ -21,17 +23,12 @@ type Props = {
   showRegionLabel?: boolean
 }
 
-const size = ButtonSize.m
-const noBorder = true
-
 const CountryHeader: React.FC<Props> = (props) => {
   const { sections, showRegionLabel = true } = props
 
   const { t } = useTranslation()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const withMessageBoard = useShowCountryMessageButton()
-  const sectionClassName = useButtonClassName({ inverse: true, label: 'L', noBorder, size, type: ButtonType.black })
-  const sectionActiveClassName = useButtonClassName({ label: 'L', noBorder, size, type: ButtonType.primary })
 
   const withLabel = useMemo<boolean>(
     () => Areas.isISOCountry(countryIso) || showRegionLabel,
@@ -41,6 +38,15 @@ const CountryHeader: React.FC<Props> = (props) => {
   const withTabs = useMemo<boolean>(
     () => Areas.isISOCountry(countryIso) && sections?.length > 1,
     [countryIso, sections]
+  )
+
+  const tabItems = useMemo<Array<TabItem>>(
+    () =>
+      sections.map<TabItem>(({ route }) => ({
+        href: route.generatePath({ assessmentName, countryIso, cycleName }),
+        label: t(`landing.sections.${route.path.relative}`),
+      })),
+    [assessmentName, countryIso, cycleName, sections, t]
   )
 
   return (
@@ -67,24 +73,7 @@ const CountryHeader: React.FC<Props> = (props) => {
         </div>
       )}
 
-      {withTabs && (
-        <div className="country-header__tabs">
-          {sections.map(({ route }, index) => {
-            const path = route.path.relative
-            return (
-              <React.Fragment key={path}>
-                {index !== 0 && <div className="toolbar__separator" />}
-                <NavLink
-                  className={({ isActive }): string => (isActive ? sectionActiveClassName : sectionClassName)}
-                  to={route.generatePath({ assessmentName, countryIso, cycleName })}
-                >
-                  {t(`landing.sections.${path}`)}
-                </NavLink>
-              </React.Fragment>
-            )
-          })}
-        </div>
-      )}
+      {withTabs && <Tabs dataTestId={DataTestId.countryHomeTabs} items={tabItems} />}
     </div>
   )
 }
