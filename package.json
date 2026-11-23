@@ -230,11 +230,6 @@
     "last 2 versions"
   ],
   "version": "3.20.1",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "eslint --concurrency=auto --cache --fix --rule 'no-console:2'"
