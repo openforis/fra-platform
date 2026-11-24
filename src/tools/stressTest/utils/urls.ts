@@ -2,7 +2,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 
 import type { CountryIso } from '../../../meta/area/countryIso'
 import type { CommentableDescriptionName } from '../../../meta/assessment/descriptionValue'
-import { baseUrl, cycleParams } from '../config.ts'
+import { assessmentName, baseUrl, cycleName, cycleParams } from '../config.ts'
 
 // Full urls for the requests the tests send, built with ApiEndPoint (no hardcoded paths)
 export const Urls = {
@@ -11,7 +11,7 @@ export const Urls = {
   tableData: (props: { countryIso: CountryIso; sectionName: string; tableName: string }): string => {
     const { countryIso, sectionName, tableName } = props
     return (
-      `${baseUrl}${ApiEndPoint.CycleData.Table.tableData()}?${cycleParams(countryIso)}` +
+      `${baseUrl}${ApiEndPoint.CycleData.Table.tableData()}?assessmentName=${assessmentName}&cycleName=${cycleName}` +
       // mergeOdp=false like UI requests
       `&sectionName=${sectionName}&tableNames[]=${tableName}&countryISOs[]=${countryIso}&mergeOdp=false`
     )

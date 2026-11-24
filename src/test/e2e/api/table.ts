@@ -41,15 +41,16 @@ export const buildSeedValues = (
     Object.entries(variables).map(([variableName, value]) => ({ colName, value, variableName }))
   )
 
-const _getBaseParams = (props: { countryIso: CountryIso; cycleName?: CycleNames }): URLSearchParams => {
-  const { countryIso, cycleName = CycleNames._2025 } = props
-  return new URLSearchParams({ assessmentName, countryIso, cycleName })
+const _getCycleParams = (props: { cycleName?: CycleNames }): URLSearchParams => {
+  const { cycleName = CycleNames._2025 } = props
+  return new URLSearchParams({ assessmentName, cycleName })
 }
 
 const _getQueryParams = (location: TableLocation, options: { withTableName: boolean }): string => {
-  const { sectionName, tableName } = location
+  const { countryIso, sectionName, tableName } = location
 
-  const params = _getBaseParams(location)
+  const params = _getCycleParams(location)
+  params.set('countryIso', countryIso)
   params.set('sectionName', sectionName)
   if (options.withTableName) params.set('tableName', tableName)
 
@@ -80,7 +81,7 @@ const clear = async (page: Page, location: TableLocation): Promise<void> => {
 const getValues = async (page: Page, location: TableLocation): Promise<RecordAssessmentData> => {
   const { countryIso, tableName } = location
 
-  const params = _getBaseParams(location)
+  const params = _getCycleParams(location)
   params.set('mergeOdp', 'true')
   params.append('tableNames[]', tableName)
   params.append('countryISOs[]', countryIso)
