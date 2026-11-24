@@ -25,7 +25,7 @@ export const getFaoEstimateData = async (props: Props, client: BaseProtocol = DB
     `
         with agg0 as (
         select 
-               '${regionCode}'                                                                      as country_iso
+               $3                                                                                   as country_iso
              , ne.props ->> 'tableName'                                                             as table_name
              , ne.props ->> 'variableName'                                                          as variable_name
              , ne.props ->> 'colName'                                                               as col_name
@@ -43,7 +43,7 @@ export const getFaoEstimateData = async (props: Props, client: BaseProtocol = DB
         select jsonb_object_agg(a.country_iso, a.data) as data
         from agg3 a;
     `,
-    [countryISOs, Object.keys(tables)],
+    [countryISOs, Object.keys(tables), regionCode],
     ({ data }) => data
   )
 }
