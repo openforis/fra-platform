@@ -25,6 +25,7 @@ export const useGetTableData = (props: Props): void => {
   useEffect(() => {
     const { external, internal } = dependencies
     const { tableNames, tableWithOdp } = internal
+    const countryISOs = [countryIso]
 
     if (!print) {
       // fetch internal dependencies
@@ -34,7 +35,7 @@ export const useGetTableData = (props: Props): void => {
         dispatch(
           NodeValuesActions.getTableData({
             ...propsFetch,
-            countryISOs: [countryIso],
+            countryISOs,
             tableNames: Array.from(tableNames),
           })
         )
@@ -55,7 +56,7 @@ export const useGetTableData = (props: Props): void => {
       const auth = { assessmentName, cycleName }
       Object.entries(external).forEach(([assessmentName, cycleDependencies]) => {
         Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
-          const propsFetch = { assessmentName, cycleName, countryISOs: [countryIso], mergeOdp: true, auth }
+          const propsFetch = { assessmentName, cycleName, countryISOs, mergeOdp: true, auth }
           dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
           dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))

@@ -33,13 +33,14 @@ export const requireViewTableData = async (
   const { assessment, cycle } = await _getAuthAssessmentCycle({ assessmentName, cycleName, req })
   const user = Requests.getUser(req)
 
-  const isoCountries = countryISOs.reduce<Array<CountryIso>>((acc, areaCode) => {
+  // The dashboard sends a region or global code here, and getCountriesMap re-caches every country when a key is missing
+  const countryISOsParsed = countryISOs.reduce<Array<CountryIso>>((acc, areaCode) => {
     if (Areas.isISOCountry(areaCode)) acc.push(areaCode)
     return acc
   }, [])
   const { context } = req
-  const countriesMapProps = { assessment: context.assessment, countryISOs: isoCountries, cycle: context.cycle }
-  const countriesMap = Objects.isEmpty(isoCountries)
+  const countriesMapProps = { assessment: context.assessment, countryISOs: countryISOsParsed, cycle: context.cycle }
+  const countriesMap = Objects.isEmpty(countryISOsParsed)
     ? undefined
     : await AreaController.getCountriesMap(countriesMapProps)
 
