@@ -3,7 +3,7 @@ import writeXlsxFile, { Cell, SheetData } from 'write-excel-file/browser'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { getDataGridElementMatrix } from 'client/components/DataGrid/utils'
+import { getDataGridElementMatrix, isHeaderCell } from 'client/components/DataGrid/utils'
 
 type Props = {
   data: Array<Array<string>>
@@ -19,21 +19,6 @@ const getNumberFormat = (value: string): string => {
   const [, decimals = ''] = normalized.split('.')
 
   return decimals.length > 0 ? `0.${'0'.repeat(decimals.length)}` : '0'
-}
-
-const isCategoryCell = (cell: Element): boolean => {
-  if (!(cell instanceof HTMLElement)) return false
-
-  return (
-    cell.classList.contains('category') ||
-    Array.from(cell.classList).some((className) => className.startsWith('subcategory'))
-  )
-}
-
-const isHeaderCell = (cell: Element | null): boolean => {
-  if (!(cell instanceof HTMLElement)) return false
-
-  return cell.classList.contains('header') && !isCategoryCell(cell)
 }
 
 const isTextCell = (cell: Element | null): boolean => {

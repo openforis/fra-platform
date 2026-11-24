@@ -64,6 +64,21 @@ const _getCellSpans = (props: {
   return { colSpan, rowSpan }
 }
 
+const _isCategoryCell = (cell: Element): boolean => {
+  if (!(cell instanceof HTMLElement)) return false
+
+  return (
+    cell.classList.contains('category') ||
+    Array.from(cell.classList).some((className) => className.startsWith('subcategory'))
+  )
+}
+
+export const isHeaderCell = (cell: Element | null): boolean => {
+  if (!(cell instanceof HTMLElement)) return false
+
+  return cell.classList.contains('header') && !_isCategoryCell(cell)
+}
+
 type DataRow<T> = Array<T | null>
 type GridData<T extends Element | string> = Array<DataRow<T>>
 
@@ -118,33 +133,24 @@ export const getDataGridData = (grid: HTMLDivElement): GridData<string> => {
   const data: GridData<string> = Array.from({ length: rowCount }, () => new Array(columnCount).fill(null))
 
   elementMatrix.forEach((row, rowIndex) => {
-    let noticeMessageAdded = false
+    const rowLabel = row[0]
+    const hasColumnHeader = row.some((cell) => cell !== rowLabel && isHeaderCell(cell))
 
     row.forEach((cell, colIndex) => {
-      if (Objects.isEmpty(cell)) {
+      const isRepeatedRowLabel = colIndex > 0 && cell === rowLabel && !hasColumnHeader
+
+      if (Objects.isEmpty(cell) || isRepeatedRowLabel) {
         data[rowIndex][colIndex] = ''
         return
       }
 
-      const isNoticeMessage = cell.classList.contains('table-grid__notice-message-cell')
-
-      let cellContent = _getElementText(cell as HTMLElement)
+      const cellContent = _getElementText(cell as HTMLElement)
       const spaceFreeContent = cellContent.replace(/\s/g, '')
-      cellContent =
+
+      data[rowIndex][colIndex] =
         Number.isNaN(Number.parseFloat(spaceFreeContent)) || Number.isNaN(Number(spaceFreeContent))
           ? cellContent
           : spaceFreeContent
-
-      if (isNoticeMessage) {
-        if (!noticeMessageAdded) {
-          data[rowIndex][colIndex] = cellContent
-          noticeMessageAdded = true
-        } else {
-          data[rowIndex][colIndex] = ''
-        }
-      } else {
-        data[rowIndex][colIndex] = cellContent
-      }
     })
   })
 
