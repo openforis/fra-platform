@@ -1,4 +1,4 @@
-import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceDescription } from 'meta/assessment/description/dataSourceDescription'
 import {
   DataSource,
   DataSourceEditableField,

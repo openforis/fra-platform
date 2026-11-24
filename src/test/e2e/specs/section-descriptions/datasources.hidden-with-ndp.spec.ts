@@ -3,7 +3,7 @@ import { enTranslation } from 'i18n/resources/en'
 
 import { type CountryProps } from 'meta/area/country'
 import { CycleNames } from 'meta/assessment/cycle/names'
-import { DataSourceType } from 'meta/assessment/description/dataSourceType'
+import { DataSourceType } from 'meta/assessment/description/dataSourceDescription'
 import { type DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { type SectionName } from 'meta/assessment/section'
 import { type ValidationSummary, type ValidationSummarySubsection } from 'meta/assessment/validation/summary'

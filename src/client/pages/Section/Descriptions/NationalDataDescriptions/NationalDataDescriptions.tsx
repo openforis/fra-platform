@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { NationalDataDescription } from 'meta/assessment/description'
+import { NationalDataDescription } from 'meta/assessment/description/nationalDataDescription'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'

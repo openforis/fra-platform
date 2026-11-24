@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceDescription } from 'meta/assessment/description/dataSourceDescription'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 

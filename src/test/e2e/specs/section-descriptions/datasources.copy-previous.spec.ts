@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 import { enTranslation } from 'i18n/resources/en'
 
-import { DataSourceType } from 'meta/assessment/description/dataSourceType'
+import { DataSourceType } from 'meta/assessment/description/dataSourceDescription'
 import { type DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { UUIDs } from 'meta/uuid/uuids'
 
