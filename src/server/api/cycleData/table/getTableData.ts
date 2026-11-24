@@ -1,13 +1,13 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
+import { CycleRequest } from 'meta/api/request/cycle'
 import { CountryIso } from 'meta/area/countryIso'
 import { RegionCode } from 'meta/area/regionCode'
 
 import { TableDataController } from 'server/controller/cycleData/tableData'
 import Requests from 'server/utils/requests'
 
-type GetTableDataRequest = CycleDataRequest<{
+type GetTableDataRequest = CycleRequest<{
   columns: Array<string>
   countryISOs: Array<CountryIso>
   mergeOdp: string

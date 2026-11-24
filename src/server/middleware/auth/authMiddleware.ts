@@ -11,6 +11,7 @@ import {
 } from 'server/middleware/auth/data/edit'
 import { requireVerifyLinks } from 'server/middleware/auth/data/verifyLinks'
 import { requireView } from 'server/middleware/auth/data/view'
+import { requireViewTableData } from 'server/middleware/auth/data/viewTableData'
 import { requireViewHistory } from 'server/middleware/auth/history/view'
 import { requireDeleteTopicMessage } from 'server/middleware/auth/messageTopic/delete'
 import { requireEditMessageTopic } from 'server/middleware/auth/messageTopic/edit'
@@ -54,6 +55,7 @@ export const AuthMiddleware = {
   requireView: _tryCatch(requireView),
   requireViewHistory: _tryCatch(requireViewHistory),
   requireViewRepositoryItem: _tryCatch(requireViewRepositoryItem),
+  requireViewTableData: _tryCatch(requireViewTableData),
   requireViewUser: _tryCatch(requireViewUser),
   requireViewUsers: _tryCatch(requireViewUsers),
 }
