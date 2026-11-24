@@ -29,12 +29,25 @@ export const useGetTableData = (props: Props): void => {
     if (!print) {
       // fetch internal dependencies
       if (tableNames.size > 0) {
-        const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: !tableWithOdp }
+        const propsFetch = { assessmentName, cycleName, mergeOdp: !tableWithOdp }
 
-        dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+        dispatch(
+          NodeValuesActions.getTableData({
+            ...propsFetch,
+            countryISOs: [countryIso],
+            tableNames: Array.from(tableNames),
+          })
+        )
 
         if (tableWithOdp && canEdit) {
-          dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
+          dispatch(
+            EstimationsActions.getNodeValuesEstimations({
+              ...propsFetch,
+              countryIso,
+              sectionName,
+              tableName: tableWithOdp,
+            })
+          )
         }
       }
 
@@ -42,7 +55,7 @@ export const useGetTableData = (props: Props): void => {
       const auth = { assessmentName, cycleName }
       Object.entries(external).forEach(([assessmentName, cycleDependencies]) => {
         Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
-          const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
+          const propsFetch = { assessmentName, cycleName, countryISOs: [countryIso], mergeOdp: true, auth }
           dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
           dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))

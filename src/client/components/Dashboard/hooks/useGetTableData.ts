@@ -27,13 +27,13 @@ export const useGetTableData = (props: Props): void => {
   const fetchTableData = useCallback(() => {
     if (dependencies.size > 0) {
       const tableNames = Array.from(dependencies)
-      const propsFetch: GetTableDataProps = { assessmentName, cycleName, countryIso, tableNames, mergeOdp: true }
+      const propsFetch: GetTableDataProps = { assessmentName, cycleName, countryISOs, tableNames, mergeOdp: true }
 
       // When fetching data for Dashboard region level, include regionCode
       if (!Areas.isISOCountry(countryIso)) {
         propsFetch.regionCode = countryIso as RegionCode
       }
-      dispatch(NodeValuesActions.getTableData({ ...propsFetch, countryISOs }))
+      dispatch(NodeValuesActions.getTableData(propsFetch))
     }
   }, [assessmentName, countryIso, countryISOs, cycleName, dependencies, dispatch])
 

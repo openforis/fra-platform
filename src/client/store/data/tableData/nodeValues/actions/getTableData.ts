@@ -9,16 +9,15 @@ import { Props } from 'client/store/data/tableData/nodeValues/actions/getTableDa
 export const getTableData = createAsyncThunk<RecordAssessmentData, Props>(
   'data/tableData/nodeValues/get',
   async (props) => {
-    const { assessmentName, auth, countryISOs, countryIso, cycleName, mergeOdp = false, regionCode, tableNames } = props
+    const { assessmentName, auth, countryISOs, cycleName, mergeOdp = false, regionCode, tableNames } = props
 
     const authContext = auth ? encodeURIComponent(JSON.stringify(auth)) : undefined
     const params = {
       assessmentName,
-      countryIso,
       cycleName,
       tableNames,
       regionCode,
-      countryISOs: countryISOs ?? [countryIso],
+      countryISOs,
       mergeOdp,
       authContext,
     }
