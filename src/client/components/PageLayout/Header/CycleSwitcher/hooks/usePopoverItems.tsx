@@ -49,7 +49,13 @@ export const usePopoverItems = (): Array<PopoverItem> => {
     const items: Array<PopoverItem> = []
 
     if ((isAdmin || !isDataExportView) && user) {
-      assessments.forEach((assessment) => {
+      // Admins can see all (assessment x cycle) combinations
+      // Non admins see only the URL-param assessment cycles
+      const visibleAssessments = isAdmin
+        ? assessments
+        : assessments.filter((assessment) => assessment.props.name === routeParams.assessmentName)
+
+      visibleAssessments.forEach((assessment) => {
         const sortedCycles = assessment.cycles.slice().sort(_cyclesSorter)
         sortedCycles.forEach((cycle) => {
           const hasRoleInAssessment = Users.hasRoleInAssessment({ user, assessment })
