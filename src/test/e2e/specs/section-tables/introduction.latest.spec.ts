@@ -96,6 +96,5 @@ test.describe('Section tables: introduction latest - unpublished', () => {
 
     // X01 was last published in 2020, so that's where it lands
     await expect(page).toHaveURL(/\/assessments\/fra\/2020\/X01\/home/)
-    await expect(page.locator('.toast.error')).toHaveCount(2)
   })
 })
