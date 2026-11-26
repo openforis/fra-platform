@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPRemove } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
@@ -27,20 +28,24 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
 const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
-export const remove = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
+export const remove = async (
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<Pick<OriginalDataPoint, 'uuid' | 'year'>> => {
+  const { assessment, country, cycle, originalDataPoint, socketId, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { countryIso, uuid } = originalDataPoint
 
-  const target = await client.tx(async (t) => {
-    const [target] = await Promise.all([
+  const deletedNationalDataPoint = await client.tx(async (t) => {
+    const [deletedNationalDataPoint] = await Promise.all([
       OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t),
       DescriptionRepository.remove(
         { assessment, countryIso, cycle, name, sectionName, sectionUuid: originalDataPoint.uuid },
@@ -52,15 +57,24 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
 
     const message = ActivityLogMessage.originalDataPointRemove
-    const activityLog: ActivityLog<OriginalDataPoint> = { target, section: 'odp', message, countryIso, user }
+    const activityLog: ActivityLogNDPRemove = {
+      target: deletedNationalDataPoint,
+      section: 'odp',
+      message,
+      countryIso,
+      user,
+    }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { assessment, cycle, activityLog },
       t
     )
 
     const socketProps = { assessmentName, cycleName, countryIso }
-    SocketServer.emit(Sockets.getODPDeleteEvent(socketProps), { countryIso, year: originalDataPoint.year })
-    SocketServer.emit(Sockets.getRequestReviewSummaryEvent(socketProps))
+    SocketServer.emitToCountryRooms(
+      { countryIso, cycle, eventName: Sockets.getODPDeleteEvent(socketProps) },
+      { countryIso, year: originalDataPoint.year }
+    )
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName: Sockets.getRequestReviewSummaryEvent(socketProps) })
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
@@ -75,8 +89,11 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
       t
     )
 
-    return target
+    return deletedNationalDataPoint
   })
+
+  const eventName = Sockets.getNationalDataPointDeleteEvent({ uuid })
+  SocketServer.emitToCountryRooms({ countryIso, cycle, eventName, socketId }, { year: originalDataPoint.year })
 
   await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
 
@@ -90,5 +107,5 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     targets: [{ ndpUuid: uuid, fields: NDPLinkFields }],
   })
 
-  return target
+  return deletedNationalDataPoint
 }

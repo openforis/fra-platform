@@ -14,9 +14,11 @@ const MessageCenter: React.FC = () => {
 
   return (
     <div className="topic-container">
-      {topics.map((topic) => {
-        return <Topic key={topic.key} topic={topic} />
-      })}
+      <div className="topic-dock">
+        {topics.map((topic) => {
+          return <Topic key={topic.key} topic={topic} />
+        })}
+      </div>
     </div>
   )
 }

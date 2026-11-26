@@ -35,7 +35,7 @@ type Diff<Action extends DiffAction, Props> = {
 
 export type DiffInfo<
   Action extends DiffAction = DiffAction,
-  Props extends Record<string, unknown> | void | unknown = void
+  Props extends Record<string, unknown> | void | unknown = void,
 > = {
   diff: Diff<Action, Props>
   node: HTMLElement

@@ -4,6 +4,7 @@ import React from 'react'
 import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Country from 'client/components/TablePaginated/Filters/Country'
 import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect'
 import Switch from 'client/components/TablePaginated/Filters/Switch'
@@ -31,7 +32,7 @@ const Filters: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="table-paginated-filters">
-      <Icon name="filter" />
+      <Icon name={IconName.filter} />
       {filters.map((filter) => {
         if (filter.hidden) return null
         const Component = componentsByFilterType[filter.type]

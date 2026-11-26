@@ -7,6 +7,7 @@ import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { useRepositoryListContext } from '../../context'
 
@@ -43,7 +44,7 @@ const ButtonAdd: React.FC<Props> = (props) => {
 
   return (
     <Button
-      iconName="small-add"
+      iconName={IconName.smallAdd}
       inverse
       label={label}
       onClick={() => onOpenPanel(_getNewRepositoryItem({ countryIso: itemCountryIso, isFolder, parentUuid }))}

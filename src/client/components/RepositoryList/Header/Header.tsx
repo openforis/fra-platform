@@ -7,6 +7,7 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 import { useFileTypeOptions } from 'client/components/RepositoryList/hooks/_useFileTypeOptions'
 import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect'
@@ -33,7 +34,7 @@ const Header: React.FC = () => {
 
       {allowFiltering && (
         <div className="repository-header__right">
-          <Icon name="filter" />
+          <Icon name={IconName.filter} />
           <Hr vertical />
           <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
           {!selectable && (

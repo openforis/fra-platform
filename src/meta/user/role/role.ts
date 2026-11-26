@@ -5,7 +5,7 @@ import { UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/role/props'
 export interface UserRole<
   Name extends RoleName = RoleName,
   Props extends UserRoleBaseProps = undefined,
-  Permissions = undefined
+  Permissions = undefined,
 > {
   assessmentUuid?: string
   countryIso?: CountryIso

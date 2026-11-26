@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
+import { IconName } from 'client/components/Icon/types'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 import RepositoryList from 'client/components/RepositoryList'
 
@@ -44,7 +45,7 @@ const AddFromRepository: React.FC = () => {
       </ModalBody>
 
       <ModalFooter>
-        <Button iconName="checkbox" label={t('common.apply')} onClick={onClose} size={ButtonSize.m} />
+        <Button iconName={IconName.checkbox} label={t('common.apply')} onClick={onClose} size={ButtonSize.m} />
       </ModalFooter>
     </Modal>
   )

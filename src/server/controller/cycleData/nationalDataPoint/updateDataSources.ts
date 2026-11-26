@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
@@ -14,11 +15,14 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { LinksService } from 'server/service/links'
 
+import { notifyNationalDataPointUpdate } from './updateDependants/notifyNationalDataPointUpdate'
+
 type Props = {
   assessment: Assessment
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
@@ -26,7 +30,7 @@ const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
 export const updateDataSources = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint: nationalDataPoint, user } = props
+  const { assessment, country, cycle, originalDataPoint: nationalDataPoint, socketId, user } = props
   const { countryIso, dataSources, uuid } = nationalDataPoint
 
   await client.tx(async (t) => {
@@ -35,7 +39,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
       t
     )
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPUpdate = {
       target: nationalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateDataSources,
@@ -49,6 +53,8 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
   })
+
+  notifyNationalDataPointUpdate({ cycle, nationalDataPoints: [nationalDataPoint], socketId })
 
   await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,

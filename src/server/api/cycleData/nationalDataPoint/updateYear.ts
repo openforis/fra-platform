@@ -14,7 +14,17 @@ export const updateYear = async (req: Request, res: Response): Promise<void> => 
     const { assessment, country, cycle } = req.context
 
     const user = Requests.getUser(req)
-    const propsUpdate = { assessment, cycle, sectionName, country, id, year, targetYear, user }
+    const propsUpdate = {
+      assessment,
+      cycle,
+      sectionName,
+      country,
+      id,
+      year,
+      targetYear,
+      socketId: Requests.getSocketId(req),
+      user,
+    }
 
     const returnedOriginalDataPoint = await NationalDataPointController.updateYear(propsUpdate)
 

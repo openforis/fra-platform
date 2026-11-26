@@ -9,6 +9,7 @@ import { UserInvitations as UserInvitationMeta } from 'meta/user/invitations'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { Props } from '../../Props'
 
@@ -43,7 +44,7 @@ const CopyLink: React.FC<Props> = (props: Props) => {
   return (
     <Button
       className="home-user-action-button-copy"
-      iconName="content_copy"
+      iconName={IconName.contentCopy}
       inverse
       label={t('common.copyLink')}
       onClick={onClick}

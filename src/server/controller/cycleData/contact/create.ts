@@ -1,10 +1,12 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogContactCreate } from 'meta/assessment/activityLog/contact'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/assessment/section'
-import { Contact } from 'meta/cycleData/contact/contact'
+import { Contact, ContactProps } from 'meta/cycleData/contact/contact'
 import { contactFields } from 'meta/cycleData/contact/fields'
+import { NodeExt } from 'meta/nodeExt/nodeExt'
 import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -24,10 +26,13 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<v
 
   await client.tx(async (t) => {
     // create contact
-    const target = await NodeExtRepository.upsert({ assessment, cycle, countryIso, nodeExt: contact }, t)
+    const target = await NodeExtRepository.upsert<NodeExt<ContactProps, null>>(
+      { assessment, cycle, countryIso, nodeExt: contact },
+      t
+    )
     const message = ActivityLogMessage.contactCreate
     const section = SectionNames.contacts
-    const activityLog = { target, section, message, countryIso, user }
+    const activityLog: ActivityLogContactCreate = { target, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     // create fields

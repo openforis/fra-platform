@@ -6,6 +6,7 @@ import { copyNationalClasses } from 'client/store/data/originalDataPoint/actions
 import { createOriginalDataPoint } from 'client/store/data/originalDataPoint/actions/createOriginalDataPoint'
 import { deleteOriginalDataPointNationalClass } from 'client/store/data/originalDataPoint/actions/deleteOriginalDataPointNationalClass'
 import { getOriginalDataPoint } from 'client/store/data/originalDataPoint/actions/getOriginalDataPoint'
+import { setNationalDataPoint } from 'client/store/data/originalDataPoint/actions/setNationalDataPoint'
 import { updateOriginalDataPointDataSources } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointDescription'
 import { updateOriginalDataPointNationalClasses } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointNationalClasses'
@@ -13,7 +14,10 @@ import { updateOriginalDataPointOriginalData } from 'client/store/data/originalD
 import { updateOriginalDataPointYear } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointYear'
 import { OriginalDataPointState } from 'client/store/data/originalDataPoint/state'
 
-export const setOriginalDataPointReducer = (builder: ActionReducerMapBuilder<OriginalDataPointState>) => {
+export const setOriginalDataPointReducer = (builder: ActionReducerMapBuilder<OriginalDataPointState>): void => {
+  builder.addCase(setNationalDataPoint, (state, { payload }) => {
+    state.data = payload
+  })
   builder.addMatcher(
     isAnyOf(
       createOriginalDataPoint.fulfilled,

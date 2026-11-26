@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -25,13 +26,14 @@ type Props = {
   cycle: Cycle
   id: string
   sectionName: string
+  socketId?: string
   targetYear: string
   user: User
   year: string
 }
 
 export const updateYear = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, user, year } = props
+  const { assessment, country, cycle, socketId, user, year } = props
   const { countryIso } = country
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
@@ -42,7 +44,13 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
     // --- 2. Update activity log
     const message = ActivityLogMessage.originalDataPointUpdateYear
-    const activityLog = { target: updatedOriginalDataPoint, section: 'odp', message, countryIso, user }
+    const activityLog: ActivityLogNDPUpdate = {
+      target: updatedOriginalDataPoint,
+      section: 'odp',
+      message,
+      countryIso,
+      user,
+    }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { activityLog, assessment, cycle },
       t
@@ -54,7 +62,10 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     const { name: assessmentName } = assessment.props
     const { name: cycleName } = cycle
     const odpDeleteEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
-    SocketServer.emit(odpDeleteEvent, { countryIso, year: originalDataPoint.year })
+    SocketServer.emitToCountryRooms(
+      { countryIso, cycle, eventName: odpDeleteEvent },
+      { countryIso, year: originalDataPoint.year }
+    )
 
     // --- 4 Update dependents
     const commonProps = { assessment, cycle, user }
@@ -64,7 +75,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     // 5 --- Notify about reserved years
     const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent({ assessmentName, cycleName, countryIso })
     const years = await NationalDataPointController.getReservedYears({ assessment, cycle, countryIso }, t)
-    SocketServer.emit(odpReservedYearsEvent, { years })
+    SocketServer.emitToCountryRooms({ countryIso, cycle, eventName: odpReservedYearsEvent }, { years })
 
     return updatedOriginalDataPoint
   })
@@ -74,6 +85,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     cycle,
     countryIso,
     originalDataPoints: [updatedNationalDataPoint],
+    socketId,
   })
 
   await DataValidationService.validateNDPYear({

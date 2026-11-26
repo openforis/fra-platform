@@ -8,7 +8,9 @@
   display: block;
   overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   width: min(19.4dvw, 33.95dvh);
 }
 

@@ -1,6 +1,6 @@
 import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
-import { Descriptions } from 'meta/assessment/description'
+import { Descriptions } from 'meta/assessment/descriptions/types'
 import { Label } from 'meta/assessment/label'
 import { UUID } from 'meta/uuid/uuid'
 
@@ -13,9 +13,9 @@ export enum SectionNames {
   contacts = 'contacts',
   extentOfForest = 'extentOfForest',
   forestCharacteristics = 'forestCharacteristics',
+  growingStock = 'growingStock',
   messageBoard = 'messageBoard', // country message board
   nationalDataPoint = 'nationalDataPoint',
-  originalDataPoints = 'originalDataPoints',
 }
 
 export interface SectionProps {

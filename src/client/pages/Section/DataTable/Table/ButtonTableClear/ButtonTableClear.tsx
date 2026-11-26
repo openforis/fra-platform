@@ -10,6 +10,7 @@ import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   disabled?: boolean
@@ -39,7 +40,7 @@ const ButtonTableClear: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={!isLocked && disabled}
-      iconName="trash-simple"
+      iconName={IconName.trashSimple}
       inverse
       label={t('common.clearTable')}
       onClick={_onClick}

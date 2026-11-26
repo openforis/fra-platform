@@ -2,6 +2,7 @@ import './ValidationErrorIndicator.scss'
 import React from 'react'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 
 type Props = {
@@ -15,7 +16,7 @@ const ValidationErrorIndicator: React.FC<Props> = (props) => {
 
   return (
     <Flex alignItems="center" className="validation-error-indicator" justifyContent="center">
-      <Icon name="alert" />
+      <Icon name={IconName.alert} />
     </Flex>
   )
 }

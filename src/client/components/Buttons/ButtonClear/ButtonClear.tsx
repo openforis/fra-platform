@@ -3,6 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   className?: string
@@ -15,7 +16,7 @@ const ButtonClear: React.FC<Props> = (props) => {
   return (
     <Button
       className={classNames('button-clear', className)}
-      iconName="remove"
+      iconName={IconName.remove}
       inverse
       onClick={onClick}
       size={ButtonSize.m}

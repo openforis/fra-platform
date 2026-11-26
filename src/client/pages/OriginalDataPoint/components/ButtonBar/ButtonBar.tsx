@@ -14,6 +14,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 const ButtonBar: React.FC = () => {
@@ -45,7 +46,7 @@ const ButtonBar: React.FC = () => {
   return (
     <div className="odp__button-bar">
       <Link className={doneClassName} to={sectionLink}>
-        <Icon name="checkbox" />
+        <Icon name={IconName.checkbox} />
         {t('nationalDataPoint.doneEditing')}
       </Link>
 
@@ -53,7 +54,7 @@ const ButtonBar: React.FC = () => {
 
       <Button
         disabled={disabled}
-        iconName="trash-simple"
+        iconName={IconName.trashSimple}
         label={t('common.delete')}
         onClick={handleDelete}
         size={ButtonSize.m}

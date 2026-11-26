@@ -8,6 +8,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 
 import { useBulkDownloadProps } from './hooks/useBulkDownloadProps'
@@ -40,7 +41,7 @@ const LinkBulkDownload: React.FC = () => {
         variant={ButtonCheckboxVariant.checkbox}
       />
       <a className={className} href={ApiEndPoint.File.bulkDownload()} onClick={onClick}>
-        <Icon name="hit-down" />
+        <Icon name={IconName.hitDown} />
         ZIP
       </a>
       {/* Hidden download anchor */}

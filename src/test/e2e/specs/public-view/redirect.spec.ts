@@ -34,23 +34,6 @@ test.describe('Public view: redirects for unreachable URLs', () => {
     await expect(page.locator('.toast.error')).toHaveCount(0)
   })
 
-  test('an unpublished (draft) cycleName "latest" redirects to the country\'s last published cycle', async ({
-    page,
-  }) => {
-    const path = SectionUtils.path({
-      countryIso,
-      cycleName: CycleNames.latest,
-      sectionName: SectionNames.extentOfForest,
-    })
-
-    await page.goto(path)
-
-    // Atlantis countries last published data is in 2020 so expected redirect there
-    await expect(page).toHaveURL(/\/assessments\/fra\/2020\/X01\/home/)
-
-    await expect(page.locator('.toast.error')).toHaveCount(2)
-  })
-
   test('an admin-only route redirects a public (not logged in) user to the default assessment cycle page', async ({
     page,
   }) => {

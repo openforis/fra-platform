@@ -4,6 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import { mapController } from 'client/geo/mapController'
 
 const Center: React.FC = () => {
@@ -12,7 +13,7 @@ const Center: React.FC = () => {
   return (
     <div className="toolbar-options__group">
       <Button
-        iconName="gps-not-fixed"
+        iconName={IconName.gpsNotFixed}
         inverse
         onClick={(): void => {
           mapController.panToCountry(countryIso)

@@ -3,6 +3,7 @@ import { CSVLink } from 'react-csv'
 
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 export type DashboardCSVData = {
   variable: string
@@ -19,13 +20,13 @@ export type ButtonDataExportProps = {
 const ButtonDataExport: React.FC<ButtonDataExportProps> = (props) => {
   const { data, filename = 'data' } = props
 
-  const className = useButtonClassName({ disabled: false, iconName: 'hit-down', label: 'CSV' })
+  const className = useButtonClassName({ disabled: false, iconName: IconName.hitDown, label: 'CSV' })
   if (!data) return null
 
   return (
     <div>
       <CSVLink className={className} data={data} filename={`${filename}.csv`} target="_blank">
-        <Icon name="hit-down" />
+        <Icon name={IconName.hitDown} />
         CSV
       </CSVLink>
     </div>

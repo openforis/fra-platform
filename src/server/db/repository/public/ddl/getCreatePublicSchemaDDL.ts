@@ -11,7 +11,7 @@ export const getUsersRoleDDL = (schemaName = 'public'): string => {
       props jsonb not null default '{}'::jsonb,
       permissions jsonb,
       invitation_uuid uuid,
-      created_at timestamp with time zone default now(),
+      created_at timestamptz default now(),
 
       foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
       foreign key (user_uuid) references ${schemaName}.users (uuid) on update cascade on delete cascade,
@@ -36,8 +36,8 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
       user_uuid uuid not null,
       invited_by_user_uuid uuid,
       role ${schemaName}.user_role not null,
-      invited_at timestamp with time zone default now(),
-      accepted_at timestamp with time zone,
+      invited_at timestamptz default now(),
+      accepted_at timestamptz,
       permissions jsonb,
 
       foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
@@ -94,7 +94,7 @@ const _getEnums = (): string => {
     
     do $$
     begin
-        create type message_topic_type as enum ('review', 'chat', 'messageboard');
+        create type message_topic_type as enum ('review', 'chat', 'messageBoard');
     exception
         when duplicate_object then null;
     end $$;
@@ -145,7 +145,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       uuid uuid not null default uuid_generate_v4(),
       name character varying(255) not null,
       size bigint not null default 0,
-      created_at timestamp without time zone not null default now()
+      created_at timestamptz not null default now()
     );
     create unique index if not exists file_uuid_key on ${schemaName}.file using btree (uuid);
 
@@ -164,7 +164,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.activity_log (
       id bigserial primary key,
-      time timestamp without time zone not null default timezone('UTC'::text, now()),
+      time timestamptz not null default now(),
       message text not null,
       country_iso character varying(3),
       section character varying(250) not null,
@@ -202,8 +202,8 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.users_reset_password (
       uuid uuid primary key not null default uuid_generate_v4(),
-      changed_at timestamp with time zone,
-      created_at timestamp with time zone default now(),
+      changed_at timestamptz,
+      created_at timestamptz default now(),
       user_id bigint not null,
       active boolean not null default true,
       foreign key (user_id) references ${schemaName}.users (id)

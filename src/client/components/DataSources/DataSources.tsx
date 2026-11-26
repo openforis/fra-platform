@@ -12,6 +12,7 @@ import DataSourceRow from 'client/components/DataSources/DataSourceRow'
 import HistoryCompare from 'client/components/DataSources/HistoryCompare'
 import { PropsDataSources } from 'client/components/DataSources/types'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { IconName } from 'client/components/Icon/types'
 import { DOMs } from 'client/utils/doms'
 
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
@@ -31,7 +32,9 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
     columns,
     data,
     dataSourcesLinked,
+    focusedLink,
     historyCompares,
+    invalidLinks,
     meta,
     onAdd,
     onChange,
@@ -80,6 +83,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   <DataSourceRow
                     columns={columns}
                     dataSource={dataSource.data}
+                    invalidLinks={invalidLinks?.[dataSource.data.uuid]}
                     lastRow={i === dataSourcesLinked.length - 1}
                     meta={dataSource.meta}
                     onChange={onChange}
@@ -110,6 +114,8 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   key={String(`dataSource_${dataSourceValue.uuid}`)}
                   columns={columns}
                   dataSource={dataSourceValue}
+                  focusedLink={focusedLink}
+                  invalidLinks={invalidLinks?.[dataSourceValue.uuid]}
                   lastRow={i === dataSources.length - 1}
                   meta={meta}
                   onChange={onChange}
@@ -122,7 +128,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
 
           {canEdit && !displayHistory && (
             <div style={{ gridColumn: '1/-1' }}>
-              <Button iconName="small-add" label={t('common.add')} onClick={onAdd} size={ButtonSize.xs} />
+              <Button iconName={IconName.smallAdd} label={t('common.add')} onClick={onAdd} size={ButtonSize.xs} />
             </div>
           )}
 

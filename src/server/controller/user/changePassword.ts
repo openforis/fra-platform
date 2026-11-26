@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUserPasswordChange } from 'meta/assessment/activityLog/user'
 import { UserResetPassword } from 'meta/user/resetPassword'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -31,7 +32,12 @@ export const changePassword = async (props: Props, client: BaseProtocol = DB): P
     const updatedResetPassword = await UserResetPasswordRepository.update({ uuid: userResetPassword.uuid }, t)
 
     const target = { email, usersResetPasswordUuid: updatedResetPassword.uuid }
-    const activityLog = { target, section: 'users', message: ActivityLogMessage.userPasswordChange, user }
+    const activityLog: ActivityLogUserPasswordChange = {
+      target,
+      section: 'users',
+      message: ActivityLogMessage.userPasswordChange,
+      user,
+    }
     await ActivityLogRepository.insertActivityLog({ activityLog }, t)
 
     return updatedResetPassword

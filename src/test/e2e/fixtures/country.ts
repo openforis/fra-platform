@@ -1,32 +1,36 @@
 import { type Country } from 'meta/area/country'
-import { CountryStatus } from 'meta/area/countryStatus'
+import { type CountryStatus } from 'meta/area/countryStatus'
 
 import { CountryApi, type CountryLocation } from 'test/e2e/api/country'
 import { test as base } from 'test/e2e/fixtures/auth'
 
+type CountrySeed = CountryLocation & {
+  status: CountryStatus
+}
+
 type CountryOptions = {
-  countrySeed: CountryLocation | undefined
+  countrySeed: CountrySeed | undefined
 }
 
 type CountryFixtures = {
-  publishedCountry: Country
+  country: Country
 }
 
 export const test = base.extend<CountryOptions & CountryFixtures>({
   countrySeed: [undefined, { option: true }],
 
-  // Publishes the country before the test and puts its status back after
-  publishedCountry: async ({ authenticatedPage, countrySeed }, use): Promise<void> => {
+  // Sets the country status before the test and puts the original one back after
+  country: async ({ authenticatedPage, countrySeed }, use): Promise<void> => {
     if (!countrySeed) {
-      throw new Error('publishedCountry fixture needs the countrySeed option: test.use({ countrySeed: { ... } })')
+      throw new Error('country fixture needs the countrySeed option: test.use({ countrySeed: { ... } })')
     }
 
-    const country = await CountryApi.get(authenticatedPage, countrySeed)
-    const published = await CountryApi.setStatus(authenticatedPage, countrySeed, CountryStatus.published)
+    const originalCountry = await CountryApi.get(authenticatedPage, countrySeed)
+    const country = await CountryApi.setStatus(authenticatedPage, countrySeed, countrySeed.status)
 
-    await use(published)
+    await use(country)
 
-    await CountryApi.setStatus(authenticatedPage, countrySeed, country.props.status)
+    await CountryApi.setStatus(authenticatedPage, countrySeed, originalCountry.props.status)
   },
 })
 

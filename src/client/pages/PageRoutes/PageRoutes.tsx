@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
 
@@ -6,24 +6,26 @@ import { useIsAppInitialized } from 'client/store/application/hooks/init'
 import Toaster from 'client/components/Toaster'
 import Tooltips from 'client/components/Tooltips'
 
-import { useClickTracking } from './hooks/useClickTracking'
 import { useInitApp } from './hooks/useInitApp'
 import { useOpenSocket } from './hooks/useOpenSocket'
-import { usePageEngagement } from './hooks/usePageEngagement'
+import { useReconnectSocket } from './hooks/useReconnectSocket'
 import { useRoutes } from './hooks/useRoutes'
+
+// AppInitialized builds a new router on every render, so useUser stays out of it
+const ReconnectSocket: React.FC = () => {
+  useReconnectSocket()
+  return null
+}
 
 const AppInitialized: React.FC = () => {
   const routes = useRoutes()
-  const router = useMemo(() => createBrowserRouter(routes), [routes])
-
-  usePageEngagement(router)
-  useClickTracking()
 
   return (
     <>
       <Toaster />
-      <RouterProvider router={router} />
+      <RouterProvider router={createBrowserRouter(routes)} />
       <Tooltips />
+      <ReconnectSocket />
     </>
   )
 }

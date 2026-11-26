@@ -13,6 +13,8 @@ import { TableDataController } from 'server/controller/cycleData/tableData'
 import { DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/db/repository/assessment/assessment/getCreateSchemaDDL'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
+import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import { Schemas } from 'server/db/schemas'
 
 const INPUT_DIR = path.join(__dirname, 'fixtures')
@@ -57,6 +59,13 @@ const exec = async (): Promise<void> => {
         assessment.cycles.map(async (cycle) => {
           await TableDataController.refreshViews({ assessment, cycle }, t)
           await t.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
+
+          const countries = await CountryRepository.getMany({ assessment, cycle }, t)
+          await Promise.all(
+            countries.map(({ countryIso }) =>
+              CountryActivityLogRepository.createMaterializedView({ assessment, cycle, countryIso }, t)
+            )
+          )
         })
       )
     )

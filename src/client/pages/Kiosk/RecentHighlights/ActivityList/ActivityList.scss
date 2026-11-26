@@ -22,7 +22,9 @@ $activities-bg: #61a2d8;
   opacity: 0;
   overflow: auto;
   pointer-events: none;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease;
   width: 100%;
 
   &.is-open {

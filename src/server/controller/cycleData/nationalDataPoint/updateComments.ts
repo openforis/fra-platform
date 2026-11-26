@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
@@ -13,22 +14,29 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { LinksService } from 'server/service/links'
 
+import { notifyNationalDataPointUpdate } from './updateDependants/notifyNationalDataPointUpdate'
+
 type Props = {
   assessment: Assessment
   cycle: Cycle
   country: Country
   field: OriginalDataPointCommentKey
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
 }
 
-const activities: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
+const activities: Record<
+  OriginalDataPointCommentKey,
+  | ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest
+  | ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics
+> = {
   [TableNames.extentOfForest]: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
   [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
 }
 
 export const updateComments = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, field, originalDataPoint, user } = props
+  const { assessment, country, cycle, field, originalDataPoint, socketId, user } = props
   const { countryIso } = originalDataPoint
 
   const updatedNationalDataPoint = await client.tx(async (t) => {
@@ -39,7 +47,7 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
 
     const message = activities[field]
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPUpdate = {
       target: updated,
       section: 'odp',
       message,
@@ -55,6 +63,8 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
 
     return updated
   })
+
+  notifyNationalDataPointUpdate({ cycle, nationalDataPoints: [updatedNationalDataPoint], socketId })
 
   const commentLinkField = NDPCommentLinkFields.find(({ commentKey }) => commentKey === field)
   await LinksService.enqueueNationalDataPointLinksValidation({

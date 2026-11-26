@@ -9,7 +9,7 @@ components:
         type: array
         items:
           type: string
-        example: [ "1990", "2000" ]
+        example: ['1990', '2000']
       style: form
       explode: true
 
@@ -22,7 +22,7 @@ components:
         type: array
         items:
           type: string
-        example: [ "FIN", "ITA" ]
+        example: ['FIN', 'ITA']
       style: form
       explode: true
 
@@ -35,6 +35,6 @@ components:
         type: array
         items:
           type: string
-        example: [ "forestArea", "otherWoodedLand" ]
+        example: ['forestArea', 'otherWoodedLand']
       style: form
       explode: true

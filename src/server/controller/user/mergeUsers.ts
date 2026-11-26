@@ -1,4 +1,5 @@
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogUsersMerge } from 'meta/assessment/activityLog/user'
 import { User } from 'meta/user/user'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
@@ -26,7 +27,7 @@ export const mergeUsers = async (props: Props): Promise<Returned> => {
     const target = await UserRepository.mergeUsers({ assessments, userIdToKeep, userIdToRemove }, client)
 
     const message = ActivityLogMessage.usersMerge
-    const activityLog: ActivityLog<Returned> = { message, section: 'users', target, user }
+    const activityLog: ActivityLogUsersMerge = { message, section: 'users', target, user }
     await ActivityLogRepository.insertActivityLog({ activityLog }, client)
 
     return target

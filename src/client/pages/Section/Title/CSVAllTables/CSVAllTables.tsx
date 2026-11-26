@@ -5,6 +5,7 @@ import { Promises } from 'utils/promises'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
 import Button from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   disabled?: boolean
@@ -45,7 +46,7 @@ const CSVAllTables: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={disabled || isDownloading}
-      iconName="hit-down"
+      iconName={IconName.hitDown}
       label={t('common.csvAllTables')}
       onClick={handleClick}
     />

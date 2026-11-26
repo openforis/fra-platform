@@ -14,7 +14,15 @@ export const updateComments = async (req: Request, res: Response): Promise<void>
     const user = Requests.getUser(req)
     const { assessment, country, cycle } = req.context
 
-    const propsUpdate = { assessment, cycle, country, field, originalDataPoint, user }
+    const propsUpdate = {
+      assessment,
+      cycle,
+      country,
+      field,
+      originalDataPoint,
+      socketId: Requests.getSocketId(req),
+      user,
+    }
     const returnedOriginalDataPoint = await NationalDataPointController.updateComments(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)

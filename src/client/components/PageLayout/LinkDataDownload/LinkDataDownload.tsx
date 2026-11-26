@@ -10,6 +10,7 @@ import { TooltipId } from 'meta/tooltip/id'
 import { useCanViewCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const LinkDataDownload: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
@@ -25,7 +26,7 @@ const LinkDataDownload: React.FC = () => {
 
   return (
     <>
-      <Icon name="hit-down" />
+      <Icon name={IconName.hitDown} />
       <NavLink
         className={(): string => {
           return classNames('toolbar__data-link', {

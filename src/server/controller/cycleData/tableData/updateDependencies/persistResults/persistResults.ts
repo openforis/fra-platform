@@ -1,5 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { Node } from 'meta/assessment/node'
+import { ActivityLogTarget } from 'meta/assessment/activityLog/target'
 import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
@@ -24,7 +24,9 @@ export const persistResults = async (props: Props, client: BaseProtocol = DB): P
       const nodesInsert = await NodeRepository.massiveInsert({ assessment, cycle, nodes: nodesDb }, tx)
 
       // 2. Insert activity logs into DB
-      const activityLogs = nodesInsert.map<ActivityLogDb<Node>>((target) => ({
+      const activityLogs = nodesInsert.map<
+        ActivityLogDb<ActivityLogTarget<ActivityLogMessage.nodeValueCalculatedUpdate>>
+      >((target) => ({
         assessment_uuid: assessment.uuid,
         cycle_uuid: cycle.uuid,
         country_iso: countryIso,

@@ -1,13 +1,10 @@
 FROM node:24.15.0
 
-RUN rm -rf /usr/local/bin/yarn \
-    && rm -rf /usr/local/bin/yarnpkg \
-    && npm install -g yarn@1.22.22
-
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# Keeps yarn's cache out of the image, private because the Playwright image installs at the same time
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=private yarn install --frozen-lockfile
 
 COPY . .
 RUN yarn build

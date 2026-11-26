@@ -5,6 +5,7 @@ import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
 import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks/routes'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 const ToggleNavigationControl: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -18,7 +19,7 @@ const ToggleNavigationControl: React.FC = () => {
     <Button
       bgTransparent
       disabled={disabled}
-      iconName="menu-left"
+      iconName={IconName.menuLeft}
       inverse={navigationVisible}
       noBorder
       onClick={() => dispatch(CountryReportActions.setNavigationVisible())}

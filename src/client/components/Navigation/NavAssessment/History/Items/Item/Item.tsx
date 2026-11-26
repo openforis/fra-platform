@@ -10,6 +10,7 @@ import { Dates } from 'utils/dates'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { useOnClick } from './hooks/useOnClick'
 import { Props } from './props'
@@ -46,7 +47,7 @@ const Item: React.FC<Props> = (props) => {
           </div>
         </div>
 
-        <Icon name="compare_arrows" />
+        <Icon name={IconName.compareArrows} />
       </button>
     </>
   )

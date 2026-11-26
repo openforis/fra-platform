@@ -6,6 +6,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedOrderBy } from 'client/store/tablePaginated/hooks/tablePaginated'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import { Column } from 'client/components/TablePaginated/types'
 
 type Props<Datum> = {
@@ -23,7 +24,7 @@ const OrderBy = <Datum extends object>(props: Props<Datum>): ReactElement => {
   const active = orderBy?.property === orderByProperty
   const activeAsc = active && orderBy?.direction === TablePaginatedOrderByDirection.asc
   const activeDesc = active && orderBy?.direction === TablePaginatedOrderByDirection.desc
-  const iconName = activeDesc ? 'sort-amount-desc' : 'sort-amount-asc'
+  const iconName = activeDesc ? IconName.sortAmountDesc : IconName.sortAmountAsc
 
   const onClick = useCallback(() => {
     let orderByUpdate: TablePaginatedOrderBy

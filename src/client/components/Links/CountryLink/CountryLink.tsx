@@ -7,6 +7,7 @@ import { Routes } from 'meta/routes/routes'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Link, { LinkColor } from 'client/components/Links/Link'
 
 type Props = {
@@ -24,7 +25,7 @@ const CountryLink: React.FC<Props> = (props) => {
   return (
     <Link color={LinkColor.body} rel="noreferrer" target="_blank" to={url}>
       {t(Areas.getTranslationKey(countryIso))}
-      <Icon name="external-link" />
+      <Icon name={IconName.externalLink} />
     </Link>
   )
 }

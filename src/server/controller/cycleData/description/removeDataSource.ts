@@ -3,30 +3,33 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter/topics'
+import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
+import { saveDescription } from 'server/controller/cycleData/description/saveDescription'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
-
-import { upsertDescription } from './upsertDescription'
+import { DataValidationService } from 'server/service/dataValidation'
+import { SocketServer } from 'server/service/socket'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
+  cycle: Cycle
   sectionName: string
-  uuid: string
+  socketId?: string
   user: User
+  uuid: string
 }
 
 const name = CommentableDescriptionName.dataSources
 
 export const removeDataSource = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, country, cycle, sectionName, user, uuid } = props
+  const { assessment, country, cycle, sectionName, socketId, user, uuid } = props
   const { countryIso } = country
 
-  return client.tx(async (t) => {
+  const description = await client.tx(async (t) => {
     const countryISOs = [countryIso]
     const names = [name]
     const sectionNames = [sectionName]
@@ -42,8 +45,22 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     const index = value.dataSources.findIndex((d) => d.uuid === uuid)
     const [dataSource] = value.dataSources.splice(index, 1)
 
-    await upsertDescription({ assessment, cycle, country, sectionName, name, value, user }, t)
+    const description = await saveDescription({ assessment, country, cycle, name, sectionName, user, value }, t)
     const keyPrefix = Topics.getDataSourceReviewTopicKey(dataSource)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
+
+    return description
   })
+
+  const eventName = Sockets.getDescriptionUpdateEvent({
+    assessmentName: assessment.props.name,
+    countryIso,
+    cycleName: cycle.name,
+  })
+  SocketServer.emitToCountryRooms(
+    { countryIso, cycle, eventName, socketId },
+    { name, sectionName, value: description.value }
+  )
+
+  await DataValidationService.validateDescriptions({ assessment, country, cycle, descriptions: [description] })
 }

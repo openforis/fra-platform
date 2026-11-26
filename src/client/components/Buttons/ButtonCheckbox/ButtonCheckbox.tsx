@@ -7,6 +7,7 @@ import { Objects } from 'utils/objects'
 import Button from 'client/components/Buttons/Button'
 import { ButtonProps, ButtonType } from 'client/components/Buttons/Button/types'
 import { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox/types'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = Pick<ButtonProps, 'className' | 'disabled' | 'label' | 'onClick' | 'size' | 'type'> & {
   checked?: boolean
@@ -29,7 +30,7 @@ const ButtonCheckbox: React.FC<Props> = (props) => {
           </div>
         ) : undefined
       }
-      iconName={loading ? undefined : 'checkbox'}
+      iconName={loading ? undefined : IconName.checkbox}
       inverse={!checked}
       label={label}
       onClick={onClick}

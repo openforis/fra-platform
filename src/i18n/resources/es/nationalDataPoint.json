@@ -24,6 +24,7 @@
   },
   "dataSources": "Fuentes de datos",
   "definition": "Definición",
+  "deleted": "El punto de datos nacional {{year}} ha sido eliminado",
   "disabled": "Desactivado, activar en el apartado 1b",
   "discardChanges": "Cancelar cambios",
   "doneEditing": "Edición finalizada",

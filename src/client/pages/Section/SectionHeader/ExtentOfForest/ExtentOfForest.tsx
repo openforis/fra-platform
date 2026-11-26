@@ -10,6 +10,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { useSectionContext } from 'client/pages/Section/context'
 
 const ExtentOfForest: React.FC = () => {
@@ -30,7 +31,7 @@ const ExtentOfForest: React.FC = () => {
           className={className}
           to={Routes.OriginalDataPoint.generatePath({ assessmentName, cycleName, countryIso, sectionName, year: '-1' })}
         >
-          <Icon name="small-add" />
+          <Icon name={IconName.smallAdd} />
           {t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>

@@ -66,6 +66,11 @@ const getContentLanguage = (req: Request): string => {
   return req.headers['content-language'] as string
 }
 
+// Socket id of the client sending the request, see client/service/socket/client
+const getSocketId = (req: Request): string | undefined => {
+  return req.headers.socketid as string | undefined
+}
+
 export const Requests = {
   isGet,
   getMethod,
@@ -81,6 +86,7 @@ export const Requests = {
   // User
   getUser,
   getContentLanguage,
+  getSocketId,
 }
 
 export default Requests

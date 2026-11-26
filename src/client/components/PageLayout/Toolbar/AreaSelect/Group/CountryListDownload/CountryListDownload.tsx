@@ -10,6 +10,7 @@ import { useCountries } from 'client/store/area/hooks/countries'
 import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const formatDate = (date?: string): string => (date ? Dates.format(Dates.parseISO(date), 'dd MMMM yyyy') : '')
 
@@ -17,7 +18,7 @@ const CountryListDownload: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName } = useAssessmentRouteParams()
   const countries = useCountries()
-  const className = useButtonClassName({ iconName: 'hit-down', label: 'CSV' })
+  const className = useButtonClassName({ iconName: IconName.hitDown, label: 'CSV' })
 
   const data = countries.map((country) => {
     const status = Areas.getStatus(country)
@@ -54,7 +55,7 @@ const CountryListDownload: React.FC = () => {
         headers={headers}
         target="_blank"
       >
-        <Icon name="hit-down" />
+        <Icon name={IconName.hitDown} />
         CSV
       </CSVLink>
     </div>

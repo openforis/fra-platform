@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import FormField from 'client/components/Form/FormFields/FormField'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import MultiSelect from 'client/components/Inputs/MultiSelect'
 
 import { FieldProps } from '../types'
@@ -61,7 +62,7 @@ const PermissionsField: React.FC<Props> = (props) => {
               />
               {tableDataError && (
                 <div className="form-cell-error">
-                  <Icon name="alert" />
+                  <Icon name={IconName.alert} />
                   {tableDataError.message}
                 </div>
               )}
@@ -87,7 +88,7 @@ const PermissionsField: React.FC<Props> = (props) => {
               />
               {descriptionsError && (
                 <div className="form-cell-error">
-                  <Icon name="alert" />
+                  <Icon name={IconName.alert} />
                   {descriptionsError.message}
                 </div>
               )}

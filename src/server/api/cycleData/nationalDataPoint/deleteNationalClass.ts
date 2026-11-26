@@ -13,7 +13,7 @@ export const deleteNationalClass = async (req: Request, res: Response): Promise<
     const user = Requests.getUser(req)
     const { assessment, country, cycle } = req.context
 
-    const propsDelete = { assessment, cycle, country, index, id, user }
+    const propsDelete = { assessment, cycle, country, index, id, socketId: Requests.getSocketId(req), user }
     const returnedOriginalDataPoint = await NationalDataPointController.deleteNationalClass(propsDelete)
 
     Requests.send(res, returnedOriginalDataPoint)

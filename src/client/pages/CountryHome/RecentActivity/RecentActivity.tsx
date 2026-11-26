@@ -1,3 +1,4 @@
+import './RecentActivity.scss'
 import React from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -6,15 +7,24 @@ import TablePaginated from 'client/components/TablePaginated'
 import EmptyActivities from 'client/pages/CountryHome/RecentActivity/EmptyActivities'
 
 import { useColumns } from './hooks/useColumns'
+import { useExtraActions } from './hooks/useExtraActions'
 import { limit } from './limit'
 
 const RecentActivity: React.FC = () => {
   const columns = useColumns()
+  const extraActions = useExtraActions()
 
   const path = ApiEndPoint.CycleData.activities()
 
   return (
-    <TablePaginated columns={columns} EmptyListComponent={EmptyActivities} header={false} limit={limit} path={path} />
+    <TablePaginated
+      columns={columns}
+      EmptyListComponent={EmptyActivities}
+      extraActions={extraActions}
+      header={false}
+      limit={limit}
+      path={path}
+    />
   )
 }
 

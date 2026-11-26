@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceDescription } from 'meta/assessment/description/dataSourceDescription'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
+import { useDataSourcesFocusedLink } from 'client/hooks/useDataSourcesFocusedLink'
 import DataGrid from 'client/components/DataGrid/DataGrid'
 import DataSources from 'client/components/DataSources'
 import { PropsDataSources } from 'client/components/DataSources/types'
@@ -18,6 +19,7 @@ import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
+import { useInvalidLinks } from './hooks/useInvalidLinks'
 import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
@@ -43,6 +45,8 @@ const NationalDataSources: React.FC<Props> = (props) => {
   const onChange = useOnChange({ sectionName })
   const onDelete = useOnDelete({ sectionName })
   const validationErrors = useValidationErrors({ sectionName })
+  const invalidLinks = useInvalidLinks({ sectionName })
+  const focusedLink = useDataSourcesFocusedLink({ descriptionName: name })
 
   const { dataSources } = data
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
@@ -76,7 +80,9 @@ const NationalDataSources: React.FC<Props> = (props) => {
         columns={columns}
         data={data}
         dataSourcesLinked={dataSourcesLinked}
+        focusedLink={focusedLink}
         historyCompares={historyCompares}
+        invalidLinks={invalidLinks}
         meta={meta}
         onAdd={onAdd}
         onChange={onChange}

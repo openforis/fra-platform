@@ -1,6 +1,7 @@
 import { ODPNationalClassFactory } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -54,7 +55,7 @@ test.describe('National data point: forest characteristics - failure', () => {
       await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, className, '10') // totals to 90
 
       const percentageCell = page.locator('.fra-table:not(.odp__sub-table) td.fra-table__cell.validation-error')
-      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await expect(percentageCell.first()).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, percentageCell.first(), `${className} sum must be equal to 100%`)
 
       // Check for error flag in navigation for 1b - the 1a values stay valid
@@ -78,10 +79,10 @@ test.describe('National data point: forest characteristics - failure', () => {
       await NDPDomUtils.fillNationalClassNaturalForestPercent(page, className, '50')
       await NDPDomUtils.fillNationalClassPlantationForestPercent(page, className, '30')
       await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, className, '20') // totals to 100
-      await expect(percentageCell).toHaveCount(0, { timeout: 10000 })
+      await expect(percentageCell).toHaveCount(0, { timeout: Timeouts.medium })
 
       await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, className, '30') // totals to 110
-      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await expect(percentageCell.first()).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, percentageCell.first(), `${className} sum must be equal to 100%`)
 
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
@@ -102,12 +103,12 @@ test.describe('National data point: forest characteristics - failure', () => {
       await DOMUtils.ensureEditingUnlocked(page)
 
       const plantationTable = NDPDomUtils.getPlantationTable(page)
-      await expect(plantationTable).toBeVisible({ timeout: 10000 })
+      await expect(plantationTable).toBeVisible({ timeout: Timeouts.medium })
 
       await NDPDomUtils.fillNationalClassPlantationIntroducedPercent(page, className, '110')
 
       const introducedCell = plantationTable.locator('td.fra-table__cell.validation-error')
-      await expect(introducedCell).toBeVisible({ timeout: 10000 })
+      await expect(introducedCell).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(page, introducedCell, `${className} should be not greater than 100%`)
 
       await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
@@ -130,12 +131,12 @@ test.describe('National data point: forest characteristics - failure', () => {
       await DOMUtils.ensureEditingUnlocked(page)
 
       const naturallyRegeneratingTable = NDPDomUtils.getNaturallyRegeneratingTable(page)
-      await expect(naturallyRegeneratingTable).toBeVisible({ timeout: 10000 })
+      await expect(naturallyRegeneratingTable).toBeVisible({ timeout: Timeouts.medium })
 
       await NDPDomUtils.fillNationalClassPrimaryForestPercent(page, className, '110')
 
       const primaryForestCell = naturallyRegeneratingTable.locator('td.fra-table__cell.validation-error')
-      await expect(primaryForestCell).toBeVisible({ timeout: 10000 })
+      await expect(primaryForestCell).toBeVisible({ timeout: Timeouts.medium })
       await TooltipUtils.expectValidationTooltip(
         page,
         primaryForestCell,

@@ -19,7 +19,7 @@ components:
 
     PanEuropeanVariableNames:
       type: array
-      description:  Array of variable names to retrieve. Use PanEuropeanTableOptions to pick values that match your selected table.
+      description: Array of variable names to retrieve. Use PanEuropeanTableOptions to pick values that match your selected table.
       items:
         type: string
         enum: []

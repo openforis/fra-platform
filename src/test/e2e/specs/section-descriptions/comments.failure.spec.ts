@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 
 import { DescriptionsApi } from 'test/e2e/api/descriptions'
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { x12ForestOwnership, x12ForestOwnershipPath } from 'test/e2e/data/sectionDescriptions'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DescriptionUtils } from 'test/e2e/utils/description'
@@ -40,16 +41,18 @@ test.describe.serial('Section descriptions: comments - failure', () => {
       await commentsToggleEditButton(page, 'Done').click()
     })
 
-    await expect(commentsValidationError(page)).toBeVisible({ timeout: 20000 })
+    await expect(commentsValidationError(page)).toBeVisible({ timeout: Timeouts.extraLong })
     await TooltipUtils.expectValidationTooltip(
       page,
-      commentsValidationError(page),
-      `Invalid link: "${commentsInvalidLinks.emptyLinkText}" (Empty)`
+      commentsValidationError(page).locator('a', { hasText: commentsInvalidLinks.emptyLinkText }),
+      commentsInvalidLinks.emptyLinkError
     )
+    // The link sits inside the editor, so an editor tooltip would show up here too
+    await TooltipUtils.expectNoValidationTooltip(page, commentsInvalidLinks.brokenLinkError)
     await TooltipUtils.expectValidationTooltip(
       page,
-      commentsValidationError(page),
-      `Invalid link: "${commentsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+      commentsValidationError(page).locator('a', { hasText: commentsInvalidLinks.brokenLinkText }),
+      commentsInvalidLinks.brokenLinkError
     )
 
     await NavigationUtils.subSectionHasError(page, x12ForestOwnershipPath, true)

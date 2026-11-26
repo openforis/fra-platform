@@ -8,6 +8,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import type { Props } from '../../Props'
 import { useRemoveInvitation } from './hooks/useRemoveInvitation'
@@ -35,7 +36,7 @@ const Remove: React.FC<Props> = (props: Props) => {
     <Button
       className="home-user-action-button-remove"
       disabled={currentUser.uuid === user.uuid}
-      iconName="trash-simple"
+      iconName={IconName.trashSimple}
       inverse
       label={t('common.remove')}
       noBorder

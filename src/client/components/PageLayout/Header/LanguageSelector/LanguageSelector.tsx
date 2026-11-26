@@ -5,6 +5,7 @@ import { LanguageCodes } from 'meta/lang'
 
 import { useLanguage, useUpdateLanguage } from 'client/hooks/language'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import PopoverControl from 'client/components/PopoverControl'
 
 const LanguageSelector: React.FC = () => {
@@ -25,7 +26,7 @@ const LanguageSelector: React.FC = () => {
     <PopoverControl items={languageSelectionItems}>
       <div className="app-header__menu-item">
         {t(`language.${language}`)}
-        <Icon className="icon-middle" name="small-down" />
+        <Icon className="icon-middle" name={IconName.smallDown} />
       </div>
     </PopoverControl>
   )

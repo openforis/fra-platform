@@ -1,11 +1,11 @@
-import { Objects } from 'utils/objects'
-
 import { Section, SectionProps, SubSection, SubSectionProps } from 'meta/assessment/section'
 import { UUID } from 'meta/uuid/uuid'
+import { Objects } from 'utils/objects'
 
 interface SectionDB {
   id: number
   uuid: string
+  parent_uuid: null
   props: SectionProps & { cycles: Array<string> }
   sub_sections?: Array<SubSection>
 }
@@ -42,7 +42,7 @@ export const SectionAdapter = (section: SectionDB): Section => {
   const { props, sub_sections, ...restSection } = section
 
   return {
-    ...restSection,
+    ...Objects.camelize(restSection),
     props,
     // eslint-disable-next-line camelcase
     subSections: sub_sections?.map(SubSectionAdapter),

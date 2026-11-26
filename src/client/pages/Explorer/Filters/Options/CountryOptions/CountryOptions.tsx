@@ -7,6 +7,7 @@ import { AxisSelection, ExplorerCountryOptions } from 'meta/explorer/selection'
 
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 import { useCountryOptionsEnabled } from 'client/pages/Explorer/ResultGrid/hooks/useCountryOptionsEnabled'
 
@@ -47,7 +48,7 @@ const CountryOptions: React.FC<Props> = (props: Props) => {
         className={classNames('country-options__notice', { hidden: enabled })}
         gap="4"
       >
-        <Icon className="icon-middle" name="alert" />
+        <Icon className="icon-middle" name={IconName.alert} />
         <span>{t('explorer.countryOptionsDisabled')}</span>
       </Flex>
     </>

@@ -21,19 +21,19 @@ paths:
                 $ref: '#/components/schemas/RecordAssessmentData'
               example:
                 fra:
-                  "2025":
+                  '2025':
                     FIN:
                       extentOfForest:
-                        "1990":
+                        '1990':
                           forestArea:
                             odp: true
-                            raw: "21875.33"
+                            raw: '21875.33'
                             odpId: 231
                           otherLand:
                             odp: true
-                            raw: "7589.76999"
+                            raw: '7589.76999'
                             odpId: 231
                           totalLandArea:
                             odp: true
-                            raw: "30459"
+                            raw: '30459'
                             odpId: 231

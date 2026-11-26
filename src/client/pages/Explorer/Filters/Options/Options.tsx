@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Hr from 'client/components/Hr'
+import { IconName } from 'client/components/Icon/types'
 import SlidingPanel from 'client/components/SlidingPanel'
 import AxisSelection from 'client/pages/Explorer/Filters/Options/AxisSelection/AxisSelection'
 import CountryOptions from 'client/pages/Explorer/Filters/Options/CountryOptions/CountryOptions'
@@ -49,7 +50,7 @@ const Options: React.FC = () => {
 
   return (
     <div className="options-container">
-      <Button disabled={hideGrid} iconName="equalizer" onClick={openPanel} />
+      <Button disabled={hideGrid} iconName={IconName.equalizer} onClick={openPanel} />
       <SlidingPanel closePanel={closePanel} opened={opened} size={panelSize}>
         <CountryOptions options={countryOptions} toggleOption={toggleOption} uiAxisSelection={axisSelection} />
 
@@ -62,9 +63,15 @@ const Options: React.FC = () => {
         <Hr className="options-hr" />
 
         <div className="options-actions">
-          <Button iconName="undo" inverse label={t('common.cancel')} onClick={handleCancel} size={ButtonSize.m} />
           <Button
-            iconName="checkbox"
+            iconName={IconName.undo}
+            inverse
+            label={t('common.cancel')}
+            onClick={handleCancel}
+            size={ButtonSize.m}
+          />
+          <Button
+            iconName={IconName.checkbox}
             label={t('common.apply')}
             onClick={handleApply}
             size={ButtonSize.m}

@@ -7,6 +7,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket/sockets'
+import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -18,16 +19,21 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Flex from 'client/components/Layout/Flex'
 import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket/client'
 
+import { useTopicLayout } from './hooks/useTopicLayout'
 import Footer from './Footer'
 import Message from './Message'
 
 type TopicProps = {
   topic: MessageTopic
 }
+
+// Override react-rnd inline-block to expand body (chat messages)
+const style: React.CSSProperties = { display: 'flex' }
 
 const Topic: React.FC<TopicProps> = (props) => {
   const { topic } = props
@@ -39,6 +45,7 @@ const Topic: React.FC<TopicProps> = (props) => {
   const cycle = useCycle()
   const user = useUser()
   const dataLocked = useIsDataLocked()
+  const { moved, onDragStop, onResizeStop, position, reset, size } = useTopicLayout({ topic })
 
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
@@ -105,27 +112,46 @@ const Topic: React.FC<TopicProps> = (props) => {
 
   return (
     <Resizable
+      bounds=".topic-container"
       className="topic"
-      defaultSize={{ width: 300, height: '100%' }}
+      dragHandleClassName="topic-header"
       maxHeight="100%"
       maxWidth={800}
       minHeight={300}
       minWidth={300}
+      onDragStop={onDragStop}
       onResize={handleTopicResize}
+      onResizeStop={onResizeStop}
+      position={position}
+      size={size}
+      style={style}
     >
       <Flex className="topic-header" justifyContent={'space-between'}>
         <div className="topic-title">
           {topic.title || topicKey}
           {topic.subtitle && <div className="topic-subtitle">{topic.subtitle}</div>}
         </div>
-        <Button
-          className="topic-close"
-          iconName="remove"
-          inverse
-          onClick={closeTopic}
-          size={ButtonSize.l}
-          type={ButtonType.anonymous}
-        />
+        <Flex gap="0">
+          <Button
+            className="topic-reset"
+            dataTooltipContent={moved ? t('review.resetPosition') : undefined}
+            dataTooltipId={TooltipId.info}
+            disabled={!moved}
+            iconName={IconName.arrowDownRight2}
+            inverse
+            onClick={reset}
+            size={ButtonSize.l}
+            type={ButtonType.anonymous}
+          />
+          <Button
+            className="topic-close"
+            iconName={IconName.remove}
+            inverse
+            onClick={closeTopic}
+            size={ButtonSize.l}
+            type={ButtonType.anonymous}
+          />
+        </Flex>
       </Flex>
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!topic.loading &&
@@ -140,7 +166,7 @@ const Topic: React.FC<TopicProps> = (props) => {
           ))}
         {!topic.loading && Objects.isEmpty(topic.messages) && (
           <div className="topic__no-comments">
-            <Icon className="icon-24" name="chat-46" />
+            <Icon className="icon-24" name={IconName.chat46} />
             <br />
             {t('review.noComments')}
           </div>

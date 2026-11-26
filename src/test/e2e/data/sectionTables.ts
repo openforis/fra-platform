@@ -21,6 +21,11 @@ export const x07ForestAreaChange: TableLocation = { countryIso: 'X07', ...forest
 
 export const x14ExtentOfForest: TableLocation = { countryIso: 'X14', ...extentOfForest }
 
+export const x12ForestAreaChange: TableLocation = { countryIso: 'X12', ...forestAreaChange }
+
+// Only description specs use X13, so no other spec writes its table data
+export const x13ForestAreaChange: TableLocation = { countryIso: 'X13', ...forestAreaChange }
+
 export const x16ExtentOfForest: TableLocation = { countryIso: 'X16', ...extentOfForest }
 export const x16ForestAreaChange: TableLocation = { countryIso: 'X16', ...forestAreaChange }
 
@@ -31,6 +36,9 @@ export const albExtentOfForest2020: TableLocation = {
   cycleName: CycleNames._2020,
   ...extentOfForest,
 }
+
+// Every Atlantis country is taken, and the submit to review spec changes AND's status, so no other spec should use it
+export const andExtentOfForest: TableLocation = { countryIso: 'AND', ...extentOfForest }
 
 export const x01ExtentOfForest: TableLocation = { countryIso: 'X01', ...extentOfForest }
 
@@ -51,7 +59,10 @@ export const albSectionPath = SectionUtils.path(albExtentOfForest)
 export const x16ExtentOfForestPath = SectionUtils.path(x16ExtentOfForest)
 export const x16ForestAreaChangePath = SectionUtils.path(x16ForestAreaChange)
 export const x14ExtentOfForestPath = SectionUtils.path(x14ExtentOfForest)
+export const x12ForestAreaChangePath = SectionUtils.path(x12ForestAreaChange)
+export const x13ForestAreaChangePath = SectionUtils.path(x13ForestAreaChange)
 export const x14PrintTablesPath = SectionUtils.printTablesPath('X14')
 export const x02ContactPersonsPath = SectionUtils.path(x02ContactPersons)
 export const x01ContactPersonsLatestPath = SectionUtils.path(x01ContactPersonsLatest)
 export const x01PrintTablesLatestPath = SectionUtils.printTablesPath('X01', CycleNames.latest)
+export const andExtentOfForestPath = SectionUtils.path(andExtentOfForest)

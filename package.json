@@ -11,12 +11,13 @@
     "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:prod:server:resources": "shx cp -Rf src/server/static dist/server/",
     "clean": "shx rm -rf dist/",
+    "lint:deps": "knip --production --strict --include dependencies,unlisted,unresolved",
     "migration-steps:create": "ts-node src/tools/migrations/steps/createMigrationStep.ts",
     "migration-steps:reset": "ts-node src/tools/migrations/steps/reset.ts",
     "migration-steps:run": "ts-node src/tools/migrations/steps/",
     "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/tools/migrations/steps/ src/tools/migrations/steps/ -- --watch",
     "run:dev": "run-p run:dev:server run:dev:client",
-    "run:dev:client": "wait-on http://localhost:9001/api/health && vite --host",
+    "run:dev:client": "wait-on --interval 2000 --timeout 60000 http://localhost:9001/api/health && vite --host",
     "run:dev:server": "ts-node-dev --files --exit-child --project tsconfig.server.json src/server/start",
     "run:prod": "run-s clean build start",
     "run:heroku:start": "heroku local:start web=4",
@@ -84,14 +85,12 @@
     "@types/to-snake-case": "^1.0.0",
     "@types/youtube": "^0.3.0",
     "@vitejs/plugin-react": "^6.1.1",
-    "@vitest/ui": "^4.1.9",
+    "@vitest/ui": "^5.0.5",
     "cross-env": "^10.1.0",
     "eslint": "^10.5.0",
-    "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-simple-import-sort": "^13.0.0",
@@ -100,9 +99,12 @@
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^17.7.0",
     "husky": "^9.1.7",
+    "knip": "6.45.0",
     "lint-staged": "^17.0.8",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.8.4",
+    "oxfmt": "0.73.0",
+    "puppeteer": "^25.2.0",
+    "puppeteer-cluster": "^0.25.0",
     "rolldown": "^1.1.2",
     "sass": "^1.101.0",
     "shx": "^0.4.0",
@@ -112,15 +114,15 @@
     "tsc-alias": "^1.8.17",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.62.0",
-    "vite": "^8.1.0",
+    "vite": "^8.3.5",
+    "vite-plugin-svgr": "^5.2.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.9",
+    "vitest": "^5.0.5",
     "wait-on": "^9.0.10"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1075.0",
     "@google/earthengine": "^1.7.32",
-    "@googlemaps/js-api-loader": "^2.1.1",
     "@googlemaps/react-wrapper": "^1.2.0",
     "@hookform/resolvers": "^5.4.0",
     "@jsep-plugin/object": "^1.2.2",
@@ -185,10 +187,8 @@
     "pg": "^8.22.0",
     "pg-promise": "^12.6.2",
     "pg-query-stream": "^4.16.0",
-    "puppeteer": "^25.2.0",
-    "puppeteer-cluster": "^0.25.0",
+    "posthog-js": "^1.434.7",
     "qs": "^6.15.2",
-    "re-resizable": "^6.11.2",
     "react": "^19.2.7",
     "react-csv": "^2.0.3",
     "react-dom": "^19.2.7",
@@ -199,6 +199,7 @@
     "react-paginate": "^8.3.0",
     "react-redux": "^9.3.0",
     "react-responsive": "^10.0.1",
+    "react-rnd": "^10.5.3",
     "react-router": "^8.2.0",
     "react-select": "^5.10.2",
     "react-tooltip": "^6.0.8",
@@ -228,18 +229,13 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.19.4",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+  "version": "3.20.1",
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "eslint --concurrency=auto --cache --fix --rule 'no-console:2'"
     ],
     "**/*.{ts,tsx,js,scss}": [
-      "prettier --write"
+      "oxfmt --no-error-on-unmatched-pattern"
     ]
   }
 }

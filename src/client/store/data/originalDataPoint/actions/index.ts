@@ -5,6 +5,7 @@ import { deleteOriginalDataPointNationalClass } from 'client/store/data/original
 import { getOriginalDataPoint } from 'client/store/data/originalDataPoint/actions/getOriginalDataPoint'
 import { getOriginalDataPointReservedYears } from 'client/store/data/originalDataPoint/actions/getOriginalDataPointReservedYears'
 import { reset } from 'client/store/data/originalDataPoint/actions/reset'
+import { setNationalDataPoint } from 'client/store/data/originalDataPoint/actions/setNationalDataPoint'
 import { setReservedYears } from 'client/store/data/originalDataPoint/actions/setReservedYears'
 import { updateOriginalDataPointDataSources } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointDescription'
@@ -20,6 +21,7 @@ export const OriginalDataPointActions = {
   getOriginalDataPoint,
   getOriginalDataPointReservedYears,
   reset,
+  setNationalDataPoint,
   setReservedYears,
   updateOriginalDataPointDataSources,
   updateOriginalDataPointDescription,

@@ -12,6 +12,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { Props } from '../../Props'
 
@@ -29,7 +30,7 @@ const Edit: React.FC<Props> = (props: Props) => {
 
   const isEdit = Authorizer.canEditUser({ cycle, countryIso, user: currentUser, target: user })
   const label = t(isEdit ? 'userManagement.edit' : 'common.view')
-  const iconName = isEdit ? 'pencil' : 'icon-eye'
+  const iconName = isEdit ? IconName.pencil : IconName.eye
   const className = useButtonClassName({ iconName, label, size, type, className: 'home-user-action-button-edit' })
 
   if (UserCountrySummaries.isInvitation(user, countryIso)) {

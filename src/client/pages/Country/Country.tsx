@@ -9,6 +9,7 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsGeoRoute } from 'client/hooks/routes'
 import Navigation from 'client/components/Navigation'
 
+import { useDescriptionUpdateListener } from './hooks/useDescriptionUpdateListener'
 import { useDescriptionValidationsListener } from './hooks/useDescriptionValidationsListener'
 import { useGetValidationsSummary } from './hooks/useGetValidationsSummary'
 import { useInitSections } from './hooks/useInitSections'
@@ -27,6 +28,7 @@ const Country: React.FC = () => {
   const geoRoute = useIsGeoRoute()
   useInitSections()
   useTableValidationsListener()
+  useDescriptionUpdateListener()
   useDescriptionValidationsListener()
   useNationalDataPointValidationsListener()
   useNationalDataPointValidationDeleteListener()

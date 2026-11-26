@@ -1,9 +1,11 @@
 import { mergeTests } from '@playwright/test'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import {
   x01ContactPersonsLatest,
   x01ContactPersonsLatestPath,
@@ -41,16 +43,16 @@ test.describe('Section tables: introduction latest - admin', () => {
 })
 
 test.describe('Section tables: introduction latest - logged out', () => {
-  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest } })
+  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest, status: CountryStatus.published } })
 
-  test('Logged out user sees the publication year and no expected year', async ({ publicPage, publishedCountry }) => {
+  test('Logged out user sees the publication year and no expected year', async ({ country, publicPage }) => {
     const page = publicPage
-    const publicationYear = String(new Date(publishedCountry.lastInPublished).getFullYear())
+    const publicationYear = String(new Date(country.lastInPublished).getFullYear())
 
     await page.goto(x01ContactPersonsLatestPath)
 
     const table = TableDomUtils.tableContainer(page, reportLastUpdate)
-    await expect(table).toBeVisible({ timeout: 10000 })
+    await expect(table).toBeVisible({ timeout: Timeouts.medium })
     await TableDomUtils.expectCellValue(page, reportLastUpdate, expectedYear, publicationYear)
     // The year is calculated, so there should be no input
     await expect(table.locator('input')).toHaveCount(0)
@@ -71,8 +73,29 @@ test.describe('Section tables: introduction latest - print view', () => {
 
     await page.goto(x01PrintTablesLatestPath)
     // Table 1a comes after the introduction, so once it's there the introduction has been rendered
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({
+      timeout: Timeouts.extraLong,
+    })
 
     await expect(TableDomUtils.tableContainer(page, TableNames.contactPersons)).toHaveCount(0)
+  })
+})
+
+// Publishing X01 in latest stops this redirect, so it's in the same file as the publication year test and never runs alongside it
+test.describe('Section tables: introduction latest - unpublished', () => {
+  test.use({ countrySeed: { countryIso: 'X01', cycleName: CycleNames.latest, status: CountryStatus.editing } })
+
+  test('Logged out user opens the unpublished latest cycle and lands on its last published cycle', async ({
+    country,
+    publicPage,
+  }) => {
+    const page = publicPage
+    expect(country.props.status).toBe(CountryStatus.editing)
+
+    await page.goto(x01ContactPersonsLatestPath)
+
+    // X01 was last published in 2020, so that's where it lands
+    await expect(page).toHaveURL(/\/assessments\/fra\/2020\/X01\/home/)
+    await expect(page.locator('.toast.error')).toHaveCount(2)
   })
 })

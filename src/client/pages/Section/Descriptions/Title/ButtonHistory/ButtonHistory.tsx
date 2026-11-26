@@ -9,6 +9,7 @@ import { useHistoryActivities, useHistoryActivitiesIsActive } from 'client/store
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import { useSectionContext } from 'client/pages/Section/context'
 
 import { useToggleHistory } from './hooks/useToggleHistory'
@@ -45,7 +46,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={disabled}
-      iconName="history"
+      iconName={IconName.history}
       inverse={!historyActivitiesActive}
       label={t('history.history')}
       onClick={onClick}

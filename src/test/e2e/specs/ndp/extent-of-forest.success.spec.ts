@@ -1,5 +1,6 @@
 import { SectionNames } from 'meta/assessment/section'
 
+import { Timeouts } from 'test/e2e/config/timeouts'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
@@ -35,8 +36,8 @@ test.describe('National data point: extent of forest - success', () => {
     await NDPDomUtils.fillNationalClassForestPercent(page, className, '60')
     await NDPDomUtils.fillNationalClassOWLPercent(page, className, '30') // totals to 90
 
-    await expect(page.locator('.data-cell.validation-error')).toHaveCount(0, { timeout: 10000 })
-    await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('.data-cell.validation-error')).toHaveCount(0, { timeout: Timeouts.medium })
+    await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0, { timeout: Timeouts.medium })
 
     await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
 

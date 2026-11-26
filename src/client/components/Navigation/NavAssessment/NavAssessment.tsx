@@ -15,6 +15,7 @@ import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Header from 'client/components/Navigation/NavAssessment/Header'
 import History from 'client/components/Navigation/NavAssessment/History'
 import NavigationSection from 'client/components/Navigation/NavAssessment/Section'
@@ -58,7 +59,7 @@ const NavAssessment: React.FC = () => {
               to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
             >
               <div className="nav-section__order">
-                <Icon name="hit-down" />
+                <Icon name={IconName.hitDown} />
               </div>
               <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
             </Link>
@@ -73,7 +74,7 @@ const NavAssessment: React.FC = () => {
             target="_blank"
           >
             <div className="nav-section__order">
-              <Icon name="external-link" />
+              <Icon name={IconName.externalLink} />
             </div>
             <div className="nav-section__label">{t('common.globalFRA_many')}</div>
           </a>

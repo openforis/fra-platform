@@ -15,11 +15,12 @@ const exec = async (): Promise<void> => {
     Object.values(assessments).map(async (assessment) => {
       // assessment and cycles metadata cache
       await CacheController.generateMetadata({ assessment })
-      // cycles data cache
+      // cycles data and explorer metadata cache
       await Promise.all(
         assessment.cycles.map(async (cycle) => {
           await CacheController.generateArea({ assessment, cycle })
           await CacheController.generateData({ assessment, cycle })
+          await CacheController.generateExplorerMetadata({ assessment, cycle })
         })
       )
     })

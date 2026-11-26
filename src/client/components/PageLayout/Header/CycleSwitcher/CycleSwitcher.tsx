@@ -8,6 +8,7 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import PopoverControl from 'client/components/PopoverControl'
 
 import { useDisplayName } from './hooks/useDisplayName'
@@ -31,7 +32,7 @@ const CycleSwitcher: React.FC = () => {
       <PopoverControl items={popoverItems}>
         <div className="app-header__menu-item">
           <span>{displayName}</span>
-          <Icon name="small-down" />
+          <Icon name={IconName.smallDown} />
         </div>
       </PopoverControl>
     </div>

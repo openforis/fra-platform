@@ -22,5 +22,5 @@ export const notifyNationalDataPointValidationUpdate = (props: Props): void => {
     cycleName: cycle.name,
   })
 
-  SocketServer.emit(eventName, { validations })
+  SocketServer.emitToCountryRooms({ countryIso, cycle, eventName }, { validations })
 }

@@ -13,6 +13,7 @@ import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useOnUpdate } from 'client/hooks/onUpdate'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const ButtonHistory: React.FC = () => {
@@ -43,7 +44,7 @@ const ButtonHistory: React.FC = () => {
         className="btn-history-last-approved"
         dataTooltipContent={t('common.tooltip.viewHistory')}
         dataTooltipId={historyActive ? TooltipId.black : TooltipId.white}
-        iconName="history"
+        iconName={IconName.history}
         inverse={!historyActive}
         onClick={(): void => toggleHistory()}
         size={ButtonSize.m}

@@ -11,6 +11,7 @@ import { Objects } from 'utils/objects'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useSearchParams } from 'client/hooks/searchParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
@@ -66,7 +67,7 @@ const Login: React.FC = () => {
           rel="noreferrer"
           target="_blank"
         >
-          <Icon name="video" /> {t(videoResources[0].labelKeyShort)}
+          <Icon name={IconName.video} /> {t(videoResources[0].labelKeyShort)}
         </a>
       )}
       <Divider />
@@ -84,7 +85,7 @@ const Login: React.FC = () => {
           rel="noreferrer"
           target="_blank"
         >
-          <Icon name="video" /> {t(videoResources[1].labelKeyShort)}
+          <Icon name={IconName.video} /> {t(videoResources[1].labelKeyShort)}
         </a>
       )}
     </div>

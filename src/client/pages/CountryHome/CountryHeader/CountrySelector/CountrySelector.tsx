@@ -2,10 +2,9 @@ import './CountrySelector.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
+import { Objects } from 'utils/objects'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
@@ -16,6 +15,7 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const __MIN_COUNTRIES__ = 9
 
@@ -49,7 +49,7 @@ const CountrySelector: React.FC = () => {
     <>
       <Hr dark vertical />
       <div className="country-selector">
-        <Icon name="filter" />
+        <Icon name={IconName.filter} />
         <CountryMultiSelect
           allowAtlantis={false}
           error={errorMessage}

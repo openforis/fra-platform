@@ -93,14 +93,18 @@ $title: #fff;
   background-color: #5ba3dc;
   border-radius: 10px;
   border: min(0.15dvw, 0.26dvh) solid #3d4f67;
-  box-shadow: 0 min(0.15dvw, 0.25dvh) 0 rgba(255, 255, 255, 0.2) inset, 0 0 min(0.2dvw, 0.35dvh) rgba(14, 35, 64, 0.35);
+  box-shadow:
+    0 min(0.15dvw, 0.25dvh) 0 rgba(255, 255, 255, 0.2) inset,
+    0 0 min(0.2dvw, 0.35dvh) rgba(14, 35, 64, 0.35);
   color: white;
   cursor: pointer;
   font-size: min(1.15dvw, 2dvh);
   font-weight: 500;
   padding: min(0.65dvw, 1.15dvh) min(1.25dvw, 2.2dvh);
   text-transform: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover,
   &:focus {

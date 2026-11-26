@@ -8,6 +8,7 @@ import { UserCountrySummary } from 'meta/user/countrySummary'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   userSummary: UserCountrySummary
@@ -24,7 +25,7 @@ const NameField: React.FC<Props> = (props: Props) => {
   return (
     <Link className="admin-user-management__user-link" rel="noreferrer" target="_blank" to={url}>
       {fullName}
-      <Icon name="external-link" />
+      <Icon name={IconName.externalLink} />
     </Link>
   )
 }

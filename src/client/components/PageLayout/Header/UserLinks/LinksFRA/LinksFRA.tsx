@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
 import { Routes } from 'meta/routes/routes'
-import { TrackId } from 'meta/tracking/id'
 import { Users } from 'meta/user/users'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
@@ -11,6 +10,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsLoginRoute } from 'client/hooks/routes'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import PopoverControl from 'client/components/PopoverControl'
 
 import { useUserLinks } from './hooks/useUserLinks'
@@ -30,9 +30,9 @@ const LinksFRA: React.FC = () => {
     <>
       {user && (
         <PopoverControl items={userLinks}>
-          <div className="app-header__menu-item">
+          <div className="app-header__menu-item ph-no-capture">
             {Users.getFullName(user)}
-            <Icon className="icon-middle" name="small-down" />
+            <Icon className="icon-middle" name={IconName.smallDown} />
           </div>
         </PopoverControl>
       )}
@@ -41,7 +41,6 @@ const LinksFRA: React.FC = () => {
         <Link
           key="admin-link"
           className="app-header__menu-item"
-          data-track-id={TrackId.headerLogin}
           to={Routes.Login.generatePath({ assessmentName, cycleName })}
         >
           {t('common.login')}

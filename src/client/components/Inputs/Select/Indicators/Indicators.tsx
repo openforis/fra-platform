@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 import ButtonClear from 'client/components/Buttons/ButtonClear'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 export const IndicatorsContainer: React.FC<IndicatorsContainerProps> = (props) => {
   const { children, className, isDisabled, ...rest } = props
@@ -26,7 +27,7 @@ export const DropdownIndicator: React.FC<DropdownIndicatorProps> = (props) => {
 
   return (
     <div className={classNames('select__dropdownIndicator', { isDisabled })}>
-      <Icon name="icon-select-arrows" />
+      <Icon name={IconName.selectArrows} />
     </div>
   )
 }

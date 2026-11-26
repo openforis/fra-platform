@@ -14,8 +14,8 @@ type Props = {
   force?: boolean
 }
 
-const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, force, rowKeys } = props
+const _cacheRows = async (props: Pick<Props, 'assessment' | 'force'>, client: BaseProtocol = DB): Promise<void> => {
+  const { assessment, force } = props
 
   const redis = RedisDataClient.getInstance()
   const key = getKeyRow(props)
@@ -31,9 +31,6 @@ const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void
 
     const recordRows = rows.reduce<Record<string, string>>((acc, row) => {
       const rowKey = RowCaches.getKey({ tableName: row.tableName, variableName: row.props.variableName })
-
-      if (rowKeys && !rowKeys.includes(rowKey)) return acc
-
       return { ...acc, [rowKey]: JSON.stringify(row) }
     }, {})
 
@@ -46,7 +43,7 @@ const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void
 export const getRows = async (props: Props, client: BaseProtocol = DB): Promise<RecordRowCache> => {
   const { assessment, force, rowKeys } = props
 
-  await _cacheRows({ assessment, rowKeys, force }, client)
+  await _cacheRows({ assessment, force }, client)
 
   const redis = RedisDataClient.getInstance()
 

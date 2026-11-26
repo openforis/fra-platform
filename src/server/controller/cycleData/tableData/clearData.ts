@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogTableValuesClear } from 'meta/assessment/activityLog/tableData'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
@@ -39,13 +40,16 @@ export const clearData = async (props: Props, client: BaseProtocol = DB): Promis
     // notify client
     const propsEvent = { countryIso, assessmentName: assessment.props.name, cycleName: cycle.name }
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
-    SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
+    SocketServer.emitToCountryRooms(
+      { countryIso, cycle, eventName: nodeUpdateEvent },
+      { nodeUpdates: nodeUpdatesMirrorReset }
+    )
 
     // schedule dependencies update
     await updateDependents({ assessment, cycle, country, isODP: true, nodeUpdates, user }, t)
 
     // persist activity log
-    const activityLog = {
+    const activityLog: ActivityLogTableValuesClear = {
       countryIso,
       target: { tableName, nodes },
       section: sectionName,

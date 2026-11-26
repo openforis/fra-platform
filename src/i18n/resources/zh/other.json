@@ -471,6 +471,7 @@
     "doNotNotifyUsers": "不通知用户",
     "hideAll": "隐藏所有",
     "notifySelf": "将副本发送给自己",
+    "submitToReviewWithErrorsWarning": "数据中存在错误，您确定要提交报告以审查吗？",
     "sectionHeaders": {
       "employmentEducationAndNwfp": "就业、教育和非木质林产品",
       "forestDesignationAndManagement": "森林的指定用途和经营",
@@ -558,6 +559,7 @@
     "delete": "删除",
     "loading": "正在加载",
     "noComments": "无评论",
+    "resetPosition": "重置位置",
     "resolve": "解决",
     "writeComment": "写评论…"
   },

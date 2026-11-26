@@ -35,12 +35,12 @@ export class ContextFactory extends BaseContextBuilder {
   #mustAddToQueue(variable: VariableCache): boolean {
     const { tableName } = variable
     const { country, cycle, isODP } = this.props
-    const { useOriginalDataPoint } = country.props.forestCharacteristics
 
-    if (isODP && isODPVariable(cycle, variable)) {
-      if (tableName === TableNames.extentOfForest) return false
-      if (tableName === TableNames.forestCharacteristics) return !useOriginalDataPoint
-    }
+    if (!isODP) return true
+    if (!isODPVariable(cycle, variable)) return true
+    if (tableName === TableNames.extentOfForest) return false
+    if (tableName === TableNames.forestCharacteristics)
+      return !country.props?.forestCharacteristics?.useOriginalDataPoint
 
     return true
   }

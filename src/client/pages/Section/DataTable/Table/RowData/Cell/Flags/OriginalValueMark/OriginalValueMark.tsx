@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import Flag from '../Flag'
 
@@ -12,7 +13,7 @@ const OriginalValueMark: React.FC = () => {
   return (
     <Flag tooltip={{ content: t('common.tooltip.originalValueEntered') }}>
       <div className="table-grid__data-cell-flag-original-value">
-        <Icon name="circle" />
+        <Icon name={IconName.circle} />
       </div>
     </Flag>
   )

@@ -5,6 +5,7 @@ import { sections } from 'meta/geo/sections'
 
 import { useOnUpdate } from 'client/hooks/onUpdate'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import GeoSection from 'client/components/Navigation/NavGeo/GeoSection'
 import LayersSection from 'client/components/Navigation/NavGeo/LayersSection'
 import UnBoundariesToggle from 'client/components/Navigation/NavGeo/LayersSection/UnBoundariesToggle'
@@ -43,7 +44,7 @@ const NavGeo: React.FC<Props> = (props) => {
         key={satelliteMosaicKey}
         className="layers"
         expanded={sectionsExpanded[satelliteMosaicKey]}
-        icon={<Icon name="radar" />}
+        icon={<Icon name={IconName.radar} />}
         labelKey="geo.satelliteMosaic"
         setExpanded={makeSetExpanded(satelliteMosaicKey)}
       >
@@ -57,7 +58,7 @@ const NavGeo: React.FC<Props> = (props) => {
             <GeoSection
               className="layers"
               expanded={sectionsExpanded[titleKey]}
-              icon={<Icon name="layers" />}
+              icon={<Icon name={IconName.layers} />}
               labelKey={titleKey}
               setExpanded={makeSetExpanded(titleKey)}
             >

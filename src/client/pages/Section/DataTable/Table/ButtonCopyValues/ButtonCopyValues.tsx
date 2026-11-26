@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Button from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { useCopyValues } from './hooks/useCopyValues'
 import { CopyValuesProps } from './types'
@@ -12,7 +13,7 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
 
   if (!showButton) return null
 
-  return <Button iconName="content_copy" label={t('tableWithOdp.copyToClipboard')} onClick={onClick} />
+  return <Button iconName={IconName.contentCopy} label={t('tableWithOdp.copyToClipboard')} onClick={onClick} />
 }
 
 export default ButtonCopyValues

@@ -18,7 +18,7 @@ export const ValidationsApi = {
     )
     express.get(
       ApiEndPoint.CycleData.Validations.nationalDataPoints(),
-      AuthMiddleware.requireEditTableData,
+      AuthMiddleware.requireEditTableDataOrDescriptions,
       getNationalDataPointValidations
     )
     express.get(ApiEndPoint.CycleData.Validations.tableData(), AuthMiddleware.requireEditTableData, getTableValidations)

@@ -21,6 +21,17 @@ div.editorWYSIWYG {
     @extend .link;
     @extend .color-blue;
     display: inline;
+
+    &::highlight(editor-invalid-link),
+    *::highlight(editor-invalid-link) {
+      background-color: rgba($ui-destructive, 0.1);
+      color: $ui-destructive;
+    }
+
+    &::highlight(editor-focused-link),
+    *::highlight(editor-focused-link) {
+      background-color: $ui-mark;
+    }
   }
 
   div.jodit-react-container,
@@ -54,6 +65,10 @@ div.editorWYSIWYG {
     button {
       border-radius: 0;
     }
+  }
+
+  &.invalid-links-only {
+    background-color: unset !important;
   }
 
   &.disabled {

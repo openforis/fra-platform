@@ -3,6 +3,7 @@ import { CSVLink } from 'react-csv'
 
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { CSVData } from './types'
 
@@ -14,7 +15,7 @@ type Props = {
 const ButtonCSVExport: React.FC<Props> = (props) => {
   const { csvData, filename = 'tableData' } = props
 
-  const className = useButtonClassName({ iconName: 'hit-down', label: 'CSV', size: ButtonSize.xs })
+  const className = useButtonClassName({ iconName: IconName.hitDown, label: 'CSV', size: ButtonSize.xs })
 
   return (
     <CSVLink
@@ -24,7 +25,7 @@ const ButtonCSVExport: React.FC<Props> = (props) => {
       headers={csvData.headers}
       target="_blank"
     >
-      <Icon name="hit-down" />
+      <Icon name={IconName.hitDown} />
       CSV
     </CSVLink>
   )

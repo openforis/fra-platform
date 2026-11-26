@@ -1,51 +1,44 @@
 import { Country } from 'meta/area/country'
-import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
+import { saveDescription } from 'server/controller/cycleData/description/saveDescription'
 import { BaseProtocol, DB } from 'server/db/db'
-import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
-import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { CountryService } from 'server/service/country'
 import { DataValidationService } from 'server/service/dataValidation'
+import { SocketServer } from 'server/service/socket'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
-  sectionName: string
-  value: CommentableDescriptionValue
+  cycle: Cycle
   name: CommentableDescriptionName
+  sectionName: string
+  socketId?: string
   user: User
+  value: CommentableDescriptionValue
 }
 
 export const upsertDescription = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<CommentableDescriptionValue> => {
-  const { assessment, country, cycle, name, sectionName, user, value } = props
+  const { assessment, country, cycle, name, sectionName, socketId } = props
   const { countryIso } = country
 
-  const description = await client.tx(async (t) => {
-    const description = await DescriptionRepository.upsert(
-      { assessment, cycle, countryIso, sectionName, name, value },
-      t
-    )
+  const description = await saveDescription(props, client)
 
-    const target = { name, description: description.value }
-    const message = ActivityLogMessage.descriptionUpdate
-    const activityLog = { target, section: sectionName, message, countryIso, user }
-    const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
-      { assessment, cycle, activityLog },
-      t
-    )
-
-    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, t)
-
-    return description
+  const eventName = Sockets.getDescriptionUpdateEvent({
+    assessmentName: assessment.props.name,
+    countryIso,
+    cycleName: cycle.name,
   })
+  SocketServer.emitToCountryRooms(
+    { countryIso, cycle, eventName, socketId },
+    { name, sectionName, value: description.value }
+  )
 
   await DataValidationService.validateDescriptions({
     assessment,

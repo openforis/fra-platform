@@ -6,6 +6,7 @@ import { Dates } from 'utils/dates'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useNodeValuesEstimation } from 'client/store/data/tableData/estimations/hooks/useNodeValuesEstimation'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { TooltipProps } from 'client/components/Tooltips/type'
 
 import { Props } from '../props'
@@ -37,7 +38,7 @@ export const useEstimationDetails = (props: Props): Returned => {
 
   const node = (
     <div className="table-grid__data-cell-flag-estimate">
-      {executedBeforeOdpUpdate && <Icon className="icon-middle" name="alert" />}E
+      {executedBeforeOdpUpdate && <Icon className="icon-middle" name={IconName.alert} />}E
     </div>
   )
 
@@ -52,7 +53,8 @@ export const useEstimationDetails = (props: Props): Returned => {
       )}
       {executedBeforeOdpUpdate && (
         <div className="table-grid__data-cell-flag-estimate tooltipMessage">
-          <Icon className="icon-middle" name="alert" /> {t('page.assessmentSection.odpUpdatedAfterEstimatingThisCell')}
+          <Icon className="icon-middle" name={IconName.alert} />{' '}
+          {t('page.assessmentSection.odpUpdatedAfterEstimatingThisCell')}
         </div>
       )}
     </div>

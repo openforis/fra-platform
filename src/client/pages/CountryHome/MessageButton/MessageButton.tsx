@@ -12,6 +12,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useGetRequest } from 'client/hooks/getRequest'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonProps } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = Pick<ButtonProps, 'inverse' | 'label' | 'size'> & {
   topic: Pick<MessageTopic, 'key' | 'subtitle' | 'type'> & { title: string }
@@ -41,7 +42,7 @@ const MessageButton: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={Users.isAdministrator(user)}
-      iconName="chat-46"
+      iconName={IconName.chat46}
       inverse={inverse}
       label={
         <>

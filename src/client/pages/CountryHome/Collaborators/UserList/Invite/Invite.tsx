@@ -10,6 +10,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 const Invite: React.FC = () => {
   const { t } = useTranslation()
@@ -22,7 +23,7 @@ const Invite: React.FC = () => {
 
   return (
     <Link className={className} to={Routes.CountryHomeSectionInvite.path.relative}>
-      <Icon name="small-add" /> {t('userManagement.addUser')}
+      <Icon name={IconName.smallAdd} /> {t('userManagement.addUser')}
     </Link>
   )
 }

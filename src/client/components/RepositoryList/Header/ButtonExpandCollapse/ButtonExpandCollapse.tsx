@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { TooltipId } from 'meta/tooltip/id'
 
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 const ButtonExpandCollapse: React.FC = () => {
@@ -21,7 +22,7 @@ const ButtonExpandCollapse: React.FC = () => {
         data-tooltip-id={TooltipId.info}
         onClick={onCollapseAll}
       >
-        <Icon name="chevrons-in" />
+        <Icon name={IconName.chevronsIn} />
       </button>
     )
   }
@@ -33,7 +34,7 @@ const ButtonExpandCollapse: React.FC = () => {
       data-tooltip-id={TooltipId.info}
       onClick={onExpandAll}
     >
-      <Icon name="chevrons-out" />
+      <Icon name={IconName.chevronsOut} />
     </button>
   )
 }

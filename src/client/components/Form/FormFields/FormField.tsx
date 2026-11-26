@@ -1,12 +1,12 @@
 import './FormField.scss'
 import React, { PropsWithChildren, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 import { useWatches } from './hooks/useWatches'
 
@@ -42,7 +42,7 @@ const FormField: React.FC<Props> = (props) => {
 
         {error && (
           <div className="form-cell-error">
-            <Icon name="alert" />
+            <Icon name={IconName.alert} />
             {error?.message as string}
           </div>
         )}

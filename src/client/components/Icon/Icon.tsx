@@ -2,23 +2,20 @@ import './Icon.scss'
 import React from 'react'
 import classNames from 'classnames'
 
-import { UUIDs } from 'meta/uuid/uuids'
-
-const bustString = UUIDs.getUuid()
+import { iconComponents } from 'client/components/Icon/iconComponents'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
-  name: string
+  name: IconName
   className?: string
 }
 
 const Icon: React.FC<Props> = (props) => {
   const { className, name } = props
 
-  return (
-    <svg className={classNames('icon', className, `icon_${name}`)} xmlns="http://www.w3.org/2000/svg">
-      <use xlinkHref={`/img/icons.svg?bust=${bustString}#${name}`} />
-    </svg>
-  )
+  const SvgIcon = iconComponents[name]
+
+  return <SvgIcon className={classNames('icon', className, `icon_${name}`)} />
 }
 
 export default Icon

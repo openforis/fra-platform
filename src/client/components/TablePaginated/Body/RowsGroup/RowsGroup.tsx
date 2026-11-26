@@ -1,9 +1,9 @@
 import './RowsGroup.scss'
 import React, { useCallback, useState } from 'react'
-
 import classNames from 'classnames'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 import Rows from 'client/components/TablePaginated/Body/Rows'
 import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
@@ -22,7 +22,7 @@ const RowsGroup = <Datum extends object>(props: Props<Datum>) => {
     <div>
       <Button
         className={classNames('rows-group__header', { collapsed })}
-        iconName="small-down"
+        iconName={IconName.smallDown}
         inverse
         label={`${groups.headerLabel(propertyKey)} (${data.length})`}
         onClick={toggleView}

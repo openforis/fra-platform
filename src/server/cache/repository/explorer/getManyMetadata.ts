@@ -8,6 +8,7 @@ import {
   SystemOfMeasurementName,
   systemsOfMeasurement,
 } from 'meta/measurement/systemOfMeasurement'
+import { Objects } from 'utils/objects'
 
 import { buildMeasures } from 'server/cache/repository/explorer/buildMeasures'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
@@ -62,6 +63,7 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
       SystemOfMeasurementController.getAllWithUnits(client),
     ])
 
+    const cacheEntries: Record<string, string> = {}
     const jobs = Object.entries(sectionsMetadata).map(async ([sectionName, tableSections]) => {
       const allSectionTables = tableSections.flatMap((ts) => ts.tables)
 
@@ -94,14 +96,18 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
         systemsOfMeasurements: systemsOfMeasurementRecord,
         tableName,
       }
-      await redis.hset(key, sectionName, JSON.stringify(explorerMetadata))
+      cacheEntries[sectionName] = JSON.stringify(explorerMetadata)
     })
 
     await Promise.all(jobs)
+
+    if (!Objects.isEmpty(cacheEntries)) {
+      await redis.hmset(key, cacheEntries)
+    }
   }
 
   const keys = sectionNames ?? (await redis.hkeys(key))
-  const values: Array<string> = await redis.hmget(key, ...keys)
+  const values: Array<string> = Objects.isEmpty(keys) ? [] : await redis.hmget(key, ...keys)
 
   return keys.reduce<RecordExplorerMetadata>((acc, key, index) => ({ ...acc, [key]: JSON.parse(values[index]) }), {})
 }

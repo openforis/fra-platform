@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogInvitationRemove } from 'meta/assessment/activityLog/user'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { UserInvitation } from 'meta/user/invitation'
@@ -29,7 +30,7 @@ export const removeInvitation = async (props: Props, client: BaseProtocol = DB):
 
     const target = { userUuid, user: invitedUser.props.name, role }
     const message = ActivityLogMessage.invitationRemove
-    const activityLog = { target, section: 'users', message, countryIso, user }
+    const activityLog: ActivityLogInvitationRemove = { target, section: 'users', message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     return userInvitation

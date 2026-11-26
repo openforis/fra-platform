@@ -2,6 +2,7 @@
   "comments": "التعليقات",
   "fraVariable": "متغير (فرا)",
   "nationalForestInventory": "الجرد الوطني للغابات (NFI)",
+  "notApplicable": "لا ينطبق",
   "other": "$t(common.otherSpecifyInComments)",
   "referenceToTataSource": "مرجع مصدر البيانات",
   "registersAndStatistics": "السجلات والإحصاءات",

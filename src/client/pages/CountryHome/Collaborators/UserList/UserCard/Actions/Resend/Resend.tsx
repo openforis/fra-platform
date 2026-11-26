@@ -6,6 +6,7 @@ import { UserCountrySummaries } from 'meta/user/countrySummaries'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { Props } from '../../Props'
 import { useResendInvitation } from '../hooks/useResendInvitation'
@@ -25,7 +26,7 @@ const Information: React.FC<Props> = (props: Props) => {
     <Button
       className="home-user-action-button-resend"
       disabled={isLoading}
-      iconName="rotate"
+      iconName={IconName.rotate}
       label={t('common.inviteAgain')}
       onClick={resendInvitation}
       size={ButtonSize.xs}

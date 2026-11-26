@@ -6,11 +6,14 @@ import {
   getTopicStatusEvent,
 } from 'meta/socket/sockets/messageTopic'
 import {
+  getDescriptionUpdateEvent,
   getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
 } from 'meta/socket/sockets/node'
 import {
+  getNationalDataPointDeleteEvent,
+  getNationalDataPointUpdateEvent,
   getNationalDataPointValidationDeleteEvent,
   getNationalDataPointValidationsUpdateEvent,
   getODPDeleteEvent,
@@ -19,9 +22,12 @@ import {
 import { getRequestReviewStatusEvent, getRequestReviewSummaryEvent } from 'meta/socket/sockets/review'
 
 export const Sockets = {
+  getDescriptionUpdateEvent,
   getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
+  getNationalDataPointDeleteEvent,
+  getNationalDataPointUpdateEvent,
   getNationalDataPointValidationDeleteEvent,
   getNationalDataPointValidationsUpdateEvent,
   getODPDeleteEvent,

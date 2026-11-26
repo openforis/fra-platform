@@ -15,7 +15,7 @@ export const remove = async (req: Request, res: Response): Promise<void> => {
     const originalDataPoint = await NationalDataPointController.getOne({ assessment, cycle, year, countryIso })
 
     const user = Requests.getUser(req)
-    const propsRemove = { assessment, cycle, country, originalDataPoint, user }
+    const propsRemove = { assessment, cycle, country, originalDataPoint, socketId: Requests.getSocketId(req), user }
     const returnedOriginalDataPoint = await NationalDataPointController.remove(propsRemove)
 
     Requests.send(res, returnedOriginalDataPoint)

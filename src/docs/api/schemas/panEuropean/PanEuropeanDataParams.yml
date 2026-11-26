@@ -9,7 +9,7 @@ components:
         type: array
         items:
           type: string
-        example: [ "FIN", "ITA" ]
+        example: ['FIN', 'ITA']
       style: form
       explode: true
 

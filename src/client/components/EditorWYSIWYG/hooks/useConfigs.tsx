@@ -88,6 +88,8 @@ export const useConfigs = (props: Props): Returned => {
       },
       placeholder: '',
       readonly: false,
+      // Search without the CSS highlight API, otherwise a click in the editor clears the link highlights
+      search: { useCustomHighlightAPI: false },
       statusbar: false,
       toolbarAdaptive: false,
       toolbarButtonSize: 'small',

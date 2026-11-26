@@ -4,11 +4,10 @@ import { DB } from 'server/db/db'
 import { RedisDataClient } from 'server/service/redis/dataClient'
 import { RedisQueueClient } from 'server/service/redis/queueClient'
 
+import activityLog from 'test/integration/activityLog/activityLog'
 import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
-import originalDataPoint from 'test/integration/assessment/originalDataPoint'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
-import messageCenter from 'test/integration/messageCenter/messageCenter'
 import sectionCreateChild from 'test/integration/section/createChildSection'
 import sectionCreate from 'test/integration/section/createSection'
 import sectionRemove from 'test/integration/section/removeSection'
@@ -22,7 +21,6 @@ import tableSectionRemove from 'test/integration/tableSection/removeTableSection
 import tableSectionUpdate from 'test/integration/tableSection/updateTableSection'
 import userInvite from 'test/integration/user/userInvite'
 import userRemove from 'test/integration/user/userRemove'
-import userResetPassword from 'test/integration/user/userResetPassword'
 import tableValidations from 'test/integration/validation/table/tableValidations'
 
 import userCreate from './user/userCreate'
@@ -67,9 +65,9 @@ describe('Metadata integration test', () => {
 
   // user
   userInvite()
-  userResetPassword()
-  originalDataPoint()
-  messageCenter()
+
+  // activityLog
+  activityLog()
 
   // remove from db
   assessmentRemove()

@@ -15,12 +15,6 @@ import { PopoverItem } from 'client/components/PopoverControl'
 import { useNavigateTo } from './useNavigateTo'
 
 const _cyclesSorter = (cycleA: Cycle, cycleB: Cycle): number => {
-  const dateEditingA = cycleA.props.dateEditing
-  const dateEditingB = cycleB.props.dateEditing
-  if (dateEditingA && dateEditingB) {
-    return new Date(dateEditingB).getTime() - new Date(dateEditingA).getTime()
-  }
-
   const dateCreatedA = cycleA.props.dateCreated
   const dateCreatedB = cycleB.props.dateCreated
   if (dateCreatedA && dateCreatedB) {
@@ -49,7 +43,13 @@ export const usePopoverItems = (): Array<PopoverItem> => {
     const items: Array<PopoverItem> = []
 
     if ((isAdmin || !isDataExportView) && user) {
-      assessments.forEach((assessment) => {
+      // Admins can see all (assessment x cycle) combinations
+      // Non admins see only the URL-param assessment cycles
+      const visibleAssessments = isAdmin
+        ? assessments
+        : assessments.filter((assessment) => assessment.props.name === routeParams.assessmentName)
+
+      visibleAssessments.forEach((assessment) => {
         const sortedCycles = assessment.cycles.slice().sort(_cyclesSorter)
         sortedCycles.forEach((cycle) => {
           const hasRoleInAssessment = Users.hasRoleInAssessment({ user, assessment })

@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -19,12 +20,13 @@ type Props = {
   cycle: Cycle
   country: Country
   originalDataPoint: OriginalDataPoint
+  socketId?: string
   user: User
   sectionName: string
 }
 
 export const updateOriginalData = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
+  const { assessment, country, cycle, originalDataPoint, sectionName, socketId, user } = props
   const { countryIso } = originalDataPoint
 
   const updatedNationalDataPoint = await client.tx(async (t) => {
@@ -33,7 +35,7 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
       t
     )
 
-    const activityLog = {
+    const activityLog: ActivityLogNDPUpdate = {
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateOriginalData,
@@ -67,6 +69,7 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
     countryIso,
     sectionName,
     originalDataPoints: [updatedNationalDataPoint],
+    socketId,
   })
 
   await DataValidationService.validateNDPNationalClasses({

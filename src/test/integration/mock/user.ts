@@ -20,3 +20,13 @@ export const userMockUnknown: Pick<User, 'email' | 'props'> = {
     surname: 'Unknown Surname',
   },
 }
+
+export const userMockKeep: Pick<User, 'email' | 'props'> = {
+  email: 'keep@fra-platform.com',
+  props: { lang: Lang.en, name: 'Keep User' },
+}
+
+export const userMockMerge: Pick<User, 'email' | 'props'> = {
+  email: 'merge@fra-platform.com',
+  props: { lang: Lang.en, name: 'Merge User' },
+}

@@ -1,5 +1,6 @@
 import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogNDPUpdate } from 'meta/assessment/activityLog/nationalDataPoint'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPs } from 'meta/assessment/odps'
@@ -21,11 +22,12 @@ type Props = {
   country: Country
   id: string
   index: number
+  socketId?: string
   user: User
 }
 
 export const deleteNationalClass = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, id, index, user } = props
+  const { assessment, country, cycle, id, index, socketId, user } = props
 
   const updatedNationalDataPoint = await client.tx(async (t) => {
     const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)
@@ -37,7 +39,7 @@ export const deleteNationalClass = async (props: Props, client: BaseProtocol = D
     const message = ActivityLogMessage.originalDataPointUpdateNationalClasses
     const { countryIso } = updatedOriginalDataPoint
     const section = 'odp'
-    const activityLog = { target: updatedOriginalDataPoint, section, message, countryIso, user }
+    const activityLog: ActivityLogNDPUpdate = { target: updatedOriginalDataPoint, section, message, countryIso, user }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { activityLog, assessment, cycle },
       t
@@ -57,6 +59,7 @@ export const deleteNationalClass = async (props: Props, client: BaseProtocol = D
     cycle,
     countryIso: updatedNationalDataPoint.countryIso,
     originalDataPoints: [updatedNationalDataPoint],
+    socketId,
   })
 
   await DataValidationService.validateNDPNationalClasses({

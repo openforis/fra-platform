@@ -16,7 +16,16 @@ export const upsertDescription = async (req: Request, res: Response): Promise<vo
     const { name, sectionName } = req.query
     const { value } = req.body
 
-    const propsUpsert = { assessment, cycle, country, sectionName, name, value, user }
+    const propsUpsert = {
+      assessment,
+      country,
+      cycle,
+      name,
+      sectionName,
+      socketId: Requests.getSocketId(req),
+      user,
+      value,
+    }
     const description = await DescriptionController.upsertDescription(propsUpsert)
 
     Requests.send(res, description)

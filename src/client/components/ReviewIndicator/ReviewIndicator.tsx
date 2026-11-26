@@ -10,6 +10,7 @@ import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useReviewStatus } from 'client/store/review/hooks/review'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 type Props = {
   title: string
@@ -46,7 +47,7 @@ const ReviewIndicator: React.FC<Props> = (props) => {
         unread: hasUnreadMessages,
         resolved: status === MessageTopicStatus.resolved,
       })}
-      iconName="chat-46"
+      iconName={IconName.chat46}
       inverse
       noBorder
       onClick={openTopic}

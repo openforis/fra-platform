@@ -7,6 +7,7 @@ import { SectionName } from 'meta/assessment/section'
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import { IconName } from 'client/components/Icon/types'
 
 import { useToggleEdit } from './hooks/useToggleEdit'
 
@@ -29,7 +30,7 @@ const ButtonEdit: React.FC<Props> = (props) => {
   return (
     <Button
       disabled={disabled}
-      iconName="pencil"
+      iconName={IconName.pencil}
       inverse={!editable}
       label={editable ? t('description.done') : t('description.edit')}
       onClick={toggleEdit}

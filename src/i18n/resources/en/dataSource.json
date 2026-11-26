@@ -2,6 +2,7 @@
   "comments": "Comments",
   "fraVariable": "FRA variable",
   "nationalForestInventory": "National Forest Inventory (NFI)",
+  "notApplicable": "Not applicable",
   "other": "$t(common.otherSpecifyInComments)",
   "referenceToTataSource": "Reference to data source",
   "registersAndStatistics": "Registers and statistics",

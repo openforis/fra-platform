@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import Button, { ButtonProps, ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { IconName } from 'client/components/Icon/types'
 
 type PropsLink = {
   url: string
@@ -15,7 +16,12 @@ type PropsButton = {
 type Props = PropsLink | PropsButton
 
 const ButtonEdit: React.FC<Props> = (props) => {
-  const buttonProps: Partial<ButtonProps> = { iconName: 'pencil', inverse: true, noBorder: true, size: ButtonSize.m }
+  const buttonProps: Partial<ButtonProps> = {
+    iconName: IconName.pencil,
+    inverse: true,
+    noBorder: true,
+    size: ButtonSize.m,
+  }
 
   const linkClassName = useButtonClassName(buttonProps)
 
@@ -23,7 +29,7 @@ const ButtonEdit: React.FC<Props> = (props) => {
     const { url } = props
     return (
       <Link className={linkClassName} to={url} type="button">
-        <Icon name="pencil" />
+        <Icon name={IconName.pencil} />
       </Link>
     )
   }

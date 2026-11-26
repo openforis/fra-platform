@@ -1,4 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ActivityLogTableUpdate } from 'meta/assessment/activityLog/metadata'
 import { Assessment } from 'meta/assessment/assessment'
 import { Table, TableProps } from 'meta/assessment/table'
 import { User } from 'meta/user/user'
@@ -21,7 +22,12 @@ export const updateTable = async (props: Props, client: BaseProtocol = DB): Prom
   return client.tx(async (t) => {
     const target = await TableRepository.update({ assessment, tableId: table.id, tableProps }, t)
 
-    const activityLog = { target, section: 'table', message: ActivityLogMessage.tableUpdate, user }
+    const activityLog: ActivityLogTableUpdate = {
+      target,
+      section: 'table',
+      message: ActivityLogMessage.tableUpdate,
+      user,
+    }
     await ActivityLogRepository.insertActivityLog({ assessment, activityLog }, t)
 
     return target
