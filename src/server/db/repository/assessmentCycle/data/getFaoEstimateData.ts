@@ -26,15 +26,15 @@ export const getFaoEstimateData = async (props: Props, client: BaseProtocol = DB
     `
         with agg0 as (
         select 
-               '${regionCode}'                                                                      as country_iso
+               $(regionCode)                                                                        as country_iso
              , ne.props ->> 'tableName'                                                             as table_name
              , ne.props ->> 'variableName'                                                          as variable_name
              , ne.props ->> 'colName'                                                               as col_name
              , jsonb_build_object('raw', sum((ne.value ->> 'raw')::numeric), 'faoEstimate', true)   as value
           from ${schemaCycle}.node_ext ne
           where ((ne.type = 'node' and ne.value ->> 'faoEstimate' = 'true') or (ne.props ->> 'variableName' = 'totalLandArea'))
-            and ne.props ->> 'tableName' in ($2:list)
-            and ne.country_iso in ($1:list)
+            and ne.props ->> 'tableName' in ($(tableNames:list))
+            and ne.country_iso in ($(countryISOs:list))
           group by 1, 2, 3, 4
           order by 1, 2, 3),
             agg1 as (select a.country_iso, a.col_name, a.table_name, jsonb_object_agg(a.variable_name, a.value) as data from agg0 a group by 1, 2, 3),
@@ -44,7 +44,7 @@ export const getFaoEstimateData = async (props: Props, client: BaseProtocol = DB
         select jsonb_object_agg(a.country_iso, a.data) as data
         from agg3 a;
     `,
-    [countryISOs, Object.keys(tables)],
+    { countryISOs, regionCode, tableNames: Object.keys(tables) },
     ({ data }) => data
   )
 }

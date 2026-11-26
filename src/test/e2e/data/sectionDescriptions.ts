@@ -85,7 +85,7 @@ export const x06ForestOwnership: DescriptionLocation = {
 }
 export const x06Disturbances: DescriptionLocation = {
   countryIso: 'X06',
-  sectionName: SectionNames.disturbances,
+  sectionName: 'disturbances',
   ...dataSources,
 }
 export const autSpecificForestCategories: DescriptionLocation = {
