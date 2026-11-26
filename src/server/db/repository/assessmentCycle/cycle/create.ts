@@ -23,8 +23,6 @@ const getDefaultProps = (options: CreateCycleOptions): Partial<CycleProps> => {
   return {
     ...options.props,
     dateCreated,
-    dateDraft: dateCreated,
-    dateEditing: undefined,
     datePublished: undefined,
   }
 }

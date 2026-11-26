@@ -32,7 +32,9 @@ export const createCountryActivityLogViews = async (client: BaseProtocol): Promi
   await Promises.each(assessments, (assessment) =>
     Promises.each(assessment.cycles, async (cycle) => {
       const countries = await AreaController.getCountries({ assessment, cycle }, client)
-      Logger.info(`Creating country activity log views for ${countries.length} countries`)
+      Logger.info(
+        `Creating country activity log views for ${assessment.props.name} ${cycle.name} ${countries.length} countries`
+      )
       await Promise.all(
         countries.map(({ countryIso }) =>
           CountryActivityLogRepository.createMaterializedView({ assessment, cycle, countryIso }, client)

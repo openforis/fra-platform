@@ -18,8 +18,6 @@ export type CycleNDPProps = {
 export type CycleProps = {
   dashboard?: { region?: boolean }
   dateCreated: string
-  dateDraft: string
-  dateEditing?: string
   datePublished?: string
   disabledReviewerEmailReminders?: boolean
   status: CycleStatus

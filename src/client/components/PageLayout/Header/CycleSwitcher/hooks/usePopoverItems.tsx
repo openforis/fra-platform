@@ -15,12 +15,6 @@ import { PopoverItem } from 'client/components/PopoverControl'
 import { useNavigateTo } from './useNavigateTo'
 
 const _cyclesSorter = (cycleA: Cycle, cycleB: Cycle): number => {
-  const dateEditingA = cycleA.props.dateEditing
-  const dateEditingB = cycleB.props.dateEditing
-  if (dateEditingA && dateEditingB) {
-    return new Date(dateEditingB).getTime() - new Date(dateEditingA).getTime()
-  }
-
   const dateCreatedA = cycleA.props.dateCreated
   const dateCreatedB = cycleB.props.dateCreated
   if (dateCreatedA && dateCreatedB) {
