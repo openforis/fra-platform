@@ -8,7 +8,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
 
-import { AssessmentController } from 'server/controller/assessment'
+import { _getAuthAssessmentCycle } from 'server/middleware/auth/_getAuthAssessmentCycle'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'
 import { Requests } from 'server/utils'
 
@@ -32,17 +32,9 @@ export const _getAuthCycleParams = async (req: Request, next: NextFunction): Pro
     next(new Error(`missingParam ${JSON.stringify({ areaCode, assessmentName, cycleName })}`))
   }
 
-  let { assessment, cycle } = req.context
   const { country } = req.context
   const user = Requests.getUser(req)
-
-  if (assessmentName !== assessment.props.name || cycleName !== cycle.name) {
-    const assessmentCycle = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    // eslint-disable-next-line prefer-destructuring
-    assessment = assessmentCycle.assessment
-    // eslint-disable-next-line prefer-destructuring
-    cycle = assessmentCycle.cycle
-  }
+  const { assessment, cycle } = await _getAuthAssessmentCycle({ assessmentName, cycleName, req })
 
   return { assessment, areaCode, country, cycle, user }
 }
