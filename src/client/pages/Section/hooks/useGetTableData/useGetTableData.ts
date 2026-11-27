@@ -31,7 +31,13 @@ export const useGetTableData = (props: Props): void => {
       if (tableNames.size > 0) {
         const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: !tableWithOdp }
 
-        dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+        dispatch(
+          NodeValuesActions.getTableData({
+            ...propsFetch,
+            countryISOs: [countryIso],
+            tableNames: Array.from(tableNames),
+          })
+        )
 
         if (tableWithOdp && canEdit) {
           dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
@@ -43,7 +49,13 @@ export const useGetTableData = (props: Props): void => {
       Object.entries(external).forEach(([assessmentName, cycleDependencies]) => {
         Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
           const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
-          dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+          dispatch(
+            NodeValuesActions.getTableData({
+              ...propsFetch,
+              countryISOs: [countryIso],
+              tableNames: Array.from(tableNames),
+            })
+          )
 
           dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))
         })

@@ -1,4 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -9,7 +10,7 @@ import { Schemas } from 'server/db/schemas'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  regionCode?: RegionCode
+  regionCode?: RegionCode | Global.WO
 }
 
 export const getCountryIsos = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountryIso>> => {

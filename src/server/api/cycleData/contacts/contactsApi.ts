@@ -11,7 +11,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 export const ContactsApi = {
   init: (express: Express): void => {
     express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, createContact)
-    express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
+    express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireViewCountry, getContacts)
     express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, updateContact)
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, removeContact)
   },

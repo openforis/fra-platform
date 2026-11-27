@@ -43,7 +43,7 @@ export const canViewReview = (props: AuthProps): boolean => {
     if (isAdministrator) return true
 
     if (allowedStatuses.includes(status)) {
-      if (allowedRolesWithoutPermissions.includes(role.role)) {
+      if (allowedRolesWithoutPermissions.includes(role?.role)) {
         return true
       }
       if (isCollaborator) {

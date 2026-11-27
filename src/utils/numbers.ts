@@ -42,6 +42,11 @@ const toNumberOrNull = (value: BigNumberInput): number | null => {
   return parsedBigNumber.isFinite() && Number.isFinite(parsed) ? parsed : null
 }
 
+const isNonNegativeInteger = (value: BigNumberInput): boolean => {
+  const parsed = toNumberOrNull(value)
+  return parsed !== null && Number.isInteger(parsed) && parsed >= 0
+}
+
 type BigNumOp = 'plus' | 'minus' | 'times' | 'div' | 'modulo' | 'exponentiatedBy'
 
 const applyOperator = (x: BigNumberInput, y: BigNumberInput, op: BigNumOp): BigNumber | null => {
@@ -162,6 +167,7 @@ export const Numbers = {
   // utils
   countDecimals,
   format,
+  isNonNegativeInteger,
   randomInt,
   toFixed,
   toNumberOrNull,

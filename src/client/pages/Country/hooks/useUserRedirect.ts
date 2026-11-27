@@ -48,7 +48,7 @@ export const useUserRedirect = (): void => {
       return
     }
 
-    const isAuthorized = Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
+    const isAuthorized = Authorizer.canViewCountry({ assessment, cycle, areaCode: countryIso, country, user })
 
     // When user is not authorized to access the cycle/country page
     // -> redirect to last published (e.g. when accessing non-published cycles)

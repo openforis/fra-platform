@@ -26,7 +26,7 @@ export const hasRoleInAssessment = (props: { user: User; assessment: Assessment 
 export const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
   const { cycle, user } = props
   if (isAdministrator(user)) return true
-  return user.roles.some((role) => role.cycleUuid === cycle.uuid)
+  return user?.roles?.some((role) => role.cycleUuid === cycle.uuid)
 }
 
 export const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: AreaCode }): boolean => {

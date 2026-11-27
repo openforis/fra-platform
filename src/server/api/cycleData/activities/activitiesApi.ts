@@ -9,8 +9,8 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 export const ActivitiesApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
-    express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
+    express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireViewCountry, getActivities)
+    express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireViewCountry, getActivitiesCount)
     express.post(ApiEndPoint.CycleData.activitiesRefresh(), AuthMiddleware.requireAdmin, refreshActivities)
   },
 }
