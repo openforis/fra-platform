@@ -18,7 +18,8 @@ const cycleNameClone = 'latest'
 const _removeColumns = async (props: { assessment: Assessment }): Promise<void> => {
   const { assessment } = props
 
-  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName: assessment.props.name })
+  const { name: assessmentName } = assessment.props
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
   await client.query(`
       delete
       from ${schemaAssessment}.col
