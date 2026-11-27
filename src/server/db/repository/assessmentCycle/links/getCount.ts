@@ -1,6 +1,5 @@
-import { Objects } from 'utils/objects'
-
 import { TablePaginatedCount } from 'meta/tablePaginated/count'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'
@@ -11,7 +10,9 @@ export const getCount = async (props: LinksGetManyProps, client: BaseProtocol = 
   const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
   const { assessment, cycle } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.one(
     `

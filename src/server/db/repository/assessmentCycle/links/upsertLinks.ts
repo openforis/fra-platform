@@ -38,7 +38,9 @@ export const upsertLinks = async (props: Props, client: BaseProtocol = DB): Prom
     }
   })
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const pgp = pgPromise()
   const columns = [

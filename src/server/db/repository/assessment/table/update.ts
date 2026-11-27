@@ -14,7 +14,8 @@ type Props = {
 export const update = async (params: Props, client: BaseProtocol = DB): Promise<Table> => {
   const { assessment, tableId, tableProps } = params
 
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<Table>(
     `

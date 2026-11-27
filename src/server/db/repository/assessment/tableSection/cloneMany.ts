@@ -30,7 +30,8 @@ export const cloneMany = async (props: Props, client: BaseProtocol = DB): Promis
   })
 
   const pgp = pgPromise()
-  const schemaAssessment = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
   const columns = ['?id', { cast: 'jsonb', name: 'props' }]
   const options = { table: { table: 'table_section', schema: schemaAssessment } }
   const cs = new pgp.helpers.ColumnSet(columns, options)

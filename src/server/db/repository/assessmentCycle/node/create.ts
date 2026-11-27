@@ -1,8 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Node, NodeValue } from 'meta/assessment/node'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -19,8 +18,10 @@ type Props = {
 
 export const create = (props: Props, client: BaseProtocol = DB): Promise<Node> => {
   const { assessment, colName, countryIso, cycle, tableName, value, variableName } = props
-  const schema = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.one<Node>(
     `

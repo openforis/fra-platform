@@ -13,7 +13,9 @@ export const getManyDashboardItems = async (
   client: BaseProtocol = DB
 ): Promise<Array<DashboardItem<DashboardItemType>>> => {
   const { assessment, cycle, region } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const items = await client.oneOrNone<Array<DashboardItem<DashboardItemType>>>(
     `
     select value

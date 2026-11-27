@@ -14,7 +14,8 @@ type Props = {
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Table>> => {
   const { assessment, cycle, tableNames } = props
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.map<Table>(
     `

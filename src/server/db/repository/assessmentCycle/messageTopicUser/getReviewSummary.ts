@@ -14,8 +14,10 @@ export const getReviewSummary = async (
 ): Promise<Array<ReviewSummary>> => {
   const { assessment, countryIso, cycle, user } = props
 
-  const schemaName = Schemas.getName(assessment)
-  const cycleSchema = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
+  const cycleSchema = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.one<Array<ReviewSummary>>(
     `

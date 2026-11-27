@@ -18,8 +18,10 @@ type Props = {
 export const getDataSources = async (props: Props, client: BaseProtocol = DB): Promise<Array<DataSourceLinked>> => {
   const { assessment, countryIso, cycle, sectionName, variableName } = props
 
-  const schemaAssessment = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const query = `
       with elements as

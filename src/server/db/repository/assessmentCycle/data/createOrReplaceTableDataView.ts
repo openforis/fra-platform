@@ -18,8 +18,10 @@ const client: BaseProtocol = DB
 export const createOrReplaceTableDataView = async (props: Props): Promise<void> => {
   const { assessment, cycle, table } = props
 
-  const schemaAssessment = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const tableName = table.props.name
 
   const customDataView = CustomDataView[tableName]

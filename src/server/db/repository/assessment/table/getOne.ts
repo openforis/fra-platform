@@ -1,8 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table, TableName } from 'meta/assessment/table'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { TableAdapter } from 'server/db/repository/adapter'
@@ -17,7 +16,8 @@ type Props = {
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<Table> => {
   const { assessment, cycle } = props
 
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<Table>(
     `

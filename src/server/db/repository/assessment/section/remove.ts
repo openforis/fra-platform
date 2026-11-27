@@ -13,7 +13,8 @@ export const remove = async (
   client: BaseProtocol = DB
 ): Promise<Section> => {
   const { assessment, section } = params
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<Section>(
     `

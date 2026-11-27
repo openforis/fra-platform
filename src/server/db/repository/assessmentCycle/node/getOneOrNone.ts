@@ -1,8 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Node } from 'meta/assessment/node'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -18,8 +17,10 @@ type Props = {
 
 export const getOneOrNone = (props: Props, client: BaseProtocol = DB): Promise<Node | null> => {
   const { assessment, colName, countryIso, cycle, tableName, variableName } = props
-  const schema = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.oneOrNone(
     `

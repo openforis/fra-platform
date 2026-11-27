@@ -7,8 +7,11 @@ import { Schemas } from 'server/db/schemas'
 export const cloneAreas = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleSource, cycleTarget } = props
 
-  const schemaCycleSource = Schemas.getNameCycle(assessment, cycleSource)
-  const schemaCycleTarget = Schemas.getNameCycle(assessment, cycleTarget)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleNameSource } = cycleSource
+  const { name: cycleNameTarget } = cycleTarget
+  const schemaCycleSource = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName: cycleNameSource })
+  const schemaCycleTarget = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName: cycleNameTarget })
 
   await client.query(`
       insert into ${schemaCycleTarget}.region_group (id, name, "order")

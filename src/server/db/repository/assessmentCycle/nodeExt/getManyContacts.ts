@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -18,7 +17,9 @@ type Props = {
 export const getManyContacts = (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.map<Contact>(
     `

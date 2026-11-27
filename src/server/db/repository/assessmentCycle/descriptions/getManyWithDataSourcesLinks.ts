@@ -19,7 +19,9 @@ export const getManyWithDataSourcesLinks = async (
 ): Promise<Array<CommentableDescription>> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const countryIsoCondition = countryIso ? 'and country_iso = $(countryIso)' : ''
 
   return client.map<CommentableDescription>(

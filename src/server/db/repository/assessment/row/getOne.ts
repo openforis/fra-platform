@@ -14,7 +14,8 @@ type Props = {
 
 export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> => {
   const { assessment, includeCols, tableName, variableName } = props
-  const schema = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<Row>(
     `

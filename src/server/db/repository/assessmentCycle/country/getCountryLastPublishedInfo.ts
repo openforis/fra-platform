@@ -1,11 +1,10 @@
-import { Dates } from 'utils/dates'
-
 import { LastPublishedInfo } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
+import { Dates } from 'utils/dates'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -37,17 +36,18 @@ export const getCountryLastPublishedInfo = async (
   })
 
   const selectStatements = cycles
-    .map(
-      (cycle) =>
-        `select country_iso, 
+    .map((cycle) => {
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      return `select country_iso, 
          last_in_published,
          last_update,
          '${cycle.uuid}' as cycle_uuid, 
          '${cycle.name}' as cycle_name
-         from ${Schemas.getNameCycle(assessment, cycle)}.country where status = '${CountryStatus.published}' ${
+         from ${Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })}.country where status = '${CountryStatus.published}' ${
            countryIso ? 'and country_iso = $1' : ''
          }`
-    )
+    })
     .join(' union all ')
 
   // Note: lastPublished: from last published country (order by ...last_in_published....)

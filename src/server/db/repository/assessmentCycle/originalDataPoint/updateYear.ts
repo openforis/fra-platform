@@ -19,7 +19,9 @@ type Props = {
 export const updateYear = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, countryIso, cycle, id, targetYear } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const query = `
       update    ${schemaName}.original_data_point

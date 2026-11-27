@@ -13,7 +13,9 @@ export const getOneOrNone = async (
 ): Promise<{ lastOpenTime: string } | null> => {
   const { assessment, cycle, topic, user } = props
 
-  const cycleSchema = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const cycleSchema = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.oneOrNone<{ lastOpenTime: string } | null>(
     `

@@ -19,7 +19,9 @@ export const rawClone = async (props: Props, client: BaseProtocol = DB): Promise
 
   const propsGet = { assessmentName, cycleName: cycleNameSource }
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(propsGet, client)
-  await DB.query(`drop schema if exists ${Schemas.getNameCycle(assessment, { name: cycleNameTarget })} cascade;`)
+  await DB.query(
+    `drop schema if exists ${Schemas.getSchemaAssessmentCycle({ assessmentName: assessment.props.name, cycleName: cycleNameTarget })} cascade;`
+  )
 
   const user = await UserController.getOne({ email: 'fra@fao.org' }, client)
 

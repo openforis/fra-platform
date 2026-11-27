@@ -20,7 +20,9 @@ export const dropCountryActivityLogViews = async (client: BaseProtocol): Promise
         )
       )
       // Drop stray view
-      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
       await client.query(`drop materialized view if exists ${schemaCycle}."activity_log_undefined"`)
     })
   )

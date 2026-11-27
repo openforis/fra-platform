@@ -13,7 +13,8 @@ type Props = {
 export const getVariablesCache = async (props: Props, client: BaseProtocol = DB): Promise<VariablesCache> => {
   const { assessment, cycle } = props
 
-  const schema = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<VariablesCache>(
     `

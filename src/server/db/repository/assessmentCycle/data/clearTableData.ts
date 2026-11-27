@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -17,8 +16,10 @@ type Props = {
 
 export const clearTableData = async (props: Props, client: BaseProtocol = DB): Promise<Array<NodeUpdate>> => {
   const { assessment, countryISOs, cycle, tableName } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  const schemaAssessment = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
 
   // TODO: Add value??
   return client.map<NodeUpdate>(

@@ -12,7 +12,9 @@ export const getUnusedUUIDs = async (props: Props, client: BaseProtocol = DB): P
 
   const whereRepository = assessments.flatMap((assessment) => {
     return assessment.cycles.map<string>((cycle) => {
-      const schema = Schemas.getNameCycle(assessment, cycle)
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      const schema = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
       return `not exists (select 1 from ${schema}.repository where file_uuid = public.file.uuid)`
     })
   }).join(`

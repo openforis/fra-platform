@@ -1,8 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeExt } from 'meta/nodeExt/nodeExt'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -17,7 +16,9 @@ type Props = {
 export const upsert = <T extends NodeExt<unknown>>(props: Props, client: BaseProtocol = DB): Promise<T> => {
   const { assessment, countryIso, cycle, nodeExt } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const { parentUuid, props: nodeProps, type, uuid, value } = nodeExt
 
   return client.one<T>(

@@ -21,7 +21,9 @@ type Props = {
 export const remove = async (props: Props, client: BaseProtocol = DB): Promise<Array<CommentableDescription>> => {
   const { assessment, countryIso, cycle, name, sectionName, sectionUuid } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.map<CommentableDescription>(
     `

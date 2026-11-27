@@ -18,7 +18,8 @@ type RecordTableSections = Record<SectionName, Array<TableSection>>
 
 export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordTableSections> => {
   const { assessment, cycle, sectionNames, showHidden = false } = props
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   // @ts-ignore
   return client.result<RecordTableSections>(

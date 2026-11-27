@@ -11,7 +11,8 @@ type Props = {
 
 export const getManyCache = (props: Props, client: BaseProtocol = DB): Promise<Array<RowCache>> => {
   const { assessment } = props
-  const schema = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.map<RowCache>(
     `

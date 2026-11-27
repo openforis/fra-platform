@@ -81,7 +81,9 @@ export const mergeUsers = async (props: Props, client: BaseProtocol = DB): Promi
   await Promise.all(
     assessments.flatMap((assessment) =>
       assessment.cycles.map((cycle) => {
-        const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+        const { name: assessmentName } = assessment.props
+        const { name: cycleName } = cycle
+        const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
         return Promise.all(
           // update message_topic key
           [

@@ -1,7 +1,6 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Table } from 'meta/assessment/table'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -15,7 +14,8 @@ export const remove = async (
   client: BaseProtocol = DB
 ): Promise<Table> => {
   const { assessment, table } = params
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<Table>(
     `

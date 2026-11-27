@@ -23,7 +23,9 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
   const { key } = props as PropsKey
   const { id } = props as PropsId
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const query = `
       select t.* ${

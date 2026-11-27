@@ -5,7 +5,8 @@ import { Schemas } from 'server/db/schemas'
 
 export const removeAssessmentSchema = async (props: { assessment: Assessment }): Promise<string> => {
   const { assessment } = props
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   await DB.query<void>(`drop schema if exists ${schemaName} cascade;`)
 

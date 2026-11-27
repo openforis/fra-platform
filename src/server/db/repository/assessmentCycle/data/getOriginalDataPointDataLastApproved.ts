@@ -1,11 +1,10 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { RecordAssessmentData } from 'meta/data/recordData'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { NodeExtQueries } from 'server/db/repository/assessmentCycle/nodeExt/queries'
@@ -24,6 +23,8 @@ const _getPrevCycleODPData = (props: Props): string => {
 
   if (Objects.isNil(previousCycle)) return ``
 
+  const { name: assessmentName } = assessment.props
+  const { name: previousCycleName } = previousCycle
   return `union
       select odpd.country_iso
            , odpd.year
@@ -40,7 +41,7 @@ const _getPrevCycleODPData = (props: Props): string => {
            , odpd.total_forest_area
            , odpd.primary_forest
            , odpd.id
-      from ${Schemas.getNameCycle(assessment, previousCycle)}.original_data_point_data odpd
+      from ${Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName: previousCycleName })}.original_data_point_data odpd
       where country_iso in ('${countryISOs.map((c) => `${c}`).join(',')}')
         -- exclude modified odp from history
         and odpd.year not in (select distinct (ao.target ->> 'year')::integer from activities_odp ao)`
@@ -51,7 +52,9 @@ export const getOriginalDataPointDataLastApproved = async (
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
   const { assessment, cycle } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const activities = `
       with activities as (${OriginalDataPointQueries.getLastAcceptedActivity(props)})

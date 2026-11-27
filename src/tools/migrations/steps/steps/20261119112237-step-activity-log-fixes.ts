@@ -21,15 +21,17 @@ const backfillEstimationTarget = async (assessments: Array<Assessment>, client: 
   // createdAt in JS Date.toISOString() format (e.g. 2024-10-03T13:06:00.225Z)
   // same format as the new logs save in .../persistNodeValues/persistNodeValuesEstimated.ts
   await Promises.each(assessments, (assessment) =>
-    Promises.each(assessment.cycles, (cycle) =>
-      client.query(
+    Promises.each(assessment.cycles, (cycle) => {
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      return client.query(
         `
           update public.activity_log al
           set target = al.target || jsonb_build_object(
             'countryIso', e.country_iso,
             'createdAt', to_char(e.created_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
             'id', e.id)
-          from ${Schemas.getNameCycle(assessment, cycle)}.node_values_estimation e
+          from ${Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })}.node_values_estimation e
           where al.message = 'nodeValuesEstimationCreate'
             and al.cycle_uuid = $(cycleUuid)
             and al.target ->> 'uuid' = e.uuid::text
@@ -37,18 +39,20 @@ const backfillEstimationTarget = async (assessments: Array<Assessment>, client: 
         `,
         { cycleUuid: cycle.uuid }
       )
-    )
+    })
   )
 }
 
 const backfillLinkCountryIso = async (assessments: Array<Assessment>, client: BaseProtocol): Promise<void> => {
   await Promises.each(assessments, (assessment) =>
-    Promises.each(assessment.cycles, (cycle) =>
-      client.query(
+    Promises.each(assessment.cycles, (cycle) => {
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      return client.query(
         `
           update public.activity_log al
           set country_iso = l.country_iso
-          from ${Schemas.getNameCycle(assessment, cycle)}.link l
+          from ${Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })}.link l
           where al.message = 'linkUpdate'
             and al.cycle_uuid = $(cycleUuid)
             and al.target ->> 'uuid' = l.uuid::text
@@ -56,7 +60,7 @@ const backfillLinkCountryIso = async (assessments: Array<Assessment>, client: Ba
         `,
         { cycleUuid: cycle.uuid }
       )
-    )
+    })
   )
 }
 

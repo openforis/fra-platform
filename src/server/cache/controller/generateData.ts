@@ -20,7 +20,7 @@ export const generateData = async (props: Props, client: BaseProtocol = DB): Pro
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
-  const schemaName = Schemas.getName(assessment)
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   const tables = await client.one<TablesCondition>(
     `

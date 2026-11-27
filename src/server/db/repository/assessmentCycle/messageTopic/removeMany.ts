@@ -13,7 +13,9 @@ type Props = {
 export const removeMany = (props: Props, client: BaseProtocol): Promise<number> => {
   const { assessment, cycle, keyPrefix } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.oneOrNone<number>(`
       delete

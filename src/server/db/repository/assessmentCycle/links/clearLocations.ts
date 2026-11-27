@@ -15,7 +15,9 @@ type Props = {
 export const clearLocations = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const countryIsoCondition = Objects.isEmpty(countryIso) ? '' : 'where country_iso = $(countryIso)'
 
   return client.query(

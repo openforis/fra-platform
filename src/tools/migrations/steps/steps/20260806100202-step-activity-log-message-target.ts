@@ -11,7 +11,9 @@ export default async (client: BaseProtocol): Promise<void> => {
 
   await Promises.each(assessments, async (assessment) => {
     await Promises.each(assessment.cycles, async (cycle) => {
-      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
       const params = { assessmentUuid: assessment.uuid, cycleUuid: cycle.uuid }
 
       await client.query(

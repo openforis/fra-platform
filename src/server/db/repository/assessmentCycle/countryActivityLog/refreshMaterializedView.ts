@@ -15,7 +15,9 @@ type Props = {
 export const refreshMaterializedView = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const mvName = getMaterializedViewName(countryIso)
 
   return client.query(`refresh materialized view ${schemaCycle}.${mvName};`)

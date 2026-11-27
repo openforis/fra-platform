@@ -13,7 +13,9 @@ type Props = {
 export const dropViews = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle } = props
   const tables = await TableRepository.getMany({ assessment, cycle }, client)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   await Promise.all(
     tables.map((table) => {

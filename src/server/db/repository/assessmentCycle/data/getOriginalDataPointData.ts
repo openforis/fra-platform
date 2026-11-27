@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordCountryData } from 'meta/data/recordData'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointQueries } from 'server/db/repository/assessmentCycle/originalDataPoint/queries'
@@ -18,7 +17,9 @@ type Props = {
 export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
   const { assessment, countryISOs, cycle } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const selectFrom = `${schemaCycle}.original_data_point_data`
 
   return client.one<RecordCountryData>(

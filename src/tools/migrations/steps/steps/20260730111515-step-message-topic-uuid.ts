@@ -16,7 +16,9 @@ export default async (): Promise<void> => {
 
   await Promises.each(assessments, async (assessment) => {
     await Promises.each(assessment.cycles, async (cycle) => {
-      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
       // 1. add message_topic.uuid
       await client.query(`

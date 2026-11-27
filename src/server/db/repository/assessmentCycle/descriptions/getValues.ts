@@ -19,7 +19,9 @@ type Props = {
 export const getValues = async (props: Props, client: BaseProtocol = DB): Promise<DescriptionCountryValues> => {
   const { assessment, countryISOs, cycle, names, sectionNames } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const hasNames = !Objects.isEmpty(names)
   const hasSectionNames = !Objects.isEmpty(sectionNames)
 

@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Measure } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -16,7 +15,8 @@ type Props = {
 
 export const getTableMeasures = async (props: Props, client: BaseProtocol = DB): Promise<Array<Measure>> => {
   const { assessment, cycle, tableName } = props
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   const variableNames = await client.map<string>(
     `

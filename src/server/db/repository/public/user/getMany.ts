@@ -25,7 +25,9 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
 
   const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const query = `
   select 
       cus.id,
@@ -49,7 +51,9 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
 export const buildGetManyExportQuery = (props: UsersGetManyProps): BuildQueryReturned => {
   const { assessment, cycle } = props
   const { queryParams, whereConditions } = getPropsToQueryParams(props)
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const query = `
     select

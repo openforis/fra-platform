@@ -37,8 +37,8 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  const schemaAssessment = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const dataEntries = Object.entries(data)
 
