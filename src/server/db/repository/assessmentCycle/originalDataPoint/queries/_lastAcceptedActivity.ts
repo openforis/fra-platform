@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { Schemas } from 'server/db/schemas'
 
@@ -30,7 +29,7 @@ export const getLastAcceptedActivity = (props: Props): string => {
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return `select al.country_iso
                , al.message

@@ -11,7 +11,9 @@ type Props = {
 
 export const removeSchema = async (props: Props): Promise<string> => {
   const { assessment, cycle } = props
-  const cycleSchemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const cycleSchemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   await DB.query<void>(`drop schema if exists ${cycleSchemaName} cascade;`)
 

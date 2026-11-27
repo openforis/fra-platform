@@ -31,8 +31,9 @@ export const create = async (params: Props, client: BaseProtocol = DB): Promise<
   const { assessment, options } = params
   const { name, uuidSource } = options
 
-  const schemaAssessment = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
+  const { name: assessmentName } = assessment.props
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName: name })
 
   // DDL schema init
   await DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle))

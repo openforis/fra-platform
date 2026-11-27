@@ -18,7 +18,9 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<L
   const { assessment, countryIso, cycle, link } = props
   const { props: _props, uuid } = link
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const hasCountryIso = !Objects.isEmpty(countryIso)
   const countryIsoCondition = hasCountryIso ? `and country_iso = $(countryIso)` : ''

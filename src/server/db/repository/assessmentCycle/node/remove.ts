@@ -15,8 +15,10 @@ type Props = {
 
 export const remove = (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, colName, countryIso, cycle, tableName, variableName } = props
-  const schema = Schemas.getName(assessment)
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.query(
     `

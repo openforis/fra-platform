@@ -15,7 +15,9 @@ type Props = {
 export const publishAllAccepted = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
   const { assessment, cycle, datePublished } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const countryIsos = await client.map(
     `

@@ -15,7 +15,9 @@ type Props = {
 export const getCountryIsos = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountryIso>> => {
   const { assessment, cycle, regionCode } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   let where = ''
   if (regionCode)
     where = `and country_iso in (select country_iso from ${schemaCycle}.country_region where region_code = $1)`

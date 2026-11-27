@@ -15,7 +15,9 @@ export const getOdpReviewStatus = async (
 ): Promise<Array<ReviewStatus>> => {
   const { assessment, countryIso, cycle, odpId, user } = props
 
-  const cycleSchema = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const cycleSchema = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.map<ReviewStatus>(
     `

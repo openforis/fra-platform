@@ -15,7 +15,9 @@ type Props = {
 export const deleteMany = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, colUuids, countryIso, cycle } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.query(
     `delete

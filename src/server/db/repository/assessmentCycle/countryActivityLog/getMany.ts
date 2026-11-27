@@ -22,7 +22,9 @@ type Props = {
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountrySummary>> => {
   const { assessment, countryIso, cycle, limit, offset } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const viewName = getMaterializedViewName(countryIso)
 
   const hasNationalDataPoints = [AssessmentNames.fra, AssessmentNames.fraTest].includes(

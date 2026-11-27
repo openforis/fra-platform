@@ -21,7 +21,9 @@ export const getValuesLastApproved = async (
 ): Promise<DescriptionCountryValues> => {
   const { assessment, countryIso, cycle, sectionName } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.one<DescriptionCountryValues>(
     `with latest_descriptions as (

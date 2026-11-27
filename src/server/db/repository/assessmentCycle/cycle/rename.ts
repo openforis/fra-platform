@@ -14,8 +14,10 @@ type Props = {
 export const rename = async (props: Props, client: BaseProtocol = DB): Promise<Cycle> => {
   const { assessment, cycle, name } = props
 
-  const schemaCycleSource = Schemas.getNameCycle(assessment, cycle)
-  const schemaCycleTarget = Schemas.getNameCycle(assessment, { ...cycle, name })
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycleSource = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
+  const schemaCycleTarget = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName: name })
 
   await client.query<void>(`alter schema ${schemaCycleSource} rename to ${schemaCycleTarget};`)
 

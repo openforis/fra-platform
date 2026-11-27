@@ -17,7 +17,9 @@ export const getReservedYears = async (
 ): Promise<Array<ODPReservedYear>> => {
   const { assessment, countryIso, cycle } = params
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.map<ODPReservedYear>(
     `

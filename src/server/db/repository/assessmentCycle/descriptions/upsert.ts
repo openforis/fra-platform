@@ -32,7 +32,9 @@ export const upsert = async <T extends DescriptionValue>(
   client: BaseProtocol = DB
 ): Promise<UpsertedDescription<T>> => {
   const { assessment, countryIso, cycle, name, sectionName, sectionUuid, value } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   // insert new | on conflict update
   const query = `

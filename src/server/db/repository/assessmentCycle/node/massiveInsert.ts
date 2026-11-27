@@ -18,7 +18,9 @@ type Props = {
 export const massiveInsert = (props: Props, client: BaseProtocol = DB): Promise<Array<Node>> => {
   const { assessment, cycle, nodes } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const pgp = pgPromise()
   const columns = ['country_iso', 'row_uuid', 'col_uuid', { name: 'value', cast: 'jsonb' }]

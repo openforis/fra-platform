@@ -1,7 +1,6 @@
-import { Objects } from 'utils/objects'
-
 import { Link } from 'meta/cycleData/links/link'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'
@@ -31,7 +30,9 @@ export const buildGetManyQuery = (props: LinksGetManyProps): BuildQueryReturned 
 
   const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const query = `
         select *
         from ${schemaCycle}.link

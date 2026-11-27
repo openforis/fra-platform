@@ -17,7 +17,9 @@ export const remove = async (
 ): Promise<Pick<OriginalDataPoint, 'uuid' | 'year'>> => {
   const { assessment, cycle, originalDataPoint } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.one<Pick<OriginalDataPoint, 'uuid' | 'year'>>(
     `

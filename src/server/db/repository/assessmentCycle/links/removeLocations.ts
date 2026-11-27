@@ -19,7 +19,9 @@ export const removeLocations = async (props: Props, client: BaseProtocol = DB): 
 
   if (Objects.isEmpty(locations)) return
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   const params = { countryIso, locations: JSON.stringify(locations) }
 
   return client.query(

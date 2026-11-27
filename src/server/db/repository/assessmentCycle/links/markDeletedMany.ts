@@ -18,7 +18,9 @@ type Props = {
 export const markDeletedMany = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, countryIso, cycle, excludedLinks } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const pgp = pgPromise()
 

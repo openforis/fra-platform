@@ -19,7 +19,9 @@ type Returned = {
 
 export const getVerificationSummary = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessment, countryIso, cycle } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const params = { countryIso }
   const whereConditions = [

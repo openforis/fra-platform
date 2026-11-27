@@ -11,7 +11,9 @@ export const getRegionGroups = async (
   client: BaseProtocol = DB
 ): Promise<Array<RegionGroup>> => {
   const { assessment, cycle } = props
-  const assessmentName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const { regionGroups } = await client
     .one<RegionGroup>(
@@ -49,8 +51,8 @@ export const getRegionGroups = async (
                                      order by r2.region_code
                                  )
                          ) as region_group
-              from ${assessmentName}.region r
-                       join ${assessmentName}.region_group rg on r.region_group_id = rg.id
+              from ${schemaCycle}.region r
+                       join ${schemaCycle}.region_group rg on r.region_group_id = rg.id
                        left join public.region r2 on r.region_code = r2.region_code
               group by rg.order, rg.id
           )

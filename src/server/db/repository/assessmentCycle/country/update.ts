@@ -54,8 +54,10 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<C
       .map(({ name }) => ({ name, init: (): string => lastUpdateTimestamp })),
   ]
 
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
   const cs = new pgp.helpers.ColumnSet(columns, {
-    table: { table: 'country', schema: Schemas.getNameCycle(assessment, cycle) },
+    table: { table: 'country', schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }) },
   })
 
   const query = `${pgp.helpers.update(updateData, cs)} WHERE country_iso = $1`

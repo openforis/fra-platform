@@ -17,7 +17,9 @@ type Props = {
 export const deleteNationalClass = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, cycle, id, index } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   const { countryIso, year } = await client.one<{ countryIso: CountryIso; year: string }>(
     `

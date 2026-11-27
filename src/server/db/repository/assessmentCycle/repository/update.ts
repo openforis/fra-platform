@@ -22,7 +22,9 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<R
     if (!fileUuid && !link) throw new Error('No file or link provided')
   }
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
 
   return client.one<RepositoryItem>(
     `
