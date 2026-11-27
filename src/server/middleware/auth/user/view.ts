@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CountryParams } from 'meta/api/request/country'
-import { Cycles } from 'meta/assessment/cycles'
 import { Authorizer } from 'meta/auth/authorizer'
 import { Users } from 'meta/user/users'
 
@@ -22,11 +21,11 @@ export const requireViewUser = async (req: Request, _res: Response, next: NextFu
 }
 
 export const requireViewUsers = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-  const { countryIso, print } = _getRequestParams<CountryParams & { print?: string }>(req)
+  const { countryIso } = _getRequestParams<CountryParams>(req)
   const user = Requests.getUser(req)
   const { cycle } = req.context
 
-  _next((print === 'true' && Cycles.isPublished(cycle)) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
+  _next(Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
 export const requireExportUsers = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
