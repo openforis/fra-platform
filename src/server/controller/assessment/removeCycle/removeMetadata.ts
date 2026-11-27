@@ -12,7 +12,8 @@ type Props = {
 export const removeMetadata = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, cycle } = props
   const { uuid: cycleUuid } = cycle
-  const schemaAssessment = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
 
   const tableNames = ['section', 'table_section', 'table', 'row', 'col']
   const properties: Record<string, Array<string>> = {
