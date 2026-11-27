@@ -1,8 +1,7 @@
 import '../scriptInit'
 
-import { ToolsUtils } from 'tools/utils/toolsUtils'
-
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
@@ -19,7 +18,7 @@ const cycleNameClone = 'latest'
 const _removeColumns = async (props: { assessment: Assessment }): Promise<void> => {
   const { assessment } = props
 
-  const schemaAssessment = Schemas.getName(assessment)
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName: assessment.props.name })
   await client.query(`
       delete
       from ${schemaAssessment}.col

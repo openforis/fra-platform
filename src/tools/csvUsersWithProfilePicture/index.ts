@@ -52,7 +52,10 @@ const cycleName = '2025'
 const downloadProfilePictures = async (): Promise<void> => {
   const users = await client.tx<Array<CSVUser>>(async (tx) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, tx)
-    const schemaName = Schemas.getNameCycle(assessment, cycle)
+    const schemaName = Schemas.getSchemaAssessmentCycle({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+    })
 
     return client
       .map(

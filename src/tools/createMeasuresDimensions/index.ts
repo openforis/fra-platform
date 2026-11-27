@@ -32,7 +32,8 @@ const _createMeasuresAndDimensionsForTables = async (props: Props): Promise<void
 
   if (Objects.isEmpty(tableNames)) return
 
-  const schemaAssessment = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
 
   const systemOfMeasurementUuid = systemOfMeasurementName
     ? (await SystemOfMeasurementRepository.getOne({ systemOfMeasurementName }, client))?.uuid

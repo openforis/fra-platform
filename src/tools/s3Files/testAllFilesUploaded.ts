@@ -1,11 +1,11 @@
 import '../scriptInit'
 
 import axios from 'axios'
-import { Arrays } from 'utils/arrays'
-import { Promises } from 'utils/promises'
 
 import { Link } from 'meta/cycleData/links/link'
 import { FileSummary } from 'meta/file/file'
+import { Arrays } from 'utils/arrays'
+import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db/db'
@@ -77,7 +77,11 @@ const _allFileLinksWork = async (): Promise<boolean> => {
   if (!TEST_LINKS) return true
   const assessments = await AssessmentController.getAll({})
   const schemas = assessments.flatMap((assessment) =>
-    assessment.cycles.map((cycle) => Schemas.getNameCycle(assessment, cycle))
+    assessment.cycles.map((cycle) => {
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+      return Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
+    })
   )
 
   // Replace production URL with appUri (e.g. localhost)
