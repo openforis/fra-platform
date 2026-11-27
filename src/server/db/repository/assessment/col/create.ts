@@ -19,7 +19,8 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<C
 
   const colProps = { ...props.colProps, cycles: cycles.map(({ uuid }) => uuid) }
 
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   return client.one<Col>(
     `

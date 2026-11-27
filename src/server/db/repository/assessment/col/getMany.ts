@@ -17,7 +17,8 @@ export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<
   if ((rowUuid && tableUuid) || (!rowUuid && !tableUuid)) {
     throw new Error(`Either rowUuid or tableUuid must be present`)
   }
-  const schema = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schema = Schemas.getSchemaAssessment({ assessmentName })
   const where = tableUuid
     ? `where c.row_uuid in (
          select r.uuid

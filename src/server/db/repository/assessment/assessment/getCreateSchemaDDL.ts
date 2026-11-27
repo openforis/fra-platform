@@ -341,7 +341,9 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
 
 export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }): string => {
   const { assessment, cycle } = props
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
   return `
     create or replace view ${schemaName}.country_user_summary as
     with filtered_roles as (

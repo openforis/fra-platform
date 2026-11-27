@@ -1,11 +1,10 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableCell } from 'meta/assessment/table'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -21,7 +20,8 @@ export const getTableCellsExportAlways = async (
   client: BaseProtocol = DB
 ): Promise<ExplorerMetadata['cellsExportAlways']> => {
   const { assessment, cycle, tableName } = props
-  const schemaName = Schemas.getName(assessment)
+  const { name: assessmentName } = assessment.props
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   const cellsExportAlways = await client.map<TableCell>(
     `
